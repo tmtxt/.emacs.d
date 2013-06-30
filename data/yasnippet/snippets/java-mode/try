@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : try/catch
+# --
+try {
+  $0
+}
+catch($1Exception ${2:e}) {
+  $2.printStackTrace();
+}

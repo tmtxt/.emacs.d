@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : do block
+# --
+<% $1 do %>
+  $0
+<% end %>

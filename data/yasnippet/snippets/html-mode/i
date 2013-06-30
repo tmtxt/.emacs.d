@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : i
+# --
+<i>$0</i>

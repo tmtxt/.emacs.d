@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : foreach
+# --
+for(${1:type} ${2:variable} : ${3:collection}) {
+  $0
+}

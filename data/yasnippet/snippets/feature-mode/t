@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name: Then
+# --
+Then ${1:some expected outcome}
+$0

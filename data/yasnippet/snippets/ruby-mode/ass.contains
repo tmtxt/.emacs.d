@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : contains
+# --
+assert_contains ${1:collection}, ${2:element}

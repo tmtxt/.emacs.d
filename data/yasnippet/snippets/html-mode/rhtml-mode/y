@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : yield
+# --
+<%= yield $0%>

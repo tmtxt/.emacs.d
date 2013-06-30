@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : method
+# --
+def ${1:name}
+  $0
+end

@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : inclusion
+# --
+validates :${1:attributes}, :inclusion => { :in => $0 }

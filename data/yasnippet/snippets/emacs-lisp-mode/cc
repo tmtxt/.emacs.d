@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : condition-case
+# --
+(condition-case err
+    (progn
+      $0
+      )
+  (error
+   
+   ))

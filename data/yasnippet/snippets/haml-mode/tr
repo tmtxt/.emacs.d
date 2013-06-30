@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : tr
+# --
+%tr
+  $0

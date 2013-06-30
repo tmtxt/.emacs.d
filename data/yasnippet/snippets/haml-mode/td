@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : td
+# --
+%td $0

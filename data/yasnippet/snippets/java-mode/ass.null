@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : null
+# --
+assertNull("${1:message}", ${2:object});

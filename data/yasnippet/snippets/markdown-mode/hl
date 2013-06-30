@@ -1,0 +1,7 @@
+# name: Highlight
+# contributor: Truong TX <tommy.txtruong@gmail.com>
+# key: hl
+# --
+{% highlight ${1:language} %}
+$0
+{% endhighlight %}

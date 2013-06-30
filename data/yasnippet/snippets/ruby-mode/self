@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : class << self
+# --
+class << self
+  $0
+end

@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : background
+# --
+background: $0;

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : with_options
+# --
+with_options ${2:options} do |${3:variable}|
+  $3.$0
+end

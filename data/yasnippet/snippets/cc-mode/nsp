@@ -1,0 +1,6 @@
+# name: namespace ...
+# key: nsp
+# --
+namespace ${1:name} {
+    $0
+}

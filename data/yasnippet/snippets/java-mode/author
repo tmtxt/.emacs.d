@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : Author
+# --
+/**
+ * $0
+ *
+ * @author `user-full-name` (`user-mail-address`))
+ */

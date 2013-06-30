@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : same
+# --
+padding: $1px

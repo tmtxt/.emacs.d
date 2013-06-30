@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name: Py String
+# --
+Given ${1:the following text}
+  """
+  $0
+  """

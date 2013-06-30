@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : collect { ... }
+# --
+collect { |${1:variable}| $1$0 }

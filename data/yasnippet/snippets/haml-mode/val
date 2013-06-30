@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : value
+# --
+:value => '$0'

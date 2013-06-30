@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+#name : Class
+# --
+/**
+ * @author `user-full-name` (`user-mail-address`)
+ * @date `(format-time-string "%Y-%m-%d")`
+ */
+public class ${1:`(file-name-sans-extension (buffer-name))`} {
+  public $1 () {
+    $0
+  }
+}

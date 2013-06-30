@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : equal
+# --
+(equal $0)

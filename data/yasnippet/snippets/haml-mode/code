@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : code
+# --
+%code
+  $0

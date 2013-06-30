@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : false
+# --
+assertFalse("${1:message}", ${2:expression});

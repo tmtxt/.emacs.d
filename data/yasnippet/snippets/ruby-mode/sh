@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : should
+# --
+should '$1' do
+  $0
+end

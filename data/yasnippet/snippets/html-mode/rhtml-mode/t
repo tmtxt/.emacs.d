@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : translate
+# --
+t('$0')

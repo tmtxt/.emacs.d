@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : name
+# --
+name="$0"

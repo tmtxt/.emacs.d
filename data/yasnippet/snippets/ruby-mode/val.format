@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : format
+# --
+validates :${1:attributes}, :format => { :with => /$0/ }

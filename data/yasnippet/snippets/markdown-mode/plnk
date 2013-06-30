@@ -1,0 +1,5 @@
+# name: Post link
+# contributor: Truong TX <me@truongtx.me>
+# key: plnk
+# --
+[${1:Name of link}]({% post_url ${2:Name of post} %})$0

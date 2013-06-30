@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : should_allow_values_for
+# --
+should_allow_values_for :${1:attribute}, ${1:value}
