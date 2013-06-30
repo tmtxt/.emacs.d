@@ -56,7 +56,7 @@
 	puppet-mode
 
 	;; js2 mode
-	js2-mode ac-js2
+	;; js2-mode ac-js2
 
 	;; ido
 	ido-ubiquitous						;use ido nearly everywhere
