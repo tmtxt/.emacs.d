@@ -34,7 +34,8 @@
 (split-window-right)
 
 ;;; set the font to support unicode
-(set-frame-font  "Monaco-12")
+(tmtxt/in '(darwin)
+  (set-frame-font  "Monaco-12"))
 
 ;;; set cursor to a thin vertical line instead of a little box
 (setq-default cursor-type 'bar)
