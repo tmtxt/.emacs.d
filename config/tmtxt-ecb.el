@@ -2,7 +2,7 @@
 
 ;;; activate ecb
 (require 'ecb)
-(require 'ecb-autoloads)
+;; (require 'ecb-autoloads)
 (setq stack-trace-on-error t)
 
 ;;; my favorite layout
