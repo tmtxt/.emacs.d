@@ -1,6 +1,6 @@
 # My emacs config
 
-git clone –-recursive git@github.com:tommytxtruong/emacs.git ~/.emacs.d
+git clone --recursive git@github.com:tommytxtruong/emacs.git ~/.emacs.d
 
 # Some require packages
 
