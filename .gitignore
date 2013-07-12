@@ -16,3 +16,5 @@ custom*
 tramp
 .saveplace
 el-get
+.emacs.desktop*
+recentf
