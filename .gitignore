@@ -18,3 +18,4 @@ tramp
 el-get
 .emacs.desktop*
 recentf
+session*
