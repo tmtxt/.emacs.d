@@ -46,15 +46,6 @@ of line."
            (set-window-start w2 s1))))
   (other-window 1))
 
-;;; Switch to last buffer
-(defun tmtxt/switch-to-last-buffer ()
-  (interactive)
-  (switch-to-buffer (other-buffer)))
-(tmtxt/in '(darwin)
-  (global-set-key (kbd "C-S-<tab>") 'tmtxt/switch-to-last-buffer))
-(tmtxt/in '(gnu/linux)
-  (global-set-key (kbd "<C-S-iso-lefttab>") 'tmtxt/switch-to-last-buffer))
-
 ;;; smooth scroll
 ;;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -62,14 +53,9 @@ of line."
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
-;;; display those buffers in the same window, not pop-up a new window
-(add-to-list 'same-window-buffer-names "*Help*")
-
 ;;; custom key bindings
 ;; switch to other window in the same frame
 (global-set-key (kbd "C-S-o") 'other-window)
 
 ;;; finally, provide the library
 (provide 'tmtxt-navigation)
-
-
