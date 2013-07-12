@@ -1,6 +1,6 @@
 [submodule "lib/tmtxt-dired-async"]
 	path = lib/tmtxt-dired-async
-	url = git@github.com:tommytxtruong/tmtxt-dired-async.git
+	url = git@github.com:tmtxt/tmtxt-dired-async.git
 [submodule "lib/sunrise-commander"]
 	path = lib/sunrise-commander
 	url = git@github.com:escherdragon/sunrise-commander.git
