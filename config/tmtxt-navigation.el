@@ -50,7 +50,10 @@ of line."
 (defun tmtxt/switch-to-last-buffer ()
   (interactive)
   (switch-to-buffer (other-buffer)))
-(global-set-key (kbd "C-S-<tab>") 'tmtxt/switch-to-last-buffer)
+(tmtxt/in '(darwin)
+  (global-set-key (kbd "C-S-<tab>") 'tmtxt/switch-to-last-buffer))
+(tmtxt/in '(gnu/linux)
+  (global-set-key (kbd "<C-S-iso-lefttab>") 'tmtxt/switch-to-last-buffer))
 
 ;;; smooth scroll
 ;;; scroll one line at a time (less "jumpy" than defaults)
