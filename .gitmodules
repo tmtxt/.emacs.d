@@ -13,3 +13,6 @@
 [submodule "lib/auto-complete-clang"]
 	path = lib/auto-complete-clang
 	url = git@github.com:brianjcj/auto-complete-clang.git
+[submodule "lib/emmet-mode"]
+	path = lib/emmet-mode
+	url = git@github.com:smihica/emmet-mode.git
