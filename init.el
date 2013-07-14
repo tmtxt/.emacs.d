@@ -123,6 +123,7 @@
 (require 'tmtxt-php)					;config for php coding
 (require 'tmtxt-cc)						;config for cc-mode
 (require 'tmtxt-buffer)					;config for managing buffer
+(require 'tmtxt-emmet)					;config for emmet mode
 ;; (require 'tmtxt-helm)					;config for helm
 ;;; add lib/single-file-modes to load-path
 (tmtxt/add-lib "single-file-modes")
