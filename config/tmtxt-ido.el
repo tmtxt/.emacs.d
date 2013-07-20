@@ -18,9 +18,5 @@
   (tmtxt/add-lib "ido-hacks")
   (require 'ido-hacks))
 
-;;;
-(global-unset-key (kbd "C-x <right>"))
-(global-set-key (kbd "C-x <right>") 'ido-find-file)
-
 ;;; finally, provide the library
 (provide 'tmtxt-ido)

@@ -19,3 +19,4 @@ el-get
 .emacs.desktop*
 recentf
 session*
+ido.last
