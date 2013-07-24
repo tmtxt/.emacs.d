@@ -124,6 +124,7 @@
 (require 'tmtxt-cc)						;config for cc-mode
 (require 'tmtxt-buffer)					;config for managing buffer
 (require 'tmtxt-emmet)					;config for emmet mode
+(require 'tmtxt-shell)
 ;; (require 'tmtxt-helm)					;config for helm
 ;;; add lib/single-file-modes to load-path
 (tmtxt/add-lib "single-file-modes")
@@ -222,8 +223,6 @@
 ;;; eval region to C-c C-r
 (define-key lisp-mode-map (kbd "C-c C-r") 'eval-region)
 (define-key emacs-lisp-mode-map (kbd "C-c C-r") 'eval-region)
-
-(setq exec-path (append exec-path '("/opt/local/bin")))
 
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 ;; (setq ac-js2-evaluate-calls t)
