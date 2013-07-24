@@ -61,46 +61,6 @@
 	   "~/.emacs.d/MacOS/GetInfoMacOS" current-prefix-arg
 	   (dired-get-marked-files t current-prefix-arg)))))
 
-
-
-
-
-;; ;;; batch rename in wdired
-;; (defun tmtxt/wdired-mark-file-name-interactive ()
-;;   "Mark file name on the current line in wdired mode"
-;;   (interactive)
-;;   ;; (back-to-indentation)
-;;   ;; (tmtxt/back-to-indentation-or-line-beginning)
-;;   ;; (set-mark (line-end-position))
-;;   ;; (push-mark)
-;;   ;; (end-of-line)
-
-;;   (let ((current-file-name
-;; 		 (buffer-substring (line-beginning-position) (line-end-position))))
-;; 	(end-of-line)
-;; 	(backward-char (length current-file-name))
-;; 	(set-mark (+ (point) (length (file-name-sans-extension current-file-name))))
-;; 	)
-;;   ;; (message (length (thing-at-point 'filename)))
-;;   ;; (backward-char (length (thing-at-point 'filename)))
-;;   ;; (message (length (file-name-extension (thing-at-point 'filename))))
-;;   ;; (set-mark (- (line-end-position) (length (file-name-extension (thing-at-point 'filename)))))
-;;   ;; (set-mark (+ (point) (length (file-name-sans-extension (thing-at-point 'filename)))))
-;;   (setq deactivate-mark nil)
-;;   )
-;; (defun tmtxt/wdired-mark-file-name ()
-;;   "Mark file name on the current line in wdired mode"
-;;   (call-interactively 'tmtxt/wdired-mark-file-name-interactive))
-;; (add-hook 'wdired-mode-hook 'tmtxt/wdired-mark-file-name)
-
-;; (defun tmtxt/wdired-mark-next-file-name ()
-;;   "Mark file name on next line in wdired mode"
-;;   (interactive)
-;;   (setq deactivate-mark t)
-;;   (wdired-next-line 1)
-;;   ;; (call-interactively 'tmtxt/wdired-mark-file-name-interactive)
-;;   )
-
 ;; unmount disk in dired
 ;;http://loopkid.net/articles/2008/06/27/force-unmount-on-mac-os-x
 (tmtxt/in '(darwin)						;MacOS
@@ -194,9 +154,6 @@
 ;;; custom key bindings for dired mode
 (define-key dired-mode-map (kbd "C-S-n") 'dired-create-directory)
 (define-key dired-mode-map (kbd "C-S-u") 'dired-up-directory)
-
-;;; dired rename
-;; (require 'tmtxt-dired-rename)
 
 ;;; finally provide the library
 (provide 'tmtxt-dired)
