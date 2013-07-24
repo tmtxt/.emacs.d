@@ -53,8 +53,8 @@
 	undo-tree							;treat undo as a tree
 	twittering-mode						;twitter client for emacs
 	htmlize								;generate html from buffer
-	puppet-mode
-
+	puppet-mode							;mode for editing puppet files
+	
 	;; js2 mode
 	;; js2-mode ac-js2
 
