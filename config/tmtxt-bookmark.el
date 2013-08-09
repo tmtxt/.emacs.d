@@ -10,5 +10,10 @@
     (setq bookmark-alist (delq latest bookmark-alist))
     (add-to-list 'bookmark-alist latest)))
 
+;;; some key bindings for bookmarking
+(global-set-key (kbd "C-c m") 'bookmark-set)
+(global-set-key (kbd "C-c b") 'bookmark-jump)
+(global-set-key (kbd "C-c l") 'bookmark-bmenu-list)
+
 ;;; finally provide the library to call
 (provide 'tmtxt-bookmark)
