@@ -54,6 +54,7 @@
 	twittering-mode						;twitter client for emacs
 	htmlize								;generate html from buffer
 	puppet-mode							;mode for editing puppet files
+	ergoemacs-mode
 	
 	;; js2 mode
 	;; js2-mode ac-js2
@@ -226,3 +227,8 @@
 
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 ;; (setq ac-js2-evaluate-calls t)
+
+(setq ergoemacs-theme nil) ;; Uses Standard Ergoemacs keyboard theme
+(setq ergoemacs-keyboard-layout "us") ;; Assumes QWERTY keyboard layout
+(ergoemacs-mode 1)
+
