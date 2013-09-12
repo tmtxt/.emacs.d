@@ -55,6 +55,7 @@
 	htmlize								;generate html from buffer
 	puppet-mode							;mode for editing puppet files
 	ergoemacs-mode
+	yaml-mode
 	
 	;; js2 mode
 	;; js2-mode ac-js2
