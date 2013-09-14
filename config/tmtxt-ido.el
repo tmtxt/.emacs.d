@@ -9,7 +9,7 @@
 (setq ido-decorations '("\n=> " "" "\n" "" "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
 
 ;;; C-S-b for buffer switching
-(global-set-key (kbd "C-S-b") 'ido-switch-buffer)
+(global-set-key (kbd "<C-tab>") 'ido-switch-buffer)
 
 ;;; load ido hacks (only if in emacs 24 and above)
 ;;; for emacs 23 and lower, use this
