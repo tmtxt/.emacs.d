@@ -97,8 +97,17 @@ user."
   (global-undo-tree-mode))
 
 ;;; disable fly-spell mode by default
-(eval-after-load "flyspell"
-  '(defun flyspell-mode (&optional arg)))
+;; (eval-after-load "flyspell"
+;;   '(defun flyspell-mode (&optional arg)))
+
+;;; MacOS spell program path for flyspell-mode and ispell
+;;; in Linux, no need since it's shipped in most GNU/Linux distro
+;;; on MacOS, must install aspell before using this
+;;; install via macports
+;;; sudo port install aspell
+;;; sudo port install aspell-dict-en
+(tmtxt/in '(darwin)
+  (setq ispell-program-name "/opt/local/bin/aspell"))
 
 ;;; enable some disabled functions
 (tmtxt/enable '(narrow-to-region set-goal-column upcase-region downcase-region))
