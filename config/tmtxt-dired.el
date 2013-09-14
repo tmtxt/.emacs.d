@@ -151,6 +151,32 @@
 	(define-key dired-mode-map (kbd "C-c C-n") 'tmtxt/dired-async-move-all-points-to-end)
 	(define-key dired-mode-map (kbd "C-c C-s") 'tmtxt/dired-async-get-files-size))) 
 
+
+;;; open current directory in terminal
+(tmtxt/in '(darwin)
+
+  ;; default terminal application path
+  (defvar tmtxt/macos-default-terminal-app-path
+	"/Applications/Terminal.app" "The default path to terminal application in MacOS")
+  (setq-default tmtxt/macos-default-terminal-app-path "/Volumes/tmtxt/Applications/iTerm.app")
+
+;;; function to open new terminal window at current directory
+  (defun tmtxt/open-current-dir-in-terminal ()
+	"Open current directory in dired mode in terminal application.
+For MacOS only"
+	(interactive)
+
+	(shell-command (concat "open -a "
+						   (shell-quote-argument tmtxt/macos-default-terminal-app-path)
+						   " "
+						   (shell-quote-argument (file-truename default-directory)))))
+
+;;; bind a key for it
+  (define-key dired-mode-map (kbd "C-c C-o") 'tmtxt/open-current-dir-in-terminal))
+
+
+
+
 ;;; custom key bindings for dired mode
 (define-key dired-mode-map (kbd "C-S-n") 'dired-create-directory)
 (define-key dired-mode-map (kbd "C-S-u") 'dired-up-directory)
