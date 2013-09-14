@@ -233,3 +233,6 @@
 (setq ergoemacs-keyboard-layout "us") ;; Assumes QWERTY keyboard layout
 (ergoemacs-mode 1)
 
+;;; use spotlight search for locate command in macos
+(tmtxt/in '(darwin)
+  (setq locate-command "mdfind"))
