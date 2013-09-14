@@ -9,7 +9,7 @@
 ;;; C-x g l - google search current line
 ;;; C-x g r - google search region
 (tmtxt/set-up 'google-this
-  (google-this-mode 1))
+  (google-this-mode 0))
 
 ;;; google translate
 (tmtxt/set-up 'google-translate
