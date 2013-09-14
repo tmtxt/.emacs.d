@@ -16,5 +16,8 @@
 ;;; default indentation for html mode
 (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;indent 2 spaces.
 
+;;; not move the cursor after expanding
+
+
 ;;; provide
 (provide 'tmtxt-emmet)
