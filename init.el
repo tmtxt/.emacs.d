@@ -229,9 +229,9 @@
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 ;; (setq ac-js2-evaluate-calls t)
 
-(setq ergoemacs-theme nil) ;; Uses Standard Ergoemacs keyboard theme
-(setq ergoemacs-keyboard-layout "us") ;; Assumes QWERTY keyboard layout
-(ergoemacs-mode 1)
+;; (setq ergoemacs-theme nil) ;; Uses Standard Ergoemacs keyboard theme
+;; (setq ergoemacs-keyboard-layout "us") ;; Assumes QWERTY keyboard layout
+(ergoemacs-mode 0)
 
 ;;; use spotlight search for locate command in macos
 (tmtxt/in '(darwin)
