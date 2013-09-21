@@ -1,6 +1,8 @@
 # My emacs config
 
+`
 git clone --recursive git@github.com:tmtxt/.emacs.d.git ~/.emacs.d
+`
 
 # Some require packages
 
