@@ -106,8 +106,8 @@ user."
 ;;; install via macports
 ;;; sudo port install aspell
 ;;; sudo port install aspell-dict-en
-(tmtxt/in '(darwin)
-  (setq ispell-program-name "/opt/local/bin/aspell"))
+;; (tmtxt/in '(darwin)
+;;   (setq ispell-program-name "~/bin/macports/bin/aspell"))
 
 ;;; enable some disabled functions
 (tmtxt/enable '(narrow-to-region set-goal-column upcase-region downcase-region))

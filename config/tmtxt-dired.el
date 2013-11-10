@@ -111,10 +111,10 @@
 ;;; (optional) add this to .bashrc or .zshrc file for them to run in shell
 ;;; export PATH=/opt/local/libexec/gnubin:$PATH
 ;;; on ubuntu, no need to do so since it's ship with gnu version ones
-(tmtxt/in '(darwin)
-  (require 'ls-lisp)
-  (setq ls-lisp-use-insert-directory-program t)
-  (setq insert-directory-program "/opt/local/libexec/gnubin/ls"))
+;; (tmtxt/in '(darwin)
+;;   (require 'ls-lisp)
+;;   (setq ls-lisp-use-insert-directory-program t)
+;;   (setq insert-directory-program "~/bin/macports/libexec/gnubin/ls"))
 (tmtxt/set-up 'dired-sort-map
   (setq dired-listing-switches "--group-directories-first -alh"))
 

@@ -56,6 +56,7 @@
 	puppet-mode							;mode for editing puppet files
 	ergoemacs-mode
 	yaml-mode
+	exec-path-from-shell
 	
 	;; js2 mode
 	;; js2-mode ac-js2
@@ -64,6 +65,9 @@
 	ido-ubiquitous						;use ido nearly everywhere
 	smex								;M-x interface with ido style
 	ido-better-flex						;better flex algorithm for ido
+
+	;; clojure
+	clojure-mode clojure-test-mode nrepl
 
 	;; google stuffs
 	google-this google-translate
@@ -127,6 +131,8 @@
 (require 'tmtxt-buffer)					;config for managing buffer
 (require 'tmtxt-emmet)					;config for emmet mode
 (require 'tmtxt-shell)
+(require 'tmtxt-html)					;config for html mode
+;; (require 'tmtxt-webmode)
 ;; (require 'tmtxt-helm)					;config for helm
 ;;; add lib/single-file-modes to load-path
 (tmtxt/add-lib "single-file-modes")
@@ -207,27 +213,19 @@
 
 ;;; ------------------------------------------------------------------
 ;;; ------------------------------------------------------------------
-;;; todochiku - notification
-;; (require 'cl)
-;; (require 'todochiku)
-
-;; (tmtxt/add-lib "o-blog")
-;; (require 'o-blog)
-
-;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
 ;;; other config
+
 ;;; custom file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
 ;;; bind (compile) to C-x c
 (global-set-key (kbd "C-x c") 'compile)
+
 ;;; eval region to C-c C-r
 (define-key lisp-mode-map (kbd "C-c C-r") 'eval-region)
 (define-key emacs-lisp-mode-map (kbd "C-c C-r") 'eval-region)
-
-;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-;; (setq ac-js2-evaluate-calls t)
+;; (when (file-executable-p "~/bin/macports/bin/gpg") (setq epg-gpg-program "~/bin/macports/bin/gpg"))
 
 ;; (setq ergoemacs-theme nil) ;; Uses Standard Ergoemacs keyboard theme
 ;; (setq ergoemacs-keyboard-layout "us") ;; Assumes QWERTY keyboard layout
@@ -236,3 +234,13 @@
 ;;; use spotlight search for locate command in macos
 (tmtxt/in '(darwin)
   (setq locate-command "mdfind"))
+
+;;; magit git executable file
+;; (when (file-executable-p "~/bin/macports/bin/git")
+;;   (setq magit-git-executable "~/bin/macports/bin/git"))
+
+;;; moz minor mode
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+(add-hook 'javascript-mode-hook 'javascript-custom-setup)
+(defun javascript-custom-setup ()
+  (moz-minor-mode 1))
