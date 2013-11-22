@@ -59,7 +59,7 @@
 	exec-path-from-shell
 	
 	;; js2 mode
-	;; js2-mode ac-js2
+	js2-mode ac-js2
 
 	;; ido
 	ido-ubiquitous						;use ido nearly everywhere
@@ -130,7 +130,8 @@
 (require 'tmtxt-cc)						;config for cc-mode
 (require 'tmtxt-buffer)					;config for managing buffer
 (require 'tmtxt-emmet)					;config for emmet mode
-(require 'tmtxt-shell)
+(require 'tmtxt-shell)					;config for shell
+(require 'tmtxt-javascript)				;config for js development
 ;; (require 'tmtxt-html)					;config for html mode
 ;; (require 'tmtxt-webmode)
 ;; (require 'tmtxt-helm)					;config for helm
