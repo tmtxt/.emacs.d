@@ -57,6 +57,7 @@
 	ergoemacs-mode
 	yaml-mode
 	exec-path-from-shell
+	thesaurus
 
 	;; vim emulation
 	evil surround
@@ -154,17 +155,17 @@
 			   ("Mail"
 				(or  ;; mail-related buffers
 				 (mode . message-mode)
-				 (mode . mail-mode)
-				 ;; etc.; all your mail related modes
-				 ))
-			   ;; ("MyProject"
-			   ;;   (filename . "src/myproject/")) ;replace with the link to project
-			   ("Programming" ;; prog stuff not already in MyProjectX
+				 (mode . mail-mode)))
+			   ("Markdown"
 				(or
-				 (mode . perl-mode)
-				 (mode . python-mode)
-				 ;; etc
-				 ))
+				 (mode . markdown-mode)))
+			   ;; ("truongtx blog"
+			   ;;   (filename . "~/truongtx.me blog/")) ;replace with the link to project
+			   ("JS Programming"
+				(or
+				 (mode . js-mode)
+				 (mode . js2-mode)
+				 (mode . javascript-mode)))
 			   ("C Programming"
 				(or
 				 (mode . c++-mode)
@@ -233,7 +234,7 @@
 
 ;; (setq ergoemacs-theme nil) ;; Uses Standard Ergoemacs keyboard theme
 ;; (setq ergoemacs-keyboard-layout "us") ;; Assumes QWERTY keyboard layout
-(ergoemacs-mode 0)
+;; (ergoemacs-mode 1)
 
 ;;; use spotlight search for locate command in macos
 (tmtxt/in '(darwin)
@@ -248,3 +249,8 @@
 (add-hook 'javascript-mode-hook 'javascript-custom-setup)
 (defun javascript-custom-setup ()
   (moz-minor-mode 1))
+
+;;; thesaurus
+(require 'thesaurus)
+(thesaurus-set-bhl-api-key-from-file "~/BigHugeLabs.apikey.txt")
+(define-key global-map (kbd "C-x t") 'thesaurus-choose-synonym-and-replace)
