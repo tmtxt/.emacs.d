@@ -57,6 +57,9 @@
 	ergoemacs-mode
 	yaml-mode
 	exec-path-from-shell
+
+	;; vim emulation
+	evil surround
 	
 	;; js2 mode
 	js2-mode ac-js2

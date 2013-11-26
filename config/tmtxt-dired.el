@@ -118,38 +118,28 @@
 (tmtxt/set-up 'dired-sort-map
   (setq dired-listing-switches "--group-directories-first -alh"))
 
+(tmtxt/in '(darwin gnu/linux)
+  (tmtxt/add-lib "tmtxt-async-tasks")
+  (tmtxt/set-up 'tmtxt-async-tasks))
+
 ;;; dired async
 (tmtxt/in '(darwin gnu/linux)
   (tmtxt/add-lib "tmtxt-dired-async")
   (tmtxt/set-up 'tmtxt-dired-async
-	;;; close the result window after 5 seconds
-	(setq-default tmtxt/dired-async-post-process-window-show-time "5")
-	;;; set the height for the result window (10 lines)
-	(setq-default tmtxt/dired-async-result-window-height 10)
-	;;; set the compression level for the zip function (0-9)
-	(setq-default tmtxt/dired-async-zip-compression-level "9")
-	;; delete method for rsync delete
-	(setq-default tmtxt/dired-async-rsync-delete-method "--delete-after")
-	;; show the progress when rsync
-	(setq-default tmtxt/dired-async-rsync-show-progress t)
-	;; show verbosity
-	(setq-default tmtxt/dired-async-rsync-show-verbosity t)
-	;; use archive mode, to preserver time stamp
-	(setq-default tmtxt/dired-async-rsync-archive-mode t)
-	;; use compression mode
-	(setq-default tmtxt/dired-async-rsync-compress-mode t)
-	;;; some key bindings
-	(define-key dired-mode-map (kbd "C-c C-r") 'tmtxt/dired-async-rsync)
-	(define-key dired-mode-map (kbd "C-c C-a") 'tmtxt/dired-async-rsync-multiple-mark-file)
-	(define-key dired-mode-map (kbd "C-c C-e") 'tmtxt/dired-async-rsync-multiple-empty-list)
-	(define-key dired-mode-map (kbd "C-c C-d") 'tmtxt/dired-async-rsync-multiple-remove-item)
-	(define-key dired-mode-map (kbd "C-c C-v") 'tmtxt/dired-async-rsync-multiple)
-	(define-key dired-mode-map (kbd "C-c C-z") 'tmtxt/dired-async-zip)
-	(define-key dired-mode-map (kbd "C-c C-u") 'tmtxt/dired-async-unzip)
-	(define-key dired-mode-map (kbd "C-c C-t") 'tmtxt/dired-async-rsync-delete)
-	(define-key dired-mode-map (kbd "C-c C-k") 'tmtxt/dired-async-kill-all)
-	(define-key dired-mode-map (kbd "C-c C-n") 'tmtxt/dired-async-move-all-points-to-end)
-	(define-key dired-mode-map (kbd "C-c C-s") 'tmtxt/dired-async-get-files-size))) 
+	;; get file size command
+	(setq tda/get-files-size-command "~/bin/macports/libexec/gnubin/du")
+	;; some key bindings
+	(define-key dired-mode-map (kbd "C-c C-r") 'tda/rsync)
+	(define-key dired-mode-map (kbd "C-c C-a") 'tda/rsync-multiple-mark-file)
+	(define-key dired-mode-map (kbd "C-c C-e") 'tda/rsync-multiple-empty-list)
+	(define-key dired-mode-map (kbd "C-c C-d") 'tda/rsync-multiple-remove-item)
+	(define-key dired-mode-map (kbd "C-c C-v") 'tda/rsync-multiple)
+	(define-key dired-mode-map (kbd "C-c C-z") 'tda/zip)
+	(define-key dired-mode-map (kbd "C-c C-u") 'tda/unzip)
+	(define-key dired-mode-map (kbd "C-c C-t") 'tda/rsync-delete)
+	(define-key dired-mode-map (kbd "C-c C-k") 'tat/kill-all)
+	(define-key dired-mode-map (kbd "C-c C-n") 'tat/move-to-bottom-all)
+	(define-key dired-mode-map (kbd "C-c C-s") 'tda/get-files-size)))
 
 
 ;;; open current directory in terminal
