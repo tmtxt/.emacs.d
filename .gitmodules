@@ -4,9 +4,6 @@
 [submodule "lib/ido-hacks"]
 	path = lib/ido-hacks
 	url = git@github.com:scottjad/ido-hacks.git
-[submodule "lib/emacs-eclim"]
-	path = lib/emacs-eclim
-	url = git@github.com:senny/emacs-eclim.git
 [submodule "lib/auto-complete-clang"]
 	path = lib/auto-complete-clang
 	url = git@github.com:brianjcj/auto-complete-clang.git
