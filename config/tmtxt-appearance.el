@@ -40,5 +40,8 @@
 ;;; set cursor to a thin vertical line instead of a little box
 (setq-default cursor-type 'bar)
 
+;;; hide the menu bar on OSX
+(setq ns-auto-hide-menu-bar t)
+
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
