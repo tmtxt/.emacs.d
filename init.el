@@ -71,7 +71,8 @@
 	ido-better-flex						;better flex algorithm for ido
 
 	;; clojure
-	clojure-mode clojure-test-mode nrepl
+	clojure-mode ;; clojure-test-mode 
+	cider
 
 	;; google stuffs
 	google-this google-translate
@@ -254,3 +255,6 @@
 (require 'thesaurus)
 (thesaurus-set-bhl-api-key-from-file "~/BigHugeLabs.apikey.txt")
 (define-key global-map (kbd "C-x t") 'thesaurus-choose-synonym-and-replace)
+
+;;; clojure
+;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
