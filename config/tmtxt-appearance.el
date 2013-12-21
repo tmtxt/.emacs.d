@@ -50,5 +50,9 @@
 (setq ns-auto-hide-menu-bar t)
 (set-frame-position (selected-frame) 0 -24)
 
+;;; idle highlight mode
+(require 'idle-highlight-mode)
+(remove-hook 'prog-mode-hook 'idle-highlight-mode)
+
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
