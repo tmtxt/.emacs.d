@@ -1,26 +1,15 @@
 ;;; config for helm
 
-;;; some required helm packages
-(require 'helm-config)
-(require 'helm-match-plugin)
-(require 'helm-regexp)
-(require 'helm-buffers)
-(require 'helm-files)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; helm locate
+(setq helm-locate-command "mdfind %s %s")
+(global-set-key (kbd "C-M-l") 'helm-locate)
 
-;;; some config
-(setq
- ;; highlight matches after this many seconds
- helm-mp-highlight-delay 0.7
-
- ;; Minimum length of pattern to highlight.
- helm-mp-highlight-threshold 4
-
- ;; Better-looking separator for multi-line sources
- helm-candidate-separator "────────────────────────────────────────────────────────────────────────────────"
- ;; auto get the word at point and put it into helm minibuffer
- ;; helm-yank-symbol-first t
- 
- helm-maybe-use-default-as-input t)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; helm swoop
+(global-set-key (kbd "M-i") 'helm-swoop)
+(global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
+(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
 
 ;;; finally provide the library
 (provide 'tmtxt-helm)

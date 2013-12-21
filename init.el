@@ -48,7 +48,6 @@
 	ecb									;emacs code browser
 	member-function						;expand member functions in C++
 	header2								;auto file header
-	;; helm								;extend to enything.el
 	rainbow-mode						;colorize color name in buffer
 	undo-tree							;treat undo as a tree
 	twittering-mode						;twitter client for emacs
@@ -60,6 +59,9 @@
 	thesaurus
 	emmet-mode
 	web-mode
+
+	;; helm
+	helm helm-swoop
 
 	;; vim emulation
 	evil surround
@@ -138,7 +140,7 @@
 (require 'tmtxt-shell)					;config for shell
 (require 'tmtxt-javascript)				;config for js development
 (require 'tmtxt-web)					;config for web development
-;; (require 'tmtxt-helm)					;config for helm
+(require 'tmtxt-helm)					;config for helm
 ;;; add lib/single-file-modes to load-path
 (tmtxt/add-lib "single-file-modes")
 
