@@ -27,6 +27,12 @@
 ;;; set fill column (auto new line when reach 80 character)
 (setq-default fill-column 80)
 
+;; Show line number in the mode line.
+(line-number-mode 1)
+
+;; Show column number in the mode line.
+(column-number-mode 1)
+
 ;;; show line number
 (global-linum-mode 1)
 
