@@ -33,7 +33,7 @@
 (defvar tmtxt/elpa-packages
   '(auto-complete						;auto complete
 	elisp-slime-nav						;Make M-. and M-, work in elisp like
-										;theydo in slime
+										;they do in slime
 	find-file-in-project				;quickly find file in a project
 	idle-highlight-mode					;highlight the word the point is on
 	magit								;control git from emacs
@@ -66,7 +66,7 @@
 	;; vim emulation
 	evil surround
 	
-	;; js2 mode
+	;; javascript
 	js2-mode ac-js2
 
 	;; ido
@@ -75,8 +75,7 @@
 	ido-better-flex						;better flex algorithm for ido
 
 	;; clojure
-	clojure-mode ;; clojure-test-mode 
-	cider
+	clojure-mode cider
 
 	;; google stuffs
 	google-this google-translate
@@ -257,9 +256,13 @@
 (thesaurus-set-bhl-api-key-from-file "~/BigHugeLabs.apikey.txt")
 (define-key global-map (kbd "C-x t") 'thesaurus-choose-synonym-and-replace)
 
+;;; find file in project
+(global-set-key (kbd "C-x C-F") 'ffip)
+
 ;;; clojure
 ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
+;;; autocomplete from ispell
 (custom-set-variables
  '(ac-ispell-requires 4))
 (eval-after-load "auto-complete"
