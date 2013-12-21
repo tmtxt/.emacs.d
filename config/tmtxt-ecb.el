@@ -6,12 +6,13 @@
 (setq stack-trace-on-error t)
 
 ;;; my favorite layout
+(setq ecb-windows-width 0.12)
 (setq ecb-layout-name "leftright2"
 	  ecb-layout-window-sizes '(("leftright2"
   (ecb-directories-buffer-name 0.12 . 0.6428571428571429)
   (ecb-sources-buffer-name 0.12 . 0.3392857142857143)
-  (ecb-methods-buffer-name 0.19 . 0.6428571428571429)
-  (ecb-history-buffer-name 0.19 . 0.3392857142857143))))
+  (ecb-methods-buffer-name 0.12 . 0.6428571428571429)
+  (ecb-history-buffer-name 0.12 . 0.3392857142857143))))
 ;;; always show the compilation window, 12 lines
 (setq ecb-compile-window-height 12)
 
