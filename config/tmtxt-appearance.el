@@ -21,12 +21,6 @@
         (set-frame-parameter nil 'alpha 88)
       (set-frame-parameter nil 'alpha 100))))
 
-;;; remove white spaces before saving
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;;; set fill column (auto new line when reach 80 character)
-(setq-default fill-column 80)
-
 ;; Show line number in the mode line.
 (line-number-mode 1)
 
@@ -48,11 +42,18 @@
 
 ;;; hide the menu bar on OSX
 (setq ns-auto-hide-menu-bar t)
-(set-frame-position (selected-frame) 0 -24)
+(set-frame-position (selected-frame) 0 -50)
 
 ;;; idle highlight mode
 (require 'idle-highlight-mode)
 (remove-hook 'prog-mode-hook 'idle-highlight-mode)
+
+;;; smooth scroll
+;;; scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling    
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)

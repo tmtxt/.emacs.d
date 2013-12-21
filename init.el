@@ -131,67 +131,17 @@
 (require 'tmtxt-google)					;config for google stuffs
 (require 'tmtxt-desktop)				;auto save mode
 (require 'tmtxt-org)					;org mode config
-(require 'tmtxt-textmate)				;config for textmate mode
 (require 'tmtxt-appearance)				;how my emacs appears
 (require 'tmtxt-php)					;config for php coding
 (require 'tmtxt-cc)						;config for cc-mode
-(require 'tmtxt-buffer)					;config for managing buffer
+(require 'tmtxt-buffers-management)		;config for managing buffer
 (require 'tmtxt-shell)					;config for shell
 (require 'tmtxt-javascript)				;config for js development
 (require 'tmtxt-web)					;config for web development
 (require 'tmtxt-helm)					;config for helm
+(require 'tmtxt-markdown)				;config for markdown
 ;;; add lib/single-file-modes to load-path
 (tmtxt/add-lib "single-file-modes")
-
-;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
-;;; buffer managers using ibuffer
-(require 'ibuffer)
-(setq ibuffer-saved-filter-groups
-	  (quote (("default"
-			   ("Org" ;; all org-related buffers
-				(mode . org-mode))
-			   ("Dired" ;; all dired-related buffers
-				(mode . dired-mode))
-			   ("Mail"
-				(or  ;; mail-related buffers
-				 (mode . message-mode)
-				 (mode . mail-mode)))
-			   ("Markdown"
-				(or
-				 (mode . markdown-mode)))
-			   ;; ("truongtx blog"
-			   ;;   (filename . "~/truongtx.me blog/")) ;replace with the link to project
-			   ("JS Programming"
-				(or
-				 (mode . js-mode)
-				 (mode . js2-mode)
-				 (mode . javascript-mode)))
-			   ("C Programming"
-				(or
-				 (mode . c++-mode)
-				 (mode . cc-mode)
-				 (mode . c-mode)))
-			   ("Elisp Programming"
-				(or
-				 (mode . emacs-lisp-mode)))
-			   ("ERC"   (mode . erc-mode))))))
-
-(add-hook 'ibuffer-mode-hook
-		  (lambda ()
-			(ibuffer-switch-to-saved-filter-groups "default")))
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
-;;; markdown mode for emacs
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
-;;; associate markdown with .md file
-(setq auto-mode-alist
-	  (cons '("\\.md" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist
-	  (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
 
 ;;; ------------------------------------------------------------------
 ;;; ------------------------------------------------------------------
@@ -255,9 +205,6 @@
 (require 'thesaurus)
 (thesaurus-set-bhl-api-key-from-file "~/BigHugeLabs.apikey.txt")
 (define-key global-map (kbd "C-x t") 'thesaurus-choose-synonym-and-replace)
-
-;;; find file in project
-(global-set-key (kbd "C-x C-F") 'ffip)
 
 ;;; clojure
 ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)

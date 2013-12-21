@@ -1,8 +1,5 @@
 ;;; config for desktop mode
 
-;;; Desk Top - auto save (session)
-;;; reference here http://www.emacswiki.org/emacs/DeskTop
-
 (require 'desktop)
 (desktop-save-mode 1)					;enable auto save mode
 

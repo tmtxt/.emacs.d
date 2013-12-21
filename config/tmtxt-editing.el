@@ -1,5 +1,6 @@
 ;;; some config for easy editing
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; UTF-8
 ;;; set the encoding for emacs and external program to interact with each other
 (prefer-coding-system 'utf-8)
@@ -10,11 +11,13 @@
 (setq default-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; auto pair the brackets
 (tmtxt/set-up 'autopair
   (autopair-global-mode 1)
   (setq autopair-autowrap t))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; select all line
 (defun tmtxt/select-all-line ()
   "select all line and put the cursor at the end of that line"
@@ -24,6 +27,7 @@
   (move-end-of-line nil))
 (global-set-key (kbd "C-c C-a") 'tmtxt/select-all-line)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; copy/cut whole line if no region is selected
 ;;; http://www.emacswiki.org/emacs/WholeLineOrRegion
 (dolist (command (list 'kill-ring-save 'kill-region
@@ -42,6 +46,7 @@
   (unless (use-region-p)
     (pop-mark)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; indent current region if active, otherwise indent all buffer
 (defun tmtxt/indent-buffer ()
   "Indent the currently visited buffer."
@@ -60,6 +65,7 @@
 		(message "Buffer indented.")))))
 (global-set-key (kbd "C-M-\\") 'tmtxt/indent-region-or-buffer)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; edit file as root privileges (a bit slow at when first open)
 ;; http://emacs-fu.blogspot.com/2013/03/editing-with-root-privileges-once-more.html
 (defun tmtxt/find-file-as-root ()
@@ -74,6 +80,7 @@ user."
 ;; bind it to C-x F
 (global-set-key (kbd "C-x F") 'tmtxt/find-file-as-root)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; yasnippet
 ;;; should be loaded before auto complete so that they can work together
 (tmtxt/set-up 'yasnippet
@@ -81,6 +88,7 @@ user."
   (setq yas/root-directory "~/.emacs.d/data/yasnippet/snippets")
   (yas/load-directory yas/root-directory))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; auto complete mod
 ;;; should be loaded after yasnippet so that they can work together
 (require 'auto-complete-config)
@@ -92,36 +100,7 @@ user."
 (ac-set-trigger-key "TAB")
 (ac-set-trigger-key "<tab>")
 
-;;; undo tree
-(tmtxt/set-up 'undo-tree
-  (global-undo-tree-mode))
-
-;;; disable fly-spell mode by default
-;; (eval-after-load "flyspell"
-;;   '(defun flyspell-mode (&optional arg)))
-
-;;; MacOS spell program path for flyspell-mode and ispell
-;;; in Linux, no need since it's shipped in most GNU/Linux distro
-;;; on MacOS, must install aspell before using this
-;;; install via macports
-;;; sudo port install aspell
-;;; sudo port install aspell-dict-en
-;; (tmtxt/in '(darwin)
-;;   (setq ispell-program-name "~/bin/macports/bin/aspell"))
-
-;;; enable some disabled functions
-(tmtxt/enable '(narrow-to-region set-goal-column upcase-region downcase-region))
-
-;;; Some minor config
-;;; delete selection mode, let emacs behave same as normal text editor
-(delete-selection-mode 1)
-;;; auto add new line if the cursor is at the end of buffer
-(setq next-line-add-newlines t)
-;;; tab
-(setq-default tab-width 4
-			  indent-tabs-mode t)
-(global-set-key (kbd "C-m") 'newline-and-indent)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fix paredit and comment-dwim conflict
 (add-hook 'paredit-mode-hook (lambda () (define-key paredit-mode-map (kbd "M-;") nil)))
 (defadvice comment-dwim (around lisp-specific activate)
@@ -130,6 +109,33 @@ user."
         (call-interactively 'paredit-comment-dwim)
       (message "normal")
       ad-do-it))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; textmate
+(require 'textmate)
+;;; shift text left and shift text right key bindings
+(global-set-key (kbd "C-S-j") 'textmate-shift-left)
+(global-set-key (kbd "C-S-l") 'textmate-shift-right)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; enable some disabled functions
+(tmtxt/enable '(narrow-to-region set-goal-column upcase-region downcase-region))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Some minor config
+;;; delete selection mode, let emacs behave same as normal text editor
+(delete-selection-mode 1)
+;;; auto add new line if the cursor is at the end of buffer
+(setq next-line-add-newlines t)
+;;; set fill column (auto new line when reach 80 character)
+(setq-default fill-column 80)
+;;; tab and indent
+(setq-default tab-width 4
+			  indent-tabs-mode t)
+;;; C-m to newline and indent
+(global-set-key (kbd "C-m") 'newline-and-indent)
+;;; enable undo tree
+(tmtxt/set-up 'undo-tree (global-undo-tree-mode))
 
 ;;; finally provide the library
 (provide 'tmtxt-editing)

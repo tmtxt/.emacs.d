@@ -3,6 +3,7 @@
 ;;; include common lisp
 (eval-when-compile (require 'cl))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Better C-x C-x
 ;;; exchange point and mark but not mark the region
 ;; `http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/'
@@ -14,6 +15,7 @@
 (define-key global-map [remap exchange-point-and-mark]
   'tmtxt/exchange-point-and-mark-no-activate)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Better C-a
 (defun tmtxt/back-to-indentation-or-line-beginning ()
   "Go back to indentation, or if already there, to the beginning
@@ -26,6 +28,7 @@ of line."
 (define-key global-map [remap move-beginning-of-line]
   'tmtxt/back-to-indentation-or-line-beginning)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Swap windows
 ;;; `http://sites.google.com/site/steveyegge2/my-dot-emacs-file'
 (defun tmtxt/swap-windows ()
@@ -45,13 +48,6 @@ of line."
            (set-window-start w1 s2)
            (set-window-start w2 s1))))
   (other-window 1))
-
-;;; smooth scroll
-;;; scroll one line at a time (less "jumpy" than defaults)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling    
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-(setq scroll-step 1) ;; keyboard scroll one line at a time
 
 ;;; custom key bindings
 ;; switch to other window in the same frame
