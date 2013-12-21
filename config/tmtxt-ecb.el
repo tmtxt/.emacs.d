@@ -8,13 +8,23 @@
 ;;; my favorite layout
 (setq ecb-windows-width 0.12)
 (setq ecb-layout-name "leftright2"
-	  ecb-layout-window-sizes '(("leftright2"
-  (ecb-directories-buffer-name 0.12 . 0.6428571428571429)
-  (ecb-sources-buffer-name 0.12 . 0.3392857142857143)
-  (ecb-methods-buffer-name 0.12 . 0.6428571428571429)
-  (ecb-history-buffer-name 0.12 . 0.3392857142857143))))
-;;; always show the compilation window, 12 lines
+	  ecb-layout-window-sizes
+	  '(("leftright2"
+		 (ecb-directories-buffer-name 0.12 . 0.6428571428571429)
+		 (ecb-sources-buffer-name 0.12 . 0.3392857142857143)
+		 (ecb-methods-buffer-name 0.12 . 0.6428571428571429)
+		 (ecb-history-buffer-name 0.12 . 0.3392857142857143))))
+
+;;; compilation window
 (setq ecb-compile-window-height 12)
+(setq ecb-enlarged-compilation-window-max-height 0.5)
+(setq ecb-compilation-buffer-names
+	  '(("\\*[cC]ompilation.*\\*" . t)
+	   ("*Backtrace*")
+	   ("*Compile-log*")
+	   ("*Messages*")))
+(setq ecb-compile-window-temporally-enlarge 'after-selection)
+(define-key ecb-mode-map (kbd "C-M-<") 'ecb-toggle-compile-window-height)
 
 ;;; show sources in directories buffer
 (setq ecb-show-sources-in-directories-buffer 'always)
@@ -67,7 +77,7 @@
 (global-set-key (kbd "C-!") 'ecb-goto-window-directories)
 (global-set-key (kbd "C-@") 'ecb-goto-window-sources)
 (global-set-key (kbd "C-#") 'ecb-goto-window-methods)
-(global-set-key (kbd "C-$") 'ecb-goto-window-compilation)
+(global-set-key (kbd "C-%") 'ecb-goto-window-compilation)
 
 ;;; finally provide the library
 (provide 'tmtxt-ecb)
