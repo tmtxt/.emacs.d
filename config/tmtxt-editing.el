@@ -123,7 +123,7 @@ user."
 (global-set-key (kbd "C-m") 'newline-and-indent)
 
 ;; fix paredit and comment-dwim conflict
-(define-key paredit-mode-map (kbd "M-;") nil)
+(add-hook 'paredit-mode-hook (lambda () (define-key paredit-mode-map (kbd "M-;") nil)))
 (defadvice comment-dwim (around lisp-specific activate)
     "Use `paredit-comment-dwim', but only in lisp code."
     (if (member major-mode '(lisp-mode emacs-lisp-mode clojure-mode scheme-mode))
