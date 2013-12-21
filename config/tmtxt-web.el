@@ -30,7 +30,10 @@
   "Disable font-lock-mode, rainbow-mode and whitespace-mode"
   (rainbow-mode 0)
   (whitespace-mode 0)
-  (font-lock-mode 0))
+  (font-lock-mode 0)
+  (set-face-attribute 'web-mode-doctype-face nil :foreground "#CB4B16" :bold t)
+  (set-face-attribute 'web-mode-html-tag-face nil :foreground "#859900" :bold t)
+  (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "DodgerBlue3"))
 (add-hook 'web-mode-hook 'fix-web-mode-font)
 
 ;;; indentation
@@ -38,10 +41,6 @@
 (setq web-mode-css-indent-offset 2)	;css indentation
 (setq web-mode-code-indent-offset 2)	;script
 (setq web-mode-indent-style 2)		;fix side effect for html indentation
-
-(set-face-attribute 'web-mode-doctype-face nil :foreground "#CB4B16" :bold t)
-(set-face-attribute 'web-mode-html-tag-face nil :foreground "#859900" :bold t)
-(set-face-attribute 'web-mode-html-attr-name-face nil :foreground "DodgerBlue3")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; misc
