@@ -58,6 +58,8 @@
 	yaml-mode
 	exec-path-from-shell
 	thesaurus
+	emmet-mode
+	web-mode
 
 	;; vim emulation
 	evil surround
@@ -130,15 +132,12 @@
 (require 'tmtxt-org)					;org mode config
 (require 'tmtxt-textmate)				;config for textmate mode
 (require 'tmtxt-appearance)				;how my emacs appears
-(require 'tmtxt-markup)					;config for markup languages
 (require 'tmtxt-php)					;config for php coding
 (require 'tmtxt-cc)						;config for cc-mode
 (require 'tmtxt-buffer)					;config for managing buffer
-(require 'tmtxt-emmet)					;config for emmet mode
 (require 'tmtxt-shell)					;config for shell
 (require 'tmtxt-javascript)				;config for js development
-;; (require 'tmtxt-html)					;config for html mode
-;; (require 'tmtxt-webmode)
+(require 'tmtxt-web)					;config for web development
 ;; (require 'tmtxt-helm)					;config for helm
 ;;; add lib/single-file-modes to load-path
 (tmtxt/add-lib "single-file-modes")
@@ -258,3 +257,14 @@
 
 ;;; clojure
 ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+
+(custom-set-variables
+ '(ac-ispell-requires 4))
+(eval-after-load "auto-complete"
+  '(progn
+	 (ac-ispell-setup)))
+(defun my/enable-ac-ispell ()
+  (add-to-list 'ac-sources 'ac-source-ispell))
+(add-hook 'markdown-mode-hook 'my/enable-ac-ispell)
+
+(set-frame-position (selected-frame) 0 -24)
