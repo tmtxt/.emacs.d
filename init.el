@@ -121,6 +121,7 @@
 ;;; ------------------------------------------------------------------
 ;;; some my own useful config
 (require 'tmtxt-util)
+(tmtxt/add-lib "single-file-modes")
 (require 'tmtxt-ido)					;config for ido
 (require 'tmtxt-flymake)				;flymake
 (require 'tmtxt-bookmark)				;load the bookmark and my config
@@ -140,36 +141,12 @@
 (require 'tmtxt-web)					;config for web development
 (require 'tmtxt-helm)					;config for helm
 (require 'tmtxt-markdown)				;config for markdown
-;;; add lib/single-file-modes to load-path
-(tmtxt/add-lib "single-file-modes")
+(require 'tmtxt-twitter)				;config for twitter
 
-;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
 ;; Save positions in visited files
 (setq-default save-place t)
 (require 'saveplace)
 (setq save-place-file "~/.emacs.d/.saveplace")
-
-;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
-;;; twittering mode
-(require 'twittering-mode)
-(setq twittering-status-format
-	  "%i %s, %FACE[ublt-twitter-meta-face]{%@ from %f%L%r%R}\n\t%t"
-	  twittering-url-show-status nil
-	  twittering-timer-interval 600
-	  twittering-use-master-password t
-	  twittering-use-icon-storage t
-	  twittering-display-remaining t
-	  twittering-number-of-tweets-on-retrieval 100
-	  twittering-icon-mode t)
-(add-hook 'twittering-mode-hook (tmtxt/on-fn 'hl-line-mode))
-(define-key twittering-edit-mode-map (kbd "C-c C-t")
-  'twittering-tinyurl-replace-at-point)
-
-;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
-;;; other config
 
 ;;; custom file
 (setq custom-file "~/.emacs.d/custom.el")
@@ -181,25 +158,10 @@
 ;;; eval region to C-c C-r
 (define-key lisp-mode-map (kbd "C-c C-r") 'eval-region)
 (define-key emacs-lisp-mode-map (kbd "C-c C-r") 'eval-region)
-;; (when (file-executable-p "~/bin/macports/bin/gpg") (setq epg-gpg-program "~/bin/macports/bin/gpg"))
-
-;; (setq ergoemacs-theme nil) ;; Uses Standard Ergoemacs keyboard theme
-;; (setq ergoemacs-keyboard-layout "us") ;; Assumes QWERTY keyboard layout
-;; (ergoemacs-mode 1)
 
 ;;; use spotlight search for locate command in macos
 (tmtxt/in '(darwin)
   (setq locate-command "mdfind"))
-
-;;; magit git executable file
-;; (when (file-executable-p "~/bin/macports/bin/git")
-;;   (setq magit-git-executable "~/bin/macports/bin/git"))
-
-;;; moz minor mode
-(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-(add-hook 'javascript-mode-hook 'javascript-custom-setup)
-(defun javascript-custom-setup ()
-  (moz-minor-mode 1))
 
 ;;; thesaurus
 (require 'thesaurus)

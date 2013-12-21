@@ -13,5 +13,10 @@
 			(define-key js-mode-map (kbd "C-M-:") 'js2-mode-toggle-hide-functions)
 			(define-key js-mode-map (kbd "C-M->") 'js2-mode-toggle-element)))
 
+;;; moz
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+(add-hook 'javascript-mode-hook 'javascript-custom-setup)
+(defun javascript-custom-setup ()
+  (moz-minor-mode 1))
 
 (provide 'tmtxt-javascript)
