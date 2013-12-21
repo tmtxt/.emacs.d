@@ -48,6 +48,7 @@
 
 ;;; hide the menu bar on OSX
 (setq ns-auto-hide-menu-bar t)
+(set-frame-position (selected-frame) 0 -24)
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)

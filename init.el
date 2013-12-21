@@ -271,5 +271,3 @@
 (defun my/enable-ac-ispell ()
   (add-to-list 'ac-sources 'ac-source-ispell))
 (add-hook 'markdown-mode-hook 'my/enable-ac-ispell)
-
-(set-frame-position (selected-frame) 0 -24)
