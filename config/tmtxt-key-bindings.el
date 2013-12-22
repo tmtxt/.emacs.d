@@ -40,14 +40,8 @@
 ;; Start a regular shell if you prefer that.
 (global-set-key (kbd "C-x C-m") 'shell)
 
-;; If you want to be able to M-x without meta (phones, etc)
-(global-set-key (kbd "C-c x") 'execute-extended-command)
-
 ;; Help should search more than just commands
 (define-key 'help-command "a" 'apropos)
-
-;; Should be able to eval-and-replace anywhere.
-(global-set-key (kbd "C-c e") 'esk-eval-and-replace)
 
 ;; M-S-6 is awkward
 (global-set-key (kbd "C-c q") 'join-line)
