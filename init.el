@@ -81,9 +81,9 @@
 	google-this google-translate
 
 	;; starter kit
-	starter-kit starter-kit-eshell starter-kit-js
-	starter-kit-lisp starter-kit-perl starter-kit-ruby
-
+	starter-kit starter-kit-eshell
+	starter-kit-perl starter-kit-ruby
+	
 	;; Color theme
 	color-theme color-theme-solarized
 
@@ -120,8 +120,9 @@
 ;;; ------------------------------------------------------------------
 ;;; ------------------------------------------------------------------
 ;;; some my own useful config
-(require 'tmtxt-util)
+(require 'tmtxt-util)					;utilities
 (tmtxt/add-lib "single-file-modes")
+(require 'tmtxt-misc)					;misc
 (require 'tmtxt-key-bindings)			;key bindings
 (require 'tmtxt-ido)					;config for ido
 (require 'tmtxt-flymake)				;flymake
