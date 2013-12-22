@@ -143,6 +143,8 @@
 (require 'tmtxt-helm)					;config for helm
 (require 'tmtxt-markdown)				;config for markdown
 (require 'tmtxt-twitter)				;config for twitter
+(require 'tmtxt-lisp)					;config for working with lisp language
+(require 'tmtxt-clojure)				;config for working with clojure
 
 ;; Save positions in visited files
 (setq-default save-place t)
@@ -152,13 +154,6 @@
 ;;; custom file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-
-;;; bind (compile) to C-x c
-(global-set-key (kbd "C-x c") 'compile)
-
-;;; eval region to C-c C-r
-(define-key lisp-mode-map (kbd "C-c C-r") 'eval-region)
-(define-key emacs-lisp-mode-map (kbd "C-c C-r") 'eval-region)
 
 ;;; use spotlight search for locate command in macos
 (tmtxt/in '(darwin)

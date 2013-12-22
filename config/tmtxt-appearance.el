@@ -42,7 +42,7 @@
 
 ;;; hide the menu bar on OSX
 (setq ns-auto-hide-menu-bar t)
-(set-frame-position (selected-frame) 0 -50)
+(set-frame-position (selected-frame) 0 -24)
 
 ;;; idle highlight mode
 (require 'idle-highlight-mode)
