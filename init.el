@@ -81,7 +81,7 @@
 	google-this google-translate
 
 	;; starter kit
-	starter-kit starter-kit-eshell
+	starter-kit
 	starter-kit-perl starter-kit-ruby
 	
 	;; Color theme
