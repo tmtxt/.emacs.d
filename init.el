@@ -82,7 +82,7 @@
 
 	;; starter kit
 	starter-kit
-	starter-kit-perl starter-kit-ruby
+	starter-kit-perl
 	
 	;; Color theme
 	color-theme color-theme-solarized
@@ -146,6 +146,7 @@
 (require 'tmtxt-twitter)				;config for twitter
 (require 'tmtxt-lisp)					;config for working with lisp language
 (require 'tmtxt-clojure)				;config for working with clojure
+(require 'tmtxt-ruby)					;config for working with ruby
 
 ;; Save positions in visited files
 (setq-default save-place t)
