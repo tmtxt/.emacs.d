@@ -111,6 +111,32 @@ user."
       ad-do-it))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; untabify current buffer
+(defun tmtxt-untabify-buffer ()
+  (interactive)
+  (untabify (point-min) (point-max)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; insert sample lorem text
+(defun tmtxt-lorem ()
+  "Insert a lorem ipsum."
+  (interactive)
+  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
+          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim"
+          "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+          "culpa qui officia deserunt mollit anim id est laborum."))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; insert current time
+(defun tmtxt-insert-date ()
+  "Insert a time-stamp according to locale's date and time format."
+  (interactive)
+  (insert (format-time-string "%c" (current-time))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; textmate
 (require 'textmate)
 ;;; shift text left and shift text right key bindings
@@ -118,24 +144,20 @@ user."
 (global-set-key (kbd "C-S-l") 'textmate-shift-right)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; enable some disabled functions
-(tmtxt/enable '(narrow-to-region set-goal-column upcase-region downcase-region))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Some minor config
-;;; delete selection mode, let emacs behave same as normal text editor
-(delete-selection-mode 1)
-;;; auto add new line if the cursor is at the end of buffer
-(setq next-line-add-newlines t)
-;;; set fill column (auto new line when reach 80 character)
-(setq-default fill-column 80)
-;;; tab and indent
-(setq-default tab-width 4
-			  indent-tabs-mode t)
-;;; C-m to newline and indent
+(delete-selection-mode 1)				;delete selection mode
+(setq next-line-add-newlines t)			;auto new line
+(setq-default fill-column 80)			;fill column 80
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode t)
 (global-set-key (kbd "C-m") 'newline-and-indent)
-;;; enable undo tree
-(tmtxt/set-up 'undo-tree (global-undo-tree-mode))
+(tmtxt/set-up 'undo-tree (global-undo-tree-mode)) ;undo tree
+(tmtxt/enable '(narrow-to-region set-goal-column upcase-region downcase-region))
+(setq sentence-end-double-space nil)	;one space not end setence
+(setq shift-select-mode nil)			;not use shift to select
+(setq mouse-yank-at-point t)
+(setq whitespace-line-column 80)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;;; finally provide the library
 (provide 'tmtxt-editing)

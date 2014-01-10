@@ -7,7 +7,7 @@
 ;;; ------------------------------------------------------------------
 ;;; ------------------------------------------------------------------
 ;;; define some load path here
-(add-to-list 'load-path "~/.emacs.d/")
+;; (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/config/")
 
 ;;; ------------------------------------------------------------------
@@ -79,10 +79,6 @@
 
 	;; google stuffs
 	google-this google-translate
-
-	;; starter kit
-	starter-kit
-	starter-kit-perl
 	
 	;; Color theme
 	color-theme color-theme-solarized
@@ -147,6 +143,7 @@
 (require 'tmtxt-lisp)					;config for working with lisp language
 (require 'tmtxt-clojure)				;config for working with clojure
 (require 'tmtxt-ruby)					;config for working with ruby
+(require 'tmtxt-grep)					;grep find
 
 ;; Save positions in visited files
 (setq-default save-place t)

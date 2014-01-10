@@ -1,11 +1,16 @@
 ;;; how my emacs appears
 ;;; this file should be loaded after other files if want to override custom face
 
+(require 'tmtxt-util)
+(require 'idle-highlight-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; load my custom theme
 (setq custom-theme-directory "~/.emacs.d/lib/themes/")
 (add-to-list 'custom-theme-load-path custom-theme-directory)
 (load-theme 'tmtxt t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Bigger minibuffer text
 (defun tmtxt/minibuffer-setup ()
   (set (make-local-variable 'face-remapping-alist)
@@ -13,6 +18,7 @@
   (setq line-spacing 0.2))
 (add-hook 'minibuffer-setup-hook 'tmtxt/minibuffer-setup)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; transparent emacs
 (defun tmtxt/toggle-alpha ()
   (interactive)
@@ -21,39 +27,59 @@
         (set-frame-parameter nil 'alpha 88)
       (set-frame-parameter nil 'alpha 100))))
 
-;; Show line number in the mode line.
-(line-number-mode 1)
-
-;; Show column number in the mode line.
-(column-number-mode 1)
-
-;;; show line number
-(global-linum-mode 1)
-
-;;; auto split window on starup
-(split-window-right)
-
-;;; set the font to support unicode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; mac os specific
 (tmtxt/in '(darwin)
-  (set-frame-font  "Monaco-12"))
+  (set-frame-font  "Monaco-12")			;set the font to support unicode
+  (setq ns-auto-hide-menu-bar t)		;hide mac menu bar
+  (set-frame-position (selected-frame) 0 -22)
+  ;; (add-hook 'after-init-hook (lambda () (set-frame-size (selected-frame) 1655 1046 t)))
+  )
 
-;;; set cursor to a thin vertical line instead of a little box
-(setq-default cursor-type 'bar)
-
-;;; hide the menu bar on OSX
-(setq ns-auto-hide-menu-bar t)
-(set-frame-position (selected-frame) 0 -24)
-
-;;; idle highlight mode
-(require 'idle-highlight-mode)
-(remove-hook 'prog-mode-hook 'idle-highlight-mode)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; smooth scroll
 ;;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling    
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Turn off mouse interface early in startup to avoid momentary display
+(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+  (when (fboundp mode) (funcall mode -1)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; display config and mouse support for GUI emacs
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (tooltip-mode -1)
+  (mouse-wheel-mode t)
+  (blink-cursor-mode -1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; magit
+(eval-after-load 'magit
+  '(progn
+     (set-face-foreground 'magit-diff-add "green4")
+     (set-face-foreground 'magit-diff-del "red3")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; some minor config
+(line-number-mode 1)					; Show line number in the mode line.
+(column-number-mode 1)					;Show column number in the mode line.
+(global-linum-mode 1)					;show line number
+(split-window-right)					;auto split window on starup
+(setq-default cursor-type 'bar)			;set cursor to a thin vertical line instead of a little box
+(global-hl-line-mode 1)					;highlight current line
+(tool-bar-mode -1)						;turn off tool bar
+(setq visible-bell t)					;make audible ring instead of bell
+(setq inhibit-startup-message t)		;not display welcome message
+(setq uniquify-buffer-name-style 'forward)
+(setq whitespace-style '(face trailing lines-tail tabs))
+(show-paren-mode 1)						;highlight matching paren
+(set-default 'indicate-empty-lines t)
+										; (remove-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)

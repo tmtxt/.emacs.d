@@ -1,5 +1,7 @@
 ;;; some of the code is from emacs starter kit
 
+(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'tmtxt-remove-elc-on-save)
 (add-hook 'emacs-lisp-mode-hook 'tmtxt-pretty-lambdas)

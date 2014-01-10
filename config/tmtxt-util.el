@@ -1,10 +1,12 @@
 ;;; some of my utility functions
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; add dir in "lib" folder to load path
 (defun tmtxt/add-lib (dir-name)
   "Append dir-name to ~/.emacs.d/lib/ and then add them to load-path"
   (add-to-list 'load-path (concat "~/.emacs.d/lib/" dir-name)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; separate OS-specific stuff
 ;;; Example:
 ;;; (tmtxt/in '(darwin) something here) ;macos system
@@ -15,6 +17,7 @@
   `(when (member system-type ,systems)
      ,@body))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; a replacement for (require 'xxx)
 ;;; https://github.com/ubolonton/.emacs.d/blob/master/config/ublt-editing.el
 ;;; usage:
@@ -51,6 +54,7 @@ files."
      (when (tmtxt/require f nil t)
        ,@body)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; enable all disabled functions in funcs list
 (defun tmtxt/enable (funcs)
   (dolist (f funcs)
@@ -72,6 +76,7 @@ files."
                `(lambda () (,minor-mode-fn -1))
                tmtxt/off-fns))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; show message in minibuffer
 (defun tmtxt/minibuffer-message (&rest args)
   "Show a message in the minibuffer without logging. Useful for

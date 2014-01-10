@@ -13,7 +13,6 @@
 ;;; some minor config
 (setq dired-recursive-deletes 'always)	;always recursively delete dir
 (setq dired-recursive-copies 'always)	;always recursively copy dir
-(add-hook 'dired-mode-hook 'esk-turn-on-hl-line-mode) ;highlight current line
 ;; (dired "~/")							;open home dir when start
 (setq dired-dwim-target t)				;auto guess default dir when copy/move
 
@@ -41,12 +40,24 @@
 ;;; open file/marked files by default program in mac
 ;;; http://blog.nguyenvq.com/2009/12/01/file-management-emacs-dired-to-replace-finder-in-mac-os-x-and-other-os/
 (tmtxt/in '(darwin)
+  ;; (defun tmtxt/dired-do-shell-mac-open ()
+  ;; 	(interactive)
+  ;; 	(save-window-excursion
+  ;; 	  (dired-do-async-shell-command
+  ;; 	   "open" current-prefix-arg
+  ;; 	   (dired-get-marked-files t current-prefix-arg))))
   (defun tmtxt/dired-do-shell-mac-open ()
 	(interactive)
 	(save-window-excursion
-	  (dired-do-async-shell-command
-	   "open" current-prefix-arg
-	   (dired-get-marked-files t current-prefix-arg))))
+	  (let ((files (dired-get-marked-files nil current-prefix-arg))
+			command)
+		;; the open command
+		(setq command "open ")
+		(dolist (file files)
+		  (setq command (concat command (shell-quote-argument file) " ")))
+		(message command)
+		;; execute the command
+		(async-shell-command command))))
   (define-key dired-mode-map (kbd "s-o") 'tmtxt/dired-do-shell-mac-open))
 
 ;;; this is for MacOS only
