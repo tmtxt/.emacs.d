@@ -66,6 +66,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; some minor config
+(display-time-mode 1)					;display clock at modeline
 (line-number-mode 1)					; Show line number in the mode line.
 (column-number-mode 1)					;Show column number in the mode line.
 (global-linum-mode 1)					;show line number
