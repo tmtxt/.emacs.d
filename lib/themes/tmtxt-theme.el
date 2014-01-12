@@ -1,5 +1,5 @@
 (deftheme tmtxt
-  "Created 2013-04-12.")
+  "Created 2014-01-12.")
 
 (custom-theme-set-faces
  'tmtxt
@@ -243,9 +243,10 @@
  '(font-latex-sectioning-5-face ((t (:foreground "#5859b7"))))
  '(flyspell-incorrect ((t (:foreground "#c60007"))))
  '(flyspell-duplicate ((t (:foreground "#a57705"))))
- '(helm-selection ((t (:background "Purple" :underline t))))
+ '(helm-selection ((t (:background "DarkGreen" :underline t))))
  '(diredp-file-name ((t (:foreground "Green"))))
  '(diredp-file-suffix ((t (:foreground "highlightColor"))))
  '(default ((t (:foreground "#708183" :background "#042028")))))
 
 (provide-theme 'tmtxt)
+
