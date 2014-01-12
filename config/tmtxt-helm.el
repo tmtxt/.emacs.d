@@ -1,5 +1,7 @@
 ;;; config for helm
 
+(helm-mode 1)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; helm locate
 (setq helm-locate-command "mdfind %s %s")
