@@ -59,6 +59,7 @@
 	thesaurus
 	emmet-mode
 	web-mode
+	ac-ispell
 
 	;; helm
 	helm helm-swoop
