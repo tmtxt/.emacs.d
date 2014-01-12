@@ -153,7 +153,8 @@
 	(define-key dired-mode-map (kbd "C-c C-k") 'tat/kill-all)
 	(define-key dired-mode-map (kbd "C-c C-n") 'tat/move-to-bottom-all)
 	(define-key dired-mode-map (kbd "C-c C-s") 'tda/get-files-size)
-	(define-key dired-mode-map (kbd "C-c C-q") 'tda/download-to-current-dir)))
+	(define-key dired-mode-map (kbd "C-c C-q") 'tda/download-to-current-dir)
+	(define-key dired-mode-map (kbd "C-c C-l") 'tda/download-clipboard-link-to-current-dir)))
 
 ;;; open current directory in terminal
 (tmtxt/in '(darwin)
@@ -163,7 +164,7 @@
 	"/Applications/Terminal.app" "The default path to terminal application in MacOS")
   (setq-default tmtxt/macos-default-terminal-app-path "/Volumes/tmtxt/Applications/iTerm.app")
 
-;;; function to open new terminal window at current directory
+  ;; function to open new terminal window at current directory
   (defun tmtxt/open-current-dir-in-terminal ()
 	"Open current directory in dired mode in terminal application.
 For MacOS only"
