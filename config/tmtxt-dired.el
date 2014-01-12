@@ -138,7 +138,9 @@
   (tmtxt/add-lib "tmtxt-dired-async")
   (tmtxt/set-up 'tmtxt-dired-async
 	;; get file size command
-	(setq tda/get-files-size-command "~/bin/macports/libexec/gnubin/du")
+	(setq tda/get-files-size-command "du")
+	;; download command
+	(setq tda/download-command "wget")
 	;; some key bindings
 	(define-key dired-mode-map (kbd "C-c C-r") 'tda/rsync)
 	(define-key dired-mode-map (kbd "C-c C-a") 'tda/rsync-multiple-mark-file)
@@ -150,8 +152,8 @@
 	(define-key dired-mode-map (kbd "C-c C-t") 'tda/rsync-delete)
 	(define-key dired-mode-map (kbd "C-c C-k") 'tat/kill-all)
 	(define-key dired-mode-map (kbd "C-c C-n") 'tat/move-to-bottom-all)
-	(define-key dired-mode-map (kbd "C-c C-s") 'tda/get-files-size)))
-
+	(define-key dired-mode-map (kbd "C-c C-s") 'tda/get-files-size)
+	(define-key dired-mode-map (kbd "C-c C-q") 'tda/download-to-current-dir)))
 
 ;;; open current directory in terminal
 (tmtxt/in '(darwin)
