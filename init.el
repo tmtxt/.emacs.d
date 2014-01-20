@@ -53,7 +53,7 @@
 	twittering-mode						;twitter client for emacs
 	htmlize								;generate html from buffer
 	puppet-mode							;mode for editing puppet files
-	ergoemacs-mode
+	
 	yaml-mode
 	exec-path-from-shell
 	thesaurus
