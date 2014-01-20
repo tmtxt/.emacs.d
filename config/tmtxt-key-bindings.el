@@ -47,10 +47,12 @@
   "C-x M"		(lambda () (interactive) (eshell t))	;Start a new eshell even if one is active.
   "C-c q"		'join-line
   "C-c g"		'magit-status
+  "C-x c"		'compile
   )
 
 ;;; TODO: rebind these keys
 ;;; M-j (comment-indent-new-line)
+
 (tmtxt/define-keys
 	key-translation-map
 
@@ -63,6 +65,8 @@
   "M-K"			"C-v"
   "M-L"			"C-e"
   "M-J"			"C-a"
+  "M-o"			"M-f"
+  "M-u"			"M-b"
   )
 
 ;; Help should search more than just commands
@@ -82,8 +86,5 @@
   (lambda () (interactive)
 	(let ((case-fold-search isearch-case-fold-search))
 	  (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
-
-;;; bind (compile) to C-x c
-(global-set-key (kbd "C-x c") 'compile)
 
 (provide 'tmtxt-key-bindings)
