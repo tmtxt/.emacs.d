@@ -4,6 +4,15 @@
 ;;; my required packages
 (require 'tmtxt-util)
 
+;;; Dired Omit Mode
+;; omit (not show) files begining with . and #
+(setq-default dired-omit-mode t
+			  dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
+;; toggle omit mode C-o
+(define-key dired-mode-map (kbd "C-o") 'dired-omit-mode)
+;; delete *.tp from omit mode
+(setq-default dired-omit-extensions (remove ".tp" dired-omit-extensions))
+
 ;;; some required packages for dired
 (require 'dired+)
 
@@ -108,12 +117,7 @@
 ;;; hide details
 (tmtxt/set-up 'dired-details+
   ;; show sym link target
-  (setq dired-details-hide-link-targets nil)
-  ;; omit (not show) files begining with . and #
-  (setq-default dired-omit-mode t
-				dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
-  ;; toggle omit mode C-o
-  (define-key dired-mode-map (kbd "C-o") 'dired-omit-mode))
+  (setq dired-details-hide-link-targets nil))
 
 ;;; directory first by default
 ;;; on Mac OS, first install coreutils and findutils, which are the gnu version
@@ -178,13 +182,9 @@ For MacOS only"
 ;;; bind a key for it
   (define-key dired-mode-map (kbd "C-c C-o") 'tmtxt/open-current-dir-in-terminal))
 
-
-
-
 ;;; custom key bindings for dired mode
 (define-key dired-mode-map (kbd "C-S-n") 'dired-create-directory)
 (define-key dired-mode-map (kbd "C-S-u") 'dired-up-directory)
 
 ;;; finally provide the library
 (provide 'tmtxt-dired)
-
