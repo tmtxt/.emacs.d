@@ -28,26 +28,42 @@
               (message "Updated keymap `%s'" ',map)))))
 
 (tmtxt/define-keys
- global-map
- "C-c f"		'find-file-in-project
- "C-+"			'text-scale-increase
- "C--"			'text-scale-decrease
- "C-M-h"		'backward-kill-word
- "C-s"			'isearch-forward-regexp
- "\C-r"			'isearch-backward-regexp
- "M-%"			'query-replace-regexp
- "C-M-s"		'isearch-forward
- "C-M-r"		'isearch-backward
- "C-M-%"		'query-replace
- "C-x C-i"		'imenu
- "C-x M-f"		'ido-find-file-other-window
- "C-c y"		'bury-buffer
- "C-c r"		'revert-buffer
- "C-x m"		'eshell
- "C-x M"		(lambda () (interactive) (eshell t))	;Start a new eshell even if one is active.
- "C-c q"		'join-line
- "C-c g"		'magit-status
- )
+	global-map
+  "C-c f"		'find-file-in-project
+  "C-+"			'text-scale-increase
+  "C--"			'text-scale-decrease
+  "C-M-h"		'backward-kill-word
+  "C-s"			'isearch-forward-regexp
+  "\C-r"	   	'isearch-backward-regexp
+  "M-%"			'query-replace-regexp
+  "C-M-s"		'isearch-forward
+  "C-M-r"		'isearch-backward
+  "C-M-%"		'query-replace
+  "C-x C-i"		'imenu
+  "C-x M-f"		'ido-find-file-other-window
+  "C-c y"		'bury-buffer
+  "C-c r"		'revert-buffer
+  "C-x m"		'eshell
+  "C-x M"		(lambda () (interactive) (eshell t))	;Start a new eshell even if one is active.
+  "C-c q"		'join-line
+  "C-c g"		'magit-status
+  )
+
+;;; TODO: rebind these keys
+;;; M-j (comment-indent-new-line)
+(tmtxt/define-keys
+	key-translation-map
+
+  ;; ergonomic layout
+  "M-i"			"C-p"
+  "M-k"			"C-n"
+  "M-j"			"C-b"
+  "M-l"			"C-f"
+  "M-I"			"M-v"
+  "M-K"			"C-v"
+  "M-L"			"C-e"
+  "M-J"			"C-a"
+  )
 
 ;; Help should search more than just commands
 (define-key 'help-command "a" 'apropos)
