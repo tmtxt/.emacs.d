@@ -49,6 +49,8 @@ of line."
            (set-window-start w2 s1))))
   (other-window 1))
 
+(windmove-default-keybindings) ;; Shift+direction
+
 ;;; custom key bindings
 ;; switch to other window in the same frame
 (global-set-key (kbd "C-S-o") 'other-window)
