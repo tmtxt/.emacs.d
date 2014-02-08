@@ -120,7 +120,6 @@
 (require 'tmtxt-util)					;utilities
 (tmtxt/add-lib "single-file-modes")
 (require 'tmtxt-misc)					;misc
-(require 'tmtxt-key-bindings)			;key bindings
 (require 'tmtxt-ido)					;config for ido
 (require 'tmtxt-flymake)				;flymake
 (require 'tmtxt-bookmark)				;load the bookmark and my config
@@ -145,6 +144,7 @@
 (require 'tmtxt-clojure)				;config for working with clojure
 (require 'tmtxt-ruby)					;config for working with ruby
 (require 'tmtxt-grep)					;grep find
+(require 'tmtxt-key-bindings)			;key bindings
 
 ;; Save positions in visited files
 (setq-default save-place t)
