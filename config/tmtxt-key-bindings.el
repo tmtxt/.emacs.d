@@ -48,6 +48,7 @@
   "C-c q"		'join-line
   "C-c g"		'magit-status
   "C-x c"		'compile
+  "C-S-s"		'helm-swoop
   )
 
 ;;; TODO: rebind these keys
@@ -67,6 +68,8 @@
   "M-J"			"C-a"
   "M-o"			"M-f"
   "M-u"			"M-b"
+  "M-n"			"M-<"
+  "M-N"			"M->"
   )
 
 ;; Help should search more than just commands
