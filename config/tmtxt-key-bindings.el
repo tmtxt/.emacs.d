@@ -25,7 +25,7 @@
   `(eval-after-load ,package
      (quote (progn
               (tmtxt/define-keys ,map
-								,@mappings)
+				,@mappings)
               (message "Updated keymap `%s'" ',map)))))
 
 (tmtxt/undefine-keys
@@ -57,6 +57,12 @@
   "C-c l"		'org-store-link
   "C-c a"		'org-agenda
   "C-c b"		'org-iswitchb
+
+  ;; buffer managements
+  "C-S-<tab>"			'tmtxt/switch-to-last-buffer ;OSX
+  "<C-S-iso-lefttab>"	'tmtxt/switch-to-last-buffer ;Linux
+  "C-x C-b"				'ibuffer
+  "s-k"					'kill-this-buffer
   )
 
 ;;; TODO: rebind these keys
@@ -85,13 +91,9 @@
 
   ;; move meta up/down/left/right
   "C-s-j"				'org-metaleft
-  "<C-s-268632074>"		'org-metaleft	;OSX
   "C-s-l"				'org-metaright
-  "<C-s-268632076>"		'org-metaright	;OSX
   "C-s-i"				'org-metaup
-  "<C-s-268632073>"		'org-metaup		;OSX
   "C-s-k"				'org-metadown
-  "<C-s-268632075>"		'org-metadown	;OSX
 
   ;; shift meta up/down/left/right
   "C-S-s-j"				'org-shiftmetaleft
@@ -107,6 +109,15 @@
   "C-M-S-u"				'outline-up-heading
   "<C-tab>"				'ido-switch-buffer
   )
+
+(tmtxt/in '(darwin)
+  (tmtxt/define-keys
+	  org-mode-map
+	"<C-s-268632074>"		'org-metaleft
+	"<C-s-268632076>"		'org-metaright
+	"<C-s-268632073>"		'org-metaup
+	"<C-s-268632075>"		'org-metadown
+	))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit

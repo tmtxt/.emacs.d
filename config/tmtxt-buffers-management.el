@@ -7,10 +7,6 @@
 (defun tmtxt/switch-to-last-buffer ()
   (interactive)
   (switch-to-buffer (other-buffer)))
-(tmtxt/in '(darwin)
-  (global-set-key (kbd "C-S-<tab>") 'tmtxt/switch-to-last-buffer))
-(tmtxt/in '(gnu/linux)
-  (global-set-key (kbd "<C-S-iso-lefttab>") 'tmtxt/switch-to-last-buffer))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; buffer managers using ibuffer
@@ -47,16 +43,11 @@
 (add-hook 'ibuffer-mode-hook
 		  (lambda ()
 			(ibuffer-switch-to-saved-filter-groups "default")))
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; display those buffers in the same window, not pop-up a new window
 (add-to-list 'same-window-buffer-names "*Help*")
 (add-to-list 'same-window-buffer-names "*Apropos*")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(tmtxt/in '(gnu/linux)
-  (global-set-key (kbd "s-k") 'kill-this-buffer))
 
 ;;; provide
 (provide 'tmtxt-buffers-management)
