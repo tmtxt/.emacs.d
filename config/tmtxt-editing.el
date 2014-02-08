@@ -22,10 +22,11 @@
 (defun tmtxt/select-all-line ()
   "select all line and put the cursor at the end of that line"
   (interactive)
-  (back-to-indentation)
+  (tmtxt/back-to-indentation-or-line-beginning)
   (set-mark-command nil)
   (move-end-of-line nil))
 (global-set-key (kbd "C-c C-a") 'tmtxt/select-all-line)
+(global-set-key (kbd "C-S-a") 'tmtxt/select-all-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; copy/cut whole line if no region is selected
