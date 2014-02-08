@@ -9,7 +9,7 @@
 (setq-default dired-omit-mode t
 			  dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
 ;; toggle omit mode C-o
-(define-key dired-mode-map (kbd "C-o") 'dired-omit-mode)
+
 ;; delete *.tp from omit mode
 (setq-default dired-omit-extensions (remove ".tp" dired-omit-extensions))
 
@@ -185,6 +185,7 @@ For MacOS only"
 ;;; custom key bindings for dired mode
 (define-key dired-mode-map (kbd "C-S-n") 'dired-create-directory)
 (define-key dired-mode-map (kbd "C-S-u") 'dired-up-directory)
+(define-key dired-mode-map (kbd "C-o") 'dired-omit-mode)
 
 ;;; finally provide the library
 (provide 'tmtxt-dired)
