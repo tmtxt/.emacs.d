@@ -1,4 +1,5 @@
-;;; util functions for defining keys
+;;; util functions for defining/undefining keys
+;;; should be loaded at the end
 (defun tmtxt/define-keys (key-map &rest ps)
   "Define key binding pairs for KEY-MAP."
   (declare (indent 1))
@@ -23,9 +24,13 @@
   (declare (indent 2))
   `(eval-after-load ,package
      (quote (progn
-              (ublt/define-keys ,map
+              (tmtxt/define-keys ,map
 								,@mappings)
               (message "Updated keymap `%s'" ',map)))))
+
+(tmtxt/undefine-keys
+	global-map
+  '("C-M-j" "C-M-l"))
 
 (tmtxt/define-keys
 	global-map
@@ -49,6 +54,9 @@
   "C-c g"		'magit-status
   "C-x c"		'compile
   "C-S-s"		'helm-swoop
+  "C-c l"		'org-store-link
+  "C-c a"		'org-agenda
+  "C-c b"		'org-iswitchb
   )
 
 ;;; TODO: rebind these keys
@@ -72,6 +80,36 @@
   "M-N"			"M->"
   )
 
+(tmtxt/define-keys
+	org-mode-map
+
+  ;; move meta up/down/left/right
+  "C-s-j"				'org-metaleft
+  "<C-s-268632074>"		'org-metaleft	;OSX
+  "C-s-l"				'org-metaright
+  "<C-s-268632076>"		'org-metaright	;OSX
+  "C-s-i"				'org-metaup
+  "<C-s-268632073>"		'org-metaup		;OSX
+  "C-s-k"				'org-metadown
+  "<C-s-268632075>"		'org-metadown	;OSX
+
+  ;; shift meta up/down/left/right
+  "C-S-s-j"				'org-shiftmetaleft
+  "C-S-s-l"				'org-shiftmetaright
+  "C-S-s-i"				'org-shiftmetaup
+  "C-S-s-k"				'org-shiftmetadown
+
+  ;; navigation between headings
+  "C-M-S-k"				'outline-next-visible-heading
+  "C-M-S-i"				'outline-previous-visible-heading
+  "C-M-S-l"				'org-forward-heading-same-level
+  "C-M-S-j"				'org-backward-heading-same-level
+  "C-M-S-u"				'outline-up-heading
+  "<C-tab>"				'ido-switch-buffer
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; the rest is taken from starter kit
 ;; Help should search more than just commands
 (define-key 'help-command "a" 'apropos)
 
