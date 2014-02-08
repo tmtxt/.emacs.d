@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: javascript
+# key: javascript
+# --
+#+begin_src javascript :tangle yes
+$0
+#+end_src
