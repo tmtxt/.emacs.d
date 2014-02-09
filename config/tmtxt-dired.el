@@ -8,7 +8,6 @@
 ;; omit (not show) files begining with . and #
 (setq-default dired-omit-mode t
 			  dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
-;; toggle omit mode C-o
 
 ;; delete *.tp from omit mode
 (setq-default dired-omit-extensions (remove ".tp" dired-omit-extensions))
@@ -36,25 +35,17 @@
 ;;; dired-mark marks a file and then move the cursor to the next file
 ;;; tmtxt-dired-mark-backward marks a file but then move the cursor to the
 ;;; previous file
-;;; after that bind it to the key s-b
 (defun tmtxt/dired-mark-backward ()
   (interactive)
   (call-interactively 'dired-mark)
   (call-interactively 'dired-previous-line)	;remove this line if you want the
 										;cursor to stay at the current line
   (call-interactively 'dired-previous-line))
-(define-key dired-mode-map (kbd "s-b") 'tmtxt/dired-mark-backward)
 
 ;;; Mac OS
 ;;; open file/marked files by default program in mac
 ;;; http://blog.nguyenvq.com/2009/12/01/file-management-emacs-dired-to-replace-finder-in-mac-os-x-and-other-os/
 (tmtxt/in '(darwin)
-  ;; (defun tmtxt/dired-do-shell-mac-open ()
-  ;; 	(interactive)
-  ;; 	(save-window-excursion
-  ;; 	  (dired-do-async-shell-command
-  ;; 	   "open" current-prefix-arg
-  ;; 	   (dired-get-marked-files t current-prefix-arg))))
   (defun tmtxt/dired-do-shell-mac-open ()
 	(interactive)
 	(save-window-excursion
@@ -66,8 +57,7 @@
 		  (setq command (concat command (shell-quote-argument file) " ")))
 		(message command)
 		;; execute the command
-		(async-shell-command command))))
-  (define-key dired-mode-map (kbd "s-o") 'tmtxt/dired-do-shell-mac-open))
+		(async-shell-command command)))))
 
 ;;; this is for MacOS only
 ;;; Show the Finder's Get Info window
@@ -97,8 +87,6 @@
 	  (dired-do-async-shell-command
 	   "umount" current-prefix-arg
 	   (dired-get-marked-files t current-prefix-arg)))))
-;;; bind it to s-u
-(define-key dired-mode-map (kbd "s-u") 'tmtxt/dired-do-shell-unmount-device)
 
 ;;; open current directory in Finder (MacOSX)
 ;;; can apply to other buffer type (not only dired)
@@ -111,8 +99,6 @@
 	(save-window-excursion
 	  (async-shell-command
 	   "open ."))))
-;;; bind it to s-O (s-S-o)
-(define-key dired-mode-map (kbd "s-O") 'tmtxt/dired-open-current-directory-in-finder)
 
 ;;; hide details
 (tmtxt/set-up 'dired-details+
@@ -144,21 +130,7 @@
 	;; get file size command
 	(setq tda/get-files-size-command "du")
 	;; download command
-	(setq tda/download-command "wget")
-	;; some key bindings
-	(define-key dired-mode-map (kbd "C-c C-r") 'tda/rsync)
-	(define-key dired-mode-map (kbd "C-c C-a") 'tda/rsync-multiple-mark-file)
-	(define-key dired-mode-map (kbd "C-c C-e") 'tda/rsync-multiple-empty-list)
-	(define-key dired-mode-map (kbd "C-c C-d") 'tda/rsync-multiple-remove-item)
-	(define-key dired-mode-map (kbd "C-c C-v") 'tda/rsync-multiple)
-	(define-key dired-mode-map (kbd "C-c C-z") 'tda/zip)
-	(define-key dired-mode-map (kbd "C-c C-u") 'tda/unzip)
-	(define-key dired-mode-map (kbd "C-c C-t") 'tda/rsync-delete)
-	(define-key dired-mode-map (kbd "C-c C-k") 'tat/kill-all)
-	(define-key dired-mode-map (kbd "C-c C-n") 'tat/move-to-bottom-all)
-	(define-key dired-mode-map (kbd "C-c C-s") 'tda/get-files-size)
-	(define-key dired-mode-map (kbd "C-c C-q") 'tda/download-to-current-dir)
-	(define-key dired-mode-map (kbd "C-c C-l") 'tda/download-clipboard-link-to-current-dir)))
+	(setq tda/download-command "wget")))
 
 ;;; open current directory in terminal
 (tmtxt/in '(darwin)
@@ -177,15 +149,7 @@ For MacOS only"
 	(shell-command (concat "open -a "
 						   (shell-quote-argument tmtxt/macos-default-terminal-app-path)
 						   " "
-						   (shell-quote-argument (file-truename default-directory)))))
-
-;;; bind a key for it
-  (define-key dired-mode-map (kbd "C-c C-o") 'tmtxt/open-current-dir-in-terminal))
-
-;;; custom key bindings for dired mode
-(define-key dired-mode-map (kbd "C-S-n") 'dired-create-directory)
-(define-key dired-mode-map (kbd "C-S-u") 'dired-up-directory)
-(define-key dired-mode-map (kbd "C-o") 'dired-omit-mode)
+						   (shell-quote-argument (file-truename default-directory))))))
 
 ;;; finally provide the library
 (provide 'tmtxt-dired)

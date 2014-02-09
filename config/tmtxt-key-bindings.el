@@ -119,6 +119,40 @@
 	"<C-s-268632075>"		'org-metadown
 	))
 
+(tmtxt/define-keys
+	c++-mode-map
+  "C-S-<return>"		'ac-complete-clang)
+
+(tmtxt/define-keys
+	dired-mode-map
+  "s-b"			'tmtxt/dired-mark-backward
+  "s-u"			'tmtxt/dired-do-shell-unmount-device
+  "C-c C-r"		'tda/rsync
+  "C-c C-a"		'tda/rsync-multiple-mark-file
+  "C-c C-e"		'tda/rsync-multiple-empty-list
+  "C-c C-d"		'tda/rsync-multiple-remove-item
+  "C-c C-v"		'tda/rsync-multiple
+  "C-c C-z"		'tda/zip
+  "C-c C-u"		'tda/unzip
+  "C-c C-t"		'tda/rsync-delete
+  "C-c C-k"		'tat/kill-all
+  "C-c C-n"		'tat/move-to-bottom-all
+  "C-c C-s"		'tda/get-files-size
+  "C-c C-q"		'tda/download-to-current-dir
+  "C-c C-l"		'tda/download-clipboard-link-to-current-dir
+  "C-S-n"		'dired-create-directory
+  "C-S-u"		'dired-up-directory
+  "C-o"			'dired-omit-mode
+  )
+
+(tmtxt/in '(darwin)
+  (tmtxt/define-keys
+	  dired-mode-map
+	"s-o"			'tmtxt/dired-do-shell-mac-open
+	"s-O"			'tmtxt/dired-open-current-directory-in-finder
+	"C-c C-o"		'tmtxt/open-current-dir-in-terminal
+	))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands

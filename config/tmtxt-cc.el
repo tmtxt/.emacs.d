@@ -24,8 +24,6 @@
 ;;; on Linux: sudo apt-get update”, “sudo apt-get install clang”
 (tmtxt/add-lib "auto-complete-clang")	;add it to load-path
 (require 'auto-complete-clang)
-;;; bind it to C-S-<return>
-(define-key c++-mode-map (kbd "C-S-<return>") 'ac-complete-clang)
 
 ;;; setup flymake for cc mode
 (tmtxt/setup-flymake-for-mode c-mode-map)
