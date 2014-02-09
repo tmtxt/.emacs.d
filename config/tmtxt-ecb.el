@@ -24,7 +24,6 @@
 	   ("*Compile-log*")
 	   ("*Messages*")))
 (setq ecb-compile-window-temporally-enlarge 'after-selection)
-(define-key ecb-mode-map (kbd "C-M-<") 'ecb-toggle-compile-window-height)
 
 ;;; show sources in directories buffer
 (setq ecb-show-sources-in-directories-buffer 'always)
@@ -64,20 +63,6 @@
 (add-to-list 'ecb-source-path '("~/.emacs.d/" ".emacs.d"))
 (add-to-list 'ecb-source-path '("~/.conkerorrc" ".conkerorrc"))
 (add-to-list 'ecb-source-path '("~/dotfiles" "dotfiles"))
-
-;;; custom key bindings
-;;; activate and deactivate ecb
-(global-set-key (kbd "C-x C-;") 'ecb-activate)
-(global-set-key (kbd "C-x C-'") 'tmtxt/ecb-deactivate)
-;;; show/hide ecb window
-(global-set-key (kbd "C-;") 'tmtxt/ecb-show-ecb-windows)
-(global-set-key (kbd "C-'") 'tmtxt/ecb-hide-ecb-windows)
-;;; quick navigation between ecb windows
-(global-set-key (kbd "C-)") 'ecb-goto-window-edit1)
-(global-set-key (kbd "C-!") 'ecb-goto-window-directories)
-(global-set-key (kbd "C-@") 'ecb-goto-window-sources)
-(global-set-key (kbd "C-#") 'ecb-goto-window-methods)
-(global-set-key (kbd "C-%") 'ecb-goto-window-compilation)
 
 ;;; finally provide the library
 (provide 'tmtxt-ecb)

@@ -63,6 +63,12 @@
   "<C-S-iso-lefttab>"	'tmtxt/switch-to-last-buffer ;Linux
   "C-x C-b"				'ibuffer
   "s-k"					'kill-this-buffer
+
+  ;; ECB
+  "C-x C-;"			'ecb-activate
+  "C-x C-'"			'tmtxt/ecb-deactivate
+  "C-;"				'tmtxt/ecb-show-ecb-windows
+  "C-'"				'tmtxt/ecb-hide-ecb-windows
   )
 
 ;;; TODO: rebind these keys
@@ -152,6 +158,16 @@
 	"s-O"			'tmtxt/dired-open-current-directory-in-finder
 	"C-c C-o"		'tmtxt/open-current-dir-in-terminal
 	))
+
+(tmtxt/define-keys
+	ecb-mode-map
+  "C-M-<"			'ecb-toggle-compile-window-height
+  "C-)"				'ecb-goto-window-edit1
+  "C-!"				'ecb-goto-window-directories
+  "C-@"				'ecb-goto-window-sources
+  "C-#"				'ecb-goto-window-methods
+  "C-%"				'ecb-goto-window-compilation
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
