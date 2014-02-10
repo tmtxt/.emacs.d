@@ -1,5 +1,5 @@
 (deftheme tmtxt
-  "Created 2014-01-12.")
+  "Created 2014-02-10.")
 
 (custom-theme-set-faces
  'tmtxt
@@ -90,9 +90,9 @@
  '(info-xref ((t (:weight normal :slant normal :underline t :inverse-video nil :foreground "#2075c7"))))
  '(info-xref-visited ((t (:foreground "#c61b6e" :inherit info-xref))))
  '(org-hide ((t (:foreground "#042028"))))
- '(org-todo ((t (:weight bold :slant normal :underline nil :inverse-video nil :foreground "#042028" :background "#c60007"))))
+ '(org-todo ((t (:background "light green" :foreground "firebrick2" :inverse-video nil :underline nil :slant normal :weight bold))))
  '(org-done ((t (:weight bold :slant normal :underline nil :inverse-video nil :foreground "#728a05"))))
- '(org-todo-kwd-face ((t (:foreground "#c60007" :background "#042028"))))
+ '(org-todo-kwd-face ((t (:background "#042028" :foreground "#c60007"))))
  '(org-done-kwd-face ((t (:foreground "#728a05" :background "#042028"))))
  '(org-project-kwd-face ((t (:foreground "#5859b7" :background "#042028"))))
  '(org-waiting-kwd-face ((t (:foreground "#bd3612" :background "#042028"))))
@@ -246,7 +246,7 @@
  '(helm-selection ((t (:background "DarkGreen" :underline t))))
  '(diredp-file-name ((t (:foreground "Green"))))
  '(diredp-file-suffix ((t (:foreground "highlightColor"))))
- '(default ((t (:foreground "#708183" :background "#042028")))))
+ '(default ((t (:foreground "#708183" :background "#042028"))))
+ '(bold ((t (:foreground "gray100" :weight bold)))))
 
 (provide-theme 'tmtxt)
-
