@@ -28,6 +28,14 @@
 											(match-end 1) "\u0192")
 							nil)))))))
 
+;;; jshint
+;;; requirements: nodejs, npm,
+;;; install jshint via npm: npm install -g jshint
+(tmtxt/add-lib "jshint-mode")
+(require 'flymake-jshint)
+(add-hook 'js-mode-hook
+     (lambda () (flymake-mode t)))
+
 ;;; beautify json
 ;;; require python installed
 (defun tmtxt-beautify-json ()
