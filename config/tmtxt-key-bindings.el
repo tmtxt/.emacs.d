@@ -37,23 +37,32 @@
   "C-c f"		'find-file-in-project
   "C-+"			'text-scale-increase
   "C--"			'text-scale-decrease
-  "C-M-h"		'backward-kill-word
-  "C-s"			'isearch-forward-regexp
-  "\C-r"	   	'isearch-backward-regexp
+  
   "M-%"			'query-replace-regexp
-  "C-M-s"		'isearch-forward
-  "C-M-r"		'isearch-backward
   "C-M-%"		'query-replace
   "C-x C-i"		'imenu
   "C-x M-f"		'ido-find-file-other-window
   "C-c y"		'bury-buffer
   "C-c r"		'revert-buffer
-  "C-x m"		'eshell
-  "C-x M"		(lambda () (interactive) (eshell t))	;Start a new eshell even if one is active.
-  "C-c q"		'join-line
   "C-c g"		'magit-status
   "C-x c"		'compile
   "C-S-s"		'helm-swoop
+
+  ;; editing
+  "C-c q"		'join-line
+  "C-M-h"		'backward-kill-word
+
+  ;; isearch
+  "C-s"			'isearch-forward-regexp
+  "\C-r"	   	'isearch-backward-regexp
+  "C-M-s"		'isearch-forward
+  "C-M-r"		'isearch-backward
+
+  ;; eshell
+  "C-x m"		'eshell
+  "C-x M"		(lambda () (interactive) (eshell t))	;Start a new eshell even if one is active.
+
+  ;; org mode
   "C-c l"		'org-store-link
   "C-c a"		'org-agenda
   "C-c b"		'org-iswitchb
@@ -90,6 +99,9 @@
   "M-u"			"M-b"
   "M-n"			"M-<"
   "M-N"			"M->"
+  "M-d"			"C-d"
+  "M-f"			"DEL"
+  
   )
 
 (tmtxt/define-keys
