@@ -63,6 +63,7 @@
 (add-to-list 'ecb-source-path '("~/.emacs.d/" ".emacs.d"))
 (add-to-list 'ecb-source-path '("~/.conkerorrc" ".conkerorrc"))
 (add-to-list 'ecb-source-path '("~/dotfiles" "dotfiles"))
+(add-to-list 'ecb-source-path '("~/javascript/vntxt_pedigree/" "vntxt_pedigree"))
 
 ;;; finally provide the library
 (provide 'tmtxt-ecb)
