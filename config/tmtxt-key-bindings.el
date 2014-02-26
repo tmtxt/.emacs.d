@@ -78,6 +78,8 @@
   "C-x C-'"			'tmtxt/ecb-deactivate
   "C-;"				'tmtxt/ecb-show-ecb-windows
   "C-'"				'tmtxt/ecb-hide-ecb-windows
+
+	"C-S-f"			'yas-expand
   )
 
 ;;; TODO: rebind these keys
@@ -180,6 +182,16 @@
   "C-#"				'ecb-goto-window-methods
   "C-%"				'ecb-goto-window-compilation
   )
+
+(tmtxt/define-keys
+		hs-minor-mode-map
+	"C-c C-h"		'hs-hide-block
+	"C-c C-d"		'hs-show-block
+	"C-c C-t"		'hs-toggle-hiding
+	"C-c C-;"		'hs-hide-all
+	"C-c C-'"		'hs-show-all
+	"C-c C-l"		'hs-hide-level
+	)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
