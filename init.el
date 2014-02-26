@@ -166,13 +166,3 @@
 
 ;;; clojure
 ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-
-;;; autocomplete from ispell
-(custom-set-variables
- '(ac-ispell-requires 4))
-(eval-after-load "auto-complete"
-  '(progn
-	 (ac-ispell-setup)))
-(defun my/enable-ac-ispell ()
-  (add-to-list 'ac-sources 'ac-source-ispell))
-(add-hook 'markdown-mode-hook 'my/enable-ac-ispell)

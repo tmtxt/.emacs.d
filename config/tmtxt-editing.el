@@ -145,6 +145,17 @@ user."
 (global-set-key (kbd "C-S-l") 'textmate-shift-right)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; autocomplete from ispell
+(custom-set-variables
+ '(ac-ispell-requires 4))
+(eval-after-load "auto-complete"
+  '(progn
+	 (ac-ispell-setup)))
+(defun my/enable-ac-ispell ()
+  (add-to-list 'ac-sources 'ac-source-ispell))
+(add-hook 'markdown-mode-hook 'my/enable-ac-ispell)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Some minor config
 (delete-selection-mode 1)				;delete selection mode
 (setq next-line-add-newlines t)			;auto new line
