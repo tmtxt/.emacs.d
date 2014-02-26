@@ -160,7 +160,6 @@ user."
 (delete-selection-mode 1)				;delete selection mode
 (setq next-line-add-newlines t)			;auto new line
 (setq-default fill-column 80)			;fill column 80
-(setq-default tab-width 4)
 (setq-default indent-tabs-mode t)
 (global-set-key (kbd "C-m") 'newline-and-indent)
 (tmtxt/set-up 'undo-tree (global-undo-tree-mode)) ;undo tree
