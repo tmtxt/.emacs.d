@@ -10,8 +10,8 @@
 ;;; setup flymake for input mode
 (defun tmtxt/setup-flymake-for-mode (mode)
   "Setup flymake for the input mode"
-  (define-key mode (kbd "M-n") 'flymake-goto-next-error)
-  (define-key mode (kbd "M-p") 'flymake-goto-prev-error))
+  (define-key mode (kbd "M-m") 'flymake-goto-next-error)
+  (define-key mode (kbd "M-,") 'flymake-goto-prev-error))
 
 ;;; print the error in the minibuffer when goto that error
 (defun tmtxt/flymake-err-at (pos)

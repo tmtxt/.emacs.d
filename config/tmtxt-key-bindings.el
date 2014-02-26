@@ -51,6 +51,13 @@
   ;; editing
   "C-c q"		'join-line
   "C-M-h"		'backward-kill-word
+	"C-c C-a"	'tmtxt/select-all-line
+	"C-S-a"		'tmtxt/select-all-line
+	"C-M-\\"	'tmtxt/indent-region-or-buffer
+	"C-x F"		'tmtxt/find-file-as-root
+	"C-S-j"		'textmate-shift-left
+	"C-S-l"		'textmate-shift-right
+	"C-m"			'newline-and-indent
 
   ;; isearch
   "C-s"			'isearch-forward-regexp
@@ -192,6 +199,10 @@
 	"C-c C-'"		'hs-show-all
 	"C-c C-l"		'hs-hide-level
 	)
+
+(tmtxt/define-keys
+		ac-completing-map
+	"M-/"			'ac-stop)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit

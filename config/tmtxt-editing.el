@@ -1,5 +1,7 @@
 ;;; some config for easy editing
 
+(require 'textmate)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; UTF-8
 ;;; set the encoding for emacs and external program to interact with each other
@@ -25,8 +27,6 @@
   (tmtxt/back-to-indentation-or-line-beginning)
   (set-mark-command nil)
   (move-end-of-line nil))
-(global-set-key (kbd "C-c C-a") 'tmtxt/select-all-line)
-(global-set-key (kbd "C-S-a") 'tmtxt/select-all-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; copy/cut whole line if no region is selected
@@ -64,7 +64,6 @@
       (progn
 		(tmtxt/indent-buffer)
 		(message "Buffer indented.")))))
-(global-set-key (kbd "C-M-\\") 'tmtxt/indent-region-or-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; edit file as root privileges (a bit slow at when first open)
@@ -78,8 +77,6 @@ user."
     (unless (file-writable-p file)
       (setq file (concat "/sudo:root@localhost:" file)))
     (find-file file)))
-;; bind it to C-x F
-(global-set-key (kbd "C-x F") 'tmtxt/find-file-as-root)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; yasnippet
@@ -138,13 +135,6 @@ user."
   (insert (format-time-string "%c" (current-time))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; textmate
-(require 'textmate)
-;;; shift text left and shift text right key bindings
-(global-set-key (kbd "C-S-j") 'textmate-shift-left)
-(global-set-key (kbd "C-S-l") 'textmate-shift-right)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; autocomplete from ispell
 (custom-set-variables
  '(ac-ispell-requires 4))
@@ -161,7 +151,6 @@ user."
 (setq next-line-add-newlines t)			;auto new line
 (setq-default fill-column 80)			;fill column 80
 (setq-default indent-tabs-mode t)
-(global-set-key (kbd "C-m") 'newline-and-indent)
 (tmtxt/set-up 'undo-tree (global-undo-tree-mode)) ;undo tree
 (tmtxt/enable '(narrow-to-region set-goal-column upcase-region downcase-region))
 (setq sentence-end-double-space nil)	;one space not end setence
