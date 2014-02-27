@@ -13,7 +13,6 @@
 ;;; smex
 (setq smex-save-file (concat user-emacs-directory ".smex-items"))
 (smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
 
 ;;; Set buffer separator in the mini buffer when press C-x b (ido-switch-buffer)
 ;;; to new line instead of the character | so that it can be easy to read
@@ -29,9 +28,6 @@
       ido-use-virtual-buffers t
       ido-handle-duplicate-virtual-buffers 2
       ido-max-prospects 10)
-
-;;; C-S-b for buffer switching
-(global-set-key (kbd "<C-tab>") 'ido-switch-buffer)
 
 ;;; load ido hacks (only if in emacs 24 and above)
 ;;; for emacs 23 and lower, use this

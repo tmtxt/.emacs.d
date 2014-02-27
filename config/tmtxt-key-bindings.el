@@ -37,7 +37,6 @@
   "C-c f"		'find-file-in-project
   "C-+"			'text-scale-increase
   "C--"			'text-scale-decrease
-  
   "M-%"			'query-replace-regexp
   "C-M-%"		'query-replace
   "C-x C-i"		'imenu
@@ -47,6 +46,7 @@
   "C-c g"		'magit-status
   "C-x c"		'compile
   "C-S-s"		'helm-swoop
+	"M-x"			'smex
 
   ;; editing
   "C-c q"		'join-line
@@ -79,6 +79,7 @@
   "<C-S-iso-lefttab>"	'tmtxt/switch-to-last-buffer ;Linux
   "C-x C-b"				'ibuffer
   "s-k"					'kill-this-buffer
+	"<C-tab>"			'ido-switch-buffer
 
   ;; ECB
   "C-x C-;"			'ecb-activate
