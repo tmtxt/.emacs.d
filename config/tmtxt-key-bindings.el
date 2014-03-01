@@ -30,7 +30,7 @@
 
 (tmtxt/undefine-keys
 	global-map
-  '("C-M-j" "C-M-l"))
+  '("C-M-j" "C-M-l" "C-x C-d"))
 
 (tmtxt/define-keys
 	global-map
@@ -80,6 +80,10 @@
   "C-x C-b"				'ibuffer
   "s-k"					'kill-this-buffer
 	"<C-tab>"			'ido-switch-buffer
+
+	;; projectile
+	"C-x C-S-f"		'projectile-find-file
+	"C-x C-d"			'projectile-dired
 
   ;; ECB
   "C-x C-;"			'ecb-activate

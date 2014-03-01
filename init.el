@@ -60,6 +60,7 @@
 	emmet-mode
 	web-mode
 	ac-ispell
+	projectile helm-projectile
 
 	;; helm
 	helm helm-swoop
