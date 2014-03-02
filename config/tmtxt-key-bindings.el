@@ -84,6 +84,7 @@
 	;; projectile
 	"C-x C-S-f"		'projectile-find-file
 	"C-x C-d"			'projectile-dired
+	"C-x C-S-d"		'projectile-find-dir
 
   ;; ECB
   "C-x C-;"			'ecb-activate
