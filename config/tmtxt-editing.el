@@ -150,7 +150,7 @@ user."
 (delete-selection-mode 1)				;delete selection mode
 (setq next-line-add-newlines t)			;auto new line
 (setq-default fill-column 80)			;fill column 80
-(setq-default indent-tabs-mode t)
+(setq-default indent-tabs-mode nil)
 (tmtxt/set-up 'undo-tree (global-undo-tree-mode)) ;undo tree
 (tmtxt/enable '(narrow-to-region set-goal-column upcase-region downcase-region))
 (setq sentence-end-double-space nil)	;one space not end setence
