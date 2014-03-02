@@ -7,7 +7,7 @@
 ;;; Dired Omit Mode
 ;; omit (not show) files begining with . and #
 (setq-default dired-omit-mode t
-			  dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
+              dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
 
 ;; delete *.tp from omit mode
 (setq-default dired-omit-extensions (remove ".tp" dired-omit-extensions))
@@ -19,10 +19,10 @@
 (tmtxt/add-lib "single-file-modes")
 
 ;;; some minor config
-(setq dired-recursive-deletes 'always)	;always recursively delete dir
-(setq dired-recursive-copies 'always)	;always recursively copy dir
-;; (dired "~/")							;open home dir when start
-(setq dired-dwim-target t)				;auto guess default dir when copy/move
+(setq dired-recursive-deletes 'always)  ;always recursively delete dir
+(setq dired-recursive-copies 'always) ;always recursively copy dir
+;; (dired "~/")             ;open home dir when start
+(setq dired-dwim-target t)        ;auto guess default dir when copy/move
 
 ;;; delete files by moving to the folder emacs in Trash folder
 ;;; this path is for MacOS users
@@ -38,8 +38,8 @@
 (defun tmtxt/dired-mark-backward ()
   (interactive)
   (call-interactively 'dired-mark)
-  (call-interactively 'dired-previous-line)	;remove this line if you want the
-										;cursor to stay at the current line
+  (call-interactively 'dired-previous-line) ;remove this line if you want the
+                                        ;cursor to stay at the current line
   (call-interactively 'dired-previous-line))
 
 ;;; Mac OS
@@ -47,17 +47,17 @@
 ;;; http://blog.nguyenvq.com/2009/12/01/file-management-emacs-dired-to-replace-finder-in-mac-os-x-and-other-os/
 (tmtxt/in '(darwin)
   (defun tmtxt/dired-do-shell-mac-open ()
-	(interactive)
-	(save-window-excursion
-	  (let ((files (dired-get-marked-files nil current-prefix-arg))
-			command)
-		;; the open command
-		(setq command "open ")
-		(dolist (file files)
-		  (setq command (concat command (shell-quote-argument file) " ")))
-		(message command)
-		;; execute the command
-		(async-shell-command command)))))
+    (interactive)
+    (save-window-excursion
+      (let ((files (dired-get-marked-files nil current-prefix-arg))
+            command)
+        ;; the open command
+        (setq command "open ")
+        (dolist (file files)
+          (setq command (concat command (shell-quote-argument file) " ")))
+        (message command)
+        ;; execute the command
+        (async-shell-command command)))))
 
 ;;; this is for MacOS only
 ;;; Show the Finder's Get Info window
@@ -65,28 +65,28 @@
 ;;; currently it can only show the info dialog for 1 file
 (tmtxt/in '(darwin)
   (defun tmtxt/dired-do-shell-mac-get-info ()
-	(interactive)
-	(save-window-excursion
-	  (dired-do-async-shell-command
-	   "~/.emacs.d/MacOS/GetInfoMacOS" current-prefix-arg
-	   (dired-get-marked-files t current-prefix-arg)))))
+    (interactive)
+    (save-window-excursion
+      (dired-do-async-shell-command
+       "~/.emacs.d/MacOS/GetInfoMacOS" current-prefix-arg
+       (dired-get-marked-files t current-prefix-arg)))))
 
 ;; unmount disk in dired
 ;;http://loopkid.net/articles/2008/06/27/force-unmount-on-mac-os-x
-(tmtxt/in '(darwin)						;MacOS
+(tmtxt/in '(darwin)           ;MacOS
   (defun tmtxt/dired-do-shell-unmount-device ()
-	(interactive)
-	(save-window-excursion
-	  (dired-do-async-shell-command
-	   "diskutil unmount" current-prefix-arg
-	   (dired-get-marked-files t current-prefix-arg)))))
-(tmtxt/in '(gnu/linux)					;Linux
+    (interactive)
+    (save-window-excursion
+      (dired-do-async-shell-command
+       "diskutil unmount" current-prefix-arg
+       (dired-get-marked-files t current-prefix-arg)))))
+(tmtxt/in '(gnu/linux)          ;Linux
   (defun tmtxt/dired-do-shell-unmount-device ()
-	(interactive)
-	(save-window-excursion
-	  (dired-do-async-shell-command
-	   "umount" current-prefix-arg
-	   (dired-get-marked-files t current-prefix-arg)))))
+    (interactive)
+    (save-window-excursion
+      (dired-do-async-shell-command
+       "umount" current-prefix-arg
+       (dired-get-marked-files t current-prefix-arg)))))
 
 ;;; open current directory in Finder (MacOSX)
 ;;; can apply to other buffer type (not only dired)
@@ -94,11 +94,11 @@
 ;;; that contains the current open file in that buffer
 (tmtxt/in '(darwin)
   (defun tmtxt/dired-open-current-directory-in-finder ()
-	"Open the current directory in Finder"
-	(interactive)
-	(save-window-excursion
-	  (async-shell-command
-	   "open ."))))
+    "Open the current directory in Finder"
+    (interactive)
+    (save-window-excursion
+      (async-shell-command
+       "open ."))))
 
 ;;; hide details
 (tmtxt/set-up 'dired-details+
@@ -127,29 +127,61 @@
 (tmtxt/in '(darwin gnu/linux)
   (tmtxt/add-lib "tmtxt-dired-async")
   (tmtxt/set-up 'tmtxt-dired-async
-	;; get file size command
-	(setq tda/get-files-size-command "du")
-	;; download command
-	(setq tda/download-command "wget")))
+    ;; get file size command
+    (setq tda/get-files-size-command "du")
+    ;; download command
+    (setq tda/download-command "wget")))
 
 ;;; open current directory in terminal
 (tmtxt/in '(darwin)
 
   ;; default terminal application path
   (defvar tmtxt/macos-default-terminal-app-path
-	"/Applications/Terminal.app" "The default path to terminal application in MacOS")
+    "/Applications/Terminal.app" "The default path to terminal application in MacOS")
   (setq-default tmtxt/macos-default-terminal-app-path "/Volumes/tmtxt/Applications/iTerm.app")
 
   ;; function to open new terminal window at current directory
   (defun tmtxt/open-current-dir-in-terminal ()
-	"Open current directory in dired mode in terminal application.
+    "Open current directory in dired mode in terminal application.
 For MacOS only"
-	(interactive)
+    (interactive)
 
-	(shell-command (concat "open -a "
-						   (shell-quote-argument tmtxt/macos-default-terminal-app-path)
-						   " "
-						   (shell-quote-argument (file-truename default-directory))))))
+    (shell-command (concat "open -a "
+                           (shell-quote-argument tmtxt/macos-default-terminal-app-path)
+                           " "
+                           (shell-quote-argument (file-truename default-directory))))))
+
+;;; fast renaming for wdired
+(defun tmtxt/mark-current-file-name ()
+  "Mark file name on current line except its extension"
+  (interactive)
+
+  ;; get the file file name first
+  ;; full-name: full file name
+  ;; extension: extension of the file
+  ;; base-name: file name without extension
+  (let ((full-name (file-name-nondirectory (dired-get-filename)))
+        extension base-name)
+    
+    ;; check if it's a dir or a file
+    ;; TODO not use if, use switch case check for symlink
+    (if (file-directory-p full-name)
+        (progn
+          ;; if file name is directory, mark file name should mark the whole
+          ;; file name
+          (call-interactively 'end-of-line) ;move the end of line
+          (backward-char (length full-name)) ;back to the beginning
+          (set-mark (point))
+          (forward-char (length full-name)))
+      (progn
+        ;; if current file is a file, mark file name mark only the base name,
+        ;; exclude the extension
+        (setq extension (file-name-extension full-name))
+        (setq base-name (file-name-sans-extension full-name))
+        (call-interactively 'end-of-line)
+        (backward-char (length full-name))
+        (set-mark (point))
+        (forward-char (length base-name))))))
 
 ;;; finally provide the library
 (provide 'tmtxt-dired)
