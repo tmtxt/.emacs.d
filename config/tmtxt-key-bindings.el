@@ -210,6 +210,10 @@
 		ac-completing-map
 	"M-/"			'ac-stop)
 
+(tmtxt/keys 'wdired wdired-mode-map
+  "TAB"		'tmtxt/mark-file-name-forward
+  "S-TAB"	'tmtxt/mark-file-name-backward)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands
