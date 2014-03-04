@@ -58,6 +58,8 @@
 	"C-S-j"		'textmate-shift-left
 	"C-S-l"		'textmate-shift-right
 	"C-m"			'newline-and-indent
+  "C-M-u"		'upcase-word
+  "C-M-j"		'downcase-word
 
   ;; isearch
   "C-s"			'isearch-forward-regexp
@@ -186,7 +188,7 @@
 	"C-c C-o"		'tmtxt/open-current-dir-in-terminal
 	))
 
-(tmtxt/define-keys
+(tmtxt/keys 'ecb
 	ecb-mode-map
   "C-M-<"			'ecb-toggle-compile-window-height
   "C-)"				'ecb-goto-window-edit1
@@ -212,7 +214,8 @@
 
 (tmtxt/keys 'wdired wdired-mode-map
   "TAB"		'tmtxt/mark-file-name-forward
-  "S-TAB"	'tmtxt/mark-file-name-backward)
+  "S-TAB"	'tmtxt/mark-file-name-backward
+  "s-o"		'tmtxt/dired-do-shell-mac-open)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
