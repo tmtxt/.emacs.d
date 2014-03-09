@@ -32,61 +32,61 @@
   (package-refresh-contents))
 (defvar tmtxt/elpa-packages
   '(auto-complete						;auto complete
-	elisp-slime-nav						;Make M-. and M-, work in elisp like
-										;they do in slime
-	find-file-in-project				;quickly find file in a project
-	idle-highlight-mode					;highlight the word the point is on
-	magit								;control git from emacs
-	paredit								;minor mode for editing parentheses
-	popup								;visual popup user interface
-	yasnippet							;yasnippet
-	bookmark+							;enhance built in bookmark
-	markdown-mode						;markdown mode for emacs
-	textmate							;textmate mode
-	autopair							;auto pair the brackets
-	php-mode							;php mode for emacs
-	ecb									;emacs code browser
-	member-function						;expand member functions in C++
-	header2								;auto file header
-	rainbow-mode						;colorize color name in buffer
-	undo-tree							;treat undo as a tree
-	twittering-mode						;twitter client for emacs
-	htmlize								;generate html from buffer
-	puppet-mode							;mode for editing puppet files
-	
-	yaml-mode
-	exec-path-from-shell
-	thesaurus
-	emmet-mode
-	web-mode
-	ac-ispell
-	projectile helm-projectile
+    elisp-slime-nav						;Make M-. and M-, work in elisp like
+                                        ;they do in slime
+    find-file-in-project				;quickly find file in a project
+    idle-highlight-mode					;highlight the word the point is on
+    magit								;control git from emacs
+    paredit								;minor mode for editing parentheses
+    popup								;visual popup user interface
+    yasnippet							;yasnippet
+    bookmark+							;enhance built in bookmark
+    markdown-mode						;markdown mode for emacs
+    textmate							;textmate mode
+    autopair							;auto pair the brackets
+    php-mode							;php mode for emacs
+    ecb									;emacs code browser
+    member-function						;expand member functions in C++
+    header2								;auto file header
+    rainbow-mode						;colorize color name in buffer
+    undo-tree							;treat undo as a tree
+    twittering-mode						;twitter client for emacs
+    htmlize								;generate html from buffer
+    puppet-mode							;mode for editing puppet files
+    
+    yaml-mode
+    exec-path-from-shell
+    thesaurus
+    emmet-mode
+    web-mode
+    ac-ispell
+    projectile helm-projectile
 
-	;; helm
-	helm helm-swoop
+    ;; helm
+    helm helm-swoop
 
-	;; vim emulation
-	evil surround
-	
-	;; javascript
-	js2-mode ac-js2
+    ;; vim emulation
+    evil surround
+    
+    ;; javascript
+    js2-mode ac-js2
 
-	;; ido
-	ido-ubiquitous						;use ido nearly everywhere
-	smex								;M-x interface with ido style
-	ido-better-flex						;better flex algorithm for ido
+    ;; ido
+    ido-ubiquitous						;use ido nearly everywhere
+    smex								;M-x interface with ido style
+    ido-better-flex						;better flex algorithm for ido
 
-	;; clojure
-	clojure-mode cider
+    ;; clojure
+    clojure-mode cider
 
-	;; google stuffs
-	google-this google-translate
-	
-	;; Color theme
-	color-theme color-theme-solarized
+    ;; google stuffs
+    google-this google-translate
+    
+    ;; Color theme
+    color-theme color-theme-solarized
 
-	;; Dired
-	dired-details dired-details+ dired+))
+    ;; Dired
+    dired-details dired-details+ dired+))
 (dolist (p tmtxt/elpa-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -167,3 +167,9 @@
 
 ;;; clojure
 ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+
+;;; auto save file
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
