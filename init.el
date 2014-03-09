@@ -61,6 +61,7 @@
     web-mode
     ac-ispell
     projectile helm-projectile
+    flycheck
 
     ;; helm
     helm helm-swoop
