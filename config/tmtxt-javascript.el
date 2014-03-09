@@ -32,7 +32,8 @@
 ;;; requirements: nodejs, npm,
 ;;; install jshint via npm: npm install -g jshint
 (tmtxt/add-lib "jshint-mode")
-(require 'flymake-jshint)
+(tmtxt/set-up 'flymake-jshint
+  (setq jshint-configuration-path "~/.jshintrc"))
 (add-hook 'js-mode-hook
      (lambda () (flymake-mode t)))
 
