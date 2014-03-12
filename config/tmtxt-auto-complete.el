@@ -11,5 +11,9 @@
 (ac-set-trigger-key "<tab>")
 (setq ac-ignore-case nil)
 
+;;; use quick help
+(setq ac-use-quick-help t
+      ac-quick-help-delay 0.5)
+
 ;;;
 (provide 'tmtxt-auto-complete)
