@@ -11,27 +11,27 @@
 (eval-after-load 'js
   '(progn
 	 ;;; integrate paredit with js mode
-	 (define-key js-mode-map "{" 'paredit-open-curly)
-	 (define-key js-mode-map "}" 'paredit-close-curly-and-newline)
-	 (add-hook 'js-mode-hook 'tmtxt-paredit-nonlisp)
+     (define-key js-mode-map "{" 'paredit-open-curly)
+     (define-key js-mode-map "}" 'paredit-close-curly-and-newline)
+     (add-hook 'js-mode-hook 'tmtxt-paredit-nonlisp)
 
-	 ;; indent level
-	 (setq js-indent-level 2)
+     ;; indent level
+     (setq js-indent-level 2)
 
-	 ;; fixes problem with pretty function font-lock
-	 (define-key js-mode-map (kbd ",") 'self-insert-command)
+     ;; fixes problem with pretty function font-lock
+     (define-key js-mode-map (kbd ",") 'self-insert-command)
 
-	 ;; pretty symbol
-	 (font-lock-add-keywords
-	  'js-mode `(("\\(function *\\)("
-				  (0 (progn (compose-region (match-beginning 1)
-											(match-end 1) "\u0192")
-							nil)))))))
+     ;; pretty symbol
+     (font-lock-add-keywords
+      'js-mode `(("\\(function *\\)("
+                  (0 (progn (compose-region (match-beginning 1)
+                                            (match-end 1) "\u0192")
+                            nil)))))))
 
 ;;; jshint
 ;;; requirements: nodejs, npm,
 ;;; install jshint via npm: npm install -g jshint
-(tmtxt/add-lib "jshint-mode")
+;; (tmtxt/add-lib "jshint-mode")
 (tmtxt/set-up 'flycheck
   (add-hook 'js-mode-hook
             (lambda () (flycheck-mode t))))
@@ -48,7 +48,7 @@
   (let ((b (if mark-active (min (point) (mark)) (point-min)))
         (e (if mark-active (max (point) (mark)) (point-max))))
     (shell-command-on-region b e
-     "python -mjson.tool" (current-buffer) t)))
+                             "python -mjson.tool" (current-buffer) t)))
 
 ;;; key bindings
 (add-hook
@@ -64,5 +64,19 @@
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 (add-hook 'javascript-mode-hook 'moz-minor-mode)
 (add-hook 'js-mode-hook 'moz-minor-mode)
+
+;;; jsx mode
+(tmtxt/set-up 'jsx-mode
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode)))
+(flycheck-define-checker jsxhint-checker
+  "A JSX syntax and style checker based on JSXHint."
+
+  :command ("jsxhint" source)
+  :error-patterns
+  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
+  :modes (jsx-mode))
+(add-hook 'jsx-mode-hook (lambda ()
+                           (flycheck-select-checker 'jsxhint-checker)
+                           (flycheck-mode)))
 
 (provide 'tmtxt-javascript)
