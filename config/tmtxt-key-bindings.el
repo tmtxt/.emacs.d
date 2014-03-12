@@ -60,6 +60,7 @@
 	"C-m"			'newline-and-indent
   "C-M-u"		'upcase-word
   "C-M-j"		'downcase-word
+  "M-/"			'hippie-expand
 
   ;; isearch
   "C-s"			'isearch-forward-regexp
