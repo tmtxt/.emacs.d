@@ -83,11 +83,6 @@
   "s-k"					'kill-this-buffer
 	"<C-tab>"			'ido-switch-buffer
 
-	;; projectile
-	"C-x C-S-f"		'projectile-find-file
-	"C-x C-d"			'projectile-dired
-	"C-x C-S-d"		'projectile-find-dir
-
   ;; ECB
   "C-x C-;"			'ecb-activate
   "C-x C-'"			'tmtxt/ecb-deactivate
@@ -216,6 +211,13 @@
   "TAB"		'tmtxt/mark-file-name-forward
   "S-TAB"	'tmtxt/mark-file-name-backward
   "s-o"		'tmtxt/dired-do-shell-mac-open)
+
+(tmtxt/keys 'projectile
+    global-map
+  	;; projectile
+	"C-x C-S-f"		'projectile-find-file
+	"C-x C-d"			'projectile-dired
+	"C-x C-S-d"		'projectile-find-dir)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
