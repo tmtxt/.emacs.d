@@ -126,8 +126,9 @@
 (require 'tmtxt-flymake)				;flymake
 (require 'tmtxt-bookmark)				;load the bookmark and my config
 (require 'tmtxt-dired)					;dired mode config (for file management)
-(require 'tmtxt-navigation)				;navigation util
-(require 'tmtxt-editing)				;editing config
+(require 'tmtxt-navigation)     ;navigation util
+(require 'tmtxt-editing)          ;editing config
+(require 'tmtxt-auto-complete)          ;
 (require 'tmtxt-ecb)					;emacs code browser
 (require 'tmtxt-google)					;config for google stuffs
 (require 'tmtxt-desktop)				;auto save mode
