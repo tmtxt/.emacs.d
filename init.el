@@ -62,6 +62,7 @@
     ac-ispell
     projectile helm-projectile
     flycheck
+    fuzzy
 
     ;; helm
     helm helm-swoop
