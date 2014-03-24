@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : npr
+# --
+<%= $0 %>

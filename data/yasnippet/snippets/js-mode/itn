@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : itn
+# --
+req.i18n.__("$0");
