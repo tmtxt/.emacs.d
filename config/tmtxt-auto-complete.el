@@ -15,5 +15,8 @@
 (setq ac-use-quick-help t
       ac-quick-help-delay 0.5)
 
+;;; complete in string
+(delete 'font-lock-string-face ac-disable-faces)
+
 ;;;
 (provide 'tmtxt-auto-complete)
