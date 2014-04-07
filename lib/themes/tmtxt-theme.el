@@ -1,5 +1,5 @@
 (deftheme tmtxt
-  "Created 2014-02-10.")
+  "Created 2014-04-07.")
 
 (custom-theme-set-faces
  'tmtxt
@@ -246,7 +246,10 @@
  '(helm-selection ((t (:background "DarkGreen" :underline t))))
  '(diredp-file-name ((t (:foreground "Green"))))
  '(diredp-file-suffix ((t (:foreground "highlightColor"))))
+ '(bold ((t (:foreground "gray100" :weight bold))))
  '(default ((t (:foreground "#708183" :background "#042028"))))
- '(bold ((t (:foreground "gray100" :weight bold)))))
+ '(org-level-1 ((t (:inherit outline-1 :height 1.75))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.5))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.25)))))
 
 (provide-theme 'tmtxt)
