@@ -79,4 +79,7 @@
                            (flycheck-select-checker 'jsxhint-checker)
                            (flycheck-mode)))
 
+(tmtxt/set-up 'js2-refactor
+  )
+
 (provide 'tmtxt-javascript)
