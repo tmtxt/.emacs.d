@@ -88,7 +88,7 @@
     color-theme color-theme-solarized
 
     ;; Dired
-    dired-details dired-details+ dired+))
+    dired-details dired-details+ dired+ dired-rainbow))
 (dolist (p tmtxt/elpa-packages)
   (when (not (package-installed-p p))
     (package-install p)))

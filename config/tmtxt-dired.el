@@ -198,5 +198,30 @@ For MacOS only"
     (previous-line)
     (tmtxt/mark-file-name-for-rename)))
 
+;;; dired-rainbow
+;;; different color for different file type
+(tmtxt/set-up 'dired-rainbow
+  (defconst dired-audio-files-extensions
+  '("mp3" "MP3" "ogg" "OGG" "flac" "FLAC" "wav" "WAV")
+  "Dired Audio files extensions")
+
+  (defconst dired-video-files-extensions
+    '("vob" "VOB" "mkv" "MKV" "mpe" "mpg" "MPG" "mp4" "MP4" "ts" "TS" "m2ts"
+      "M2TS" "avi" "AVI" "mov" "MOV" "wmv" "asf" "m2v" "m4v" "mpeg" "MPEG" "tp")
+    "Dired Video files extensions")
+
+  (defconst dired-archive-files-extensions
+    '("rar" "zip" "tar" "gz")
+    "Dired Archive files extensions")
+
+  (defconst dired-image-files-extensions
+    '("jpg" "jpeg" "png" "gif")
+    "Dired Image files extensions")
+
+  (dired-rainbow-define audio "#329EE8" dired-audio-files-extensions)
+  (dired-rainbow-define video "#B3CCFF" dired-video-files-extensions)
+  (dired-rainbow-define archive "#F77896" dired-archive-files-extensions)
+  (dired-rainbow-define image "#E2E8F7" dired-image-files-extensions))
+
 ;;; finally provide the library
 (provide 'tmtxt-dired)
