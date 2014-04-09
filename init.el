@@ -60,7 +60,7 @@
     emmet-mode
     web-mode
     ac-ispell
-    projectile helm-projectile
+    projectile helm-projectile helm-dired-recent-dirs
     flycheck
     expand-region
 

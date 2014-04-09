@@ -25,15 +25,15 @@
   `(eval-after-load ,package
      (quote (progn
               (tmtxt/define-keys ,map
-				,@mappings)
+                ,@mappings)
               (message "Updated keymap `%s'" ',map)))))
 
 (tmtxt/undefine-keys
-	global-map
+    global-map
   '("C-M-j" "C-M-l" "C-x C-d"))
 
 (tmtxt/define-keys
-	global-map
+    global-map
   "C-c f"		'find-file-in-project
   "C-+"			'text-scale-increase
   "C--"			'text-scale-decrease
@@ -98,7 +98,7 @@
 ;;; M-j (comment-indent-new-line)
 
 (tmtxt/define-keys
-	key-translation-map
+    key-translation-map
 
   ;; ergonomic layout
   "M-i"			"C-p"
@@ -119,7 +119,7 @@
   )
 
 (tmtxt/define-keys
-	org-mode-map
+    org-mode-map
 
   ;; move meta up/down/left/right
   "C-s-j"				'org-metaleft
@@ -144,19 +144,19 @@
 
 (tmtxt/in '(darwin)
   (tmtxt/define-keys
-	  org-mode-map
-	"<C-s-268632074>"		'org-metaleft
-	"<C-s-268632076>"		'org-metaright
-	"<C-s-268632073>"		'org-metaup
-	"<C-s-268632075>"		'org-metadown
-	))
+      org-mode-map
+    "<C-s-268632074>"		'org-metaleft
+    "<C-s-268632076>"		'org-metaright
+    "<C-s-268632073>"		'org-metaup
+    "<C-s-268632075>"		'org-metadown
+    ))
 
 (tmtxt/define-keys
-	c++-mode-map
+    c++-mode-map
   "C-S-<return>"		'ac-complete-clang)
 
 (tmtxt/define-keys
-	dired-mode-map
+    dired-mode-map
   "s-b"			'tmtxt/dired-mark-backward
   "s-u"			'tmtxt/dired-do-shell-unmount-device
   "C-c C-r"		'tda/rsync
@@ -179,14 +179,14 @@
 
 (tmtxt/in '(darwin)
   (tmtxt/define-keys
-	  dired-mode-map
-	"s-o"			'tmtxt/dired-do-shell-mac-open
-	"s-O"			'tmtxt/dired-open-current-directory-in-finder
-	"C-c C-o"		'tmtxt/open-current-dir-in-terminal
-	))
+      dired-mode-map
+    "s-o"			'tmtxt/dired-do-shell-mac-open
+    "s-O"			'tmtxt/dired-open-current-directory-in-finder
+    "C-c C-o"		'tmtxt/open-current-dir-in-terminal
+    ))
 
 (tmtxt/keys 'ecb
-	ecb-mode-map
+    ecb-mode-map
   "C-M-<"			'ecb-toggle-compile-window-height
   "C-)"				'ecb-goto-window-edit1
   "C-!"				'ecb-goto-window-directories
@@ -214,12 +214,17 @@
   "S-TAB"	'tmtxt/mark-file-name-backward
   "s-o"		'tmtxt/dired-do-shell-mac-open)
 
-(tmtxt/keys 'projectile
-    global-map
+(tmtxt/set-up 'projectile
+  (tmtxt/keys 'projectile
+      global-map
   	;; projectile
-	"C-x C-S-f"		'projectile-find-file
-	"C-x C-d"			'projectile-dired
-	"C-x C-S-d"		'projectile-find-dir)
+    "C-x C-S-f"		'projectile-find-file
+    "C-x C-d"			'projectile-dired
+    "C-x C-S-d"		'projectile-find-dir))
+
+(tmtxt/keys 'helm-dired-recent-dirs
+    global-map
+  "C-c C-y"  'helm-dired-recent-dirs-view)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
@@ -229,16 +234,16 @@
 ;; This is a little hacky since VC doesn't support git add internally
 (eval-after-load 'vc
   (define-key vc-prefix-map "i"
-	'(lambda () (interactive)
-	   (if (not (eq 'Git (vc-backend buffer-file-name)))
-		   (vc-register)
-		 (shell-command (format "git add %s" buffer-file-name))
-		 (message "Staged changes.")))))
+    '(lambda () (interactive)
+       (if (not (eq 'Git (vc-backend buffer-file-name)))
+           (vc-register)
+         (shell-command (format "git add %s" buffer-file-name))
+         (message "Staged changes.")))))
 
 ;; Activate occur easily inside isearch
 (define-key isearch-mode-map (kbd "C-o")
   (lambda () (interactive)
-	(let ((case-fold-search isearch-case-fold-search))
-	  (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
+    (let ((case-fold-search isearch-case-fold-search))
+      (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
 
 (provide 'tmtxt-key-bindings)
