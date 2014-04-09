@@ -38,7 +38,7 @@
   ;; disable rainbow, whitespace, idle highlight, font lock mode
   (rainbow-mode 0)
   (whitespace-mode 0)
-  (font-lock-mode 0)
+  (font-lock-mode 1)
   (idle-highlight-mode 0)
 
   ;; indentation
