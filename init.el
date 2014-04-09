@@ -62,7 +62,7 @@
     ac-ispell
     projectile helm-projectile
     flycheck
-    fuzzy
+    expand-region
 
     ;; helm
     helm helm-swoop

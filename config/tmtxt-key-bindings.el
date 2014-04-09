@@ -91,6 +91,7 @@
   "C-'"				'tmtxt/ecb-hide-ecb-windows
 
 	"C-S-f"			'yas-expand
+  "C-="		'er/expand-region             ;expand region
   )
 
 ;;; TODO: rebind these keys
