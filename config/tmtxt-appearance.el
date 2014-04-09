@@ -6,9 +6,15 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; load my custom theme
-(setq custom-theme-directory "~/.emacs.d/lib/themes/")
-(add-to-list 'custom-theme-load-path custom-theme-directory)
-(load-theme 'tmtxt t)
+
+(if (window-system)
+    (progn
+      (setq custom-theme-directory "~/.emacs.d/lib/themes/")
+      (add-to-list 'custom-theme-load-path custom-theme-directory)
+      (load-theme 'tmtxt t))
+  (progn
+    (load-theme 'manoj-dark)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Bigger minibuffer text
@@ -81,7 +87,7 @@
 (setq whitespace-style '(face trailing lines-tail tabs))
 (show-paren-mode 1)						;highlight matching paren
 (set-default 'indicate-empty-lines t)
-										; (remove-hook 'prog-mode-hook 'idle-highlight-mode)
+                                        ; (remove-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
