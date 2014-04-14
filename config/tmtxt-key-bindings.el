@@ -243,6 +243,13 @@
   "C-M-\"" 'js2-mark-defun
   "C-M-:" 'js2-mode-toggle-hide-functions
   "C-M->" 'js2-mode-toggle-element)
+
+(tmtxt/set-up 'helm-flycheck
+  (tmtxt/keys 'flycheck
+      flycheck-mode-map
+      "C-c C-p"     'helm-flycheck))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands

@@ -63,6 +63,7 @@
     projectile helm-projectile helm-dired-recent-dirs
     flycheck
     expand-region
+    flycheck helm-flycheck
 
     ;; helm
     helm helm-swoop
