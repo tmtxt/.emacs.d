@@ -51,7 +51,6 @@
 
   ;; editing
   "C-c q"   'join-line
-  "C-M-h"   'backward-kill-word
   "C-c C-a" 'tmtxt/select-all-line
   "C-S-a"   'tmtxt/select-all-line
   "C-M-\\"  'tmtxt/indent-region-or-buffer
@@ -92,7 +91,7 @@
   "C-'"       'tmtxt/ecb-hide-ecb-windows
 
   "C-S-f"     'yas-expand
-  "C-="   'er/expand-region             ;expand region
+  "M-="   'er/expand-region             ;expand region
   )
 
 ;;; TODO: rebind these keys
@@ -125,7 +124,11 @@
   "M-O"     "C-M-f"
   "M-a"     "C-x h"
   "M-D"     "M-d"
-  "M-F"     "M-DEL")
+  "M-F"     "M-DEL"
+  "M-W"     "s-&"
+  "M-1"     "C-c C-a"
+  "M-2"     "C-x o"
+  )
 
 (tmtxt/define-keys
     org-mode-map
