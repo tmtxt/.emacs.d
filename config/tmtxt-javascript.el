@@ -22,12 +22,29 @@
      ;; fixes problem with pretty function font-lock
      (define-key js-mode-map (kbd ",") 'self-insert-command)
 
-     ;; pretty symbol
-     (font-lock-add-keywords
-      'js-mode `(("\\(function *\\)("
-                  (0 (progn (compose-region (match-beginning 1)
-                                            (match-end 1) "\u0192")
-                            nil)))))))
+     (dolist (mode '(js-mode js2-mode web-mode))
+       (font-lock-add-keywords
+        mode `(("{\\|}\\|;" . 'ublt/lisp-paren-face)
+               ("\\(function\\)"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?ƒ 'decompose-region)
+                          nil)))
+               ("\\(yi\\)eld"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?γ 'decompose-region)
+                          nil)))
+               ("yi\\(eld\\)"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?ζ 'decompose-region)
+                          nil)))
+               ("\\(ret\\)urn"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?▸ 'decompose-region)
+                          nil)))
+               ("ret\\(urn\\)"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?▸ 'decompose-region)
+                          nil))))))))
 
 ;;; jshint
 ;;; requirements: nodejs, npm,
