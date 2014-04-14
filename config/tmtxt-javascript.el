@@ -4,9 +4,10 @@
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (add-hook 'js2-mode-hook 'ac-js2-mode)
 
-;;; associate with js mode
-(add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
-
+;;; use json-mode instead of js2 for .json file
+(tmtxt/set-up 'json-mode
+  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+  (add-hook 'json-mode-hook (lambda () (tmtxt/off-fn 'js2-minor-mode))))
 
 (eval-after-load 'js
   '(progn
