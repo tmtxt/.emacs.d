@@ -223,5 +223,8 @@ For MacOS only"
   (dired-rainbow-define archive "#F77896" dired-archive-files-extensions)
   (dired-rainbow-define image "#E2E8F7" dired-image-files-extensions))
 
+;;; turn on image-dired-display-image-mode for using with helm
+(tmtxt/on-fn 'image-dired-display-image-mode)
+
 ;;; finally provide the library
 (provide 'tmtxt-dired)
