@@ -238,6 +238,11 @@
     global-map
   "C-c C-y"  'helm-dired-recent-dirs-view)
 
+(tmtxt/define-keys js2-minor-mode-map
+  "C-M-?" 'ac-js2-jump-to-definition
+  "C-M-\"" 'js2-mark-defun
+  "C-M-:" 'js2-mode-toggle-hide-functions
+  "C-M->" 'js2-mode-toggle-element)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands

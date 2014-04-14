@@ -12,8 +12,7 @@
 (eval-after-load 'js
   '(progn
 	 ;;; integrate paredit with js mode
-     (define-key js-mode-map "{" 'paredit-open-curly)
-     (define-key js-mode-map "}" 'paredit-close-curly-and-newline)
+     
      (add-hook 'js-mode-hook 'tmtxt-paredit-nonlisp)
 
      ;; indent level
@@ -67,16 +66,6 @@
         (e (if mark-active (max (point) (mark)) (point-max))))
     (shell-command-on-region b e
                              "python -mjson.tool" (current-buffer) t)))
-
-;;; key bindings
-(add-hook
- 'js-mode-hook
- (lambda ()
-   (define-key js-mode-map (kbd "M-j") 'js2-line-break)
-   (define-key js-mode-map (kbd "C-M-?") 'ac-js2-jump-to-definition)
-   (define-key js-mode-map (kbd "C-M-\"") 'js2-mark-defun)
-   (define-key js-mode-map (kbd "C-M-:") 'js2-mode-toggle-hide-functions)
-   (define-key js-mode-map (kbd "C-M->") 'js2-mode-toggle-element)))
 
 ;;; mozrepl integration
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
