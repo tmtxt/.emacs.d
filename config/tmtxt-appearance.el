@@ -72,6 +72,12 @@
      (set-face-foreground 'magit-diff-del "red3")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; nyan-mode
+(tmtxt/set-up 'nyan-mode
+  (nyan-mode 1)
+  (setq nyan-bar-length 15))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; some minor config
 (setq-default tab-width 2)
 (display-time-mode 1)					;display clock at modeline
