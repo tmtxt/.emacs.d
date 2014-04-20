@@ -67,6 +67,7 @@
     nyan-mode
     flx flx-ido
     vlf
+    ac-helm
 
     ;; helm
     helm helm-swoop

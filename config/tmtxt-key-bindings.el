@@ -248,7 +248,16 @@
 (tmtxt/set-up 'helm-flycheck
   (tmtxt/keys 'flycheck
       flycheck-mode-map
-      "C-c C-p"     'helm-flycheck))
+    "C-c C-p"     'helm-flycheck))
+
+(tmtxt/set-up 'ac-helm
+  (tmtxt/keys 'ac-helm
+      global-map
+    "C-:"        'ac-complete-with-helm)
+
+  (tmtxt/keys 'ac-helm
+      ac-complete-mode-map
+    "C-:"        'ac-complete-with-helm))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
