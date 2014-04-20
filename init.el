@@ -180,3 +180,6 @@
       `((".*" ,temporary-file-directory t)))
 
 (setq-default require-final-newline t)
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 100)

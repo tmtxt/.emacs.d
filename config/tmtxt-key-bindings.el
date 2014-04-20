@@ -39,8 +39,8 @@
   "C--"     'text-scale-decrease
   "M-%"     'query-replace-regexp
   "C-M-%"   'query-replace
-  "C-x C-i"   'imenu
-  "C-x M-f"   'ido-find-file-other-window
+  "C-x C-i" 'imenu
+  "C-x M-f" 'ido-find-file-other-window
   "C-c y"   'bury-buffer
   "C-c r"   'revert-buffer
   "C-c g"   'magit-status
@@ -64,7 +64,7 @@
 
   ;; isearch
   "C-s"     'isearch-forward-regexp
-  "\C-r"      'isearch-backward-regexp
+  "\C-r"    'isearch-backward-regexp
   "C-M-s"   'isearch-forward
   "C-M-r"   'isearch-backward
 
@@ -78,20 +78,21 @@
   "C-c b"   'org-iswitchb
 
   ;; buffer managements
-  "C-S-<tab>"     'tmtxt/switch-to-last-buffer ;OSX
-  "<C-S-iso-lefttab>" 'tmtxt/switch-to-last-buffer ;Linux
-  "C-x C-b"       'ibuffer
-  "s-k"         'kill-this-buffer
-  "<C-tab>"     'ido-switch-buffer
+  "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX
+  "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Linux
+  "C-x C-b"            'ibuffer
+  "s-k"                'kill-this-buffer
+  "<C-tab>"            'ido-switch-buffer
 
   ;; ECB
-  "C-x C-;"     'ecb-activate
-  "C-x C-'"     'tmtxt/ecb-deactivate
+  "C-x C-;"   'ecb-activate
+  "C-x C-'"   'tmtxt/ecb-deactivate
   "C-;"       'tmtxt/ecb-show-ecb-windows
   "C-'"       'tmtxt/ecb-hide-ecb-windows
 
   "C-S-f"     'yas-expand
-  "M-="   'er/expand-region             ;expand region
+  "M-="       'er/expand-region         ;expand region
+  "C-x f"     'helm-recentf
   )
 
 ;;; TODO: rebind these keys
