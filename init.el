@@ -58,7 +58,7 @@
     exec-path-from-shell
     thesaurus
     emmet-mode
-    web-mode
+    web-mode web-beautify
     ac-ispell
     projectile helm-projectile helm-dired-recent-dirs
     flycheck
