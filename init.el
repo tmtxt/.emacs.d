@@ -66,6 +66,7 @@
     flycheck helm-flycheck
     nyan-mode
     flx flx-ido
+    vlf
 
     ;; helm
     helm helm-swoop
@@ -182,8 +183,13 @@
 
 (setq-default require-final-newline t)
 
+;;; garbage collector
 (setq gc-cons-threshold 50000000)
 
+;;; recent file
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 100)
+
+;;; view large file
+(require 'vlf-integrate)
