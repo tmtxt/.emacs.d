@@ -181,6 +181,9 @@
       `((".*" ,temporary-file-directory t)))
 
 (setq-default require-final-newline t)
+
+(setq gc-cons-threshold 50000000)
+
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 100)
