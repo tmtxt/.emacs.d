@@ -65,6 +65,7 @@
     expand-region
     flycheck helm-flycheck
     nyan-mode
+    flx flx-ido
 
     ;; helm
     helm helm-swoop

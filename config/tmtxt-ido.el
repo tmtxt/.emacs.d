@@ -17,7 +17,7 @@
 ;;; Set buffer separator in the mini buffer when press C-x b (ido-switch-buffer)
 ;;; to new line instead of the character | so that it can be easy to read
 (setq ido-decorations
-	  '("\n=> " "" "\n" "" "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
+      '("\n=> " "" "\n" "" "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
 
 ;;; some config
 (setq ido-enable-prefix nil
@@ -35,6 +35,11 @@
 (when (>= emacs-major-version 24)
   (tmtxt/add-lib "ido-hacks")
   (require 'ido-hacks))
+
+;;; flx
+(tmtxt/set-up 'flx-ido
+  (flx-ido-mode 1)
+  (setq ido-use-faces nil))
 
 ;;; finally, provide the library
 (provide 'tmtxt-ido)
