@@ -6,6 +6,8 @@
 ;;; helm locate
 (tmtxt/in '(darwin)
   (setq helm-locate-command "mdfind %s %s"))
+(tmtxt/in '(gnu/linux)
+  (setq helm-locate-command "locate %s -r %s"))
 
 ;;; helm recent dir
 (tmtxt/set-up 'helm-dired-recent-dirs)
