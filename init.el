@@ -63,10 +63,9 @@
     expand-region                       ;smart region selection
     smart-forward                       ;smart par forwatd
     nyan-mode                           ;nyan cat in mode line
-    flx                                 ;fuzzy matching
-    flx-ido                             ;fuzzy matching for ido
     vlf                                 ;view large file
     projectile                          ;find file/folder in project
+    auto-complete-clang
 
     ;; helm
     helm
@@ -89,9 +88,12 @@
     tern-auto-complete
 
     ;; ido
-    ido-ubiquitous      ;use ido nearly everywhere
-    smex                ;M-x interface with ido style
-    ido-better-flex     ;better flex algorithm for ido
+    flx                                 ;fuzzy matching
+    flx-ido                             ;fuzzy matching for ido
+    ido-ubiquitous                      ;use ido nearly everywhere
+    smex                                ;M-x interface with ido style
+    ido-better-flex                     ;better flex algorithm for ido
+    ido-hacks
 
     ;; clojure
     clojure-mode
