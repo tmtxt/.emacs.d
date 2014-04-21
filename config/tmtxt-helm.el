@@ -27,5 +27,25 @@
  helm-candidate-number-limit 200
  )
 
+;;; custom helm source for quick jump
+(defun tmtxt/helm-sources ()
+  (let ((base '(helm-source-buffers-list
+                helm-source-ido-virtual-buffers
+                helm-source-files-in-current-dir
+                helm-source-pp-bookmarks
+                helm-source-recentf
+                helm-source-file-cache
+                helm-source-locate)))
+    (if (featurep 'helm-cmd-t)
+        ;; FIX
+        (condition-case nil
+            (cons (helm-cmd-t-get-create-source (helm-cmd-t-root-data)) base)
+          (error base))
+      base)))
+
+(defun tmtxt/helm ()
+  (interactive)
+  (helm-other-buffer (tmtxt/helm-sources) "*tmtxt/helm*"))
+
 ;;; finally provide the library
 (provide 'tmtxt-helm)

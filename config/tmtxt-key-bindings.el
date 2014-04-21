@@ -238,7 +238,8 @@
 (tmtxt/keys 'helm
     global-map
   "M-X"        'helm-M-x
-  "C-x f"      'helm-recentf)
+  "C-x f"      'helm-recentf
+  "<C-M-S-tab>" 'tmtxt/helm)
 
 (tmtxt/set-up 'helm-projectile
   (tmtxt/keys 'helm-projectile
