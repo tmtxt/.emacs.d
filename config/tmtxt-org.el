@@ -37,5 +37,18 @@
 (dolist (hook '(org-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
 
+;;; speed keys
+(setq org-use-speed-commands t)
+(add-to-list 'org-speed-commands-user
+             '("k" org-speed-move-safe 'outline-next-visible-heading))
+(add-to-list 'org-speed-commands-user
+             '("i" org-speed-move-safe 'outline-previous-visible-heading))
+(add-to-list 'org-speed-commands-user
+             '("l" org-speed-move-safe 'org-forward-heading-same-level))
+(add-to-list 'org-speed-commands-user
+             '("j" org-speed-move-safe 'org-backward-heading-same-level))
+
 ;;; finally, provide the library
 (provide 'tmtxt-org)
+
+
