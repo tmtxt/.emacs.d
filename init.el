@@ -67,6 +67,7 @@
     flx-ido                             ;fuzzy matching for ido
     vlf                                 ;view large file
     projectile                          ;find file/folder in project
+    auto-complete-clang
 
     ;; helm
     helm

@@ -4,9 +4,6 @@
 [submodule "lib/ido-hacks"]
 	path = lib/ido-hacks
 	url = git@github.com:scottjad/ido-hacks.git
-[submodule "lib/auto-complete-clang"]
-	path = lib/auto-complete-clang
-	url = git@github.com:brianjcj/auto-complete-clang.git
 [submodule "lib/tmtxt-async-tasks"]
 	path = lib/tmtxt-async-tasks
 	url = git@github.com:tmtxt/tmtxt-async-tasks.git
