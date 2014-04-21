@@ -31,70 +31,85 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 (defvar tmtxt/elpa-packages
-  '(auto-complete						;auto complete
-    elisp-slime-nav						;Make M-. and M-, work in elisp like
-                                        ;they do in slime
-    find-file-in-project				;quickly find file in a project
-    idle-highlight-mode					;highlight the word the point is on
-    magit								;control git from emacs
-    paredit								;minor mode for editing parentheses
-    popup								;visual popup user interface
-    yasnippet							;yasnippet
-    bookmark+							;enhance built in bookmark
-    markdown-mode						;markdown mode for emacs
-    textmate							;textmate mode
-    autopair							;auto pair the brackets
-    php-mode							;php mode for emacs
-    ecb									;emacs code browser
-    member-function						;expand member functions in C++
-    header2								;auto file header
-    rainbow-mode						;colorize color name in buffer
-    undo-tree							;treat undo as a tree
-    twittering-mode						;twitter client for emacs
-    htmlize								;generate html from buffer
-    puppet-mode							;mode for editing puppet files
-    
-    yaml-mode
-    exec-path-from-shell
-    thesaurus
-    emmet-mode
-    web-mode web-beautify
-    ac-ispell
-    projectile helm-projectile helm-dired-recent-dirs
-    flycheck
-    expand-region
-    flycheck helm-flycheck
-    nyan-mode
-    flx flx-ido
-    vlf
-    ac-helm
+  '(auto-complete                       ;auto complete
+    elisp-slime-nav                     ;Make M-. and M-, work in elisp
+    find-file-in-project                ;quickly find file in a project
+    idle-highlight-mode                 ;highlight the word the point is on
+    magit                               ;control git from emacs
+    paredit                             ;minor mode for editing parentheses
+    popup                               ;visual popup user interface
+    yasnippet                           ;yasnippet
+    bookmark+                           ;enhance built in bookmark
+    markdown-mode                       ;markdown mode for emacs
+    textmate                            ;textmate mode
+    autopair                            ;auto pair the brackets
+    php-mode                            ;php mode for emacs
+    ecb                                 ;emacs code browser
+    member-function                     ;expand member functions in C++
+    header2                             ;auto file header
+    rainbow-mode                        ;colorize color name in buffer
+    undo-tree                           ;treat undo as a tree
+    twittering-mode                     ;twitter client for emacs
+    htmlize                             ;generate html from buffer
+    puppet-mode                         ;mode for editing puppet files
+    yaml-mode                           ;yaml mode
+    exec-path-from-shell                ;copy PATH from shell
+    thesaurus                           ;thesaurus
+    emmet-mode                          ;zen coding style
+    web-mode                            ;mode for web
+    web-beautify                        ;beautify css, html, js
+    ac-ispell                           ;auto complete from ispell
+    flycheck                            ;on the fly syntax checking
+    expand-region                       ;smart region selection
+    smart-forward                       ;smart par forwatd
+    nyan-mode                           ;nyan cat in mode line
+    flx                                 ;fuzzy matching
+    flx-ido                             ;fuzzy matching for ido
+    vlf                                 ;view large file
+    projectile                          ;find file/folder in project
 
     ;; helm
-    helm helm-swoop
+    helm
+    helm-swoop
+    helm-projectile
+    ac-helm
+    helm-flycheck
+    helm-dired-recent-dirs
 
     ;; vim emulation
-    evil surround
+    evil
+    surround
     
     ;; javascript
-    js2-mode ac-js2 jsx-mode js2-refactor
-    tern tern-auto-complete
+    js2-mode
+    ac-js2
+    jsx-mode
+    js2-refactor
+    tern
+    tern-auto-complete
 
     ;; ido
-    ido-ubiquitous						;use ido nearly everywhere
-    smex								;M-x interface with ido style
-    ido-better-flex						;better flex algorithm for ido
+    ido-ubiquitous      ;use ido nearly everywhere
+    smex                ;M-x interface with ido style
+    ido-better-flex     ;better flex algorithm for ido
 
     ;; clojure
-    clojure-mode cider
+    clojure-mode
+    cider
 
     ;; google stuffs
-    google-this google-translate
+    google-this
+    google-translate
     
     ;; Color theme
-    color-theme color-theme-solarized
+    color-theme
+    color-theme-solarized
 
     ;; Dired
-    dired-details dired-details+ dired+ dired-rainbow))
+    dired-details
+    dired-details+
+    dired+
+    dired-rainbow))
 (dolist (p tmtxt/elpa-packages)
   (when (not (package-installed-p p))
     (package-install p)))
