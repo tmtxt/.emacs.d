@@ -4,7 +4,7 @@
 (desktop-save-mode 1)					;enable auto save mode
 
 ;;; maximum elements to be saved
-(setq history-length 50)
+(setq history-length 100)
 
 ;;; auto override state locks
 ;; http://www.emacswiki.org/DeskTop
@@ -25,7 +25,7 @@ Also returns nil if pid is nil."
     (setq ad-return-value nil)))
 
 ;;; specifiy buffers not to be saved
-(add-to-list 'desktop-modes-not-to-save 'dired-mode)
+;; (add-to-list 'desktop-modes-not-to-save 'dired-mode)
 (add-to-list 'desktop-modes-not-to-save 'Info-mode)
 (add-to-list 'desktop-modes-not-to-save 'info-lookup-mode)
 (add-to-list 'desktop-modes-not-to-save 'sr-mode)
