@@ -74,6 +74,7 @@
     ac-helm
     helm-flycheck
     helm-dired-recent-dirs
+    helm-descbinds
 
     ;; vim emulation
     evil
