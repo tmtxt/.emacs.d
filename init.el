@@ -66,6 +66,7 @@
     vlf                                 ;view large file
     projectile                          ;find file/folder in project
     auto-complete-clang
+    key-chord
 
     ;; helm
     helm

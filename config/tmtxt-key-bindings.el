@@ -276,6 +276,9 @@
       ac-complete-mode-map
     "C-:"        'ac-complete-with-helm))
 
+(key-chord-mode 1)
+(key-chord-define evil-emacs-state-map "jj" 'evil-normal-state)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands
