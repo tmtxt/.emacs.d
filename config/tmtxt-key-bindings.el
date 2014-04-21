@@ -45,7 +45,7 @@
   "C-c r"   'revert-buffer
   "C-c g"   'magit-status
   "C-x c"   'compile
-  "C-S-s"   'helm-swoop
+
   "M-x"     'smex
   "C-M-\""  'mark-defun
 
@@ -92,7 +92,7 @@
 
   "C-S-f"     'yas-expand
   "M-="       'er/expand-region         ;expand region
-  "C-x f"     'helm-recentf
+  
   )
 
 ;;; TODO: rebind these keys
@@ -235,6 +235,20 @@
     "C-x C-d"     'projectile-dired
     "C-x C-S-d"   'projectile-find-dir))
 
+(tmtxt/keys 'helm
+    global-map
+  "M-X"        'helm-M-x
+  "C-x f"      'helm-recentf)
+
+(tmtxt/set-up 'helm-projectile
+  (tmtxt/keys 'helm-projectile
+      global-map
+    "C-x C-S-M-f"        'helm-projectile))
+
+(tmtxt/keys 'helm-swoop
+    global-map
+  "C-S-s"        'helm-swoop)
+
 (tmtxt/keys 'helm-dired-recent-dirs
     global-map
   "C-c C-y"  'helm-dired-recent-dirs-view)
@@ -258,7 +272,6 @@
   (tmtxt/keys 'ac-helm
       ac-complete-mode-map
     "C-:"        'ac-complete-with-helm))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
