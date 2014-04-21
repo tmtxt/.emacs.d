@@ -245,9 +245,10 @@
       global-map
     "C-x C-S-M-f"        'helm-projectile))
 
-(tmtxt/keys 'helm-swoop
-    global-map
-  "C-S-s"        'helm-swoop)
+(tmtxt/set-up 'helm-swoop
+  (tmtxt/keys 'helm-swoop
+      global-map
+    "C-S-s"        'helm-swoop))
 
 (tmtxt/keys 'helm-dired-recent-dirs
     global-map
