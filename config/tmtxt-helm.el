@@ -34,8 +34,14 @@
                 helm-source-files-in-current-dir
                 helm-source-pp-bookmarks
                 helm-source-recentf
-                helm-source-file-cache
-                helm-source-locate)))
+                helm-source-file-cache)))
+
+    ;; locate source
+    (tmtxt/in '(darwin)
+      (add-to-list 'base 'helm-source-mac-spotlight))
+    (tmtxt/in '(gnu/linux)
+      (add-to-list 'base 'helm-source-locate))
+    
     (if (featurep 'helm-cmd-t)
         ;; FIX
         (condition-case nil
