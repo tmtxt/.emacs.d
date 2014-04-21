@@ -1,5 +1,3 @@
-(require 'twittering-mode)
-
 (tmtxt/set-up 'twittering-mode
   (setq twittering-status-format
 		"%i %s, %FACE[ublt-twitter-meta-face]{%@ from %f%L%r%R}\n\t%t"
