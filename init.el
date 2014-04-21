@@ -76,7 +76,8 @@
     evil surround
     
     ;; javascript
-    js2-mode ac-js2 jsx-mode
+    js2-mode ac-js2 jsx-mode js2-refactor
+    tern tern-auto-complete
 
     ;; ido
     ido-ubiquitous						;use ido nearly everywhere

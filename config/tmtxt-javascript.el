@@ -86,7 +86,14 @@
                            (flycheck-select-checker 'jsxhint-checker)
                            (flycheck-mode)))
 
-(tmtxt/set-up 'js2-refactor
-  )
+;;; tern
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
+
+;;; require js2-refactor mode
+(tmtxt/set-up 'js2-refactor)
 
 (provide 'tmtxt-javascript)
