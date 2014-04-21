@@ -243,7 +243,7 @@
  '(font-latex-sectioning-5-face ((t (:foreground "#5859b7"))))
  '(flyspell-incorrect ((t (:foreground "#c60007"))))
  '(flyspell-duplicate ((t (:foreground "#a57705"))))
- '(helm-selection ((t (:background "#EEEEEE" :foreground "#242424" :underline t))))
+ '(helm-selection ((t (:background "#EEEEEE" :foreground "#242424" :underline t :height 1.25))))
  '(diredp-file-name ((t (:foreground "Green"))))
  '(diredp-file-suffix ((t (:foreground "highlightColor"))))
  '(bold ((t (:foreground "gray100" :weight bold))))
