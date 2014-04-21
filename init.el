@@ -172,6 +172,7 @@
 (require 'tmtxt-clojure)				;config for working with clojure
 (require 'tmtxt-ruby)					;config for working with ruby
 (require 'tmtxt-grep)					;grep find
+(require 'tmtxt-evil)
 (require 'tmtxt-key-bindings)			;key bindings
 
 ;; Save positions in visited files
