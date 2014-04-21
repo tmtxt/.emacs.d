@@ -38,8 +38,7 @@
 
 ;;; flx
 (tmtxt/set-up 'flx-ido
-  (flx-ido-mode 1)
-  (setq ido-use-faces nil))
+  (flx-ido-mode 1))
 
 ;;; finally, provide the library
 (provide 'tmtxt-ido)
