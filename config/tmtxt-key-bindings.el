@@ -126,7 +126,7 @@
   "M-a"     "C-x h"
   "M-D"     "M-d"
   "M-F"     "M-DEL"
-  "M-W"     "s-&"
+  "M-W"     "s-k"
   "M-1"     "C-c C-a"
   "M-2"     "C-x o"
   )
