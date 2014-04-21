@@ -237,9 +237,10 @@
 
 (tmtxt/keys 'helm
     global-map
-  "M-X"        'helm-M-x
-  "C-x f"      'helm-recentf
-  "<C-M-S-tab>" 'tmtxt/helm)
+  "M-X"                  'helm-M-x
+  "C-x f"                'helm-recentf
+  "<C-M-S-tab>"          'tmtxt/helm
+  "<C-M-S-iso-lefttab>"  'tmtxt/helm)
 
 (tmtxt/set-up 'helm-projectile
   (tmtxt/keys 'helm-projectile
