@@ -20,4 +20,17 @@
         (evil-motion-state 1)
       (evil-normal-state 1)))
   (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state))
+
+;;; go to promt when enter insert state for repl mode
+(defun tmtxt/repl-goto-prompt ()
+  (when (member major-mode
+                '(eshell-mode
+                  sql-interactive-mode
+                  inferior-moz-mode
+                  inferior-emacs-lisp-mode
+                  inferior-lisp-mode
+                  cider-repl-mode))
+    (goto-char (point-max))))
+(add-hook 'evil-emacs-state-entry-hook 'tmtxt/repl-goto-prompt)
+
 (provide 'tmtxt-evil)
