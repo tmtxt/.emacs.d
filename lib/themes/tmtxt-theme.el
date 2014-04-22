@@ -1,5 +1,5 @@
 (deftheme tmtxt
-  "Created 2014-04-07.")
+  "Created 2014-04-22.")
 
 (custom-theme-set-faces
  'tmtxt
@@ -247,10 +247,11 @@
  '(diredp-file-name ((t (:foreground "Green"))))
  '(diredp-file-suffix ((t (:foreground "highlightColor"))))
  '(bold ((t (:foreground "gray100" :weight bold))))
- '(default ((t (:foreground "#708183" :background "#042028"))))
  '(org-level-1 ((t (:inherit outline-1 :height 2.0))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.75))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.25)))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.25))))
+ '(default ((t (:foreground "#708183" :background "#042028"))))
+ '(twittering-username-face ((t (:foreground "#259185" :inverse-video nil :underline nil :slant normal :weight normal :height 1.5)))))
 
 (provide-theme 'tmtxt)
