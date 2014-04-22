@@ -4,10 +4,12 @@
 (add-hook 'evil-insert-state-entry-hook (lambda () (evil-emacs-state 1)))
 
 ;;; default state
-(dolist (mode '(git-commit-mode))
+(dolist (mode '(git-commit-mode
+                dired-mode
+                twittering-mode))
   (add-to-list 'evil-insert-state-modes mode))
 
-(dolist (mode '(dired-mode))
+(dolist (mode '())
   (add-to-list 'evil-motion-state-modes mode))
 
 ;;; use jj to switch from insert state to normal or motion state 
