@@ -18,9 +18,15 @@
   (defun tmtxt/evil-exit-insert-state ()
     "Exit evil insert state and change to normal or motion mode"
     (interactive)
-    (if (member major-mode '(dired-mode))
-        (evil-motion-state 1)
-      (evil-normal-state 1)))
+    (cond                               ;decide which state to switch to
+     ;; switch these mode to motion state
+     ((member major-mode '(dired-mode)) (evil-motion-state 1))
+
+     ;; do nothing for these mode
+     ((member major-mode '(twittering-mode)))
+
+     ;; default switch to normal state
+     (t (evil-normal-state 1))))
   (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state))
 
 ;;; go to promt when enter insert state for repl mode
