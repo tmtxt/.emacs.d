@@ -6,7 +6,8 @@
 ;;; default state
 (dolist (mode '(git-commit-mode
                 dired-mode
-                twittering-mode))
+                twittering-mode
+                twittering-edit-mode))
   (add-to-list 'evil-insert-state-modes mode))
 
 (dolist (mode '())
@@ -63,8 +64,8 @@
       evil-visual-state-tag (propertize "« ∞ »" 'face 'tmtxt/evil-visual-tag)
       evil-motion-state-cursor '(box "YellowGreen")
       evil-normal-state-cursor '(box "YellowGreen")
-      evil-insert-state-cursor '(bar "YellowGreen")
-      evil-emacs-state-cursor '(bar "YellowGreen")
+      evil-insert-state-cursor '(bar "White")
+      evil-emacs-state-cursor '(bar "White")
       evil-visual-state-cursor '(box "#F86155"))
 
 (provide 'tmtxt-evil)
