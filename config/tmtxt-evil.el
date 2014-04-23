@@ -6,9 +6,10 @@
 ;;; default state
 (dolist (mode '(git-commit-mode
                 dired-mode
+                wdired-mode
                 twittering-mode
                 twittering-edit-mode))
-  (add-to-list 'evil-insert-state-modes mode))
+  (add-to-list 'evil-emacs-state-modes mode))
 
 (dolist (mode '())
   (add-to-list 'evil-motion-state-modes mode))
@@ -29,6 +30,8 @@
      ;; default switch to normal state
      (t (evil-normal-state 1))))
   (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state))
+
+;;; wdired specific
 
 ;;; go to promt when enter insert state for repl mode
 (defun tmtxt/repl-goto-prompt ()
