@@ -9,7 +9,8 @@
                 wdired-mode
                 twittering-mode
                 twittering-edit-mode
-                skewer-repl-mode))
+                skewer-repl-mode
+                fundamental-mode))
   (add-to-list 'evil-emacs-state-modes mode))
 
 (dolist (mode '())
