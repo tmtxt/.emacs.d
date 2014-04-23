@@ -8,7 +8,8 @@
                 dired-mode
                 wdired-mode
                 twittering-mode
-                twittering-edit-mode))
+                twittering-edit-mode
+                skewer-repl-mode))
   (add-to-list 'evil-emacs-state-modes mode))
 
 (dolist (mode '())
@@ -41,7 +42,8 @@
                   inferior-moz-mode
                   inferior-emacs-lisp-mode
                   inferior-lisp-mode
-                  cider-repl-mode))
+                  cider-repl-mode
+                  skewer-repl-mode))
     (goto-char (point-max))))
 (add-hook 'evil-emacs-state-entry-hook 'tmtxt/repl-goto-prompt)
 
