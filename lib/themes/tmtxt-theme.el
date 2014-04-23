@@ -1,5 +1,5 @@
 (deftheme tmtxt
-  "Created 2014-04-22.")
+  "Created 2014-04-23.")
 
 (custom-theme-set-faces
  'tmtxt
@@ -251,7 +251,8 @@
  '(org-level-2 ((t (:inherit outline-2 :height 1.75))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
  '(org-level-4 ((t (:inherit outline-4 :height 1.25))))
+ '(twittering-username-face ((t (:foreground "#259185" :inverse-video nil :underline nil :slant normal :weight normal :height 1.5))))
  '(default ((t (:foreground "#708183" :background "#042028"))))
- '(twittering-username-face ((t (:foreground "#259185" :inverse-video nil :underline nil :slant normal :weight normal :height 1.5)))))
+ '(helm-match ((t (:inherit match :foreground "light green")))))
 
 (provide-theme 'tmtxt)
