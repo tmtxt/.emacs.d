@@ -55,6 +55,7 @@
   (interactive)
   (helm-other-buffer (tmtxt/helm-sources) "*tmtxt/helm*"))
 
+;;; auto turn on helm follow mode
 (add-hook 'helm-before-initialize-hook
           #'(lambda ()
               (dolist (source (list helm-source-flycheck))
