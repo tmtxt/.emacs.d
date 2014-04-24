@@ -58,8 +58,10 @@
 ;;; auto turn on helm follow mode
 (add-hook 'helm-before-initialize-hook
           #'(lambda ()
-              (dolist (source (list helm-source-flycheck))
-                (helm-attrset 'follow 1 source))))
+              (dolist (source (list helm-source-flycheck
+                                    helm-source-occur))
+                (when source
+                  (helm-attrset 'follow 1 source)))))
 
 ;;; finally provide the library
 (provide 'tmtxt-helm)
