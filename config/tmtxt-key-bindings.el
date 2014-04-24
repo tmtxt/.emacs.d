@@ -190,13 +190,15 @@
   "C-o"     'dired-omit-mode
   )
 
+(tmtxt/define-keys
+    dired-mode-map
+  "s-o"     'tmtxt/dired-do-shell-open
+  "s-O"     'tmtxt/dired-open-current-directory)
+
 (tmtxt/in '(darwin)
   (tmtxt/define-keys
       dired-mode-map
-    "s-o"     'tmtxt/dired-do-shell-mac-open
-    "s-O"     'tmtxt/dired-open-current-directory-in-finder
-    "C-c C-o"   'tmtxt/open-current-dir-in-terminal
-    ))
+    "C-c C-o"   'tmtxt/open-current-dir-in-terminal))
 
 (tmtxt/keys 'ecb
     ecb-mode-map

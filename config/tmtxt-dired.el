@@ -27,8 +27,11 @@
 ;;; delete files by moving to the folder emacs in Trash folder
 ;;; this path is for MacOS users
 ;;; for other os, just set the correct path of the trash
-(setq delete-by-moving-to-trash t
-      trash-directory "~/.Trash/emacs")
+(setq delete-by-moving-to-trash t)
+(tmtxt/in '(darwin)
+  (setq trash-directory "~/.Trash/emacs"))
+(tmtxt/in '(gnu/linux)
+  (setq trash-directory "~/.local/share/Trash/files/emacs"))
 
 ;;; mark file and then move the cursor back
 ;;; different from the built in dired-mark
@@ -45,19 +48,21 @@
 ;;; Mac OS
 ;;; open file/marked files by default program in mac
 ;;; http://blog.nguyenvq.com/2009/12/01/file-management-emacs-dired-to-replace-finder-in-mac-os-x-and-other-os/
-(tmtxt/in '(darwin)
-  (defun tmtxt/dired-do-shell-mac-open ()
-    (interactive)
-    (save-window-excursion
-      (let ((files (dired-get-marked-files nil current-prefix-arg))
-            command)
-        ;; the open command
-        (setq command "open ")
-        (dolist (file files)
-          (setq command (concat command (shell-quote-argument file) " ")))
-        (message command)
-        ;; execute the command
-        (async-shell-command command)))))
+(defun tmtxt/dired-do-shell-open ()
+  (interactive)
+  (save-window-excursion
+    (let ((files (dired-get-marked-files nil current-prefix-arg))
+          command)
+      ;; the open command
+      (tmtxt/in '(darwin)
+        (setq command "open "))
+      (tmtxt/in '(gnu/linux)
+        (setq command "xdg-open "))
+      (dolist (file files)
+        (setq command (concat command (shell-quote-argument file) " ")))
+      (message command)
+      ;; execute the command
+      (async-shell-command command))))
 
 ;;; this is for MacOS only
 ;;; Show the Finder's Get Info window
@@ -92,13 +97,16 @@
 ;;; can apply to other buffer type (not only dired)
 ;;; in that case, calling this function will cause Finder to open the directory
 ;;; that contains the current open file in that buffer
-(tmtxt/in '(darwin)
-  (defun tmtxt/dired-open-current-directory-in-finder ()
-    "Open the current directory in Finder"
-    (interactive)
-    (save-window-excursion
+(defun tmtxt/dired-open-current-directory ()
+  "Open the current directory in Finder"
+  (interactive)
+  (save-window-excursion
+    (tmtxt/in '(darwin)
       (async-shell-command
-       "open ."))))
+       "open ."))
+    (tmtxt/in '(gnu/linux)
+      (async-shell-command
+       "xdg-open ."))))
 
 ;;; hide details
 (tmtxt/set-up 'dired-details+
@@ -202,8 +210,8 @@ For MacOS only"
 ;;; different color for different file type
 (tmtxt/set-up 'dired-rainbow
   (defconst dired-audio-files-extensions
-  '("mp3" "MP3" "ogg" "OGG" "flac" "FLAC" "wav" "WAV")
-  "Dired Audio files extensions")
+    '("mp3" "MP3" "ogg" "OGG" "flac" "FLAC" "wav" "WAV")
+    "Dired Audio files extensions")
 
   (defconst dired-video-files-extensions
     '("vob" "VOB" "mkv" "MKV" "mpe" "mpg" "MPG" "mp4" "MP4" "ts" "TS" "m2ts"
