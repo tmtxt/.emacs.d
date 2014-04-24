@@ -23,7 +23,7 @@
 
      (dolist (mode '(js-mode js2-mode web-mode))
        (font-lock-add-keywords
-        mode `(("{\\|}\\|;" . 'ublt/lisp-paren-face)
+        mode `(
                ("\\(function\\)"
                 (0 (progn (compose-region (match-beginning 1) (match-end 1)
                                           ?ƒ 'decompose-region)
