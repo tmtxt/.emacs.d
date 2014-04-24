@@ -61,7 +61,7 @@
     ac-ispell                           ;auto complete from ispell
     flycheck                            ;on the fly syntax checking
     expand-region                       ;smart region selection
-    smart-forward                       ;smart par forwatd
+    smart-forward                       ;smart par forward
     nyan-mode                           ;nyan cat in mode line
     vlf                                 ;view large file
     projectile                          ;find file/folder in project
@@ -215,3 +215,5 @@
 
 ;;; view large file
 (require 'vlf-integrate)
+
+(server-start)
