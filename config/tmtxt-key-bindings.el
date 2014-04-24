@@ -45,6 +45,7 @@
   "C-c r"   'revert-buffer
   "C-c g"   'magit-status
   "C-x c"   'compile
+  "M-:"     'comment-dwim
 
   "M-x"     'smex
   "C-M-\""  'mark-defun

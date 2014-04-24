@@ -79,6 +79,7 @@
 
     ;; vim emulation
     evil
+    evil-nerd-commenter
     surround
     
     ;; javascript

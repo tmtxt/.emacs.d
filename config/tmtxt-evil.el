@@ -37,8 +37,6 @@
      (t (evil-normal-state 1))))
   (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state))
 
-;;; wdired specific
-
 ;;; go to promt when enter insert state for repl mode
 (defun tmtxt/repl-goto-prompt ()
   (when (member major-mode
@@ -77,5 +75,8 @@
       evil-insert-state-cursor '(bar "White")
       evil-emacs-state-cursor '(bar "White")
       evil-visual-state-cursor '(box "#F86155"))
+
+(tmtxt/set-up 'evil-nerd-commenter
+  (evilnc-default-hotkeys))
 
 (provide 'tmtxt-evil)
