@@ -55,5 +55,10 @@
   (interactive)
   (helm-other-buffer (tmtxt/helm-sources) "*tmtxt/helm*"))
 
+(add-hook 'helm-before-initialize-hook
+          #'(lambda ()
+              (dolist (source (list helm-source-flycheck))
+                (helm-attrset 'follow 1 source))))
+
 ;;; finally provide the library
 (provide 'tmtxt-helm)
