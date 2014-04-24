@@ -280,6 +280,18 @@
     evil-motion-state-map
   "i"        'evil-insert-state)
 
+(tmtxt/set-up 'smart-forward
+  (tmtxt/keys 'smart-forward
+      global-map
+    "C-M-S-l"        'smart-forward
+    "C-M-S-j"        'smart-backward
+    "C-M-S-i"        'smart-up
+    "C-M-S-k"        'smart-down))
+
+(tmtxt/keys 'moz
+    moz-minor-mode-map
+  "C-c C-q"        'moz-send-region)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands
