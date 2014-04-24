@@ -10,11 +10,15 @@
                 twittering-mode
                 twittering-edit-mode
                 skewer-repl-mode
-                fundamental-mode))
+                fundamental-mode
+                inferior-moz-mode))
   (add-to-list 'evil-emacs-state-modes mode))
 
 (dolist (mode '())
   (add-to-list 'evil-motion-state-modes mode))
+
+(dolist (mode '(Info-mode))
+  (add-to-list 'evil-normal-state-modes mode))
 
 ;;; use jj to switch from insert state to normal or motion state 
 (tmtxt/set-up 'key-chord
