@@ -1,7 +1,9 @@
 (evil-mode 1)
 
 ;;; not use evil insert state, prefer emacs state
-(add-hook 'evil-insert-state-entry-hook (lambda () (evil-emacs-state 1)))
+(add-hook 'evil-insert-state-entry-hook (lambda ()
+                                          (evil-insert-state 0)
+                                          (evil-emacs-state 1)))
 
 ;;; default state
 (dolist (mode '(git-commit-mode
@@ -11,7 +13,8 @@
                 twittering-edit-mode
                 skewer-repl-mode
                 fundamental-mode
-                inferior-moz-mode))
+                inferior-moz-mode
+                sql-interactive-mode))
   (add-to-list 'evil-emacs-state-modes mode))
 
 (dolist (mode '())
