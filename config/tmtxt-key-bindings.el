@@ -45,7 +45,8 @@
   "C-c r"   'revert-buffer
   "C-c g"   'magit-status
   "C-x c"   'compile
-  "M-:"     'comment-dwim
+  "M-;"     'comment-dwim
+  "M-:"     'evilnc-comment-or-uncomment-lines
 
   "M-x"     'smex
   "C-M-\""  'mark-defun
@@ -228,7 +229,7 @@
 (tmtxt/keys 'wdired wdired-mode-map
   "TAB"   'tmtxt/mark-file-name-forward
   "S-TAB" 'tmtxt/mark-file-name-backward
-  "s-o"   'tmtxt/dired-do-shell-mac-open)
+  "s-o"   'tmtxt/dired-do-shell-open)
 
 (tmtxt/set-up 'projectile
   (tmtxt/keys 'projectile
