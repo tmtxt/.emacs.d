@@ -10,7 +10,7 @@
   (setq helm-locate-command "locate %s -r %s"))
 
 ;;; helm recent dir
-(tmtxt/set-up 'helm-dired-recent-dirs)
+;(tmtxt/set-up 'helm-dired-recent-dirs)
 
 ;;; helm desc bind
 (tmtxt/set-up 'helm-descbinds
