@@ -82,16 +82,20 @@
   :error-patterns
   ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
   :modes (jsx-mode))
-(add-hook 'jsx-mode-hook (lambda ()
-                           (flycheck-select-checker 'jsxhint-checker)
-                           (flycheck-mode)))
+(add-hook 'jsx-mode-hook
+          (lambda ()
+            ;; enable flycheck
+            (flycheck-select-checker 'jsxhint-checker)
+            (flycheck-mode)
+            ;; auto complete
+            (auto-complete-mode 1)))
 
 ;;; tern
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 (eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
 
 ;;; require js2-refactor mode
 (tmtxt/set-up 'js2-refactor)
