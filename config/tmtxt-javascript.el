@@ -9,42 +9,6 @@
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
   (add-hook 'json-mode-hook (lambda () (tmtxt/off-fn 'js2-minor-mode))))
 
-(eval-after-load 'js
-  '(progn
-	 ;;; integrate paredit with js mode
-     
-     (add-hook 'js-mode-hook 'tmtxt-paredit-nonlisp)
-
-     ;; indent level
-     (setq js-indent-level 2)
-
-     ;; fixes problem with pretty function font-lock
-     (define-key js-mode-map (kbd ",") 'self-insert-command)
-
-     (dolist (mode '(js-mode js2-mode web-mode))
-       (font-lock-add-keywords
-        mode `(
-               ("\\(function\\)"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?ƒ 'decompose-region)
-                          nil)))
-               ("\\(yi\\)eld"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?γ 'decompose-region)
-                          nil)))
-               ("yi\\(eld\\)"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?ζ 'decompose-region)
-                          nil)))
-               ("\\(ret\\)urn"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?▸ 'decompose-region)
-                          nil)))
-               ("ret\\(urn\\)"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?▸ 'decompose-region)
-                          nil))))))))
-
 ;;; jshint
 ;;; requirements: nodejs, npm,
 ;;; install jshint via npm: npm install -g jshint
@@ -74,7 +38,8 @@
 
 ;;; jsx mode
 (tmtxt/set-up 'jsx-mode
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode)))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+  (setq jsx-indent-level 2))
 (flycheck-define-checker jsxhint-checker
   "A JSX syntax and style checker based on JSXHint."
 
@@ -89,6 +54,42 @@
             (flycheck-mode)
             ;; auto complete
             (auto-complete-mode 1)))
+
+(eval-after-load 'js
+  '(progn
+	 ;;; integrate paredit with js mode
+     
+     (add-hook 'js-mode-hook 'tmtxt-paredit-nonlisp)
+
+     ;; indent level
+     (setq js-indent-level 2)
+
+     ;; fixes problem with pretty function font-lock
+     (define-key js-mode-map (kbd ",") 'self-insert-command)
+
+     (dolist (mode '(js-mode js2-mode web-mode jsx-mode))
+       (font-lock-add-keywords
+        mode `(
+               ("\\(function\\)"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?ƒ 'decompose-region)
+                          nil)))
+               ("\\(yi\\)eld"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?γ 'decompose-region)
+                          nil)))
+               ("yi\\(eld\\)"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?ζ 'decompose-region)
+                          nil)))
+               ("\\(ret\\)urn"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?▸ 'decompose-region)
+                          nil)))
+               ("ret\\(urn\\)"
+                (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                          ?▸ 'decompose-region)
+                          nil))))))))
 
 ;;; tern
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
