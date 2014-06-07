@@ -176,6 +176,7 @@
 (require 'tmtxt-grep)					;grep find
 (require 'tmtxt-evil)
 (require 'tmtxt-sql)
+(require 'tmtxt-git)
 (require 'tmtxt-key-bindings)			;key bindings
 
 ;; Save positions in visited files
