@@ -86,6 +86,7 @@
     ac-js2
     jsx-mode
     js2-refactor
+    react-snippets
     tern
     tern-auto-complete
 
