@@ -264,7 +264,11 @@
   "C-M-?" 'ac-js2-jump-to-definition
   "C-M-\"" 'js2-mark-defun
   "C-M-:" 'js2-mode-toggle-hide-functions
-  "C-M->" 'js2-mode-toggle-element)
+  "C-M->" 'js2-mode-toggle-element
+  "C-t"  'tmtxt/delete-tern-process)
+
+(tmtxt/define-keys jsx-mode-map
+  "C-t"  'tmtxt/delete-tern-process)
 
 (tmtxt/set-up 'helm-flycheck
   (tmtxt/keys 'flycheck

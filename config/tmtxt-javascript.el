@@ -97,6 +97,10 @@
      (require 'tern-auto-complete)
      (tern-ac-setup)))
 
+(defun tmtxt/delete-tern-process ()
+  (interactive)
+  (delete-process "Tern"))
+
 ;;; require js2-refactor mode
 (tmtxt/set-up 'js2-refactor)
 
