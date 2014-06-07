@@ -39,7 +39,9 @@
 
      ;; default switch to normal state
      (t (evil-normal-state 1))))
-  (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state))
+  (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state)
+  ;; (key-chord-define evil-insert-state-map "jj" 'tmtxt/evil-exit-insert-state)
+  )
 
 ;;; go to promt when enter insert state for repl mode
 (defun tmtxt/repl-goto-prompt ()
