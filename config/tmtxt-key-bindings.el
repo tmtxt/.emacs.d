@@ -267,9 +267,6 @@
   "C-M->" 'js2-mode-toggle-element
   "C-t"  'tmtxt/delete-tern-process)
 
-(tmtxt/define-keys jsx-mode-map
-  "C-t"  'tmtxt/delete-tern-process)
-
 (tmtxt/set-up 'helm-flycheck
   (tmtxt/keys 'flycheck
       flycheck-mode-map

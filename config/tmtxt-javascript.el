@@ -36,24 +36,47 @@
 (add-hook 'javascript-mode-hook 'moz-minor-mode)
 (add-hook 'js-mode-hook 'moz-minor-mode)
 
-;;; jsx mode
-(tmtxt/set-up 'jsx-mode
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-  (setq jsx-indent-level 2))
+;;; tern
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
+
+(defun tmtxt/delete-tern-process ()
+  (interactive)
+  (delete-process "Tern"))
+
+;;; jsx-mode on melpa
+;; (tmtxt/set-up 'jsx-mode
+;;   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+;;   (setq jsx-indent-level 2))
+
+;;; enable web mode and highlighting
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(defadvice web-mode-highlight-part (around tweak-jsx activate)
+  (if (equal web-mode-content-type "jsx")
+      (let ((web-mode-enable-part-face nil))
+        ad-do-it)
+    ad-do-it))
+
+;;;
 (flycheck-define-checker jsxhint-checker
   "A JSX syntax and style checker based on JSXHint."
 
   :command ("jsxhint" source)
   :error-patterns
   ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (jsx-mode))
-(add-hook 'jsx-mode-hook
+  :modes (web-mode))
+(add-hook 'web-mode-hook
           (lambda ()
-            ;; enable flycheck
-            (flycheck-select-checker 'jsxhint-checker)
-            (flycheck-mode)
-            ;; auto complete
-            (auto-complete-mode 1)))
+            (when (equal web-mode-content-type "jsx")
+              ;; enable flycheck
+              (flycheck-select-checker 'jsxhint-checker)
+              (flycheck-mode)
+              ;; auto complete
+              (auto-complete-mode 1)
+              (tern-mode t))))
 
 (eval-after-load 'js
   '(progn
@@ -67,7 +90,7 @@
      ;; fixes problem with pretty function font-lock
      (define-key js-mode-map (kbd ",") 'self-insert-command)
 
-     (dolist (mode '(js-mode js2-mode web-mode jsx-mode))
+     (dolist (mode '(js-mode js2-mode web-mode))
        (font-lock-add-keywords
         mode `(
                ("\\(function\\)"
@@ -91,17 +114,7 @@
                                           ?▸ 'decompose-region)
                           nil))))))))
 
-;;; tern
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
-(add-hook 'jsx-mode-hook (lambda () (tern-mode t)))
-(eval-after-load 'tern
-  '(progn
-     (require 'tern-auto-complete)
-     (tern-ac-setup)))
 
-(defun tmtxt/delete-tern-process ()
-  (interactive)
-  (delete-process "Tern"))
 
 ;;; require js2-refactor mode
 (tmtxt/set-up 'js2-refactor)
