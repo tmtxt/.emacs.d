@@ -215,7 +215,7 @@ For MacOS only"
 
   (defconst dired-video-files-extensions
     '("vob" "VOB" "mkv" "MKV" "mpe" "mpg" "MPG" "mp4" "MP4" "ts" "TS" "m2ts"
-      "M2TS" "avi" "AVI" "mov" "MOV" "wmv" "asf" "m2v" "m4v" "mpeg" "MPEG" "tp")
+      "M2TS" "avi" "AVI" "mov" "MOV" "wmv" "asf" "m2v" "m4v" "mpeg" "MPEG" "tp" "webm" "WEBM")
     "Dired Video files extensions")
 
   (defconst dired-archive-files-extensions
