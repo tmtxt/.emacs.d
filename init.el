@@ -218,5 +218,3 @@
 
 ;;; view large file
 (require 'vlf-integrate)
-
-(server-start)
