@@ -31,6 +31,7 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.xml?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 
 ;;; disable rainbow-mode and whitespace-mode when use web-mode
 (defun web-mode-hook ()
@@ -71,7 +72,10 @@
   ;; set faces
   (set-face-attribute 'web-mode-doctype-face nil :foreground "#CB4B16" :bold t)
   (set-face-attribute 'web-mode-html-tag-face nil :foreground "#859900" :bold t)
-  (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "DodgerBlue3"))
+  (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "DodgerBlue3")
+
+  ;; auto complete and tern
+  (auto-complete-mode 1))
 (add-hook 'web-mode-hook 'web-mode-hook)
 
 ;;; indentation
