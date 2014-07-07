@@ -120,4 +120,7 @@
 ;;; require js2-refactor mode
 (tmtxt/set-up 'js2-refactor)
 
+;;; enable hide/show
+(add-hook 'js-mode-hook (lambda () (hs-minor-mode 1)))
+
 (provide 'tmtxt-javascript)
