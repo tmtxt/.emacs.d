@@ -67,6 +67,7 @@
     projectile                          ;find file/folder in project
     auto-complete-clang
     key-chord
+    less-css-mode
 
     ;; helm
     helm
@@ -90,6 +91,8 @@
     react-snippets
     tern
     tern-auto-complete
+    html-script-src
+    coffee-mode
 
     ;; ido
     flx                                 ;fuzzy matching
