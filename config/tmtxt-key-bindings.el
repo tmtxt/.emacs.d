@@ -220,6 +220,7 @@
   "C-c C-;"   'hs-hide-all
   "C-c C-'"   'hs-show-all
   "C-c C-l"   'hs-hide-level
+  "C-S-r"     'hs-toggle-hiding
   )
 
 (tmtxt/define-keys
