@@ -213,9 +213,11 @@
 (setq gc-cons-threshold 50000000)
 
 ;;; recent file
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-menu-items 100)
+;; (require 'recentf)
+;; (recentf-mode 1)
+;; (setq recentf-max-menu-items 100)
 
 ;;; view large file
 (require 'vlf-integrate)
+
+(setq debug-on-error t)
