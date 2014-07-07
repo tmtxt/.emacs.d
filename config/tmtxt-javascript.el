@@ -7,7 +7,8 @@
 ;;; use json-mode instead of js2 for .json file
 (tmtxt/set-up 'json-mode
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
-  (add-hook 'json-mode-hook (lambda () (tmtxt/off-fn 'js2-minor-mode))))
+  (add-hook 'json-mode-hook (lambda () (js2-minor-mode-exit)
+                              (js2-mode-exit))))
 
 ;;; jshint
 ;;; requirements: nodejs, npm,

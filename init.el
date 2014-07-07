@@ -82,6 +82,7 @@
     surround
     
     ;; javascript
+    json-mode
     js2-mode
     ac-js2
     jsx-mode
