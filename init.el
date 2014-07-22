@@ -165,12 +165,12 @@
 (require 'tmtxt-desktop)				;auto save mode
 (require 'tmtxt-org)					;org mode config
 (require 'tmtxt-appearance)				;how my emacs appears
-(require 'tmtxt-php)					;config for php coding
 (require 'tmtxt-cc)						;config for cc-mode
 (require 'tmtxt-buffers-management)		;config for managing buffer
 (require 'tmtxt-shell)					;config for shell
 (require 'tmtxt-javascript)				;config for js development
 (require 'tmtxt-web)					;config for web development
+(require 'tmtxt-php)					;config for php coding
 (require 'tmtxt-helm)					;config for helm
 (require 'tmtxt-markdown)				;config for markdown
 (require 'tmtxt-twitter)				;config for twitter
