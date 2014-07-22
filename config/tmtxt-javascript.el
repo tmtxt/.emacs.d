@@ -38,7 +38,7 @@
 (add-hook 'js-mode-hook 'moz-minor-mode)
 
 ;;; tern
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 (eval-after-load 'tern
   '(progn
      (require 'tern-auto-complete)
@@ -77,7 +77,8 @@
               (flycheck-mode)
               ;; auto complete
               (auto-complete-mode 1)
-              (tern-mode t))))
+              ;; (tern-mode t)
+              )))
 
 (eval-after-load 'js
   '(progn
