@@ -32,6 +32,12 @@
     global-map
   '("C-M-j" "C-M-l" "C-x C-d"))
 
+(tmtxt/set-up 'paredit
+  (tmtxt/undefine-keys
+      paredit-mode-map
+    '("C-j")))
+
+
 (tmtxt/define-keys
     global-map
   "C-c f"   'find-file-in-project
@@ -131,6 +137,7 @@
   "M-W"     "s-k"
   "M-1"     "C-c C-a"
   "M-2"     "C-x o"
+  "M-m"     "C-m"
   )
 
 (tmtxt/define-keys
@@ -297,6 +304,10 @@
 (tmtxt/keys 'moz
     moz-minor-mode-map
   "C-c C-q"        'moz-send-region)
+
+(tmtxt/define-keys comint-mode-map
+  "C-M-i"    'comint-previous-matching-input-from-input
+  "C-M-k"    'comint-next-matching-input-from-input)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
