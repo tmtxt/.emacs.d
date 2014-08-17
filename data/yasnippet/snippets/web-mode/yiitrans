@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+#name : yiitrans
+# --
+$transaction = Yii::app()->db->beginTransaction();
+try {
+    $0
+
+    // Success, commit
+    $transaction->commit();
+} catch (Exception $e) {
+    // Error, rollback
+    $transaction->rollback();
+    Yii::log(print_r($e->getMessage(), true), 'debug');
+}

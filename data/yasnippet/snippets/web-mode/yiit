@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : yiit
+# --
+Yii::t('app', '${1:text}')$0

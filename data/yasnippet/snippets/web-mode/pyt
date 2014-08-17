@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : pyt
+# --
+<?= Yii::t('app', '${1:Text}') ?>$0
