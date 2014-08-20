@@ -134,6 +134,12 @@ user."
 (add-hook 'markdown-mode-hook 'my/enable-ac-ispell)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; misc for prog mode
+(defun tmtxt/edit-before-save-prog ()
+  (delete-trailing-whitespace)
+  (tmtxt-untabify-buffer))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Some minor config
 (delete-selection-mode 1)				;delete selection mode
 (setq next-line-add-newlines t)			;auto new line

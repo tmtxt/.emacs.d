@@ -16,6 +16,9 @@ See URL `http://php.net/manual/en/features.commandline.php'."
   ;; enable web mode
   (web-mode)
 
+  ;; delete trailing whitespace
+  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
+
   ;; indentation
   (make-local-variable 'web-mode-code-indent-offset)
   (make-local-variable 'web-mode-markup-indent-offset)
