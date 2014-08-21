@@ -137,7 +137,8 @@ user."
 ;;; misc for prog mode
 (defun tmtxt/edit-before-save-prog ()
   (delete-trailing-whitespace)
-  (tmtxt-untabify-buffer))
+  ;; (tmtxt-untabify-buffer)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Some minor config
