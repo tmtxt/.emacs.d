@@ -38,7 +38,13 @@ See URL `http://php.net/manual/en/features.commandline.php'."
 
   ;; flycheck
   (flycheck-select-checker 'tmtxt-php)
-  (flycheck-mode t))
+  (flycheck-mode t)
+
+  ;; auto complete
+  (add-to-list 'web-mode-ac-sources-alist
+               '("php" ac-source-words-in-buffer
+                 ac-source-words-in-same-mode-buffers
+                 ac-source-dictionary)))
 
 ;;; auto enable php mode for .php and .inc files
 (add-to-list 'auto-mode-alist '("\\.php$" . tmtxt/setup-php))

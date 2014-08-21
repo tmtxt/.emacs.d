@@ -75,7 +75,15 @@
   (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "DodgerBlue3")
 
   ;; auto complete and tern
-  (auto-complete-mode 1))
+  (auto-complete-mode 1)
+  (if web-mode-ac-sources-alist
+    (progn
+      (add-to-list 'web-mode-ac-sources-alist '("css" . (ac-source-words-in-buffer ac-source-css-property)))
+      (add-to-list 'web-mode-ac-sources-alist '("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+  (setq web-mode-ac-sources-alist
+        '(("css" . (ac-source-words-in-buffer ac-source-css-property))
+          ("html" . (ac-source-words-in-buffer ac-source-abbrev)))))
+)
 (add-hook 'web-mode-hook 'web-mode-hook)
 
 ;;; indentation
