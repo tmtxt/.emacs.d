@@ -37,7 +37,6 @@
       paredit-mode-map
     '("C-j")))
 
-
 (tmtxt/define-keys
     global-map
   "C-c f"   'find-file-in-project
@@ -100,7 +99,7 @@
 
   "C-S-f"     'yas-expand
   "M-="       'er/expand-region         ;expand region
-  
+  "C-M-S-s"   'tmtxt/sql-connect-server
   )
 
 ;;; TODO: rebind these keys
