@@ -45,4 +45,15 @@
   (setq sql-product product)
   (sql-connect connection))
 
+(defvar tmtxt/sql-servers-list
+  '(("Icon Dev" tmtxt/sql-icon-dev)
+    ("Mooc Dev" tmtxt/sql-mooc-dev))
+  "Alist of server name and the function to connect")
+
+(defun tmtxt/sql-connect-server (func)
+  "Connect to the input server using tmtxt/sql-servers-list"
+  (interactive
+   (helm-comp-read "Select server: " tmtxt/sql-servers-list))
+  (funcall func))
+
 (provide 'tmtxt-sql)
