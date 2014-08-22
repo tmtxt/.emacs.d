@@ -21,11 +21,9 @@
                   (sql-database "icon"))))
 
 (defun tmtxt/sql-icon-dev ()
-  (interactive)
   (tmtxt/sql-connect 'postgres 'icon.dev))
 
 (defun tmtxt/sql-mooc-dev ()
-  (interactive)
   (tmtxt/sql-connect 'postgres 'mooc.dev))
 
 (defun tmtxt/sql-connect (product connection)
@@ -35,7 +33,7 @@
   ;; update the password to the sql-connection-alist
   (let ((connection-info (assoc connection sql-connection-alist))
         (sql-password (car (last (assoc connection tmtxt-sql-password))))
-        new-connection-alist)
+        new-name)
     (delete sql-password connection-info)
     (nconc connection-info `((sql-password ,sql-password)))
     (setq sql-connection-alist (assq-delete-all connection sql-connection-alist))
@@ -43,7 +41,9 @@
 
   ;; connect to database
   (setq sql-product product)
-  (sql-connect connection))
+  (if current-prefix-arg
+      (sql-connect connection new-name)
+    (sql-connect connection)))
 
 (defvar tmtxt/sql-servers-list
   '(("Icon Dev" tmtxt/sql-icon-dev)
