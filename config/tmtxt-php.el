@@ -40,6 +40,9 @@ See URL `http://php.net/manual/en/features.commandline.php'."
   (flycheck-select-checker 'tmtxt-php)
   (flycheck-mode t)
 
+  ;; fill column
+  (setq fill-column 500)
+
   ;; auto complete
   (add-to-list 'web-mode-ac-sources-alist
                '("php" ac-source-words-in-buffer
