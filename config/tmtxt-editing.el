@@ -152,6 +152,7 @@ user."
 (setq shift-select-mode nil)			;not use shift to select
 (setq mouse-yank-at-point t)
 (setq whitespace-line-column 80)
+(global-subword-mode t)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;;; finally provide the library
