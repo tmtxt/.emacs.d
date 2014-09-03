@@ -32,8 +32,7 @@
 
   ;; update the password to the sql-connection-alist
   (let ((connection-info (assoc connection sql-connection-alist))
-        (sql-password (car (last (assoc connection tmtxt-sql-password))))
-        new-name)
+        (sql-password (car (last (assoc connection tmtxt-sql-password)))))
     (delete sql-password connection-info)
     (nconc connection-info `((sql-password ,sql-password)))
     (setq sql-connection-alist (assq-delete-all connection sql-connection-alist))
@@ -42,7 +41,7 @@
   ;; connect to database
   (setq sql-product product)
   (if current-prefix-arg
-      (sql-connect connection new-name)
+      (sql-connect connection connection)
     (sql-connect connection)))
 
 (defvar tmtxt/sql-servers-list
