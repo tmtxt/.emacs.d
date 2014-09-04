@@ -68,6 +68,9 @@
     auto-complete-clang
     key-chord
     less-css-mode
+    hungry-delete
+    sql-indent
+    sqlup-mode
 
     ;; helm
     helm

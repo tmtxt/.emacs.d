@@ -309,6 +309,10 @@
   "C-M-i"    'comint-previous-matching-input-from-input
   "C-M-k"    'comint-next-matching-input-from-input)
 
+(tmtxt/set-up 'sql-indent
+  (tmtxt/define-keys sql-mode-map
+    "C-M-\\"  'sql-indent-buffer))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands

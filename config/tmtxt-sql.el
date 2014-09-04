@@ -55,4 +55,9 @@
    (helm-comp-read "Select server: " tmtxt/sql-servers-list))
   (funcall func))
 
+;;; sql up mode
+(tmtxt/set-up 'sqlup-mode
+  (add-hook 'sql-mode-hook 'sqlup-mode)
+  (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
+
 (provide 'tmtxt-sql)
