@@ -293,6 +293,10 @@
     evil-motion-state-map
   "i"        'evil-insert-state)
 
+(tmtxt/keys 'evil
+    evil-emacs-state-map
+  "M-q"        'tmtxt/evil-exit-insert-state)
+
 (tmtxt/set-up 'smart-forward
   (tmtxt/keys 'smart-forward
       global-map

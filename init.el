@@ -85,6 +85,7 @@
     evil
     evil-nerd-commenter
     surround
+    evil-matchit
     
     ;; javascript
     json-mode

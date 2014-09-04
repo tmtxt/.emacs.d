@@ -2,7 +2,7 @@
 
 ;;; not use evil insert state, prefer emacs state
 (add-hook 'evil-insert-state-entry-hook (lambda ()
-                                          (evil-insert-state 0)
+                                          (evil-exit-emacs-state)
                                           (evil-emacs-state 1)))
 
 ;;; default state
@@ -27,6 +27,7 @@
 ;;; use jj to switch from insert state to normal or motion state 
 (tmtxt/set-up 'key-chord
   (key-chord-mode 1)
+  (setq key-chord-one-key-delay 0.5)
   (defun tmtxt/evil-exit-insert-state ()
     "Exit evil insert state and change to normal or motion mode"
     (interactive)
@@ -39,9 +40,7 @@
 
      ;; default switch to normal state
      (t (evil-normal-state 1))))
-  (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state)
-  ;; (key-chord-define evil-insert-state-map "jj" 'tmtxt/evil-exit-insert-state)
-  )
+  (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state))
 
 ;;; go to promt when enter insert state for repl mode
 (defun tmtxt/repl-goto-prompt ()
@@ -84,5 +83,13 @@
 
 (tmtxt/set-up 'evil-nerd-commenter
   (evilnc-default-hotkeys))
+
+(tmtxt/set-up 'git-messenger
+  (add-hook 'git-messenger:after-popup-hook
+            (lambda ()
+              (evil-exit-emacs-state))))
+
+(tmtxt/set-up 'evil-matchit
+  )
 
 (provide 'tmtxt-evil)
