@@ -90,6 +90,6 @@
               (evil-exit-emacs-state))))
 
 (tmtxt/set-up 'evil-matchit
-  )
+  (global-evil-matchit-mode 1))
 
 (provide 'tmtxt-evil)
