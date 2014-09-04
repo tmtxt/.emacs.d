@@ -313,6 +313,10 @@
   (tmtxt/define-keys sql-mode-map
     "C-M-\\"  'sql-indent-buffer))
 
+(tmtxt/set-up 'git-messenger
+  (tmtxt/define-keys global-map
+    "C-c m"   'git-messenger:popup-message))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands

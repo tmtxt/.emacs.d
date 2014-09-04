@@ -71,6 +71,7 @@
     hungry-delete
     sql-indent
     sqlup-mode
+    git-messenger
 
     ;; helm
     helm
