@@ -18,13 +18,21 @@
                   (sql-port 54321)
                   (sql-server "localhost")
                   (sql-user "icon")
-                  (sql-database "icon"))))
+                  (sql-database "icon"))
+        (pedigree.dev (sql-product 'postgres)
+                      (sql-port 54321)
+                      (sql-server "localhost")
+                      (sql-user "pedigree")
+                      (sql-database "pedigree"))))
 
 (defun tmtxt/sql-icon-dev ()
   (tmtxt/sql-connect 'postgres 'icon.dev))
 
 (defun tmtxt/sql-mooc-dev ()
   (tmtxt/sql-connect 'postgres 'mooc.dev))
+
+(defun tmtxt/sql-pedigree-dev ()
+  (tmtxt/sql-connect 'postgres 'pedigree.dev))
 
 (defun tmtxt/sql-connect (product connection)
   ;; load the password
@@ -46,7 +54,8 @@
 
 (defvar tmtxt/sql-servers-list
   '(("Icon Dev" tmtxt/sql-icon-dev)
-    ("Mooc Dev" tmtxt/sql-mooc-dev))
+    ("Mooc Dev" tmtxt/sql-mooc-dev)
+    ("Pedigree Dev" tmtxt/sql-pedigree-dev))
   "Alist of server name and the function to connect")
 
 (defun tmtxt/sql-connect-server (func)
@@ -56,8 +65,8 @@
   (funcall func))
 
 ;;; sql up mode
-(tmtxt/set-up 'sqlup-mode
-  (add-hook 'sql-mode-hook 'sqlup-mode)
-  (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
+;; (tmtxt/set-up 'sqlup-mode
+;;   (add-hook 'sql-mode-hook 'sqlup-mode)
+;;   (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
 
 (provide 'tmtxt-sql)
