@@ -79,10 +79,12 @@
   (if web-mode-ac-sources-alist
     (progn
       (add-to-list 'web-mode-ac-sources-alist '("css" . (ac-source-words-in-buffer ac-source-css-property)))
-      (add-to-list 'web-mode-ac-sources-alist '("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+      (add-to-list 'web-mode-ac-sources-alist '("html" . (ac-source-words-in-buffer ac-source-abbrev)))
+      (add-to-list 'web-mode-ac-sources-alist '("jsx" . (ac-source-words-in-buffer ac-source-words-in-same-mode-buffers))))
   (setq web-mode-ac-sources-alist
         '(("css" . (ac-source-words-in-buffer ac-source-css-property))
-          ("html" . (ac-source-words-in-buffer ac-source-abbrev)))))
+          ("html" . (ac-source-words-in-buffer ac-source-abbrev))
+          ("jsx" . (ac-source-words-in-buffer ac-source-words-in-same-mode-buffers)))))
 )
 (add-hook 'web-mode-hook 'web-mode-hook)
 
