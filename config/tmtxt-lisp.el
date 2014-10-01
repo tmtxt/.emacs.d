@@ -40,4 +40,16 @@
 (define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
 (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Scheme config
+;; Enable Quack mode
+;; The binary of your interpreter
+(setq scheme-program-name "mit-scheme")
+;; This hook lets you use your theme colours instead of quack's ones.
+(defun scheme-mode-quack-hook ()
+  (require 'quack)
+  (setq quack-fontify-style 'emacs))
+(add-hook 'scheme-mode-hook 'scheme-mode-quack-hook)
+(add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
+
 (provide 'tmtxt-lisp)

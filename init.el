@@ -48,6 +48,7 @@
     ;member-function                     ;expand member functions in C++
     header2                             ;auto file header
     rainbow-mode                        ;colorize color name in buffer
+    rainbow-delimiters
     undo-tree                           ;treat undo as a tree
     twittering-mode                     ;twitter client for emacs
     htmlize                             ;generate html from buffer
@@ -68,10 +69,10 @@
     auto-complete-clang
     key-chord
     less-css-mode
-    hungry-delete
     sql-indent
     sqlup-mode
     git-messenger
+    quack
 
     ;; helm
     helm
