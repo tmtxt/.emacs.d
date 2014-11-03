@@ -137,6 +137,8 @@
   "M-1"     "C-c C-a"
   "M-2"     "C-x o"
   "M-m"     "C-m"
+  "M-SPC"   "C-SPC"
+  "M-g"     "C-k"
   )
 
 (tmtxt/define-keys
