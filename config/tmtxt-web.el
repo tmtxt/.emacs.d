@@ -32,6 +32,8 @@
 (add-to-list 'auto-mode-alist '("\\.xml?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mako$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mak$" . web-mode))
 
 ;;; disable rainbow-mode and whitespace-mode when use web-mode
 (defun web-mode-hook ()
