@@ -181,7 +181,6 @@
 (require 'tmtxt-markdown)				;config for markdown
 (require 'tmtxt-twitter)				;config for twitter
 (require 'tmtxt-lisp)					;config for working with lisp language
-(require 'tmtxt-clojure)				;config for working with clojure
 (require 'tmtxt-ruby)					;config for working with ruby
 (require 'tmtxt-grep)					;grep find
 (require 'tmtxt-evil)

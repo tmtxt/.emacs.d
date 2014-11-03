@@ -41,6 +41,11 @@
 (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Clojure
+(add-hook 'clojure-mode-hook 'tmtxt-pretty-fn)
+(add-hook 'clojurescript-mode-hook 'tmtxt-pretty-fn)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Scheme config
 ;; Enable Quack mode
 ;; The binary of your interpreter
