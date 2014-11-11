@@ -164,6 +164,7 @@
 (require 'tmtxt-navigation)     ;navigation util
 (require 'tmtxt-editing)          ;editing config
 (require 'tmtxt-auto-complete)          ;
+(require 'tmtxt-project)
 (require 'tmtxt-ecb)					;emacs code browser
 (require 'tmtxt-google)					;config for google stuffs
 (require 'tmtxt-desktop)				;auto save mode
@@ -226,4 +227,4 @@
 ;;; view large file
 (require 'vlf-integrate)
 
-(setq debug-on-error t)
+;; (setq debug-on-error t)
