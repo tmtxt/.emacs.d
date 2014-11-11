@@ -243,10 +243,7 @@
 (tmtxt/set-up 'projectile
   (tmtxt/keys 'projectile
       global-map
-    ;; projectile
-    "C-x C-M-S-f"   'projectile-find-file
-    "C-x C-d"     'projectile-dired
-    "C-x C-S-d"   'projectile-find-dir))
+    "C-x C-d"     'projectile-dired))
 
 (tmtxt/keys 'helm
     global-map
@@ -259,7 +256,8 @@
 (tmtxt/set-up 'helm-projectile
   (tmtxt/keys 'helm-projectile
       global-map
-    "C-x C-S-f"        'helm-projectile))
+    "C-x C-S-f"        'helm-projectile-find-file
+    "C-x C-S-d"        'helm-projectile-find-dir))
 
 (tmtxt/set-up 'helm-swoop
   (tmtxt/keys 'helm-swoop
