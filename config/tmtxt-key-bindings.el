@@ -243,7 +243,8 @@
 (tmtxt/set-up 'projectile
   (tmtxt/keys 'projectile
       global-map
-    "C-x C-d"     'projectile-dired))
+    "C-x C-d"     'projectile-dired
+    "C-x i"       'projectile-invalidate-cache))
 
 (tmtxt/keys 'helm
     global-map
