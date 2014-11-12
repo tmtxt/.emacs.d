@@ -6,5 +6,8 @@
           (lambda () (flyspell-mode 0)) t)
 
 (setq magit-status-buffer-switch-function 'switch-to-buffer)
+(add-hook 'magit-mode-hook 'magit-load-config-extensions)
+(set-default 'magit-stage-all-confirm nil)
+(setq magit-use-overlays nil)
 
 (provide 'tmtxt-git)
