@@ -78,6 +78,12 @@
   (setq nyan-bar-length 15))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; golden ratio
+(tmtxt/set-up 'golden-ratio
+  (setq golden-ratio-exclude-modes '("ediff-mode"))
+  (golden-ratio-mode 1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; some minor config
 (setq-default tab-width 2)
 (display-time-mode 1)					;display clock at modeline
