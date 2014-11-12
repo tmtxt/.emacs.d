@@ -5,4 +5,6 @@
 (add-hook 'git-commit-mode-hook
           (lambda () (flyspell-mode 0)) t)
 
+(setq magit-status-buffer-switch-function 'switch-to-buffer)
+
 (provide 'tmtxt-git)
