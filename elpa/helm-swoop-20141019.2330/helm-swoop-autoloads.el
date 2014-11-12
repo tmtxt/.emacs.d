@@ -1,11 +1,10 @@
 ;;; helm-swoop-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads (helm-multi-swoop-edit helm-multi-swoop-all helm-multi-swoop
-;;;;;;  helm-swoop-from-isearch helm-swoop helm-swoop-back-to-last-point)
-;;;;;;  "helm-swoop" "helm-swoop.el" (21597 34493 0 0))
+;;;### (autoloads nil "helm-swoop" "helm-swoop.el" (21603 17663 0
+;;;;;;  0))
 ;;; Generated autoloads from helm-swoop.el
 
 (autoload 'helm-swoop-back-to-last-point "helm-swoop" "\
@@ -40,16 +39,9 @@ Invoke `helm-swoop' from isearch.
 
 ;;;***
 
-;;;### (autoloads nil nil ("helm-swoop-pkg.el") (21597 34493 595667
-;;;;;;  0))
-
-;;;***
-
-(provide 'helm-swoop-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; helm-swoop-autoloads.el ends here
