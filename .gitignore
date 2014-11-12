@@ -6,7 +6,6 @@ backups/*
 auto-save-list
 eshell/*
 url/cookies
-elpa/*
 .DS_Store
 etags/*
 ac-dict/*
