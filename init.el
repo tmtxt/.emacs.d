@@ -73,10 +73,11 @@
     quack
     highlight-parentheses
     zygospore
+    ace-jump-mode
 
     ;; helm
     helm
-    helm-swoop
+    ;; helm-swoop
     helm-projectile
     ac-helm
     helm-flycheck

@@ -260,10 +260,10 @@
     "C-x C-S-f"        'helm-projectile-find-file
     "C-x C-S-d"        'helm-projectile-find-dir))
 
-(tmtxt/set-up 'helm-swoop
-  (tmtxt/keys 'helm-swoop
-      global-map
-    "C-S-s"        'helm-swoop))
+;; (tmtxt/set-up 'helm-swoop
+;;   (tmtxt/keys 'helm-swoop
+;;       global-map
+;;     "C-S-s"        'helm-swoop))
 
 (tmtxt/keys 'helm-dired-recent-dirs
     global-map
@@ -325,6 +325,10 @@
 (tmtxt/set-up 'zygospore
   (tmtxt/define-keys global-map
     "C-x 1"     'zygospore-toggle-delete-other-windows))
+
+(tmtxt/set-up 'ace-jump-mode
+  (tmtxt/define-keys global-map
+    "C-c SPC" 'ace-jump-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
