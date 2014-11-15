@@ -71,6 +71,7 @@
     sqlup-mode
     git-messenger
     quack
+    highlight-parentheses
 
     ;; helm
     helm

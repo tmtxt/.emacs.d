@@ -92,6 +92,9 @@
 (add-to-list 'same-window-buffer-names "*Process List*")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'prog-mode-hook (lambda () (highlight-parentheses-mode t)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; some minor config
 (setq-default tab-width 2)
 (display-time-mode 1)					;display clock at modeline
