@@ -253,7 +253,7 @@
   "<C-M-S-tab>"          'tmtxt/helm
   "<C-M-S-iso-lefttab>"  'tmtxt/helm
   "M-V"    'helm-show-kill-ring
-  "C-S"     'helm-occur)
+  "C-S-s"     'helm-occur)
 
 (tmtxt/set-up 'helm-projectile
   (tmtxt/keys 'helm-projectile
