@@ -10,4 +10,6 @@
 (setq auto-mode-alist
       (cons '("\\.mkd" . markdown-mode) auto-mode-alist))
 
+;; (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
+
 (provide 'tmtxt-markdown)

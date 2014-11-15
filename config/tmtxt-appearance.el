@@ -111,7 +111,9 @@
 (setq whitespace-style '(face trailing lines-tail tabs))
 (show-paren-mode 1)						;highlight matching paren
 (set-default 'indicate-empty-lines t)
-                                        ; (remove-hook 'prog-mode-hook 'idle-highlight-mode)
+(setq split-width-threshold nil)        ;not allow split window horizontally
+                           ;automatically
+(setq-default show-trailing-whitespace t)
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
