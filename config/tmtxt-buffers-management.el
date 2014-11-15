@@ -44,10 +44,5 @@
 		  (lambda ()
 			(ibuffer-switch-to-saved-filter-groups "default")))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; display those buffers in the same window, not pop-up a new window
-(add-to-list 'same-window-buffer-names "*Help*")
-(add-to-list 'same-window-buffer-names "*Apropos*")
-
 ;;; provide
 (provide 'tmtxt-buffers-management)

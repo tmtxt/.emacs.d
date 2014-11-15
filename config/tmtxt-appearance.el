@@ -83,6 +83,14 @@
   (setq golden-ratio-exclude-modes '("ediff-mode"))
   (golden-ratio-mode 1))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; same window buffer
+(add-to-list 'same-window-buffer-names "*MozRepl*")
+(add-to-list 'same-window-buffer-names "*SQL*")
+(add-to-list 'same-window-buffer-names "*Help*")
+(add-to-list 'same-window-buffer-names "*Apropos*")
+(add-to-list 'same-window-buffer-names "*Process List*")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; some minor config
 (setq-default tab-width 2)
