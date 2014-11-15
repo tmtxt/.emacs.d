@@ -10,5 +10,9 @@
     (setq bookmark-alist (delq latest bookmark-alist))
     (add-to-list 'bookmark-alist latest)))
 
+(setq
+ bookmark-default-file "~/emacs.bookmarks"
+ bmkp-last-as-first-bookmark-file "~/emacs.bookmarks")
+
 ;;; finally provide the library to call
 (provide 'tmtxt-bookmark)
