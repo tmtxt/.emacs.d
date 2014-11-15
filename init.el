@@ -72,6 +72,7 @@
     git-messenger
     quack
     highlight-parentheses
+    zygospore
 
     ;; helm
     helm
@@ -86,7 +87,7 @@
     evil-nerd-commenter
     surround
     evil-matchit
-    
+
     ;; javascript
     json-mode
     js2-mode
@@ -114,7 +115,7 @@
     ;; google stuffs
     google-this
     google-translate
-    
+
     ;; Color theme
     color-theme
     color-theme-solarized

@@ -322,6 +322,10 @@
   (tmtxt/define-keys global-map
     "C-c m"   'git-messenger:popup-message))
 
+(tmtxt/set-up 'zygospore
+  (tmtxt/define-keys global-map
+    "C-x 1"     'zygospore-toggle-delete-other-windows))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands
