@@ -252,7 +252,8 @@
   "C-x f"                'helm-recentf
   "<C-M-S-tab>"          'tmtxt/helm
   "<C-M-S-iso-lefttab>"  'tmtxt/helm
-  "M-V"    'helm-show-kill-ring)
+  "M-V"    'helm-show-kill-ring
+  "C-S"     'helm-occur)
 
 (tmtxt/set-up 'helm-projectile
   (tmtxt/keys 'helm-projectile
