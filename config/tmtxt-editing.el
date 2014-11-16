@@ -62,8 +62,8 @@
           (indent-region (region-beginning) (region-end))
           (message "Selected region indented."))
       (progn
-		(tmtxt/indent-buffer)
-		(message "Buffer indented.")))))
+        (tmtxt/indent-buffer)
+        (message "Buffer indented.")))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; edit file as root privileges (a bit slow at when first open)
@@ -90,11 +90,11 @@ user."
 ;; fix paredit and comment-dwim conflict
 (add-hook 'paredit-mode-hook (lambda () (define-key paredit-mode-map (kbd "M-;") nil)))
 (defadvice comment-dwim (around lisp-specific activate)
-    "Use `paredit-comment-dwim', but only in lisp code."
-    (if (member major-mode '(lisp-mode emacs-lisp-mode clojure-mode scheme-mode))
-        (call-interactively 'paredit-comment-dwim)
-      (message "normal")
-      ad-do-it))
+  "Use `paredit-comment-dwim', but only in lisp code."
+  (if (member major-mode '(lisp-mode emacs-lisp-mode clojure-mode scheme-mode))
+      (call-interactively 'paredit-comment-dwim)
+    (message "normal")
+    ad-do-it))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; untabify current buffer
@@ -128,7 +128,7 @@ user."
  '(ac-ispell-requires 4))
 (eval-after-load "auto-complete"
   '(progn
-	 (ac-ispell-setup)))
+     (ac-ispell-setup)))
 (defun my/enable-ac-ispell ()
   (add-to-list 'ac-sources 'ac-source-ispell))
 (add-hook 'markdown-mode-hook 'my/enable-ac-ispell)
@@ -139,6 +139,11 @@ user."
   (delete-trailing-whitespace)
   ;; (tmtxt-untabify-buffer)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; aggresive indent
+(require 'aggressive-indent)
+(global-aggressive-indent-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Some minor config

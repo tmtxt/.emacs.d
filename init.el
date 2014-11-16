@@ -74,6 +74,7 @@
     highlight-parentheses
     zygospore
     ace-jump-mode
+    aggressive-indent
 
     ;; helm
     helm
@@ -220,7 +221,7 @@
 (setq-default require-final-newline t)
 
 ;;; garbage collector
-(setq gc-cons-threshold 50000000)
+(setq gc-cons-threshold 100000000)
 
 ;;; recent file
 ;; (require 'recentf)
