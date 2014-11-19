@@ -43,7 +43,7 @@
     autopair                            ;auto pair the brackets
     php-mode                            ;php mode for emacs
     ecb                                 ;emacs code browser
-    ;member-function                     ;expand member functions in C++
+                                        ;member-function                     ;expand member functions in C++
     header2                             ;auto file header
     rainbow-mode                        ;colorize color name in buffer
     rainbow-delimiters
@@ -75,6 +75,7 @@
     zygospore
     ace-jump-mode
     aggressive-indent
+    restclient
 
     ;; helm
     helm
