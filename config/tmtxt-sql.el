@@ -23,16 +23,12 @@
                       (sql-port 54321)
                       (sql-server "localhost")
                       (sql-user "pedigree")
-                      (sql-database "pedigree"))))
-
-(defun tmtxt/sql-icon-dev ()
-  (tmtxt/sql-connect 'postgres 'icon.dev))
-
-(defun tmtxt/sql-mooc-dev ()
-  (tmtxt/sql-connect 'postgres 'mooc.dev))
-
-(defun tmtxt/sql-pedigree-dev ()
-  (tmtxt/sql-connect 'postgres 'pedigree.dev))
+                      (sql-database "pedigree"))
+        (sugar.sea.dev (sql-product 'postgres)
+                       (sql-port 54321)
+                       (sql-server "localhost")
+                       (sql-user "sugar_and_sea")
+                       (sql-database "sugar_and_sea"))))
 
 (defun tmtxt/sql-connect (product connection)
   ;; load the password
@@ -53,16 +49,22 @@
     (sql-connect connection)))
 
 (defvar tmtxt/sql-servers-list
-  '(("Icon Dev" tmtxt/sql-icon-dev)
-    ("Mooc Dev" tmtxt/sql-mooc-dev)
-    ("Pedigree Dev" tmtxt/sql-pedigree-dev))
-  "Alist of server name and the function to connect")
+  '(("Icon Dev" icon.dev)
+    ("Mooc Dev" mooc.dev)
+    ("Pedigree Dev" pedigree.dev)
+    ("Sugar and Sea Dev" sugar.sea.dev))
+  "Alist of server name and the connection name")
 
-(defun tmtxt/sql-connect-server (func)
+(defun tmtxt/sql-connect-server (connection)
   "Connect to the input server using tmtxt/sql-servers-list"
   (interactive
    (helm-comp-read "Select server: " tmtxt/sql-servers-list))
-  (funcall func))
+
+  ;; get the sql connection info and product from the sql-connection-alist
+  (let* ((connection-info (assoc connection sql-connection-alist))
+         (connection-product (nth 1 (nth 1 (assoc 'sql-product connection-info)))))
+    ;; connect to server
+    (tmtxt/sql-connect connection-product connection)))
 
 ;;; sql up mode
 ;; (tmtxt/set-up 'sqlup-mode
