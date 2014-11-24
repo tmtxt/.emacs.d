@@ -48,18 +48,14 @@
       (sql-connect connection connection)
     (sql-connect connection)))
 
-(defvar tmtxt/sql-servers-list
-  '(("Icon Dev" icon.dev)
-    ("Mooc Dev" mooc.dev)
-    ("Pedigree Dev" pedigree.dev)
-    ("Sugar and Sea Dev" sugar.sea.dev))
-  "Alist of server name and the connection name")
-
 (defun tmtxt/sql-connect-server (connection)
   "Connect to the input server using tmtxt/sql-servers-list"
   (interactive
-   (helm-comp-read "Select server: " tmtxt/sql-servers-list))
-
+   (helm-comp-read "Select server: " (mapcar (lambda (item)
+                                               (list
+                                                (symbol-name (nth 0 item))
+                                                (nth 0 item)))
+                                             sql-connection-alist)))
   ;; get the sql connection info and product from the sql-connection-alist
   (let* ((connection-info (assoc connection sql-connection-alist))
          (connection-product (nth 1 (nth 1 (assoc 'sql-product connection-info)))))
