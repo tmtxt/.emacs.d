@@ -190,6 +190,7 @@
 (require 'tmtxt-evil)
 (require 'tmtxt-sql)
 (require 'tmtxt-git)
+(require 'tmtxt-python)
 (require 'tmtxt-key-bindings)			;key bindings
 
 ;; Save positions in visited files
