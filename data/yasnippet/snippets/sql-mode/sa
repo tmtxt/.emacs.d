@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : sa
+# --
+SELECT ${1:*}
+FROM ${2:tables}
+WHERE ${3:TRUE}
+LIMIT ${4:ALL};$0
