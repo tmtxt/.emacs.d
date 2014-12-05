@@ -74,8 +74,9 @@
     highlight-parentheses
     zygospore
     ace-jump-mode
-    aggressive-indent
+    ;; aggressive-indent
     restclient
+    flycheck-pyflakes
 
     ;; helm
     helm
