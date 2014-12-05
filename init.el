@@ -15,9 +15,11 @@
 ;;; Emacs is not a package manager, and here we load its package manager!
 (require 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
+                  ("org" . "http://orgmode.org/elpa/")
                   ("elpa" . "http://tromey.com/elpa/")
-                  ("melpa" . "http://melpa.milkbox.net/packages/")
-                  ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")))
+                  ("melpa-stable" . "http://stable.melpa.org/packages/")
+                  ("melpa" . "http://melpa.org/packages/")
+                  ("elpy" . "http://jorgenschaefer.github.io/packages/")))
   (add-to-list 'package-archives source t))
 (package-initialize)
 
