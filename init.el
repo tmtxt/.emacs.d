@@ -77,6 +77,7 @@
     ;; aggressive-indent
     restclient
     flycheck-pyflakes
+    elpy
 
     ;; helm
     helm
