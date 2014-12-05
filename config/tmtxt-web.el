@@ -100,6 +100,6 @@
 ;;; misc
 ;;; auto insert and tag when typing </
 (setq nxml-slash-auto-complete-flag t)
-(add-to-list 'aggressive-indent-excluded-modes 'web-mode)
+;(add-to-list 'aggressive-indent-excluded-modes 'web-mode)
 
 (provide 'tmtxt-web)
