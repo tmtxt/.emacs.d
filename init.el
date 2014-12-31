@@ -174,7 +174,7 @@
 (require 'tmtxt-editing)          ;editing config
 (require 'tmtxt-auto-complete)          ;
 (require 'tmtxt-project)
-(require 'tmtxt-ecb)					;emacs code browser
+;; (require 'tmtxt-ecb)					;emacs code browser
 (require 'tmtxt-google)					;config for google stuffs
 (require 'tmtxt-desktop)				;auto save mode
 (require 'tmtxt-org)					;org mode config

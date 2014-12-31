@@ -92,10 +92,10 @@
   "<C-tab>"            'ido-switch-buffer
 
   ;; ECB
-  "C-x C-;"   'ecb-activate
-  "C-x C-'"   'tmtxt/ecb-deactivate
-  "C-;"       'tmtxt/ecb-show-ecb-windows
-  "C-'"       'tmtxt/ecb-hide-ecb-windows
+  ;; "C-x C-;"   'ecb-activate
+  ;; "C-x C-'"   'tmtxt/ecb-deactivate
+  ;; "C-;"       'tmtxt/ecb-show-ecb-windows
+  ;; "C-'"       'tmtxt/ecb-hide-ecb-windows
 
   "C-S-f"     'yas-expand
   "M-="       'er/expand-region         ;expand region
@@ -210,17 +210,18 @@
       dired-mode-map
     "C-c C-o"   'tmtxt/open-current-dir-in-terminal))
 
-(tmtxt/keys 'ecb
-    ecb-mode-map
-  "C-M-<"     'ecb-toggle-compile-window-height
-  "C-)"       'ecb-goto-window-edit1
-  "C-!"       'ecb-goto-window-directories
-  "C-@"       'ecb-goto-window-sources
-  "C-#"       'ecb-goto-window-methods
-  "C-%"       'ecb-goto-window-compilation
-  )
+;; (tmtxt/keys 'ecb
+;;     ecb-mode-map
+;;   "C-M-<"     'ecb-toggle-compile-window-height
+;;   "C-)"       'ecb-goto-window-edit1
+;;   "C-!"       'ecb-goto-window-directories
+;;   "C-@"       'ecb-goto-window-sources
+;;   "C-#"       'ecb-goto-window-methods
+;;   "C-%"       'ecb-goto-window-compilation
+;;   )
 
-(tmtxt/define-keys
+(tmtxt/set-up 'hideshow
+  (tmtxt/define-keys
     hs-minor-mode-map
   "C-c C-h"   'hs-hide-block
   "C-c C-d"   'hs-show-block
@@ -229,7 +230,7 @@
   "C-c C-'"   'hs-show-all
   "C-c C-l"   'hs-hide-level
   "C-S-r"     'hs-toggle-hiding
-  )
+  ))
 
 (tmtxt/define-keys
     ac-completing-map
