@@ -83,8 +83,9 @@
 (eval-after-load 'js
   '(progn
 	 ;;; integrate paredit with js mode
-     
+
      (add-hook 'js-mode-hook 'tmtxt-paredit-nonlisp)
+     (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
 
      ;; indent level
      (setq js-indent-level 2)
@@ -123,5 +124,10 @@
 
 ;;; enable hide/show
 (add-hook 'js-mode-hook (lambda () (hs-minor-mode 1)))
+
+;;; itil func when save
+(defun tmtxt/js-save-util ()
+  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
+(add-hook 'js-mode-hook 'tmtxt/js-save-util)
 
 (provide 'tmtxt-javascript)
