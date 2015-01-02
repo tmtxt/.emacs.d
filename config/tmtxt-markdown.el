@@ -12,4 +12,9 @@
 
 ;; (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
 
+(when (executable-find "livedown")
+  (progn
+    (tmtxt/add-lib "livedown")
+    (require 'livedown)))
+
 (provide 'tmtxt-markdown)

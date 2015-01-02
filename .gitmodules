@@ -7,3 +7,6 @@
 [submodule "lib/jshint-mode"]
 	path = lib/jshint-mode
 	url = git@github.com:daleharvey/jshint-mode.git
+[submodule "lib/livedown"]
+	path = lib/livedown
+	url = git@github.com:shime/emacs-livedown.git
