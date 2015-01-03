@@ -85,7 +85,6 @@
 	 ;;; integrate paredit with js mode
 
      (add-hook 'js-mode-hook 'tmtxt-paredit-nonlisp)
-     (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
 
      ;; indent level
      (setq js-indent-level 2)
@@ -129,5 +128,7 @@
 (defun tmtxt/js-save-util ()
   (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
 (add-hook 'js-mode-hook 'tmtxt/js-save-util)
+
+(add-hook 'js-mode-hook 'which-function-mode)
 
 (provide 'tmtxt-javascript)
