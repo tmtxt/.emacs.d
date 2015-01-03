@@ -1,0 +1,5 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: console.log(description,object)
+# key: loo
+# --
+console.log('${1:object}=', ${1:$(yas/substr yas-text "[^ ]*")});
