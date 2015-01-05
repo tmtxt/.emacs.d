@@ -1,13 +1,4 @@
 (1
- (overseer .
-	   [(0 1 0)
-	    ((emacs
-	      (24))
-	     (dash
-	      (2 10 0))
-	     (pkg-info
-	      (0 4)))
-	    "Ert-runner Integration Into Emacs." single])
  (zone-matrix .
 	      [(0 0 1)
 	       nil "Matrix themed Zone mode" tar])
@@ -202,7 +193,7 @@
 	   [(8 0 4)
 	    nil "major mode for editing html templates" single])
  (web .
-      [(0 5 1)
+      [(0 5 2)
        ((dash
 	 (2 9 0))
 	(s
@@ -881,7 +872,7 @@
 	   [(1 4)
 	    nil "pattern matching for elisp" single])
  (shackle .
-	  [(0 1 1)
+	  [(0 1 2)
 	   ((cl-lib
 	     (0 5)))
 	   "Enforce rules for popups" single])
@@ -1496,6 +1487,15 @@
  (oz .
      [(16513)
       nil "Major mode for editing Oz programs" tar])
+ (overseer .
+	   [(0 1 0)
+	    ((emacs
+	      (24))
+	     (dash
+	      (2 10 0))
+	     (pkg-info
+	      (0 4)))
+	    "Ert-runner Integration Into Emacs." single])
  (outlined-elisp-mode .
 		      [(1 0 5)
 		       nil "outline-minor-mode settings for emacs lisp" single])
@@ -1894,6 +1894,13 @@
  (master-mode .
 	      [(0 1)
 	       nil "Become an Emacs master" single])
+ (marshal .
+	  [(0 3 1)
+	   ((eieio
+	     (1 4))
+	    (json
+	     (1 4)))
+	   "eieio extension for automatic (un)marshalling" single])
  (marmalade-upload .
 		   [(0 0 5)
 		    ((web
@@ -1925,9 +1932,9 @@
 		 [(0 0 5)
 		  nil "a demonstration elpa package" single])
  (marmalade-client .
-		   [(0 0 11)
+		   [(0 0 12)
 		    ((web
-		      (0 4 2))
+		      (0 5 2))
 		     (kv
 		      (0 0 19))
 		     (gh

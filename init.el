@@ -80,6 +80,7 @@
     restclient
     flycheck-pyflakes
     elpy
+    jinja2-mode
 
     ;; helm
     helm
@@ -117,6 +118,7 @@
 
     ;; clojure
     clojure-mode
+    clojure-test-mode
     cider
 
     ;; google stuffs
