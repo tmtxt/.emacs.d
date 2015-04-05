@@ -1,4 +1,20 @@
 (1
+ (lentic .
+	 [(0 6)
+	  ((dash
+	    (2 5 0))
+	   (m-buffer
+	    (0 8))
+	   (emacs
+	    (24)))
+	  "One buffer as a view of another" tar])
+ (m-buffer .
+	   [(0 8)
+	    ((emacs
+	      (24 3))
+	     (dash
+	      (2 5 0)))
+	    "Buffer Manipulation Functions" tar])
  (zone-matrix .
 	      [(0 0 1)
 	       nil "Matrix themed Zone mode" tar])

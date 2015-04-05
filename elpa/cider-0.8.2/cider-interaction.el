@@ -188,11 +188,9 @@ Signal an error if it is not supported."
   "Retrieve the underlying connection's Clojure version."
   (with-current-buffer (nrepl-current-connection-buffer)
     (when nrepl-versions
-      (let* ((version-dict (nrepl-dict-get nrepl-versions "clojure"))
-             (major (nrepl-dict-get version-dict "major"))
-             (minor (nrepl-dict-get version-dict "minor"))
-             (incremental (nrepl-dict-get version-dict "incremental")))
-        (format "%s.%s.%s" major minor incremental)))))
+      (-> nrepl-versions
+        (nrepl-dict-get "clojure")
+        (nrepl-dict-get "version-string")))))
 
 (defun cider--nrepl-version ()
   "Retrieve the underlying connection's nREPL version."
@@ -262,7 +260,7 @@ endpoint and Clojure version."
 
 (defun cider-change-buffers-designation ()
   "Change the designation in cider buffer names.
-Buffer names changed are cider-repl, nrepl-connection and nrepl-server."
+Buffer names changed are cider-repl and nrepl-server."
   (interactive)
   (cider-ensure-connected)
   (let* ((designation (read-string (format "Change CIDER buffer designation from '%s': "
@@ -270,22 +268,17 @@ Buffer names changed are cider-repl, nrepl-connection and nrepl-server."
          (new-repl-buffer-name (nrepl-format-buffer-name-template
                                 nrepl-repl-buffer-name-template designation)))
     (with-current-buffer (cider-current-repl-buffer)
-      (rename-buffer new-repl-buffer-name))
-    (with-current-buffer (nrepl-current-connection-buffer)
+      (rename-buffer new-repl-buffer-name)
       (setq-local nrepl-repl-buffer new-repl-buffer-name)
-      (let ((new-connection-buffer-name (nrepl-format-buffer-name-template
-                                         nrepl-connection-buffer-name-template designation)))
-        (rename-buffer new-connection-buffer-name)
-        (setq nrepl-connection-list
-              (cons new-connection-buffer-name (cdr nrepl-connection-list)))
-        (with-current-buffer (cider-current-repl-buffer)
-          (setq-local nrepl-connection-buffer new-connection-buffer-name))
-        (when nrepl-server-buffer
-          (let ((new-server-buffer-name (nrepl-format-buffer-name-template
-                                         nrepl-server-buffer-name-template designation)))
-            (with-current-buffer nrepl-server-buffer
-              (rename-buffer new-server-buffer-name))
-            (setq-local nrepl-server-buffer new-server-buffer-name)))))
+      (setq-local nrepl-connection-buffer new-repl-buffer-name)
+      (setq nrepl-connection-list
+            (cons new-repl-buffer-name (cdr nrepl-connection-list)))
+      (when nrepl-server-buffer
+        (let ((new-server-buffer-name (nrepl-format-buffer-name-template
+                                       nrepl-server-buffer-name-template designation)))
+          (with-current-buffer nrepl-server-buffer
+            (rename-buffer new-server-buffer-name))
+          (setq-local nrepl-server-buffer new-server-buffer-name))))
     (message "CIDER buffer designation changed to: %s" designation)))
 
 ;;; Switching between REPL & source buffers
@@ -429,8 +422,8 @@ Returns to the buffer in which the command was invoked."
 (defvar cider-minibuffer-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map minibuffer-local-map)
-    (define-key map "TAB" 'complete-symbol)
-    (define-key map "M-TAB" 'complete-symbol)
+    (define-key map (kbd "TAB") 'complete-symbol)
+    (define-key map (kbd "M-TAB") 'complete-symbol)
     map)
   "Minibuffer keymap used for reading Clojure expressions.")
 
@@ -440,6 +433,7 @@ If INITIAL-VALUE is non-nil, it is inserted into the minibuffer before
 reading input."
   (minibuffer-with-setup-hook
       (lambda ()
+        (set-syntax-table clojure-mode-syntax-table)
         (add-hook 'completion-at-point-functions
                   #'cider-complete-at-point nil t)
         (run-hooks 'eval-expression-minibuffer-setup-hook))
@@ -764,7 +758,7 @@ form, with symbol at point replaced by __prefix__."
                           ;; Important because `beginning-of-defun' and
                           ;; `ending-of-defun' work incorrectly in the REPL
                           ;; buffer, so context extraction fails there.
-                          (not (eq major-mode 'cider-repl-mode)))
+                          (derived-mode-p 'clojure-mode))
                      (or (cider-completion-get-context-at-point)
                          "nil")
                    "nil")))
@@ -1182,28 +1176,17 @@ If SELECT is non-nil, select the BUFFER."
   (-when-let (win (get-buffer-window buffer))
     (with-current-buffer buffer
       (set-window-point win (point))))
+  ;; Non nil `inhibit-same-window' ensures that current window is not covered
   (if select
-      ;; There is a quirk with `display-buffer-in-previous-window' which
-      ;; overrides current buffer with *cider-error* buffer if *cider-error* was
-      ;; most recently displayed in current buffer's window. The
-      ;; `inhibit-same-window' solution below inhibits
-      ;; `display-buffer-in-previous-window' altogether and allows
-      ;; `display-buffer-use-some-window' to run instead, which in turn doesn't
-      ;; behave that nicely on splits with more than 3 buffers. When
-      ;; `pop-up-windows' is nil, non-nil `inhibit-same-window' pops up a new
-      ;; frame if there is only one buffer in a frame. The
-      ;; `display-buffer-in-previous-window' issue should be followed upstream,
-      ;; but for now the solution below should satisfy all needs with only minor
-      ;; inconvenience on frames with 3 buffer splits.
       (pop-to-buffer buffer `(nil . ((inhibit-same-window . ,pop-up-windows))))
     (display-buffer buffer `(nil . ((inhibit-same-window . ,pop-up-windows)))))
   buffer)
 
-(defun cider-popup-buffer-quit (&optional kill-buffer-p)
-  "Quit the current (temp) window and bury its buffer using `quit-window'.
-If prefix argument KILL-BUFFER-P is non-nil, kill the buffer instead of burying it."
+(defun cider-popup-buffer-quit (&optional kill)
+  "Quit the current (temp) window and bury its buffer using `quit-restore-window'.
+If prefix argument KILL is non-nil, kill the buffer instead of burying it."
   (interactive)
-  (quit-window kill-buffer-p (selected-window)))
+  (quit-restore-window (selected-window) (if kill 'kill 'append)))
 
 (defun cider-make-popup-buffer (name &optional mode)
   "Create a temporary buffer called NAME using major MODE (if specified)."
@@ -1260,11 +1243,11 @@ otherwise fall back to \"user\"."
 
 ;;; Evaluation
 
-(defun cider-interactive-eval (form &optional start-pos callback)
+(defun cider-interactive-source-tracking-eval (form &optional start-pos callback)
   "Evaluate FORM and dispatch the response to CALLBACK.
-START-POS is a starting position of the form in the original context.  This
-function is the main entry point in CIDER's interactive evaluation API.  All
-other interactive eval functions should rely on this function.  If CALLBACK
+START-POS is a starting position of the form in the original context.
+Unlike `cider-interactive-eval' this command will set proper metadata for var
+definitions.  If CALLBACK
 is nil use `cider-interactive-eval-handler'."
   (cider--clear-compilation-highlights)
   (-when-let (error-win (get-buffer-window cider-error-buffer))
@@ -1276,6 +1259,19 @@ is nil use `cider-interactive-eval-handler'."
      (funcall cider-to-nrepl-filename-function (cider--server-filename filename))
      (file-name-nondirectory filename)
      (or callback (cider-interactive-eval-handler)))))
+
+(defun cider-interactive-eval (form &optional callback)
+  "Evaluate FORM and dispatch the response to CALLBACK.
+This function is the main entry point in CIDER's interactive evaluation
+API.  Most other interactive eval functions should rely on this function.
+If CALLBACK is nil use `cider-interactive-eval-handler'."
+  (cider--clear-compilation-highlights)
+  (-when-let (error-win (get-buffer-window cider-error-buffer))
+    (quit-window nil error-win))
+  (nrepl-request:eval
+   form
+   (or callback (cider-interactive-eval-handler))
+   (cider-current-ns)))
 
 (defun cider--dummy-file-contents (form start-pos)
   "Wrap FORM to make it suitable for `cider-request:load-file'.
@@ -1299,7 +1295,7 @@ START-POS is a starting position of the form in the original context."
   "Evaluate the region between START and END."
   (interactive "r")
   (let ((code (buffer-substring-no-properties start end)))
-    (cider-interactive-eval code start)))
+    (cider-interactive-source-tracking-eval code start)))
 
 (defun cider-eval-buffer ()
   "Evaluate the current buffer."
@@ -1310,7 +1306,7 @@ START-POS is a starting position of the form in the original context."
   "Evaluate the expression preceding point.
 If invoked with a PREFIX argument, print the result in the current buffer."
   (interactive "P")
-  (cider-interactive-eval (cider-last-sexp) (cider-last-sexp-start-pos)
+  (cider-interactive-eval (cider-last-sexp)
                           (when prefix (cider-eval-print-handler))))
 
 (defun cider-eval-last-sexp-and-replace ()
@@ -1322,13 +1318,13 @@ If invoked with a PREFIX argument, print the result in the current buffer."
     (nrepl-sync-request:eval last-sexp)
     ;; seems like the sexp is valid, so we can safely kill it
     (backward-kill-sexp)
-    (cider-interactive-eval last-sexp start-pos (cider-eval-print-handler))))
+    (cider-interactive-eval last-sexp (cider-eval-print-handler))))
 
 (defun cider-eval-last-sexp-to-repl (&optional prefix)
   "Evaluate the expression preceding point and insert its result in the REPL.
 If invoked with a PREFIX argument, switch to the REPL buffer."
   (interactive "P")
-  (cider-interactive-eval (cider-last-sexp) (cider-last-sexp-start-pos)
+  (cider-interactive-eval (cider-last-sexp)
                           (cider-insert-eval-handler (cider-current-repl-buffer)))
   (when prefix
     (cider-switch-to-repl-buffer)))
@@ -1337,33 +1333,35 @@ If invoked with a PREFIX argument, switch to the REPL buffer."
   "Evaluate the expression preceding point.
 Print its value into the current buffer."
   (interactive)
-  (cider-interactive-eval (cider-last-sexp) (cider-last-sexp-start-pos)
+  (cider-interactive-eval (cider-last-sexp)
                           (cider-eval-print-handler)))
 
-(defun cider--pprint-eval-form (form start-pos)
-  "Pretty print FORM starting at START-POS in popup buffer."
+(defun cider--pprint-eval-form (form)
+  "Pretty print FORM in popup buffer."
   (let* ((result-buffer (cider-popup-buffer cider-result-buffer nil 'clojure-mode))
          (right-margin (max fill-column
                             (1- (window-width (get-buffer-window result-buffer))))))
-    (cider-interactive-eval (cider-format-pprint-eval form right-margin) start-pos
+    (cider-interactive-eval (cider-format-pprint-eval form right-margin)
                             (cider-popup-eval-out-handler result-buffer))))
 
 (defun cider-pprint-eval-last-sexp ()
   "Evaluate the sexp preceding point and pprint its value in a popup buffer."
   (interactive)
-  (cider--pprint-eval-form (cider-last-sexp) (cider-last-sexp-start-pos)))
+  (cider--pprint-eval-form (cider-last-sexp)))
 
 (defun cider-eval-defun-at-point (&optional prefix)
   "Evaluate the current toplevel form, and print result in the minibuffer.
 With a PREFIX argument, print the result in the current buffer."
   (interactive "P")
-  (cider-interactive-eval (cider-defun-at-point) (cider-defun-at-point-start-pos)
-                          (when prefix (cider-eval-print-handler))))
+  (cider-interactive-source-tracking-eval
+   (cider-defun-at-point)
+   (cider-defun-at-point-start-pos)
+   (when prefix (cider-eval-print-handler))))
 
 (defun cider-pprint-eval-defun-at-point ()
   "Evaluate the top-level form at point and pprint its value in a popup buffer."
   (interactive)
-  (cider--pprint-eval-form (cider-defun-at-point) (cider-defun-at-point-start-pos)))
+  (cider--pprint-eval-form (cider-defun-at-point)))
 
 (defun cider-eval-ns-form ()
   "Evaluate the current buffer's namespace form."
@@ -1383,9 +1381,8 @@ With a PREFIX argument, print the result in the current buffer."
       (clojure-mode)
       (unless (string= "" ns-form)
         (insert ns-form "\n\n"))
-      (let ((start-pos (point)))
-        (insert form)
-        (cider-interactive-eval form start-pos)))))
+      (insert form)
+      (cider-interactive-eval form))))
 
 
 ;; Connection and REPL
@@ -1569,7 +1566,7 @@ if there is no symbol at point, or if QUERY is non-nil."
                  (not symbol-name)
                  (equal "" symbol-name)))
         (funcall callback symbol-name)
-      (cider-completing-read-var prompt (cider-current-ns) callback))))
+      (funcall callback (cider-read-from-minibuffer prompt)))))
 
 (defun cider-sync-request:toggle-trace-var (symbol)
   "Toggle var tracing for SYMBOL."
@@ -1758,6 +1755,7 @@ If no buffer is provided the command acts on the current buffer."
   (list cider-error-buffer
         cider-doc-buffer
         cider-test-report-buffer
+        cider-nrepl-session-buffer
         nrepl-message-buffer-name))
 
 (defun cider-close-ancillary-buffers ()
@@ -1784,12 +1782,16 @@ Quitting closes all active nREPL connections and kills all CIDER buffers."
 If PROMPT-PROJECT is t, then prompt for the project in which to
 restart the server."
   (interactive "P")
-  (cider-quit)
-  ;; Workaround for a nasty race condition https://github.com/clojure-emacs/cider/issues/439
-  ;; TODO: Find a better way to ensure `cider-quit' has finished
-  (message "Waiting for CIDER to quit...")
-  (sleep-for 2)
-  (cider-jack-in prompt-project))
+  (let ((project-dir (with-current-buffer (nrepl-current-connection-buffer) nrepl-project-dir)))
+    (cider-quit)
+    ;; Workaround for a nasty race condition https://github.com/clojure-emacs/cider/issues/439
+    ;; TODO: Find a better way to ensure `cider-quit' has finished
+    (message "Waiting for CIDER to quit...")
+    (sleep-for 2)
+    (if project-dir
+        (let ((default-directory project-dir))
+          (cider-jack-in prompt-project))
+      (error "Can't restart CIDER for unknown project"))))
 
 (add-hook 'nrepl-connected-hook 'cider-enable-on-existing-clojure-buffers)
 (add-hook 'nrepl-disconnected-hook
