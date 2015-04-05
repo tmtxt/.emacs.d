@@ -8,6 +8,7 @@
           (lambda ()
             (toggle-truncate-lines t)))
 
+;;; server list
 (setq sql-connection-alist
       '((mooc.dev (sql-product 'postgres)
                   (sql-port 54321)
@@ -22,13 +23,23 @@
         (pedigree.dev (sql-product 'postgres)
                       (sql-port 54321)
                       (sql-server "localhost")
-                      (sql-user "pedigree")
+                      (sql-user "vagrant")
                       (sql-database "pedigree"))
         (sugar.sea.dev (sql-product 'postgres)
                        (sql-port 54321)
                        (sql-server "localhost")
                        (sql-user "sugar_and_sea")
-                       (sql-database "sugar_and_sea"))))
+                       (sql-database "sugar_and_sea"))
+        (azure.dev (sql-product 'postgres)
+                   (sql-port 54321)
+                   (sql-server "localhost")
+                   (sql-user "azure_dev")
+                   (sql-database "azure_dev"))
+        (flask.skeleton (sql-product 'postgres)
+                   (sql-port 54321)
+                   (sql-server "localhost")
+                   (sql-user "skeleton")
+                   (sql-database "skeleton"))))
 
 (defun tmtxt/sql-connect-server (connection)
   "Connect to the input server using tmtxt/sql-servers-list"
