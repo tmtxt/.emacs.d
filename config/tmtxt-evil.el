@@ -15,6 +15,7 @@
                 fundamental-mode
                 inferior-moz-mode
                 process-menu-mode
+                cider-repl-mode
                 sql-interactive-mode))
   (add-to-list 'evil-emacs-state-modes mode))
 
