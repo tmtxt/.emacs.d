@@ -39,11 +39,14 @@
 (defun web-mode-hook ()
   "Config for working with web mode"
 
+  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
+
   ;; disable rainbow, whitespace, idle highlight, font lock mode
   (rainbow-mode 0)
   (whitespace-mode 0)
   (font-lock-mode 1)
   (idle-highlight-mode 0)
+  (setq fill-column 500)
 
   ;; indentation
   (setq web-mode-markup-indent-offset 2)
