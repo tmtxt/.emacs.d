@@ -1,10 +1,9 @@
 ;;; ac-ispell-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads (ac-ispell-setup ac-ispell-ac-setup) "ac-ispell"
-;;;;;;  "ac-ispell.el" (21597 34370 0 0))
+;;;### (autoloads nil "ac-ispell" "ac-ispell.el" (21805 55421 0 0))
 ;;; Generated autoloads from ac-ispell.el
 
 (autoload 'ac-ispell-ac-setup "ac-ispell" "\
@@ -19,16 +18,9 @@ Declare auto-complete source based on `ac-ispell-requires'
 
 ;;;***
 
-;;;### (autoloads nil nil ("ac-ispell-pkg.el") (21597 34370 812474
-;;;;;;  0))
-
-;;;***
-
-(provide 'ac-ispell-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; ac-ispell-autoloads.el ends here
