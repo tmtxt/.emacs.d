@@ -81,6 +81,7 @@
     flycheck-pyflakes
     elpy
     jinja2-mode
+    elixir-mode
 
     ;; helm
     helm
