@@ -131,4 +131,10 @@
 
 (add-hook 'js-mode-hook 'which-function-mode)
 
+;;; coffeescript
+(defun tmtxt/setup-coffee ()
+  (flycheck-mode t))
+(tmtxt/set-up 'coffee-mode
+  (add-hook 'coffee-mode-hook 'tmtxt/setup-coffee))
+
 (provide 'tmtxt-javascript)
