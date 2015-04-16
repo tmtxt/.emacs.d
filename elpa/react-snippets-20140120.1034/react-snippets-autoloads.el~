@@ -1,13 +1,0 @@
-;;; react-snippets-autoloads.el --- automatically extracted autoloads
-;;
-;;; Code:
-
-
-(provide 'react-snippets-autoloads)
-;; Local Variables:
-;; version-control: never
-;; no-byte-compile: t
-;; no-update-autoloads: t
-;; coding: utf-8
-;; End:
-;;; react-snippets-autoloads.el ends here
