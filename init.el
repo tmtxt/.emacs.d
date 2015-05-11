@@ -177,7 +177,7 @@
 (require 'tmtxt-editing)          ;editing config
 (require 'tmtxt-auto-complete)          ;
 (require 'tmtxt-project)
-;; (require 'tmtxt-ecb)					;emacs code browser
+;; ;; (require 'tmtxt-ecb)					;emacs code browser
 (require 'tmtxt-google)					;config for google stuffs
 (require 'tmtxt-desktop)				;auto save mode
 (require 'tmtxt-org)					;org mode config
@@ -197,7 +197,7 @@
 (require 'tmtxt-evil)
 (require 'tmtxt-sql)
 (require 'tmtxt-git)
-(require 'tmtxt-python)
+;; (require 'tmtxt-python)
 (require 'tmtxt-key-bindings)			;key bindings
 
 ;; Save positions in visited files
@@ -238,6 +238,6 @@
 ;; (setq recentf-max-menu-items 100)
 
 ;;; view large file
-(require 'vlf-integrate)
+;; (require 'vlf-integrate)
 
 ;; (setq debug-on-error t)
