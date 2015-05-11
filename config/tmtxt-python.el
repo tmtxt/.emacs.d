@@ -4,10 +4,10 @@
 (add-hook 'python-mode-hook 'tmtxt/setup-python)
 
 ;;; syntax checking using pyflakes
-(require 'flycheck-pyflakes)
-(add-hook 'python-mode-hook 'flycheck-mode)
-(add-to-list 'flycheck-disabled-checkers 'python-flake8)
-(add-to-list 'flycheck-disabled-checkers 'python-pylint)
+;; (require 'flycheck-pyflakes)
+;; (add-hook 'python-mode-hook 'flycheck-mode)
+;; (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+;; (add-to-list 'flycheck-disabled-checkers 'python-pylint)
 
 ;;; elpy
 (require 'elpy)
