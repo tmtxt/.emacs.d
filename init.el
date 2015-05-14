@@ -82,6 +82,7 @@
     elpy
     jinja2-mode
     elixir-mode
+    sass-mode
 
     ;; helm
     helm
