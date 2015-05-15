@@ -48,7 +48,8 @@
 (add-to-list 'org-speed-commands-user
              '("j" org-speed-move-safe 'org-backward-heading-same-level))
 
+;;; org-trello
+(tmtxt/set-up 'org-trello)
+
 ;;; finally, provide the library
 (provide 'tmtxt-org)
-
-

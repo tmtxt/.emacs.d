@@ -83,6 +83,7 @@
     jinja2-mode
     elixir-mode
     sass-mode
+    org-trello
 
     ;; helm
     helm
