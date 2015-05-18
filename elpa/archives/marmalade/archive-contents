@@ -1550,7 +1550,7 @@
 	     [(0 0 8)
 	      nil "export html and meta data used by static blog like nikola from org file" tar])
  (org2jekyll .
-	     [(0 1 4)
+	     [(0 1 5)
 	      ((dash
 		(2 10 0))
 	       (dash-functional
@@ -4395,10 +4395,10 @@
 		  (1 11 5)))
 		"Space align various Clojure forms" single])
  (alchemist .
-	    [(0 13 0)
+	    [(0 14 0)
 	     ((emacs
 	       (24)))
-	     "Elixir tooling integration into emacs" tar])
+	     "Elixir tooling integration into Emacs" tar])
  (ahg .
       [(0 99)
        nil "Alberto's Emacs interface for Mercurial (Hg)" single])
