@@ -79,6 +79,10 @@
   (set-face-attribute 'web-mode-html-tag-face nil :foreground "#859900" :bold t)
   (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "DodgerBlue3")
 
+  ;; highlight
+  (setq web-mode-enable-current-element-highlight t)
+  (setq web-mode-enable-current-column-highlight t)
+
   ;; auto complete and tern
   (auto-complete-mode 1)
   (if web-mode-ac-sources-alist
@@ -104,5 +108,13 @@
 ;;; auto insert and tag when typing </
 (setq nxml-slash-auto-complete-flag t)
 ;(add-to-list 'aggressive-indent-excluded-modes 'web-mode)
+
+;;; change indentation manually
+(defun tmtxt/web-mode-change-indentation (indentation)
+  (interactive (list (string-to-number (read-string "Indentation level: "))))
+  (setq-local web-mode-markup-indent-offset indentation)
+  (setq-local web-mode-css-indent-offset indentation)
+  (setq-local web-mode-code-indent-offset indentation)
+  (setq-local web-mode-indent-style indentation))
 
 (provide 'tmtxt-web)
