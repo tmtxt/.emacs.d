@@ -38,10 +38,12 @@
 (tmtxt/in '(darwin)
   (set-frame-font  "Monaco-12")			;set the font to support unicode
   (setq ns-auto-hide-menu-bar nil)		;hide mac menu bar
+  (setq ns-use-native-fullscreen nil)
   ;; this works on emacs 24.4
-  (when (>= (string-to-number emacs-version) 24.4)
-    (set-frame-position (selected-frame) 0 -22)
-    (add-hook 'after-init-hook (lambda () (set-frame-size (selected-frame) 1655 1046 t)))))
+  ;; (when (>= (string-to-number emacs-version) 24.4)
+  ;;   (set-frame-position (selected-frame) 0 -22)
+  ;;   (add-hook 'after-init-hook (lambda () (set-frame-size (selected-frame) 1655 1046 t))))
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; smooth scroll
