@@ -7,6 +7,8 @@
 
 ;;; default state
 (dolist (mode '(git-commit-mode
+                comint-mode
+                nodejs-repl-mode
                 dired-mode
                 wdired-mode
                 twittering-mode
