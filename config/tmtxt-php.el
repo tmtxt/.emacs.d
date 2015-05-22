@@ -11,19 +11,30 @@ See URL `http://php.net/manual/en/features.commandline.php'."
           (message) " in " (file-name) " on line " line line-end))
   :modes (php-mode php+-mode web-mode))
 
-;;; setting up php mode
-(defun tmtxt/setup-php ()
+(defun tmtxt/setup-php-web-mode ()
+  "Setup php using web mode"
+
   ;; enable web mode
   (web-mode)
-
-  ;; delete trailing whitespace
-  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
 
   ;; indentation
   (make-local-variable 'web-mode-code-indent-offset)
   (make-local-variable 'web-mode-markup-indent-offset)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-markup-indent-offset 2)
+
+  ;; auto complete
+  (add-to-list 'web-mode-ac-sources-alist
+               '("php" ac-source-words-in-buffer
+                 ac-source-words-in-same-mode-buffers
+                 ac-source-dictionary))
+
+  (tmtxt/setup-php))
+
+;;; setting up php mode
+(defun tmtxt/setup-php ()
+  ;; delete trailing whitespace
+  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
 
   ;; undo
   (make-local-variable 'undo-outer-limit)
@@ -41,17 +52,11 @@ See URL `http://php.net/manual/en/features.commandline.php'."
   (flycheck-mode t)
 
   ;; fill column
-  (setq fill-column 500)
-
-  ;; auto complete
-  (add-to-list 'web-mode-ac-sources-alist
-               '("php" ac-source-words-in-buffer
-                 ac-source-words-in-same-mode-buffers
-                 ac-source-dictionary)))
+  (setq fill-column 500))
 
 ;;; auto enable php mode for .php and .inc files
-(add-to-list 'auto-mode-alist '("\\.php$" . tmtxt/setup-php))
-(add-to-list 'auto-mode-alist '("\\.inc$" . tmtxt/setup-php))
+(add-to-list 'auto-mode-alist '("\\.php$" . tmtxt/setup-php-web-mode))
+(add-to-list 'auto-mode-alist '("\\.inc$" . tmtxt/setup-php-web-mode))
 
 ;;; finally provide the library
 (provide 'tmtxt-php)
