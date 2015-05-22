@@ -111,6 +111,7 @@
     tern-auto-complete
     html-script-src
     coffee-mode
+    nodejs-repl
 
     ;; ido
     flx                                 ;fuzzy matching

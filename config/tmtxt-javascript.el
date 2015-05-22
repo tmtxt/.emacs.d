@@ -11,17 +11,9 @@
                               (js2-mode-exit))))
 
 ;;; jshint
-;;; requirements: nodejs, npm,
-;;; install jshint via npm: npm install -g jshint
-;; (tmtxt/add-lib "jshint-mode")
 (tmtxt/set-up 'flycheck
   (add-hook 'js-mode-hook
             (lambda () (flycheck-mode t))))
-;;; don't use this anymore since flycheck is a better version of flymake
-;; (tmtxt/set-up 'flymake-jshint
-;;   (setq jshint-configuration-path "~/.jshintrc"))
-;; (add-hook 'js-mode-hook
-;;      (lambda () (flymake-mode t)))
 
 ;;; beautify json
 ;;; require python installed
@@ -47,11 +39,6 @@
 (defun tmtxt/delete-tern-process ()
   (interactive)
   (delete-process "Tern"))
-
-;;; jsx-mode on melpa
-;; (tmtxt/set-up 'jsx-mode
-;;   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-;;   (setq jsx-indent-level 2))
 
 ;;; enable web mode and highlighting
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
@@ -124,7 +111,7 @@
 ;;; enable hide/show
 (add-hook 'js-mode-hook (lambda () (hs-minor-mode 1)))
 
-;;; itil func when save
+;;; util func when save
 (defun tmtxt/js-save-util ()
   (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
 (add-hook 'js-mode-hook 'tmtxt/js-save-util)
@@ -136,5 +123,35 @@
   (flycheck-mode t))
 (tmtxt/set-up 'coffee-mode
   (add-hook 'coffee-mode-hook 'tmtxt/setup-coffee))
+
+(tmtxt/set-up 'nodejs-repl
+  (setq nodejs-repl-arguments
+        '("--use-strict"
+          "--es_staging"
+          "--harmony"
+          "--harmony_shipping"
+          "--harmony_modules"
+          "--harmony_arrays"
+          "--harmony_array_includes"
+          "--harmony_regexps"
+          "--harmony_arrow_functions"
+          "--harmony_proxies"
+          "--harmony_sloppy"
+          "--harmony_unicode"
+          "--harmony_tostring"
+          "--harmony_classes"
+          "--harmony_object_literals"
+          "--harmony_numeric_literals"
+          "--harmony_strings"
+          "--harmony_scoping"
+          "--harmony_templates"))
+
+  (defun tmtxt/send-region-nodejs-repl (start end)
+    "Send region to `nodejs-repl' process."
+    (interactive "r")
+    (comint-send-region (get-process nodejs-repl-process-name)
+                        start end)
+    (comint-send-string (get-process nodejs-repl-process-name)
+                        "\n")))
 
 (provide 'tmtxt-javascript)
