@@ -31,6 +31,20 @@ See URL `http://php.net/manual/en/features.commandline.php'."
 
   (tmtxt/setup-php))
 
+(defun tmtxt/setup-php-php-mode ()
+  "Setup php using php mode"
+
+  ;; enable php mode
+  (php-mode)
+
+  ;; sub word
+  (subword-mode 1)
+
+  ;; indentation
+  (setq-local c-basic-offset 2)
+
+  (tmtxt/setup-php))
+
 ;;; setting up php mode
 (defun tmtxt/setup-php ()
   ;; delete trailing whitespace
@@ -54,7 +68,15 @@ See URL `http://php.net/manual/en/features.commandline.php'."
   ;; fill column
   (setq fill-column 500))
 
-;;; auto enable php mode for .php and .inc files
+;;; function for switching between web mode and php mode
+(defun tmtxt/switch-php-mode ()
+  "Dynamically switch between web-mode and php-mode"
+  (interactive)
+  (if (eq major-mode 'php-mode)
+      (tmtxt/setup-php-web-mode)
+    (tmtxt/setup-php-php-mode)))
+
+;;; default web mode for php file
 (add-to-list 'auto-mode-alist '("\\.php$" . tmtxt/setup-php-web-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . tmtxt/setup-php-web-mode))
 
