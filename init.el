@@ -84,6 +84,7 @@
     elixir-mode
     sass-mode
     org-trello
+    company-mode
 
     ;; helm
     helm
