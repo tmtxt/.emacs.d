@@ -171,7 +171,7 @@ For MacOS only"
     ;; base-name: file name without extension
     (let ((full-name (file-name-nondirectory (dired-get-filename)))
           extension base-name)
-      
+
       ;; check if it's a dir or a file
       ;; TODO not use if, use switch case check for symlink
       (if (file-directory-p full-name)
@@ -233,6 +233,9 @@ For MacOS only"
 
 ;;; turn on image-dired-display-image-mode for using with helm
 (tmtxt/on-fn 'image-dired-display-image-mode)
+
+;;; auto revert dired buffer
+(setq global-auto-revert-non-file-buffers t)
 
 ;;; finally provide the library
 (provide 'tmtxt-dired)

@@ -165,6 +165,7 @@ user."
 (setq whitespace-line-column 80)
 (global-subword-mode t)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+(global-auto-revert-mode 1)
 
 ;;; finally provide the library
 (provide 'tmtxt-editing)
