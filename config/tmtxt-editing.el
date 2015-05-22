@@ -141,6 +141,12 @@ user."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; change indentation locally
+(defun tmtxt/change-indentation-locally (indentation)
+  (interactive (list (string-to-number (read-string "Indentation level: "))))
+  (setq-local c-basic-offset indentation))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; aggresive indent
 ;(require 'aggressive-indent)
 ;(global-aggressive-indent-mode 1)

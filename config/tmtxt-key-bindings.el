@@ -68,6 +68,7 @@
   "C-M-u"   'upcase-word
   "C-M-j"   'downcase-word
   "M-/"     'hippie-expand
+  "s-y"     'tmtxt/change-indentation-locally
 
   ;; isearch
   "C-s"     'isearch-forward-regexp
@@ -88,7 +89,7 @@
   "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX
   "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Linux
   "C-x C-b"            'ibuffer
-  "s-k"                'kill-this-buffer
+  ;; "s-k"                'kill-this-buffer
   "<C-tab>"            'ido-switch-buffer
 
   ;; ECB
@@ -133,7 +134,7 @@
   "M-a"     "C-x h"
   "M-D"     "M-d"
   "M-F"     "M-DEL"
-  "M-W"     "s-k"
+  "M-W"     "s-&"
   "M-1"     "C-c C-a"
   "M-2"     "C-x o"
   "M-m"     "C-m"
@@ -341,7 +342,8 @@
     "s-l"   'web-mode-element-next
     "s-j"   'web-mode-element-previous
     "s-h"   'web-mode-element-kill
-    "s-n"   'web-mode-element-select))
+    "s-n"   'web-mode-element-select
+    "s-p"   'tmtxt/switch-php-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
