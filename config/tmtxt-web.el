@@ -54,26 +54,6 @@
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-indent-style 2)
 
-  ;; key bindings
-  (define-key web-mode-map (kbd "<C-s-268632077>") 'web-mode-tag-match)
-  (define-key web-mode-map (kbd "C-s-m") 'web-mode-tag-match)
-  (define-key web-mode-map (kbd "<C-s-268632076>") 'web-mode-element-next)
-  (define-key web-mode-map (kbd "C-s-l") 'web-mode-element-next)
-  (define-key web-mode-map (kbd "<C-s-268632074>") 'web-mode-element-previous)
-  (define-key web-mode-map (kbd "C-s-j") 'web-mode-element-previous)
-  (define-key web-mode-map (kbd "<C-s-268632075>") 'web-mode-element-child)
-  (define-key web-mode-map (kbd "C-s-k") 'web-mode-element-child)
-  (define-key web-mode-map (kbd "<C-s-268632073>") 'web-mode-element-parent)
-  (define-key web-mode-map (kbd "C-s-k") 'web-mode-element-parent)
-  (define-key web-mode-map (kbd "<C-s-268632085>") 'web-mode-element-select)
-  (define-key web-mode-map (kbd "C-s-u") 'web-mode-element-select)
-  (define-key web-mode-map (kbd "<C-s-268632079>") 'web-mode-element-content-select)
-  (define-key web-mode-map (kbd "C-s-o") 'web-mode-element-content-select)
-  (define-key web-mode-map (kbd "<C-s-268632078>") 'web-mode-element-kill)
-  (define-key web-mode-map (kbd "C-s-n") 'web-mode-element-kill)
-  (define-key web-mode-map (kbd "<C-s-268632072>") 'web-mode-element-rename)
-  (define-key web-mode-map (kbd "C-s-h") 'web-mode-element-rename)
-
   ;; set faces
   (set-face-attribute 'web-mode-doctype-face nil :foreground "#CB4B16" :bold t)
   (set-face-attribute 'web-mode-html-tag-face nil :foreground "#859900" :bold t)
