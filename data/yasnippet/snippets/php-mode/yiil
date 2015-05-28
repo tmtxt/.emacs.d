@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : yiil
+# --
+Yii::log(print_r(${1:object}, true), 'debug');$0

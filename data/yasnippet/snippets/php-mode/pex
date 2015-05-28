@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : pex
+# --
+throw new Exception(__FUNCTION__ . " > ${1:message}");$0
