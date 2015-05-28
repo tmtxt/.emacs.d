@@ -45,6 +45,15 @@
 ;;; Clojure
 (add-hook 'clojure-mode-hook 'tmtxt-pretty-fn)
 (add-hook 'clojurescript-mode-hook 'tmtxt-pretty-fn)
+(defun tmtxt/switch-to-cider-repl ()
+  "Switch directly to cider repl buffer if exist, otherwise, connect to a new one"
+  (interactive)
+  ;; check whether cider repl buffer exists
+  (let ((cider-buffers (->> (buffer-list)
+       (-filter (lambda (buffer) (->> (buffer-name buffer)
+                                 (s-contains? "cider-repl")))))))
+    (if cider-buffers (message "yes") (message "no"))
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Scheme config
