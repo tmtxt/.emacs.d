@@ -69,6 +69,7 @@
   "C-M-j"   'downcase-word
   "M-/"     'hippie-expand
   "s-y"     'tmtxt/change-indentation-locally
+  "M-G"     'kill-whole-line
 
   ;; isearch
   "C-s"     'isearch-forward-regexp
@@ -344,6 +345,11 @@
     "s-h"   'web-mode-element-kill
     "s-n"   'web-mode-element-select
     "s-p"   'tmtxt/switch-php-mode))
+
+(tmtxt/set-up 'cider
+  (tmtxt/define-keys cider-repl-mode-map
+    "C-M-i"    'cider-repl-previous-input
+    "C-M-k"    'cider-repl-next-input))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
