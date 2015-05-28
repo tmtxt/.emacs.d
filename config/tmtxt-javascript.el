@@ -7,7 +7,7 @@
 ;;; use json-mode instead of js2 for .json file
 (tmtxt/set-up 'json-mode
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
-  (add-hook 'json-mode-hook (lambda () (js2-minor-mode-exit)
+  (add-hook 'json-mode-hook (lambda () (js2-minor-mode 0)
                               (js2-mode-exit))))
 
 ;;; jshint
@@ -120,7 +120,8 @@
 
 ;;; coffeescript
 (defun tmtxt/setup-coffee ()
-  (flycheck-mode t))
+  (flycheck-mode t)
+  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
 (tmtxt/set-up 'coffee-mode
   (add-hook 'coffee-mode-hook 'tmtxt/setup-coffee))
 
