@@ -52,11 +52,12 @@
   (interactive)
   ;; check whether cider repl buffer exists
   (let ((cider-buffers (->> (buffer-list)
-       (-filter (lambda (buffer) (->> (buffer-name buffer)
-                                 (s-contains? "cider-repl")))))))
+                            (-filter (lambda (buffer)
+                                       (->> (buffer-name buffer)
+                                            (s-contains? "cider-repl")))))))
     (if cider-buffers
         (switch-to-buffer (first cider-buffers))
-        (call-interactively 'cider-connect))))
+      (call-interactively 'cider-connect))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Scheme config
