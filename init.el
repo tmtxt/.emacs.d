@@ -12,6 +12,15 @@
 
 ;;; ------------------------------------------------------------------
 ;;; ------------------------------------------------------------------
+;;; temp fix for free variable warning, F**K it
+;;; TODO remove this later when the packages on melpa updated
+(defvar ido-cr+-enable-next-call nil)
+(defvar ido-cr+-replace-completely nil)
+(defvar ido-context-switch-command nil)
+(defvar ido-ubiquitous-debug-mode nil)
+
+;;; ------------------------------------------------------------------
+;;; ------------------------------------------------------------------
 ;;; Emacs is not a package manager, and here we load its package manager!
 (require 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
