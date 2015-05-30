@@ -51,10 +51,12 @@
   "Switch directly to cider repl buffer if exist, otherwise, connect to a new one"
   (interactive)
   ;; check whether cider repl buffer exists
-  (let ((cider-buffers (->> (buffer-list)
-                            (-filter (lambda (buffer)
-                                       (->> (buffer-name buffer)
-                                            (s-contains? "cider-repl")))))))
+  (let* ((cider-buffer? (lambda (buffer)
+                          (->> buffer
+                               (buffer-name)
+                               (s-contains? "cider-repl"))))
+         (cider-buffers (->> (buffer-list)
+                             (-filter cider-buffer?))))
     (if cider-buffers
         (switch-to-buffer (first cider-buffers))
       (call-interactively 'cider-connect))))
