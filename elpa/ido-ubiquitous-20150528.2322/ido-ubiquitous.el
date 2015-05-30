@@ -4,8 +4,8 @@
 
 ;; Author: Ryan C. Thompson
 ;; URL: https://github.com/DarwinAwardWinner/ido-ubiquitous
-;; Package-Version: 20150423.1037
-;; Version: 3.1
+;; Package-Version: 20150528.2322
+;; Version: 3.3
 ;; Created: 2011-09-01
 ;; Keywords: convenience, completion, ido
 ;; EmacsWiki: InteractivelyDoThings
@@ -71,7 +71,7 @@
 ;;
 ;;; Code:
 
-(defconst ido-ubiquitous-version "3.0"
+(defconst ido-ubiquitous-version "3.3"
   "Currently running version of ido-ubiquitous.
 
 Note that when you update ido-ubiquitous, this variable may not
@@ -319,6 +319,9 @@ using overrides and disable it for everything else."
     ;; https://github.com/DarwinAwardWinner/ido-ubiquitous/issues/47
     ;; theme functions don't need old-style compatibility
     (enable regexp "\\`\\(load\\|enable\\|disable\\|describe\\|custom-theme-visit\\)-theme\\'")
+    ;; https://github.com/DarwinAwardWinner/ido-ubiquitous/issues/79
+    ;; BBDB uses old-style default
+    (enable-old prefix "bbdb-")
     )
   "Default value of `ido-ubiquitous-command-overrides'.
 
@@ -587,7 +590,7 @@ completion for them."
       (ido-ubiquitous-fallback
        (ido-ubiquitous--explain-fallback sig)
        (apply ido-cr+-fallback-function orig-args)))))
-(define-obsolete-function-alias #'completing-read-ido #'completing-read-ido-ubiquitous
+(define-obsolete-function-alias 'completing-read-ido #'completing-read-ido-ubiquitous
   "ido-ubiquitous 3.0")
 
 ;;; Old-style default support
@@ -621,18 +624,18 @@ appropriate debug messages."
          (ido-ubiquitous--debug-message "Clearing `ido-ubiquitous-initial-item'.")))
        (setq ido-ubiquitous-initial-item item))))
 
-(defadvice ido-read-internal (before clear-initial-item activate)
+(defadvice ido-read-internal (before ido-ubiquitous-clear-initial-item activate)
   (ido-ubiquitous-set-initial-item nil))
 
-(defadvice ido-make-choice-list (after set-initial-item activate)
+(defadvice ido-make-choice-list (after ido-ubiquitous-set-initial-item activate)
   (ido-ubiquitous-set-initial-item
    (when (and ad-return-value (listp ad-return-value))
      (car ad-return-value))))
 
-(defadvice ido-next-match (after clear-initial-item activate)
+(defadvice ido-next-match (after ido-ubiquitous-clear-initial-item activate)
   (ido-ubiquitous-set-initial-item nil))
 
-(defadvice ido-prev-match (after clear-initial-item activate)
+(defadvice ido-prev-match (after ido-ubiquitous-clear-initial-item activate)
   (ido-ubiquitous-set-initial-item nil))
 
 ;; Clear initial item after `self-insert-command'
@@ -687,7 +690,7 @@ done in order to decide whether to swap RET and C-j. See
                 "Enabling old-style default selection")
     finally return t)))
 
-(defadvice ido-exit-minibuffer (around old-style-default-compat activate)
+(defadvice ido-exit-minibuffer (around ido-ubiquitous-old-style-default-compat activate)
   "Emulate a quirk of `completing-read'.
 
 > If the input is null, `completing-read' returns DEF, or the
@@ -706,7 +709,7 @@ advice has any effect."
      ad-do-it))
   (ido-ubiquitous-set-initial-item nil))
 
-(defadvice ido-select-text (around old-style-default-compat activate)
+(defadvice ido-select-text (around ido-ubiquitous-old-style-default-compat activate)
   "Emulate a quirk of `completing-read'.
 
 > If the input is null, `completing-read' returns DEF, or the

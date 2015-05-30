@@ -5,8 +5,8 @@
 ;; Filename: ido-completing-read+.el
 ;; Author: Ryan Thompson
 ;; Created: Sat Apr  4 13:41:20 2015 (-0700)
-;; Version: 3.1
-;; Package-Version: 20150423.1037
+;; Version: 3.3
+;; Package-Version: 20150528.2322
 ;; Package-Requires: ((emacs "24.1"))
 ;; URL: https://github.com/DarwinAwardWinner/ido-ubiquitous
 ;; Keywords: ido, completion, convenience
@@ -41,6 +41,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
+
+(defconst ido-ubiquitous-version "3.3"
+  "Currently running version of ido-ubiquitous.
+
+Note that when you update ido-ubiquitous, this variable may not
+be updated until you restart Emacs.")
 
 (require 'ido)
 
