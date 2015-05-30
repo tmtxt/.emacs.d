@@ -102,6 +102,7 @@
   "C-S-f"     'yas-expand
   "M-="       'er/expand-region         ;expand region
   "C-M-S-s"   'tmtxt/sql-connect-server
+  "C-M-S-c"   'tmtxt/switch-to-cider-repl
   )
 
 ;;; TODO: rebind these keys
