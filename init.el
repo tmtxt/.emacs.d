@@ -135,6 +135,7 @@
     clojure-mode
     clojure-test-mode
     cider
+    ac-cider
 
     ;; google stuffs
     google-this
