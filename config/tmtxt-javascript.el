@@ -120,6 +120,7 @@
 
 ;;; coffeescript
 (defun tmtxt/setup-coffee ()
+  (auto-complete-mode t)
   (flycheck-mode t)
   (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
 (tmtxt/set-up 'coffee-mode
