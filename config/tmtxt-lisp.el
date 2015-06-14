@@ -46,6 +46,10 @@
 (add-hook 'clojure-mode-hook 'tmtxt-pretty-fn)
 (add-hook 'clojurescript-mode-hook 'tmtxt-pretty-fn)
 (add-hook 'clojure-mode-hook 'paredit-mode)
+(add-hook 'clojure-mode-hook 'tmtxt/set-up-clojure)
+
+(defun tmtxt/set-up-clojure ()
+  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
 
 (defun tmtxt/switch-to-cider-repl ()
   "Switch directly to cider repl buffer if exist, otherwise, connect to a new one"

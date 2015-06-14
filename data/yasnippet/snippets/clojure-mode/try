@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+#name : try
+# --
+(try+
+ $0
+ (catch Exception ex
+   (log/error (.getMessage ex)))
+ (catch String err
+   (log/error err))
+ (catch Object _
+   (log/error "Unexpected Errors")))
