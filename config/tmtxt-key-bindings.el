@@ -350,7 +350,8 @@
 (tmtxt/set-up 'cider
   (tmtxt/define-keys cider-repl-mode-map
     "C-M-i"    'cider-repl-previous-input
-    "C-M-k"    'cider-repl-next-input))
+    "C-M-k"    'cider-repl-next-input
+    "M-s-n"    'cider-repl-set-ns))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
