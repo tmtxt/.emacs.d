@@ -70,6 +70,7 @@
 (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
 (add-hook 'cider-mode-hook 'ac-cider-setup)
 (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+;; (add-hook 'cider-repl-mode-hook (lambda () (toggle-truncate-lines t)))
 (eval-after-load "auto-complete"
   '(progn
      (add-to-list 'ac-modes 'cider-mode)
