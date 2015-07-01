@@ -257,3 +257,9 @@
 ;; (require 'vlf-integrate)
 
 ;; (setq debug-on-error t)
+
+;;; neo4j emacs shell
+(defun start-neo4j-shell ()
+  "Start neo4j shell"
+  (interactive)
+  (make-comint-in-buffer "neo4j shell" nil "vagrant" nil "ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
