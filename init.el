@@ -309,5 +309,13 @@
          (string (buffer-substring-no-properties beg end)))
     (n4s-send-string string)))
 
+(defun n4s-send-buffer ()
+  "Send the current buffer to neo4j shell process"
+  (interactive)
+  (let* ((beg (point-min))
+         (end (point-max))
+         (string (buffer-substring-no-properties beg end)))
+    (n4s-send-string string)))
+
 (setq n4s-cli-program "vagrant")
 (setq n4s-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
