@@ -265,10 +265,15 @@
 (defvar n4s-cli-arguments '()
   "List of command line arguments to pass to neo4j shell cli programm")
 
+(defvar n4s-font-lock-keywords cypher-font-lock-keywords
+  "Font lock keywords list, default is to taken from cypher-mode")
+
 (define-derived-mode neo4j-shell-mode comint-mode "Neo4j Shell"
   "Major mode for `n4s-start'."
   ;; not allow the prompt to be deleted
-  (setq comint-prompt-read-only t))
+  (setq comint-prompt-read-only t)
+  ;; font lock keywords
+  (set (make-local-variable 'font-lock-defaults) '(n4s-font-lock-keywords t)))
 
 ;;; Taken from masteringemacs with some changes
 ;;; https://www.masteringemacs.org/article/comint-writing-command-interpreter
