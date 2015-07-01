@@ -296,9 +296,18 @@
 
 ;;; Send the query string to neo4j shell to execute
 (defun n4s-send-string (string)
+  "Send the input string to neo4j shell process"
   (if (not (comint-check-proc "*neo4j-shell*"))
       (message "No neo4j shell process started")
     (process-send-string "*neo4j-shell*" (concat string "\n"))))
+
+(defun n4s-send-region ()
+  "Send the selected region to neo4j shell process"
+  (interactive)
+  (let* ((beg (region-beginning))
+         (end (region-end))
+         (string (buffer-substring-no-properties beg end)))
+    (n4s-send-string string)))
 
 (setq n4s-cli-program "vagrant")
 (setq n4s-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
