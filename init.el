@@ -268,10 +268,8 @@
 (defun n4s-start ()
   "Start neo4j shell comint mode"
   (interactive)
-  (apply 'make-comint-in-buffer "neo4j-shell" nil "vagrant" nil
-         '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475")))
+  (apply 'make-comint-in-buffer "neo4j-shell" nil n4s-cli-program nil
+         n4s-cli-arguments))
 
-(defun start-neo4j-shell ()
-  "Start neo4j shell"
-  (interactive)
-  (make-comint-in-buffer "neo4j shell" nil "vagrant" nil "ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
+(setq n4s-cli-program "vagrant")
+(setq n4s-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
