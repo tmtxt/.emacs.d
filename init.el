@@ -294,5 +294,8 @@
              n4s-cli-arguments)
       (neo4j-shell-mode))))
 
+(defun n4s-send-string (string)
+  (process-send-string "*neo4j-shell*" (concat string "\n")))
+
 (setq n4s-cli-program "vagrant")
 (setq n4s-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
