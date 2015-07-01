@@ -294,8 +294,11 @@
              n4s-cli-arguments)
       (neo4j-shell-mode))))
 
+;;; Send the query string to neo4j shell to execute
 (defun n4s-send-string (string)
-  (process-send-string "*neo4j-shell*" (concat string "\n")))
+  (if (not (comint-check-proc "*neo4j-shell*"))
+      (message "No neo4j shell process started")
+    (process-send-string "*neo4j-shell*" (concat string "\n"))))
 
 (setq n4s-cli-program "vagrant")
 (setq n4s-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
