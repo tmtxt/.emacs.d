@@ -18,6 +18,7 @@
                 inferior-moz-mode
                 process-menu-mode
                 cider-repl-mode
+                neo4j-shell-mode
                 sql-interactive-mode))
   (add-to-list 'evil-emacs-state-modes mode))
 
@@ -27,7 +28,7 @@
 (dolist (mode '(Info-mode))
   (add-to-list 'evil-normal-state-modes mode))
 
-;;; use jj to switch from insert state to normal or motion state 
+;;; use jj to switch from insert state to normal or motion state
 (tmtxt/set-up 'key-chord
   (key-chord-mode 1)
   (setq key-chord-one-key-delay 0.5)

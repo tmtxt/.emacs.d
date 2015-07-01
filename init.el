@@ -265,11 +265,27 @@
 (defvar n4s-cli-arguments '()
   "List of command line arguments to pass to neo4j shell cli programm")
 
+(define-derived-mode neo4j-shell-mode comint-mode "Neo4j Shell"
+  "Major mode for `n4s-start'.")
+
+;;; Taken from masteringemacs with some changes
+;;; https://www.masteringemacs.org/article/comint-writing-command-interpreter
 (defun n4s-start ()
   "Start neo4j shell comint mode"
   (interactive)
-  (apply 'make-comint-in-buffer "neo4j-shell" nil n4s-cli-program nil
-         n4s-cli-arguments))
+  (let ((buffer (comint-check-proc "*neo4j-shell*")))
+    ;; pop to the "*neo4j-shell*" buffer if the process is dead, the
+    ;; buffer is missing or it's got the wrong mode.
+    (pop-to-buffer-same-window
+     (if (or buffer (not (derived-mode-p 'neo4j-shell-mode))
+             (comint-check-proc (current-buffer)))
+         (get-buffer-create "*neo4j-shell*")
+       (current-buffer)))
+    ;; create the comint process if there is no buffer.
+    (unless buffer
+      (apply 'make-comint-in-buffer "neo4j-shell" nil n4s-cli-program nil
+             n4s-cli-arguments)
+      (neo4j-shell-mode))))
 
 (setq n4s-cli-program "vagrant")
 (setq n4s-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
