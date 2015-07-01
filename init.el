@@ -258,7 +258,19 @@
 
 ;; (setq debug-on-error t)
 
-;;; neo4j emacs shell
+;;; emacs neo4j shell
+(defvar n4s-cli-program "neo4j-shell"
+  "The cli program to start neo4j shell")
+
+(defvar n4s-cli-arguments '()
+  "List of command line arguments to pass to neo4j shell cli programm")
+
+(defun n4s-start ()
+  "Start neo4j shell comint mode"
+  (interactive)
+  (apply 'make-comint-in-buffer "neo4j-shell" nil "vagrant" nil
+         '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475")))
+
 (defun start-neo4j-shell ()
   "Start neo4j shell"
   (interactive)
