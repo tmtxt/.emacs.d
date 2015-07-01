@@ -266,7 +266,9 @@
   "List of command line arguments to pass to neo4j shell cli programm")
 
 (define-derived-mode neo4j-shell-mode comint-mode "Neo4j Shell"
-  "Major mode for `n4s-start'.")
+  "Major mode for `n4s-start'."
+  ;; not allow the prompt to be deleted
+  (setq comint-prompt-read-only t))
 
 ;;; Taken from masteringemacs with some changes
 ;;; https://www.masteringemacs.org/article/comint-writing-command-interpreter
