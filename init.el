@@ -276,6 +276,10 @@
   ;; font lock keywords
   (set (make-local-variable 'font-lock-defaults) '(n4s-font-lock-keywords t)))
 
+(defun n4s-pop-to-buffer-same-window ()
+  "Pop the neo4j shell buffer to the current window"
+  (pop-to-buffer-same-window "*neo4j-shell*"))
+
 ;;; Taken from masteringemacs with some changes
 ;;; https://www.masteringemacs.org/article/comint-writing-command-interpreter
 (defun n4s-start ()
@@ -300,7 +304,9 @@
   "Send the input string to neo4j shell process"
   (if (not (comint-check-proc "*neo4j-shell*"))
       (message "No neo4j shell process started")
-    (process-send-string "*neo4j-shell*" (concat string "\n"))))
+    (progn
+      (process-send-string "*neo4j-shell*" (concat string "\n"))
+      (n4s-pop-to-buffer-same-window))))
 
 (defun n4s-send-region (beg end)
   "Send the region from beg to end to neo4j process"
