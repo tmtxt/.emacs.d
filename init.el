@@ -269,6 +269,12 @@
 (defvar n4s-font-lock-keywords cypher-font-lock-keywords
   "Font lock keywords list, default is to taken from cypher-mode")
 
+(defvar n4s-pop-to-buffer nil
+  "Whether to pop up the neo4j shell buffer after sending command to execute")
+
+(defvar n4s-pop-to-buffer-function 'pop-to-buffer
+  "The function to pop up the neo4j shell buffer")
+
 (define-derived-mode neo4j-shell-mode comint-mode "Neo4j Shell"
   "Major mode for `n4s-start'."
   ;; not allow the prompt to be deleted
@@ -276,9 +282,9 @@
   ;; font lock keywords
   (set (make-local-variable 'font-lock-defaults) '(n4s-font-lock-keywords t)))
 
-(defun n4s-pop-to-buffer-same-window ()
+(defun n4s-pop-to-buffer ()
   "Pop the neo4j shell buffer to the current window"
-  (pop-to-buffer-same-window "*neo4j-shell*"))
+  (apply n4s-pop-to-buffer-function '("*neo4j-shell*")))
 
 ;;; Taken from masteringemacs with some changes
 ;;; https://www.masteringemacs.org/article/comint-writing-command-interpreter
@@ -306,7 +312,8 @@
       (message "No neo4j shell process started")
     (progn
       (process-send-string "*neo4j-shell*" (concat string "\n"))
-      (n4s-pop-to-buffer-same-window))))
+      (when n4s-pop-to-buffer
+        (n4s-pop-to-buffer)))))
 
 (defun n4s-send-region (beg end)
   "Send the region from beg to end to neo4j process"
@@ -354,3 +361,4 @@
 
 (setq n4s-cli-program "vagrant")
 (setq n4s-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
+(setq n4s-pop-to-buffer t)
