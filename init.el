@@ -302,21 +302,35 @@
       (message "No neo4j shell process started")
     (process-send-string "*neo4j-shell*" (concat string "\n"))))
 
-(defun n4s-send-region ()
+(defun n4s-send-region (beg end)
+  "Send the region from beg to end to neo4j process"
+  (let ((string (buffer-substring-no-properties beg end)))
+    (n4s-send-string string)))
+
+(defun n4s-send-current-region ()
   "Send the selected region to neo4j shell process"
   (interactive)
   (let* ((beg (region-beginning))
-         (end (region-end))
-         (string (buffer-substring-no-properties beg end)))
-    (n4s-send-string string)))
+         (end (region-end)))
+    (n4s-send-region beg end)))
 
 (defun n4s-send-buffer ()
   "Send the current buffer to neo4j shell process"
   (interactive)
   (let* ((beg (point-min))
-         (end (point-max))
-         (string (buffer-substring-no-properties beg end)))
-    (n4s-send-string string)))
+         (end (point-max)))
+    (n4s-send-region beg end)))
+
+(defun n4s-send-paragraph ()
+  "Send the current paragraph to neo4j shell process"
+  (interactive)
+  (let ((beg (save-excursion
+               (backward-paragraph)
+               (point)))
+        (end (save-excursion
+               (forward-paragraph)
+               (point))))
+    (n4s-send-region beg end)))
 
 (defun n4s-send-region-or-buffer ()
   "Send the selected region if presented, otherwise, send the whole buffer"
