@@ -336,8 +336,15 @@
   "Send the selected region if presented, otherwise, send the whole buffer"
   (interactive)
   (if (use-region-p)
-      (n4s-send-region)
+      (n4s-send-current-region)
     (n4s-send-buffer)))
+
+(defun n4s-send-dwim ()
+  "Send the selected region presented, otherwise, send the current paragraph"
+  (interactive)
+  (if (use-region-p)
+      (n4s-send-current-region)
+    (n4s-send-paragraph)))
 
 (setq n4s-cli-program "vagrant")
 (setq n4s-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
