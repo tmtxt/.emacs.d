@@ -10,3 +10,6 @@
 [submodule "lib/livedown"]
 	path = lib/livedown
 	url = git@github.com:shime/emacs-livedown.git
+[submodule "lib/n4s.el"]
+	path = lib/n4s.el
+	url = git@github.com:tmtxt/n4s.el.git
