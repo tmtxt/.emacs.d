@@ -259,6 +259,7 @@
 ;; (setq debug-on-error t)
 
 ;;; emacs neo4j shell
+(require 'cypher-mode)
 (defvar n4s-cli-program "neo4j-shell"
   "The cli program to start neo4j shell")
 
