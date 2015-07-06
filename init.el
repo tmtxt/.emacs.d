@@ -103,6 +103,7 @@
     ac-helm
     helm-flycheck
     helm-descbinds
+    cypher-mode
 
     ;; vim emulation
     evil
@@ -264,3 +265,4 @@
 (setq n4js-cli-program "vagrant")
 (setq n4js-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
 (setq n4js-pop-to-buffer t)
+(add-hook 'neo4j-shell-mode (lambda () (toggle-truncate-lines t)))

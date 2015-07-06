@@ -353,6 +353,10 @@
     "C-M-k"    'cider-repl-next-input
     "M-s-n"    'cider-repl-set-ns))
 
+(tmtxt/set-up 'cypher-mode
+  (tmtxt/define-keys cypher-mode-map
+    "M-s-s"   'n4js-send-dwim))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
 ;; Help should search more than just commands
