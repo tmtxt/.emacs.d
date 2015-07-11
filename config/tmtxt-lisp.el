@@ -7,6 +7,7 @@
 (add-hook 'emacs-lisp-mode-hook 'tmtxt-pretty-lambdas)
 (add-hook 'emacs-lisp-mode-hook 'tmtxt-pretty-fn)
 (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
+(add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 (add-hook 'emacs-lisp-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)))
 
@@ -33,6 +34,9 @@
 														   (match-end 1)
 														   "\u0192"
 														   'decompose-region)))))))
+
+(eval-after-load 'flycheck
+  '(flycheck-package-setup))
 
 ;;; key bindings
 (define-key lisp-mode-map (kbd "C-c C-r") 'eval-region)
