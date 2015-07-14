@@ -21,7 +21,7 @@
                   (sql-user "icon")
                   (sql-database "icon"))
         (pedigree.dev (sql-product 'postgres)
-                      (sql-port 54321)
+                      (sql-port 9255)
                       (sql-server "localhost")
                       (sql-user "vagrant")
                       (sql-database "pedigree"))
