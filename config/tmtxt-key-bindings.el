@@ -30,7 +30,7 @@
 
 (tmtxt/undefine-keys
     global-map
-  '("C-M-j" "C-M-l" "C-x C-d"))
+  '("C-M-j" "C-M-l" "C-x C-d" "s-m"))
 
 (tmtxt/set-up 'paredit
   (tmtxt/undefine-keys
@@ -345,6 +345,8 @@
     "s-j"   'web-mode-element-previous
     "s-h"   'web-mode-element-kill
     "s-n"   'web-mode-element-select
+    ;; web mode tag match function not defined as interactive
+    "s-m"   (lambda () (interactive) (web-mode-tag-match))
     "s-p"   'tmtxt/switch-php-mode))
 
 (tmtxt/set-up 'cider

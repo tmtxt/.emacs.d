@@ -1,4 +1,10 @@
 (1
+ (flymake-gdc .
+	      [(0 1)
+	       nil "A flymake handler for d-mode files using the GDC compiler" tar])
+ (meta-presenter .
+		 [(20150501 410)
+		  nil "A simple multi-file presentation tool for Emacs" single])
  (zone-matrix .
 	      [(0 0 1)
 	       nil "Matrix themed Zone mode" tar])
@@ -503,7 +509,7 @@
 	    [(2012 4 7)
 	     nil "replace a word with a synonym looked up in a web service." single])
  (theme-looper .
-	       [(0 0 20150710)
+	       [(20150723 1104)
 		((cl-lib
 		  (0 5)))
 		"Loop thru the available color-themes" single])
@@ -1389,7 +1395,7 @@
 	   [(0 0 1)
 	    nil "get stuff from pinboard" single])
  (picpocket .
-	    [(14)
+	    [(16)
 	     nil "Image viewer" single])
  (pickup .
 	 [(0 0 3)
@@ -1580,11 +1586,11 @@
 	     [(0 0 8)
 	      nil "export html and meta data used by static blog like nikola from org file" tar])
  (org2jekyll .
-	     [(0 1 6)
+	     [(0 1 7)
 	      ((dash
-		(2 10 0))
+		(2 11 0))
 	       (dash-functional
-		(1 2 0))
+		(2 11 0))
 	       (s
 		(1 9 0))
 	       (deferred
@@ -1598,15 +1604,17 @@
 	      (1 6 8)))
 	    "Blog from Org mode to wordpress" tar])
  (org-trello .
-	     [(0 7 0)
+	     [(0 7 1)
 	      ((request-deferred
 		(0 2 0))
 	       (deferred
 		   (0 3 2))
 	       (s
 		(1 9 0))
+	       (dash-functional
+		(2 11 0))
 	       (dash
-		(2 8 0))
+		(2 11 0))
 	       (emacs
 		(24)))
 	      "Minor mode to synchronize org-mode buffer and trello board" tar])
@@ -1813,7 +1821,7 @@
 	  [(20071215)
 	   nil "mode for Notation 3" single])
  (myterminal-controls .
-		      [(0 0 20150427)
+		      [(20150427 347)
 		       ((emacs
 			 (24))
 			(cl-lib
@@ -2027,13 +2035,13 @@
 	       [(1 0 0)
 		nil "collection of faces for markup language modes" single])
  (markdown-toc .
-	       [(0 0 7)
+	       [(0 0 8)
 		((markdown-mode
 		  (2 0))
 		 (dash
-		  (2 5 0))
+		  (2 11 0))
 		 (s
-		  (1 7 0)))
+		  (1 9 0)))
 		"A simple TOC generator for markdown file" single])
  (markdown-mode .
 		[(2 0)
@@ -3826,13 +3834,13 @@
        [(2 11 0)
 	nil "A modern list library for Emacs" single])
  (dart-mode .
-	    [(0 13)
+	    [(0 14)
 	     ((cl-lib
 	       (0 5))
 	      (dash
 	       (2 10 0))
 	      (flycheck
-	       (0 24)))
+	       (0 23)))
 	     "Major mode for editing Dart files" single])
  (d-mode .
 	 [(2 0 4)
@@ -4455,8 +4463,10 @@
 		  (1 11 5)))
 		"Space align various Clojure forms" single])
  (alchemist .
-	    [(1 2 0)
-	     ((emacs
+	    [(1 3 1)
+	     ((elixir-mode
+	       (2 2 5))
+	      (emacs
 	       (24 4))
 	      (company
 	       (0 8 0)))
