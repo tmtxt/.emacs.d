@@ -6,7 +6,8 @@
 
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
-            (toggle-truncate-lines t)))
+            (toggle-truncate-lines t)
+            (setq-local show-trailing-whitespace nil)))
 
 ;;; server list
 (setq sql-connection-alist
