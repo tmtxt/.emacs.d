@@ -30,7 +30,7 @@
 
 (tmtxt/undefine-keys
     global-map
-  '("C-M-j" "C-M-l" "C-x C-d" "s-m"))
+  '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>"))
 
 (tmtxt/set-up 'paredit
   (tmtxt/undefine-keys
@@ -52,6 +52,7 @@
   "C-x c"   'compile
   "M-;"     'comment-dwim
   "M-:"     'evilnc-comment-or-uncomment-lines
+  "s-&"     'kill-this-buffer
 
   "M-x"     'smex
   "C-M-\""  'mark-defun
