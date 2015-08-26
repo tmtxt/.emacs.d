@@ -40,7 +40,12 @@
                    (sql-port 54321)
                    (sql-server "localhost")
                    (sql-user "skeleton")
-                   (sql-database "skeleton"))))
+                   (sql-database "skeleton"))
+        (carrier.adapter (sql-product 'mysql)
+                   (sql-port 3306)
+                   (sql-server "127.0.0.1")
+                   (sql-user "root")
+                   (sql-database "carrier_adapter"))))
 
 (defun tmtxt/sql-connect-server (connection)
   "Connect to the input server using tmtxt/sql-servers-list"
