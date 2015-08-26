@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : sam
+# --
+SELECT ${1:*} FROM ${2:tables} WHERE ${3:TRUE};$0

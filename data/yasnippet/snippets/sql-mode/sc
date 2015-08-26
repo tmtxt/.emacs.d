@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : sc
+# --
+SHOW COLUMNS FROM ${1:table};$0
