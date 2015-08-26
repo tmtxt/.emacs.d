@@ -46,10 +46,15 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; linux specific
+(tmtxt/in '(gnu/linux)
+  (set-face-attribute 'default nil :height 115))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; smooth scroll
 ;;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling    
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
@@ -114,7 +119,7 @@
 (show-paren-mode 1)						;highlight matching paren
 (set-default 'indicate-empty-lines t)
 (setq split-width-threshold nil)        ;not allow split window horizontally
-                           ;automatically
+                                        ;automatically
 (setq-default show-trailing-whitespace t)
 
 ;;; finally, provide the library
