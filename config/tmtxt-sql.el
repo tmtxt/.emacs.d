@@ -12,12 +12,7 @@
 
 ;;; server list
 (setq sql-connection-alist
-      '((mooc.dev (sql-product 'postgres)
-                  (sql-port 54321)
-                  (sql-server "localhost")
-                  (sql-user "mooc")
-                  (sql-database "mooc_dev"))
-        (icon.dev (sql-product 'postgres)
+      '((icon.dev (sql-product 'postgres)
                   (sql-port 54321)
                   (sql-server "localhost")
                   (sql-user "icon")
@@ -27,27 +22,13 @@
                       (sql-server "localhost")
                       (sql-user "vagrant")
                       (sql-database "pedigree"))
-        (sugar.sea.dev (sql-product 'postgres)
-                       (sql-port 54321)
-                       (sql-server "localhost")
-                       (sql-user "sugar_and_sea")
-                       (sql-database "sugar_and_sea"))
-        (azure.dev (sql-product 'postgres)
-                   (sql-port 54321)
-                   (sql-server "localhost")
-                   (sql-user "azure_dev")
-                   (sql-database "azure_dev"))
-        (flask.skeleton (sql-product 'postgres)
-                   (sql-port 54321)
-                   (sql-server "localhost")
-                   (sql-user "skeleton")
-                   (sql-database "skeleton"))
         (carrier.adapter (sql-product 'mysql)
-                   (sql-port 3306)
-                   (sql-server "127.0.0.1")
-                   (sql-user "root")
-                   (sql-database "carrier_adapter"))))
+                         (sql-port 3306)
+                         (sql-server "127.0.0.1")
+                         (sql-user "root")
+                         (sql-database "carrier_adapter"))))
 
+;;; TODO update this function
 (defun tmtxt/sql-connect-server (connection)
   "Connect to the input server using tmtxt/sql-servers-list"
   (interactive
@@ -82,5 +63,21 @@
 ;; (tmtxt/set-up 'sqlup-mode
 ;;   (add-hook 'sql-mode-hook 'sqlup-mode)
 ;;   (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
+
+(when (not (file-exists-p "~/.emacs.d/sql-history"))
+  (make-directory "~/.emacs.d/sql-history"))
+(defun tmtxt/sql-save-history-hook ()
+  (let ((lval 'sql-input-ring-file-name)
+        (rval 'sql-product))
+    (if (symbol-value rval)
+        (let ((filename
+               (concat "~/.emacs.d/sql-history/"
+                       (symbol-name (symbol-value rval))
+                       "-history.sql")))
+          (set (make-local-variable lval) filename))
+      (error
+       (format "SQL history will not be saved because %s is nil"
+               (symbol-name rval))))))
+(add-hook 'sql-interactive-mode-hook 'tmtxt/sql-save-history-hook)
 
 (provide 'tmtxt-sql)
