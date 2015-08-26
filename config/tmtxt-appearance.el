@@ -48,7 +48,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; linux specific
 (tmtxt/in '(gnu/linux)
-  (set-face-attribute 'default nil :height 115))
+  (set-face-attribute 'default nil :height 120))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; smooth scroll
