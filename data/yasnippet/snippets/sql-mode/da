@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : da
+# --
+DELETE FROM ${1:tables} WHERE ${2:TRUE};$0
