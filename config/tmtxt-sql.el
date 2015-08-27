@@ -59,4 +59,9 @@
         (sql-connect connection connection)
       (sql-connect connection))))
 
+(add-hook 'sql-mode-hook
+          (lambda ()
+            (setq-local ac-ignore-case t)
+            (auto-complete-mode)))
+
 (provide 'tmtxt-sql)
