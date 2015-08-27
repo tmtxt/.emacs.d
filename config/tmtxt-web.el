@@ -84,6 +84,15 @@
 (setq web-mode-code-indent-offset 2)	;script
 (setq web-mode-indent-style 2)		;fix side effect for html indentation
 
+;;; sass mode
+(defun tmtxt/scss-setup ()
+  (setq-local css-indent-offset 2))
+
+(tmtxt/set-up 'scss-mode
+  (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+  (setq scss-compile-at-save nil)
+  (add-hook 'scss-mode-hook 'tmtxt/scss-setup))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; misc
 ;;; auto insert and tag when typing </
