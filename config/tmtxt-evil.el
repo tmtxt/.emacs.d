@@ -83,7 +83,8 @@
       evil-normal-state-cursor '(box "YellowGreen")
       evil-insert-state-cursor '(bar "White")
       evil-emacs-state-cursor '(bar "White")
-      evil-visual-state-cursor '(box "#F86155"))
+      evil-visual-state-cursor '(box "#F86155")
+      evil-default-state 'emacs)
 
 (tmtxt/set-up 'evil-nerd-commenter
   (evilnc-default-hotkeys))
