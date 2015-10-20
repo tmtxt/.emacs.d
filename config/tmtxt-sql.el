@@ -24,9 +24,14 @@
                       (sql-database "pedigree"))
         (carrier.adapter (sql-product 'mysql)
                          (sql-port 3306)
-                         (sql-server "127.0.0.1")
+                         (sql-server "carrier_adapter.host")
                          (sql-user "root")
-                         (sql-database "carrier_adapter"))))
+                         (sql-database "carrier_adapter"))
+        (paul.ann (sql-product 'mysql)
+                  (sql-port 3306)
+                  (sql-server "10.103.1.17")
+                  (sql-user "annh")
+                  (sql-database "annh_alice_my"))))
 
 ;;; TODO update this function
 (defun tmtxt/sql-connect-server (connection)
