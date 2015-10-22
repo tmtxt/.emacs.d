@@ -10,12 +10,12 @@
 ;; (add-to-list 'flycheck-disabled-checkers 'python-pylint)
 
 ;;; elpy
-(require 'elpy)
-(setq elpy-modules
-      (delete 'elpy-module-flymake elpy-modules))
-(add-hook 'elpy-mode-hook (tmtxt/on-fn 'flycheck-mode))
-(setq elpy-rpc-backend "jedi")
-(elpy-enable)
-(elpy-use-ipython)
+;; (require 'elpy)
+;; (setq elpy-modules
+;;       (delete 'elpy-module-flymake elpy-modules))
+;; (add-hook 'elpy-mode-hook (tmtxt/on-fn 'flycheck-mode))
+;; (setq elpy-rpc-backend "jedi")
+;; (elpy-enable)
+;; (elpy-use-ipython)
 
 (provide 'tmtxt-python)
