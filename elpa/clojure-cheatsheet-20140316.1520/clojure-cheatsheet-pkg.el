@@ -1,1 +1,0 @@
-(define-package "clojure-cheatsheet" "20140316.1520" "The Clojure Cheatsheet for Emacs" '((helm "1.5.3") (cider "0.1.8")) :url "https://github.com/krisajenkins/clojure-cheatsheet" :keywords '("clojure" "nrepl" "cheatsheet" "helm"))

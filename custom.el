@@ -11,6 +11,7 @@
  '(ecb-options-version "2.40")
  '(ergoemacs-mode-used "5.7.5")
  '(ergoemacs-theme "5.7.5")
+ '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(quack-programs
    (quote
     ("mit-scheme-x86-64" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi"))))
