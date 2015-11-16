@@ -86,7 +86,8 @@
 
 ;;; sass mode
 (defun tmtxt/scss-setup ()
-  (setq-local css-indent-offset 2))
+  (setq-local css-indent-offset 2)
+  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
 
 (tmtxt/set-up 'scss-mode
   (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))

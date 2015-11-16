@@ -1,5 +1,5 @@
 (1
- (elpy . [(1 9 0)
+ (elpy . [(1 10 0)
           ((company (0 8 2))
            (find-file-in-project (3 3))
            (highlight-indentation (0 5 0))
@@ -7,7 +7,7 @@
            (yasnippet (0 8 0)))
           "Emacs Python Development Environment"
           tar])
- (pyvenv . [(1 8)
+ (pyvenv . [(1 9)
             nil
             "Python virtual environment interface"
             single])
