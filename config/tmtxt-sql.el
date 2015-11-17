@@ -36,7 +36,12 @@
                   (sql-port 3306)
                   (sql-server "10.103.1.17")
                   (sql-user "annh")
-                  (sql-database "annh_alice_my"))))
+                  (sql-database "annh_alice_my"))
+        (api.id.staging (sql-product 'mysql)
+                        (sql-port 3306)
+                        (sql-server "172.18.1.56")
+                        (sql-user "qbui")
+                        (sql-database "adapter"))))
 
 ;;; TODO update this function
 (defun tmtxt/sql-connect-server (connection)
