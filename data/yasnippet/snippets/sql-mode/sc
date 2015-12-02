@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 #name : sc
 # --
-SHOW COLUMNS FROM ${1:table};$0
+`(cond ((equal sql-product 'mysql) "SHOW COLUMNS FROM")
+      ((equal sql-product 'postgres) "\\dt"))` ${1:table};$0
