@@ -1,2 +1,4 @@
-alias dcu docker-compose up -d
+alias diu docker-compose kill; docker-compose rm -f; docker-compose build; docker-compose up -d
+alias dck docker-compose kill
 alias ll ls -alh
+alias dcu docker-compose up -d

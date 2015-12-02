@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 #name : st
 # --
-SHOW TABLES;$0
+`(cond ((equal sql-product 'mysql) "SHOW TABLES")
+      ((equal sql-product 'postgres) "\\dt"))`;$0

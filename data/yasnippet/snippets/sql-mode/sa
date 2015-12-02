@@ -1,4 +1,8 @@
 # -*- mode: snippet -*-
-#name : sa
+# name : sa
+# type: command
 # --
-SELECT ${1:*} FROM ${2:tables} WHERE ${3:TRUE} LIMIT ${4:ALL};$0
+(yas-expand-snippet
+ (cond
+  ((equal sql-product 'mysql) "SELECT ${1:*} FROM ${2:tables} WHERE ${3:TRUE};$0")
+  ((equal sql-product 'postgres) "SELECT ${1:*} FROM ${2:tables} WHERE ${3:TRUE} LIMIT ${4:ALL};$0")))
