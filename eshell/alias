@@ -1,1 +1,2 @@
+alias dcu docker-compose up -d
 alias ll ls -alh
