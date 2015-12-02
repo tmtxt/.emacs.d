@@ -4,7 +4,8 @@ ac-comphist.dat
 backups/*
 \#*
 auto-save-list
-eshell/*
+eshell/history
+eshell/lastdir
 url/cookies
 .DS_Store
 etags/*
