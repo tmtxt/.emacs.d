@@ -226,15 +226,15 @@
 
 (tmtxt/set-up 'hideshow
   (tmtxt/define-keys
-    hs-minor-mode-map
-  "C-c C-h"   'hs-hide-block
-  "C-c C-d"   'hs-show-block
-  "C-c C-t"   'hs-toggle-hiding
-  "C-c C-;"   'hs-hide-all
-  "C-c C-'"   'hs-show-all
-  "C-c C-l"   'hs-hide-level
-  "C-S-r"     'hs-toggle-hiding
-  ))
+      hs-minor-mode-map
+    "C-c C-h"   'hs-hide-block
+    "C-c C-d"   'hs-show-block
+    "C-c C-t"   'hs-toggle-hiding
+    "C-c C-;"   'hs-hide-all
+    "C-c C-'"   'hs-show-all
+    "C-c C-l"   'hs-hide-level
+    "C-S-r"     'hs-toggle-hiding
+    ))
 
 (tmtxt/define-keys
     ac-completing-map
@@ -359,6 +359,14 @@
 (tmtxt/set-up 'cypher-mode
   (tmtxt/define-keys cypher-mode-map
     "M-s-s"   'n4js-send-dwim))
+
+(add-hook
+ 'eshell-mode-hook
+ (lambda ()
+   (tmtxt/define-keys eshell-mode-map
+     "C-M-i" 'eshell-previous-input
+     "C-M-k" 'eshell-next-input
+     )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
