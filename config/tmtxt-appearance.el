@@ -112,7 +112,7 @@
 (setq-default cursor-type 'bar)			;set cursor to a thin vertical line instead of a little box
 (global-hl-line-mode 1)					;highlight current line
 (tool-bar-mode -1)						;turn off tool bar
-(setq visible-bell t)					;make audible ring instead of bell
+(setq visible-bell nil)					;make audible ring instead of bell
 (setq inhibit-startup-message t)		;not display welcome message
 (setq uniquify-buffer-name-style 'forward)
 (setq whitespace-style '(face trailing lines-tail tabs))
