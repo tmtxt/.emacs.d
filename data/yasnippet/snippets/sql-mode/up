@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: up
+# key: up
+# binding: direct-keybinding
+# --
+UPDATE ${1:table} SET ${2:values} WHERE ${3:TRUE};$0
