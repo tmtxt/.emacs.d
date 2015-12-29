@@ -152,6 +152,41 @@ user."
 ;(global-aggressive-indent-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; quote
+;;; taken from http://ergoemacs.org/emacs/elisp_escape_quotes.html
+(defun tmtxt/escape-quotes (φbegin φend)
+  "Replace 「\"」 by 「\\\"」 in current line or text selection.
+See also: `xah-unescape-quotes'
+URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
+Version 2015-05-04"
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end))
+     (list (line-beginning-position) (line-end-position))))
+  (save-excursion
+      (save-restriction
+        (narrow-to-region φbegin φend)
+        (goto-char (point-min))
+        (while (search-forward "\"" nil t)
+          (replace-match "\\\"" 'FIXEDCASE 'LITERAL)))))
+
+(defun tmtxt/unescape-quotes (φbegin φend)
+  "Replace  「\\\"」 by 「\"」 in current line or text selection.
+See also: `xah-escape-quotes'
+URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
+Version 2015-05-04"
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end))
+     (list (line-beginning-position) (line-end-position))))
+  (save-excursion
+    (save-restriction
+      (narrow-to-region φbegin φend)
+      (goto-char (point-min))
+      (while (search-forward "\\\"" nil t)
+        (replace-match "\"" 'FIXEDCASE 'LITERAL)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Some minor config
 (delete-selection-mode 1)				;delete selection mode
 (setq next-line-add-newlines t)			;auto new line
