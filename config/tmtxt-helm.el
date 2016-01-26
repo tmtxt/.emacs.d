@@ -43,7 +43,7 @@
       (add-to-list 'base 'helm-source-mac-spotlight))
     (tmtxt/in '(gnu/linux)
       (add-to-list 'base 'helm-source-locate))
-    
+
     (if (featurep 'helm-cmd-t)
         ;; FIX
         (condition-case nil
@@ -61,6 +61,13 @@
               (dolist (source (list helm-source-occur))
                 (when source
                   (helm-attrset 'follow 1 source)))))
+
+;;; helm always display at the bottom
+(add-to-list 'display-buffer-alist
+                    `(,(rx bos "*helm" (* not-newline) "*" eos)
+                         (display-buffer-in-side-window)
+                         (inhibit-same-window . t)
+                         (window-height . 0.4)))
 
 ;;; finally provide the library
 (provide 'tmtxt-helm)

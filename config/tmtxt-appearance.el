@@ -1,8 +1,10 @@
-;;; how my emacs appears
-;;; this file should be loaded after other files if want to override custom face
+;;; appearance --- config for emacs appearance
+;;; Commentary:
 
 (require 'tmtxt-util)
 (require 'idle-highlight-mode)
+
+;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; load my custom theme
@@ -88,7 +90,8 @@
 ;;; golden ratio
 (tmtxt/set-up 'golden-ratio
   (setq golden-ratio-exclude-modes '("ediff-mode"))
-  (golden-ratio-mode 1))
+  (golden-ratio-mode 1)
+  (golden-ratio-toggle-widescreen))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; same window buffer
@@ -97,6 +100,47 @@
 (add-to-list 'same-window-buffer-names "*Help*")
 (add-to-list 'same-window-buffer-names "*Apropos*")
 (add-to-list 'same-window-buffer-names "*Process List*")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; neotree
+(require 'neotree)
+(defun tmtxt/toggle-neotree ()
+  (interactive)
+  (let ((golden-enable (if golden-ratio-mode 1 0))
+        (project-root (projectile-project-p))
+        (current-file (buffer-file-name)))
+    (message current-file)
+    (golden-ratio-mode 0)
+    (neotree-toggle)
+    (when (neo-global--window-exists-p)
+      (progn
+        (-> " *NeoTree*"
+            (get-buffer)
+            (get-buffer-window)
+            (set-window-parameter 'no-other-window t))
+        (when project-root
+          (progn
+            (neotree-dir project-root)
+            (when (file-exists-p current-file) (neotree-find current-file))))))
+    (golden-ratio-mode golden-enable)))
+(add-hook 'kill-emacs-hook (lambda () (neotree-hide)))
+(defun tmtxt/select-neotree-window ()
+  (interactive)
+  (-> " *NeoTree*"
+      (get-buffer)
+      (get-buffer-window)
+      (select-window)))
+(setq neo-window-width 40)
+(setq neo-smart-open t)
+(defun tmtxt/neotree-find-root ()
+  (interactive)
+  (let ((project-root (projectile-project-p))
+        (current-file (buffer-file-name)))
+    (if project-root
+        (progn
+          (neotree-dir project-root)
+          (when (file-exists-p current-file) (neotree-find current-file)))
+      (neotree-dir default-directory))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'prog-mode-hook (lambda () (highlight-parentheses-mode t)))
@@ -124,3 +168,4 @@
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
+;;; tmtxt-appearance.el ends here
