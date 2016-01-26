@@ -117,6 +117,12 @@
           (set-window-parameter 'no-other-window t))))
     (golden-ratio-mode golden-enable)))
 (add-hook 'kill-emacs-hook (lambda () (neotree-hide)))
+(defun tmtxt/select-neotree-window ()
+  (interactive)
+  (-> " *NeoTree*"
+      (get-buffer)
+      (get-buffer-window)
+      (select-window)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'prog-mode-hook (lambda () (highlight-parentheses-mode t)))
