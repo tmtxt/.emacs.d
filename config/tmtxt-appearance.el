@@ -106,15 +106,22 @@
 (require 'neotree)
 (defun tmtxt/toggle-neotree ()
   (interactive)
-  (let ((golden-enable (if golden-ratio-mode 1 0)))
+  (let ((golden-enable (if golden-ratio-mode 1 0))
+        (project-root (projectile-project-p))
+        (current-file (buffer-file-name)))
+    (message current-file)
     (golden-ratio-mode 0)
     (neotree-toggle)
     (when (neo-global--window-exists-p)
       (progn
         (-> " *NeoTree*"
-          (get-buffer)
-          (get-buffer-window)
-          (set-window-parameter 'no-other-window t))))
+            (get-buffer)
+            (get-buffer-window)
+            (set-window-parameter 'no-other-window t))
+        (when project-root
+          (progn
+            (neotree-dir project-root)
+            (when (file-exists-p current-file) (neotree-find current-file))))))
     (golden-ratio-mode golden-enable)))
 (add-hook 'kill-emacs-hook (lambda () (neotree-hide)))
 (defun tmtxt/select-neotree-window ()
@@ -123,6 +130,17 @@
       (get-buffer)
       (get-buffer-window)
       (select-window)))
+(setq neo-window-width 40)
+(setq neo-smart-open t)
+(defun tmtxt/neotree-find-root ()
+  (interactive)
+  (let ((project-root (projectile-project-p))
+        (current-file (buffer-file-name)))
+    (if project-root
+        (progn
+          (neotree-dir project-root)
+          (when (file-exists-p current-file) (neotree-find current-file)))
+      (neotree-dir default-directory))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'prog-mode-hook (lambda () (highlight-parentheses-mode t)))
