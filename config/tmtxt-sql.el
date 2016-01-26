@@ -20,7 +20,7 @@
         (pedigree.dev (sql-product 'postgres)
                       (sql-port 9255)
                       (sql-server "localhost")
-                      (sql-user "vagrant")
+                      (sql-user "postgres")
                       (sql-database "pedigree"))
         (carrier.adapter (sql-product 'mysql)
                          (sql-port 3306)
