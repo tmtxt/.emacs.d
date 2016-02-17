@@ -300,6 +300,197 @@
    `(magit-popup-argument
      ((t (:inherit font-lock-variable-name-face))))
 
+   ;; font lock
+   `(font-lock-builtin-face
+     ((t (,@fw ,@constant))))
+   `(font-lock-comment-face
+     ((t (,@vw-italic ,@note))))
+   `(font-lock-comment-delimiter-face
+     ((t (:inherit font-lock-comment-face))))
+   `(font-lock-doc-string-face
+     ((t (,@fw ,@doc))))
+   `(font-lock-function-name-face
+     ((t (,@fw ,@essence))))
+   `(font-lock-keyword-face
+     ((t (,@fw ,@power))))
+   `(font-lock-reference-face
+     ((t (,@fw ,@reference))))
+   `(font-lock-regexp-grouping-backslash
+     ((t (,@fw ,@spectral))))
+   `(font-lock-regexp-grouping-construct
+     ((t (,@fw ,@constant))))
+   `(font-lock-string-face
+     ((t (,@fw ,@string))))
+   `(font-lock-doc-face
+     ((t (,@vw-italic ,@string))))
+   `(font-lock-type-face
+     ((t (,@fw ,@type))))
+   `(font-lock-preprocessor-face
+     ((t (,@fw ,@raw))))
+   `(font-lock-variable-name-face
+     ((t (,@fw ,@mutable))))
+   `(font-lock-warning-face
+     ((t (,@fw ,@warning))))
+   `(font-lock-constant-face
+     ((t (,@fw ,@constant))))
+   `(number-font-lock-face
+     ((t (,@fw ,@number))))
+
+   ;; js
+   `(js2-function-param
+     ((t (,@param))))
+   `(js2-jsdoc-type
+     ((t (:inherit font-lock-type-face))))
+   `(js2-jsdoc-tag
+     ((t (:inherit font-lock-builtin-face))))
+
+   `(js3-function-param
+     ((t (:inherit js2-function-param))))
+   `(js3-jsdoc-type
+     ((t (:inherit js2-jsdoc-type))))
+   `(js3-jsdoc-tag
+     ((t (:inherit js2-jsdoc-tag))))
+
+   ;; web mode
+   `(web-mode-preprocessor-face
+     ((t (,@context))))
+   `(web-mode-html-attr-name-face
+     ((t (:inherit font-lock-variable-name-face))))
+   `(web-mode-param-name-face
+     ((t (:inherit font-lock-constant-face))))
+   `(web-mode-html-attr-equal-face
+     ((t (,@context))))
+   `(web-mode-html-tag-face
+     ((t (:inherit font-lock-builtin-face))))
+   `(web-mode-html-tag-custom-face
+     ((t (:inherit web-mode-html-tag-face :slant italic :underline ,bg+3))))
+   `(web-mode-part-face
+     ((t (,@dimmed-hl))))
+   `(web-mode-block-face
+     ((t (,@dimmed-hl))))
+   `(web-mode-block-delimiter-face
+     ((t (:inherit web-mode-block-face ,@dimmed))))
+   `(web-mode-css-selector-face
+     ((t (:inherit font-lock-function-name-face))))
+   `(web-mode-current-element-highlight-face
+     ((t (:inherit highlight))))
+   `(web-mode-comment-keyword-face
+     ((t (:inherit font-lock-warning-face))))
+   `(web-mode-html-tag-bracket-face
+     ((t (,@fw ,@context))))
+   `(web-mode-folded-face
+     ((t (:underline t))))
+
+   ;; nxml
+   `(nxml-element-prefix
+     ((t (,@fw ,@context))))
+   `(nxml-element-local-name
+     ((t (:inherit font-lock-builtin-face))))
+   `(nxml-tag-delimiter
+     ((t (,@fw ,@dimmed))))
+   `(nxml-processing-instruction-delimiter
+     ((t (:inherit nxml-tag-delimiter))))
+   `(nxml-markup-declaration-delimiter
+     ((t (:inherit nxml-tag-delimiter))))
+   `(nxml-entity-ref-name
+     ((t (,@fw :foreground ,skin))))
+
+   ;; markdown
+   `(markdown-link-face
+     ((t (,@teleport))))
+   `(markdown-url-face
+     ((t (:inherit org-link))))
+   `(markdown-header-delimiter-face
+     ((t (,@dimmed))))
+   `(markdown-header-face-1
+     ((t (:inherit org-level-1))))
+   `(markdown-header-face-2
+     ((t (:inherit org-level-2))))
+   `(markdown-header-face-3
+     ((t (:inherit org-level-3))))
+   `(markdown-header-face-4
+     ((t (:inherit org-level-4))))
+   `(markdown-header-face-5
+     ((t (:inherit org-level-5))))
+   `(markdown-header-face-6
+     ((t (:inherit org-level-6))))
+   `(markdown-list-face
+     ((t (,@mutable :weight bold))))
+   `(markdown-pre-face
+     ((t (,@fw ,@dimmed-hl ,@string))))
+   `(markdown-bold-face
+     ((t (,@mutable :weight bold))))
+   `(markdown-italic-face
+     ((t (,@mutable :slant italic))))
+
+   ;; helm
+   `(helm-header
+     ((t (,@vw ,@header))))
+   `(helm-source-header
+     ((t (,@vw ,@dimmed-hl ,@subheader ,@bold))))
+   `(helm-selection
+     ((t (:inherit secondary-selection))))
+   `(helm-selection-line
+     ((t (:inherit secondary-selection))))
+   `(helm-match
+     ((t (:foreground ,radio ,@bold))))
+   `(helm-grep-match
+     ((t (:foreground ,yellow))))
+   `(helm-ff-file
+     ((t (,@portal))))
+   `(helm-ff-directory
+     ((t (:inherit diredp-dir-priv ,@fw ,dimmed-hl))))
+   `(helm-ff-symlink
+     ((t (:inherit diredp-symlink))))
+   `(helm-ff-executable
+     ((t (:inherit diredp-exec-priv))))
+   `(helm-separator
+     ((t (,@shadowed))))
+   `(helm-grep-file
+     ((t (,@reference))))
+   `(helm-moccur-buffer
+     ((t (,@reference))))
+   `(helm-grep-lineno
+     ((t (,@number))))
+   `(helm-action
+     ((t (,@vw :height 1.1))))
+   `(helm-buffer-directory
+     ((t (:inherit helm-ff-directory))))
+
+   ;; dired
+   `(diredp-file-name
+     ((t (,@vw))))
+   `(diredp-dir-priv
+     ((t (,@vw ,@more))))
+   `(diredp-dir-heading
+     ((t (,@header))))
+   `(dired-symlink
+     ((t (,@teleport))))
+   `(diredp-symlink
+     ((t (,@teleport))))
+   `(diredp-no-priv
+     ((t (,@dimmed-hl ,@spectral))))
+   `(diredp-read-priv
+     ((t (:inherit diredp-no-priv ,@more))))
+   `(diredp-write-priv
+     ((t (:inherit diredp-no-priv ,@power))))
+   `(diredp-exec-priv
+     ((t (:inherit diredp-no-priv ,@raw))))
+   `(diredp-number
+     ((t (,@number))))
+   `(diredp-flag-mark-line              ;selected
+     ((t (,@special-hl ,@vw))))
+   `(diredp-deletion                    ;marked for deletion
+     ((t (,@error-hl ,@vw))))
+   `(diredp-deletion-file-name
+     ((t (,@error-hl))))
+   `(diredp-compressed-file-suffix
+     ((t (,@constant))))
+   `(diredp-file-suffix
+     ((t (,@context))))
+   `(diredp-ignored-file-name
+     ((t (,@vw-italic ,@note))))
+
    ))
 
 (provide-theme 'truong)

@@ -13,7 +13,7 @@
     (progn
       (setq custom-theme-directory "~/.emacs.d/lib/themes/")
       (add-to-list 'custom-theme-load-path custom-theme-directory)
-      (load-theme 'tmtxt t))
+      (load-theme 'truong t))
   (progn
     (load-theme 'manoj-dark)))
 
