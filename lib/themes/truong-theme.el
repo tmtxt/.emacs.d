@@ -5,7 +5,8 @@
        ;; colors
        (radio     "#9ACD32")
        (yellow    "#FFFF00")
-       (red       "#FF0000")
+       (red       "#CD1111")
+       (red-l     "#FF0000")
        (red-d     "#8B1A1A")
        (orange    "#FF8C00")
        (golden    "#B8860B")
@@ -36,12 +37,12 @@
        (fw `(:inherit fixed-pitch))
        (vw `(:inherit variable-pitch))
 
-       (warning      `(:foreground ,red))
+       (warning      `(:foreground ,red-l))
        (error-hl     `(:background ,red-d))
        (power        `(:foreground ,blush))
        (commitment   `(:foreground ,blush))
-       (raw          `(:foreground "#D98D54"))
-       (minus        `(:foreground "#CD1111"))
+       (raw          `(:foreground ,skin))
+       (minus        `(:foreground ,red))
        (plus         `(:foreground ,forest))
        (context      `(:foreground ,fg-3))
        (dimmed       `(:foreground ,bg+3))
@@ -79,11 +80,16 @@
    ;; Bases
    `(default
       ((t (,@fw :foreground ,fg :backend ,bg))))
-   '(fixed-pitch ((t (:family "Monospace"))))
-   '(variable-pitch ((t (:family "Sans Serif"))))
-   '(shadow ((t (:foreground "#465a61"))))
-   '(button ((t (:inherit (link)))))
-   '(link ((t (:weight normal :slant normal :underline (:color foreground-color :style line) :inverse-video nil :foreground "#5859b7"))))
+   `(fixed-pitch
+     ((t (:family "Monospace"))))
+   `(variable-pitch
+     ((t (:family "Sans Serif"))))
+   `(shadow
+     ((t (,@dimmed))))
+   `(link
+     ((t (,@portal :underline ,bg+3))))
+   `(button
+     ((t (,@fw ,@portal :underline ,bg+3))))
 
    ))
 
