@@ -72,7 +72,8 @@
        (special-hl   `(:background ,blue-d))
        (strong       `(:foreground ,fg+1))
        (note         `(:foreground ,magenta))
-       (status       `(:background ,blue-l)))
+       (status       `(:background ,blue-l))
+       (bold           `(:weight bold)))
 
   (custom-theme-set-faces
    'truong
@@ -91,6 +92,22 @@
    `(button
      ((t (,@fw ,@portal :underline ,bg+3))))
 
+   ;; mode line
+
+
+   ;; fringe
+   `(fringe
+     ((t (,@context ,@fw))))
+   `(vertical-border
+     ((t (,@shadowed))))
+
+   ;; line num
+   `(linum
+     ((t (:inherit fringe ,@dimmed :slant normal :weight normal
+                        :underline nil :strike-through nil :overline nil
+                        :background ,bg :box nil))))
+   `(linum-relative-current-face
+     ((t (:inherit (hl-line linum) ,@context ,@bold))))
    ))
 
 (provide-theme 'truong)
