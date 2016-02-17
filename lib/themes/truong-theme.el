@@ -395,6 +395,82 @@
    `(nxml-entity-ref-name
      ((t (,@fw :foreground ,skin))))
 
+   ;; org-mode
+   `(org-document-title
+     ((t (,@string :height 2.0 :bold t))))
+   `(org-special-keyword
+     ((t (,@fw ,@constant))))
+   `(org-indent
+     ((t ())))
+   `(org-level-1
+     ((t (,@vw ,@constant :weight normal :overline ,bg+2 :height 1.4 ,@spectral-hl))))
+   `(org-level-2
+     ((t (,@vw ,@mutable :weight normal :overline ,bg+2 :height 1.2 ,@spectral-hl))))
+   `(org-level-3
+     ((t (,@string :weight normal :height 1.1))))
+   `(org-level-4
+     ((t (:foreground ,cyan :weight normal :height 1.0))))
+   `(org-level-5
+     ((t (,@param))))
+   `(org-level-6
+     ((t (:foreground ,radio))))
+   ;; `(org-level-7                        ;TODO
+   ;;  ((t (:foreground ,green-3))))
+   `(org-level-8
+     ((t (,@note))))
+   `(org-table
+     ((t (,@fw :overline ,bg+1 :foreground ,blue-l))))
+   `(org-formula
+     ((t (,@fw ,@param))))
+   `(org-hide
+     ((t (:foreground ,bg))))
+   `(org-code
+     ((t (:inherit font-lock-builtin-face))))
+   `(org-verbatim
+     ((t (:inherit font-lock-keyword-face))))
+   `(org-meta-line
+     ((t (,@fw ,@context))))
+   `(org-document-info-keyword
+     ((t (:inherit org-meta-line))))
+   `(org-link
+     ((t (:inherit link))))
+   `(org-date
+     ((t (,@fw :foreground ,cyan :underline t))))
+   `(org-todo
+     ((t (,@commitment))))
+   `(org-block
+     ((t (,@fw))))
+   `(org-block-background
+     ((t (,@fw ,@spectral-hl))))
+   `(org-block-begin-line
+     ((t (:inherit org-block-background ,@constant :underline ,blue-d))))
+   `(org-block-end-line
+     ((t (:inherit org-block-background ,@spectral :overline ,blue-d))))
+   `(org-checkbox
+     ((t (,@fw :weight bold :box (:line-width 1 :style released-button :color ,bg)))))
+   `(org-time-grid
+     ((t (,@fw ,@context))))
+   `(org-agenda-date-today
+     ((t (:inherit org-agenda-date :underline t))))
+   `(org-agenda-date-weekend
+     ((t (:inherit org-agenda-date :slant italic))))
+   `(org-agenda-current-time
+     ((t (,@fw :inherit org-time-grid ,@header :background ,bg+2))))
+   `(org-scheduled-previously
+     ((t (,@fw :foreground ,blue-l))))
+   `(org-scheduled-today
+     ((t (,@fw :foreground ,radio))))
+   `(org-agenda-done
+     ((t (,@fw :foreground ,seaweed))))
+   `(org-tag
+     ((t (,@fw ,@context))))
+   `(org-column
+     ((t (,@fw :slant normal))))
+   `(org-priority
+     ((t (:foreground ,radio))))
+   `(org-headline-done
+     ((t (:inherit org-level-2 ,@context))))
+
    ;; markdown
    `(markdown-link-face
      ((t (,@teleport))))
@@ -491,6 +567,23 @@
    `(diredp-ignored-file-name
      ((t (,@vw-italic ,@note))))
 
+   ;; yasnippet
+   `(yas--field-debug-face
+     ((t (:underline ,yellow))))
+   `(yas-field-highlight-face
+     ((t (,@strong-hl))))
+
+   )
+
+  (custom-theme-set-variables
+   'truong
+
+   `(hl-paren-colors '("#00FF00"
+                       "#00DD00"
+                       "#00BB00"
+                       "#009900"
+                       "#007700"
+                       "#005500"))
    ))
 
 (provide-theme 'truong)
