@@ -84,7 +84,7 @@
    `(default
       ((t (,@fw :foreground ,fg :backend ,bg))))
    `(fixed-pitch
-     ((t (:family "Monospace"))))
+     ((t (:family "Monaco"))))
    `(variable-pitch
      ((t (:family "Sans Serif"))))
    `(shadow
