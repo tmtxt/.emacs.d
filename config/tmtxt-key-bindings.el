@@ -202,6 +202,8 @@
   "C-S-n"   'dired-create-directory
   "C-S-u"   'dired-up-directory
   "C-o"     'dired-omit-mode
+  "M-b" 'subword-backward
+  "C-M-b" 'paredit-backward
   )
 
 (tmtxt/define-keys
