@@ -5,21 +5,9 @@
 ;;; emacs add the functions with the same name with them
 
 ;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
 ;;; define some load path here
-;; (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/config/")
 
-;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
-;;; temp fix for free variable warning, F**K it
-;;; TODO remove this later when the packages on melpa updated
-(defvar ido-cr+-enable-next-call nil)
-(defvar ido-cr+-replace-completely nil)
-(defvar ido-context-switch-command nil)
-(defvar ido-ubiquitous-debug-mode nil)
-
-;;; ------------------------------------------------------------------
 ;;; ------------------------------------------------------------------
 ;;; Emacs is not a package manager, and here we load its package manager!
 (require 'package)
@@ -32,155 +20,6 @@
   (add-to-list 'package-archives source t))
 (package-initialize)
 
-;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
-;;; package.el
-;;; everytime emacs starts, it will automatically check if those packages are
-;;; missing, it will install them automatically
-(when (not package-archive-contents)
-  (package-refresh-contents))
-(defvar tmtxt/elpa-packages
-  '(auto-complete                       ;auto complete
-    elisp-slime-nav                     ;Make M-. and M-, work in elisp
-    find-file-in-project                ;quickly find file in a project
-    idle-highlight-mode                 ;highlight the word the point is on
-    magit                               ;control git from emacs
-    paredit                             ;minor mode for editing parentheses
-    popup                               ;visual popup user interface
-    yasnippet                           ;yasnippet
-    bookmark+                           ;enhance built in bookmark
-    markdown-mode                       ;markdown mode for emacs
-    textmate                            ;textmate mode
-    autopair                            ;auto pair the brackets
-    php-mode                            ;php mode for emacs
-    ecb                                 ;emacs code browser
-                                        ;member-function                     ;expand member functions in C++
-    header2                             ;auto file header
-    rainbow-mode                        ;colorize color name in buffer
-    rainbow-delimiters
-    undo-tree                           ;treat undo as a tree
-    twittering-mode                     ;twitter client for emacs
-    htmlize                             ;generate html from buffer
-    puppet-mode                         ;mode for editing puppet files
-    yaml-mode                           ;yaml mode
-    exec-path-from-shell                ;copy PATH from shell
-    thesaurus                           ;thesaurus
-    emmet-mode                          ;zen coding style
-    web-mode                            ;mode for web
-    web-beautify                        ;beautify css, html, js
-    ac-ispell                           ;auto complete from ispell
-    flycheck                            ;on the fly syntax checking
-    expand-region                       ;smart region selection
-    smart-forward                       ;smart par forward
-    nyan-mode                           ;nyan cat in mode line
-    vlf                                 ;view large file
-    projectile                          ;find file/folder in project
-    auto-complete-clang
-    key-chord
-    less-css-mode
-    sql-indent
-    sqlup-mode
-    git-messenger
-    quack
-    highlight-parentheses
-    zygospore
-    ace-jump-mode
-    ;; aggressive-indent
-    restclient
-    flycheck-pyflakes
-    elpy
-    jinja2-mode
-    elixir-mode
-    sass-mode
-    org-trello
-    dash
-    s
-
-    ;; helm
-    helm
-    ;; helm-swoop
-    helm-projectile
-    ac-helm
-    helm-flycheck
-    helm-descbinds
-    cypher-mode
-
-    ;; vim emulation
-    evil
-    evil-nerd-commenter
-    surround
-    evil-matchit
-
-    ;; javascript
-    json-mode
-    js2-mode
-    ac-js2
-    jsx-mode
-    js2-refactor
-    react-snippets
-    tern
-    tern-auto-complete
-    html-script-src
-    coffee-mode
-    nodejs-repl
-
-    ;; ido
-    flx                                 ;fuzzy matching
-    flx-ido                             ;fuzzy matching for ido
-    ido-ubiquitous                      ;use ido nearly everywhere
-    smex                                ;M-x interface with ido style
-    ido-better-flex                     ;better flex algorithm for ido
-    ido-hacks
-
-    ;; clojure
-    clojure-mode
-    clojure-test-mode
-    cider
-    ac-cider
-    clojure-cheatsheet
-
-    ;; google stuffs
-    google-this
-    google-translate
-
-    ;; Color theme
-    color-theme
-    color-theme-solarized
-
-    ;; Dired
-    dired-details
-    dired-details+
-    dired+
-    dired-rainbow))
-(dolist (p tmtxt/elpa-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
-
-;;; ------------------------------------------------------------------
-;;; ------------------------------------------------------------------
-;; ;;; el-get, another package manager for emacs
-;; ;;; init it
-;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-;; (unless (require 'el-get nil 'noerror)
-;;   (with-current-buffer
-;;       (url-retrieve-synchronously
-;;        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-;;     (goto-char (point-max))
-;;     (eval-print-last-sexp)))
-;; ;;; auto install missing packages
-;; ;;; everytime emacs starts, it will check for those packages, if they are not
-;; ;;; installed, auto install them
-;; (defvar tmtxt/el-get-packages
-;;   '(wanderlust							;email client for emacs
-;; 	o-blog								;blog for org-mode
-;; 	))
-;; (dolist (p tmtxt/el-get-packages)
-;;   (when (not (el-get-package-exists-p p))
-;; 	(el-get-install p)))
-;; ;;; sync packages
-;; (el-get 'sync)
-
-;;; ------------------------------------------------------------------
 ;;; ------------------------------------------------------------------
 ;;; some my own useful config
 (require 'tmtxt-util)					;utilities
@@ -266,3 +105,5 @@
 (setq n4js-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
 (setq n4js-pop-to-buffer t)
 (add-hook 'neo4j-shell-mode (lambda () (toggle-truncate-lines t)))
+
+(server-start)

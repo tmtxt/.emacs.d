@@ -11,6 +11,9 @@
  '(ecb-options-version "2.40")
  '(ergoemacs-mode-used "5.7.5")
  '(ergoemacs-theme "5.7.5")
+ '(hl-paren-colors
+   (quote
+    ("#00FF00" "#00DD00" "#00BB00" "#009900" "#007700" "#005500")))
  '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(quack-programs
    (quote
