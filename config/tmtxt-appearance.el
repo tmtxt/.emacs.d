@@ -162,8 +162,8 @@
 (setq whitespace-style '(face trailing lines-tail tabs))
 (show-paren-mode 1)						;highlight matching paren
 (set-default 'indicate-empty-lines t)
-(setq split-width-threshold nil)        ;not allow split window horizontally
-                                        ;automatically
+(setq split-width-threshold nil)        ;not auto split window horizontally
+(setq split-height-threshold nil)       ;not auto split window vertically
 (setq-default show-trailing-whitespace t)
 
 ;;; finally, provide the library
