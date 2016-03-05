@@ -8,7 +8,8 @@
 (tmtxt/set-up 'json-mode
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
   (add-hook 'json-mode-hook (lambda () (js2-minor-mode 0)
-                              (js2-mode-exit))))
+                              (js2-mode-exit)
+                              (js2-mode-toggle-warnings-and-errors))))
 
 ;;; jshint
 (tmtxt/set-up 'flycheck
