@@ -266,7 +266,8 @@
   (tmtxt/keys 'helm-projectile
       global-map
     "C-x C-S-f"        'helm-projectile-find-file
-    "C-x C-S-d"        'helm-projectile-find-dir))
+    "C-x C-S-d"        'helm-projectile-find-dir
+    "C-x C-S-s"        'helm-projectile-switch-project))
 
 ;; (tmtxt/set-up 'helm-swoop
 ;;   (tmtxt/keys 'helm-swoop
