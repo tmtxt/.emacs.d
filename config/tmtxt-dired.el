@@ -1,54 +1,44 @@
+;;; dired --- config for using emacs as file manager
+
+;;; Commentary:
 ;;; this is my config for dired mode
 ;;; its target is to replace macos as well as other os's default file explorer application
 
+;;; Code:
 ;;; my required packages
 (require 'tmtxt-util)
+(require 'dired+)
+(tmtxt/add-lib "single-file-modes")
 
-;;; Dired Omit Mode
 ;; omit (not show) files begining with . and #
 (setq-default dired-omit-mode t
               dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
-
-;; delete *.tp from omit mode
 (setq-default dired-omit-extensions (remove ".tp" dired-omit-extensions))
-
-;;; some required packages for dired
-(require 'dired+)
-
-;;; add lib/single-files-mode to load-path
-(tmtxt/add-lib "single-file-modes")
+;;; hide details
+(tmtxt/set-up 'dired-details+
+  (setq dired-details-hide-link-targets nil))
 
 ;;; some minor config
-(setq dired-recursive-deletes 'always)  ;always recursively delete dir
-(setq dired-recursive-copies 'always) ;always recursively copy dir
-;; (dired "~/")             ;open home dir when start
-(setq dired-dwim-target t)        ;auto guess default dir when copy/move
+(setq dired-recursive-deletes 'always)
+(setq dired-recursive-copies 'always)
+(setq dired-dwim-target t)
+(setq global-auto-revert-non-file-buffers t)
+(tmtxt/on-fn 'image-dired-display-image-mode)
 
 ;;; delete files by moving to the folder emacs in Trash folder
-;;; this path is for MacOS users
-;;; for other os, just set the correct path of the trash
 (setq delete-by-moving-to-trash t)
 (tmtxt/in '(darwin)
-  (setq trash-directory "~/.Trash/emacs"))
+  (defun system-move-file-to-trash (file)
+        (call-process (executable-find "trash")
+                      nil 0 nil
+                      file)))
 (tmtxt/in '(gnu/linux)
   (setq trash-directory "~/.local/share/Trash/files/emacs"))
 
-;;; mark file and then move the cursor back
-;;; different from the built in dired-mark
-;;; dired-mark marks a file and then move the cursor to the next file
-;;; tmtxt-dired-mark-backward marks a file but then move the cursor to the
-;;; previous file
-(defun tmtxt/dired-mark-backward ()
-  (interactive)
-  (call-interactively 'dired-mark)
-  (call-interactively 'dired-previous-line) ;remove this line if you want the
-                                        ;cursor to stay at the current line
-  (call-interactively 'dired-previous-line))
-
-;;; Mac OS
 ;;; open file/marked files by default program in mac
 ;;; http://blog.nguyenvq.com/2009/12/01/file-management-emacs-dired-to-replace-finder-in-mac-os-x-and-other-os/
 (defun tmtxt/dired-do-shell-open ()
+  "Open file/marked files by default program."
   (interactive)
   (save-window-excursion
     (let ((files (dired-get-marked-files nil current-prefix-arg))
@@ -63,18 +53,6 @@
       (message command)
       ;; execute the command
       (async-shell-command command))))
-
-;;; this is for MacOS only
-;;; Show the Finder's Get Info window
-;;; it use the script GetInfoMacOS in the MacOS directory in .emacs.d
-;;; currently it can only show the info dialog for 1 file
-(tmtxt/in '(darwin)
-  (defun tmtxt/dired-do-shell-mac-get-info ()
-    (interactive)
-    (save-window-excursion
-      (dired-do-async-shell-command
-       "~/.emacs.d/MacOS/GetInfoMacOS" current-prefix-arg
-       (dired-get-marked-files t current-prefix-arg)))))
 
 ;; unmount disk in dired
 ;;http://loopkid.net/articles/2008/06/27/force-unmount-on-mac-os-x
@@ -94,11 +72,8 @@
        (dired-get-marked-files t current-prefix-arg)))))
 
 ;;; open current directory in Finder (MacOSX)
-;;; can apply to other buffer type (not only dired)
-;;; in that case, calling this function will cause Finder to open the directory
-;;; that contains the current open file in that buffer
 (defun tmtxt/dired-open-current-directory ()
-  "Open the current directory in Finder"
+  "Open the current directory in Finder."
   (interactive)
   (save-window-excursion
     (tmtxt/in '(darwin)
@@ -108,25 +83,11 @@
       (async-shell-command
        "xdg-open ."))))
 
-;;; hide details
-(tmtxt/set-up 'dired-details+
-  ;; show sym link target
-  (setq dired-details-hide-link-targets nil))
-
 ;;; directory first by default
-;;; on Mac OS, first install coreutils and findutils, which are the gnu version
-;;; of some shell program including ls
-;;; sudo port install coreutils findutils
-;;; (optional) add this to .bashrc or .zshrc file for them to run in shell
-;;; export PATH=/opt/local/libexec/gnubin:$PATH
-;;; on ubuntu, no need to do so since it's ship with gnu version ones
-;; (tmtxt/in '(darwin)
-;;   (require 'ls-lisp)
-;;   (setq ls-lisp-use-insert-directory-program t)
-;;   (setq insert-directory-program "~/bin/macports/libexec/gnubin/ls"))
 (tmtxt/set-up 'dired-sort-map
   (setq dired-listing-switches "--group-directories-first -alh"))
 
+;;; tmtxt dired async
 (tmtxt/in '(darwin gnu/linux)
   (tmtxt/add-lib "tmtxt-async-tasks")
   (tmtxt/set-up 'tmtxt-async-tasks))
@@ -231,11 +192,5 @@ For MacOS only"
 ;;   (dired-rainbow-define archive "#F77896" dired-archive-files-extensions)
 ;;   (dired-rainbow-define image "#E2E8F7" dired-image-files-extensions))
 
-;;; turn on image-dired-display-image-mode for using with helm
-(tmtxt/on-fn 'image-dired-display-image-mode)
-
-;;; auto revert dired buffer
-(setq global-auto-revert-non-file-buffers t)
-
-;;; finally provide the library
 (provide 'tmtxt-dired)
+;;; tmtxt-dired.el ends here

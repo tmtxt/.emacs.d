@@ -184,7 +184,6 @@
 
 (tmtxt/define-keys
     dired-mode-map
-  "s-b"     'tmtxt/dired-mark-backward
   "s-u"     'tmtxt/dired-do-shell-unmount-device
   "C-c C-r"   'tda/rsync
   "C-c C-a"   'tda/rsync-multiple-mark-file
