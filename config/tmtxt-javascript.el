@@ -1,37 +1,31 @@
 ;;; setting for javascript development
 
-;;; include js2-mode
-(add-hook 'js-mode-hook 'js2-minor-mode)
-(add-hook 'js2-mode-hook 'ac-js2-mode)
+(require 'js2-mode)
+(require 'js2-refactor)
+(require 'ac-js2)
+(require 'flycheck)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-;;; use json-mode instead of js2 for .json file
-(tmtxt/set-up 'json-mode
-  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
-  (add-hook 'json-mode-hook (lambda () (js2-minor-mode 0)
-                              (js2-mode-exit)
-                              (js2-mode-toggle-warnings-and-errors))))
+;; (add-hook 'js2-mode-hook 'ac-js2-mode)
+(add-hook 'js2-mode-hook 'auto-complete-mode)
+(add-hook 'js2-mode-hook 'flycheck-mode)
+(add-hook 'js2-mode-hook 'tmtxt-paredit-nonlisp)
+(add-hook 'js2-mode-hook 'js2-refactor-mode)
+(add-hook 'js2-mode-hook 'hs-minor-mode)
+(add-hook 'js2-mode-hook 'which-function-mode)
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
+            (tern-mode t)))
 
-;;; jshint
-(tmtxt/set-up 'flycheck
-  (add-hook 'js-mode-hook
-            (lambda () (flycheck-mode t))))
-
-;;; beautify json
-;;; require python installed
-(defun tmtxt-beautify-json ()
-  (interactive)
-  (let ((b (if mark-active (min (point) (mark)) (point-min)))
-        (e (if mark-active (max (point) (mark)) (point-max))))
-    (shell-command-on-region b e
-                             "python -mjson.tool" (current-buffer) t)))
+(setq-default js2-basic-offset 2
+              js2-bounce-indent-p nil)
 
 ;;; mozrepl integration
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-(add-hook 'javascript-mode-hook 'moz-minor-mode)
-(add-hook 'js-mode-hook 'moz-minor-mode)
+(add-hook 'js2-mode-hook 'moz-minor-mode)
 
 ;;; tern
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
 (eval-after-load 'tern
   '(progn
      (require 'tern-auto-complete)
@@ -68,64 +62,36 @@
               ;; (tern-mode t)
               )))
 
-(eval-after-load 'js
-  '(progn
-	 ;;; integrate paredit with js mode
-
-     (add-hook 'js-mode-hook 'tmtxt-paredit-nonlisp)
-
-     ;; indent level
-     (setq js-indent-level 2)
-
-     ;; fixes problem with pretty function font-lock
-     (define-key js-mode-map (kbd ",") 'self-insert-command)
-
-     (dolist (mode '(js-mode js2-mode web-mode))
-       (font-lock-add-keywords
-        mode `(
-               ("\\(function\\)"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?ƒ 'decompose-region)
-                          nil)))
-               ("\\(yi\\)eld"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?γ 'decompose-region)
-                          nil)))
-               ("yi\\(eld\\)"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?ζ 'decompose-region)
-                          nil)))
-               ("\\(ret\\)urn"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?▸ 'decompose-region)
-                          nil)))
-               ("ret\\(urn\\)"
-                (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                          ?▸ 'decompose-region)
-                          nil))))))))
-
-
-
-;;; require js2-refactor mode
-(tmtxt/set-up 'js2-refactor)
-
-;;; enable hide/show
-(add-hook 'js-mode-hook (lambda () (hs-minor-mode 1)))
-
-;;; util func when save
-(defun tmtxt/js-save-util ()
-  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
-(add-hook 'js-mode-hook 'tmtxt/js-save-util)
-
-(add-hook 'js-mode-hook 'which-function-mode)
-
+(dolist (mode '(js-mode js2-mode web-mode))
+  (font-lock-add-keywords
+   mode `(
+          ("\\(function\\)"
+           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                     ?ƒ 'decompose-region)
+                     nil)))
+          ("\\(yi\\)eld"
+           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                     ?γ 'decompose-region)
+                     nil)))
+          ("yi\\(eld\\)"
+           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                     ?ζ 'decompose-region)
+                     nil)))
+          ("\\(ret\\)urn"
+           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                     ?▸ 'decompose-region)
+                     nil)))
+          ("ret\\(urn\\)"
+           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                     ?▸ 'decompose-region)
+                     nil))))))
 ;;; coffeescript
-(defun tmtxt/setup-coffee ()
-  (auto-complete-mode t)
-  (flycheck-mode t)
-  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
-(tmtxt/set-up 'coffee-mode
-  (add-hook 'coffee-mode-hook 'tmtxt/setup-coffee))
+;; (defun tmtxt/setup-coffee ()
+;;   (auto-complete-mode t)
+;;   (flycheck-mode t)
+;;   (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
+;; (tmtxt/set-up 'coffee-mode
+;;   (add-hook 'coffee-mode-hook 'tmtxt/setup-coffee))
 
 (tmtxt/set-up 'nodejs-repl
   (setq nodejs-repl-arguments
