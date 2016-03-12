@@ -6,13 +6,14 @@
 (require 'flycheck)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-;; (add-hook 'js2-mode-hook 'ac-js2-mode)
 (add-hook 'js2-mode-hook 'auto-complete-mode)
 (add-hook 'js2-mode-hook 'flycheck-mode)
 (add-hook 'js2-mode-hook 'tmtxt-paredit-nonlisp)
 (add-hook 'js2-mode-hook 'js2-refactor-mode)
+(add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
 (add-hook 'js2-mode-hook 'hs-minor-mode)
 (add-hook 'js2-mode-hook 'which-function-mode)
+(add-hook 'js2-mode-hook 'js2-highlight-vars-mode)
 (add-hook 'js2-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
