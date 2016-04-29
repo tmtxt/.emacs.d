@@ -29,22 +29,22 @@
   (add-to-list 'evil-normal-state-modes mode))
 
 ;;; use jj to switch from insert state to normal or motion state
-(tmtxt/set-up 'key-chord
-  (key-chord-mode 1)
-  (setq key-chord-one-key-delay 0.5)
-  (defun tmtxt/evil-exit-insert-state ()
-    "Exit evil insert state and change to normal or motion mode"
-    (interactive)
-    (cond                               ;decide which state to switch to
-     ;; switch these mode to motion state
-     ((member major-mode '(dired-mode)) (evil-motion-state 1))
+;; (tmtxt/set-up 'key-chord
+;;   (key-chord-mode 1)
+;;   (setq key-chord-one-key-delay 0.5)
+;;   (defun tmtxt/evil-exit-insert-state ()
+;;     "Exit evil insert state and change to normal or motion mode"
+;;     (interactive)
+;;     (cond                               ;decide which state to switch to
+;;      ;; switch these mode to motion state
+;;      ((member major-mode '(dired-mode)) (evil-motion-state 1))
 
-     ;; do nothing for these mode
-     ((member major-mode '(twittering-mode)))
+;;      ;; do nothing for these mode
+;;      ((member major-mode '(twittering-mode)))
 
-     ;; default switch to normal state
-     (t (evil-normal-state 1))))
-  (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state))
+;;      ;; default switch to normal state
+;;      (t (evil-normal-state 1))))
+;;   (key-chord-define evil-emacs-state-map "jj" 'tmtxt/evil-exit-insert-state))
 
 ;;; go to promt when enter insert state for repl mode
 (defun tmtxt/repl-goto-prompt ()

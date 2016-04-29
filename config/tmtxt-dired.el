@@ -14,6 +14,7 @@
 (setq-default dired-omit-mode t
               dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
 (setq-default dired-omit-extensions (remove ".tp" dired-omit-extensions))
+(setq-default dired-omit-extensions (remove ".lib" dired-omit-extensions))
 ;;; hide details
 (tmtxt/set-up 'dired-details+
   (setq dired-details-hide-link-targets nil))

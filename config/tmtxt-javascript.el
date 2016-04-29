@@ -4,20 +4,22 @@
 (require 'js2-refactor)
 (require 'ac-js2)
 (require 'flycheck)
+(require 'json-mode)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 (add-hook 'js2-mode-hook 'auto-complete-mode)
 (add-hook 'js2-mode-hook 'flycheck-mode)
 (add-hook 'js2-mode-hook 'tmtxt-paredit-nonlisp)
-(add-hook 'js2-mode-hook 'js2-refactor-mode)
-(add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
-(add-hook 'js2-mode-hook 'hs-minor-mode)
-(add-hook 'js2-mode-hook 'which-function-mode)
-(add-hook 'js2-mode-hook 'js2-highlight-vars-mode)
+;; (add-hook 'js2-mode-hook 'js2-refactor-mode)
+;; (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
+;; (add-hook 'js2-mode-hook 'hs-minor-mode)
+;; (add-hook 'js2-mode-hook 'which-function-mode)
+;; (add-hook 'js2-mode-hook 'js2-highlight-vars-mode)
 (add-hook 'js2-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
-            (tern-mode t)))
+            ;; (tern-mode t)
+            ))
 
 (setq-default js2-basic-offset 2
               js2-bounce-indent-p nil)
@@ -45,18 +47,18 @@
     ad-do-it))
 
 ;;;
-(flycheck-define-checker jsxhint-checker
-  "A JSX syntax and style checker based on JSXHint."
+;; (flycheck-define-checker jsxhint-checker
+;;   "A JSX syntax and style checker based on JSXHint."
 
-  :command ("jsxhint" source)
-  :error-patterns
-  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (web-mode))
+;;   :command ("jsxhint" source)
+;;   :error-patterns
+;;   ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
+;;   :modes (web-mode))
 (add-hook 'web-mode-hook
           (lambda ()
             (when (equal web-mode-content-type "jsx")
               ;; enable flycheck
-              (flycheck-select-checker 'jsxhint-checker)
+              ;; (flycheck-select-checker 'jsxhint-checker)
               (flycheck-mode)
               ;; auto complete
               (auto-complete-mode 1)
@@ -86,6 +88,11 @@
            (0 (progn (compose-region (match-beginning 1) (match-end 1)
                                      ?▸ 'decompose-region)
                      nil))))))
+
+(add-hook 'json-mode-hook
+          (lambda ()
+            (setq-local json-reformat:indent-width 2)
+            (setq-local js-indent-level 2)))
 ;;; coffeescript
 ;; (defun tmtxt/setup-coffee ()
 ;;   (auto-complete-mode t)

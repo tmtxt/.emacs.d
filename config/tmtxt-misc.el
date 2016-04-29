@@ -19,6 +19,12 @@
   (auto-fill-mode t))
 (add-hook 'prog-mode-hook 'tmtxt-local-comment-auto-fill)
 
+;;; rest client
+(require 'restclient)
+(setq auto-mode-alist
+      (cons '("\\.rest" . restclient-mode) auto-mode-alist))
+(add-hook 'restclient-mode-hook 'auto-complete-mode)
+
 ;;; other emacs starter kit config
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq oddmuse-directory (concat user-emacs-directory "oddmuse"))

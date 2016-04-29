@@ -115,7 +115,7 @@
    `(hl-line
      ((t (,@dimmed-hl))))
    `(region
-     ((t (,@normal-hl))))
+     ((t (,@strong-hl))))
    `(eval-sexp-fu-flash                 ;Flashing eval'ed expression
      ((t (,@normal-hl))))
    `(eval-sexp-fu-flash-error
