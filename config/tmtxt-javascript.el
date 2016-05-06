@@ -11,15 +11,12 @@
 (add-hook 'js2-mode-hook 'flycheck-mode)
 (add-hook 'js2-mode-hook 'tmtxt-paredit-nonlisp)
 ;; (add-hook 'js2-mode-hook 'js2-refactor-mode)
-;; (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
-;; (add-hook 'js2-mode-hook 'hs-minor-mode)
-;; (add-hook 'js2-mode-hook 'which-function-mode)
 ;; (add-hook 'js2-mode-hook 'js2-highlight-vars-mode)
 (add-hook 'js2-mode-hook
           (lambda ()
+            (js2-mode-hide-warnings-and-errors)
             (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
-            ;; (tern-mode t)
-            ))
+            (tern-mode t)))
 
 (setq-default js2-basic-offset 2
               js2-bounce-indent-p nil)

@@ -225,8 +225,8 @@
 	    [(1 0)
 	     nil "Emacs WebSocket client and server" single])
  (web-mode .
-	   [(8 0 4)
-	    nil "major mode for editing html templates" single])
+	   [(13 1 21)
+	    nil "major mode for editing web templates" single])
  (web .
       [(0 5 2)
        ((dash
@@ -460,7 +460,7 @@
 	     [(12)
 	      nil "A theme loosely based on Tron: Legacy colors" single])
  (transmission .
-	       [(0 7)
+	       [(0 9)
 		((emacs
 		  (24 4))
 		 (let-alist
@@ -1133,6 +1133,11 @@
  (repository-root .
 		  [(1 0 4)
 		   nil "deduce the repository root directory for a given file" single])
+ (remember-themes .
+		  [(20160318 1351)
+		   ((emacs
+		     (24 1)))
+		   "Remembers the last theme in use and re-loads for the next session." single])
  (remember-theme .
 		 [(20140122 1500)
 		  nil "Remembers the last theme in use and re-loads for the next session." single])
@@ -1275,6 +1280,9 @@
 		(pkg-info
 		 (0 4)))
 	       "Major mode for Puppet manifests" single])
+ (punpun-theme .
+	       [(0 0 1)
+		nil "A bleak theme" tar])
  (psvn .
        [(1 1 1)
 	nil "Subversion interface for emacs" single])
@@ -1585,7 +1593,7 @@
 	     [(0 0 8)
 	      nil "export html and meta data used by static blog like nikola from org file" tar])
  (org2jekyll .
-	     [(0 1 8)
+	     [(0 1 9)
 	      ((dash-functional
 		(2 11 0))
 	       (s
@@ -1658,7 +1666,7 @@
 	       (6 1)))
 	     "basic support for magit links" single])
  (org-journal .
-	      [(1 10 2)
+	      [(1 11 0)
 	       nil "a simple org-mode based journaling mode" single])
  (org-gnome .
 	    [(0 1)
@@ -2464,7 +2472,7 @@
 	  [(2927)
 	   nil "Adds support for IPython to python-mode.el" single])
  (insert-shebang .
-		 [(0 9 3)
+		 [(0 9 4)
 		  nil "Insert shebang line automatically." single])
  (inline-crypt .
 	       [(0 1 4)
@@ -2748,7 +2756,7 @@
 	       (1 0)))
 	     "Major mode for editing Haml files" single])
  (hackernews .
-	     [(0 2 1)
+	     [(0 3 1)
 	      ((json
 		(1 2)))
 	      "Access the hackernews aggregator from Emacs" tar])
@@ -2812,8 +2820,11 @@
 	   [(1 6)
 	    nil "goto last change" single])
  (gotham-theme .
-	       [(1 1 5)
+	       [(1 1 6)
 		nil "A very dark Emacs color theme." single])
+ (gotests .
+	  [(0 0 2)
+	   nil "Emacs package for https://github.com/cweill/gotests" single])
  (gopher .
 	 [(0 0 2)
 	  nil "easily access and navigate Gopher servers" single])
@@ -3748,7 +3759,7 @@
 	       [(0 2 2)
 		nil "Aspell extra dictionary for Drupal" tar])
  (drupal-mode .
-	      [(0 6 1)
+	      [(0 7 0)
 	       ((php-mode
 		 (1 5 0)))
 	       "Advanced minor mode for Drupal development" tar])
