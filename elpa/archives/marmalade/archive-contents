@@ -225,7 +225,7 @@
 	    [(1 0)
 	     nil "Emacs WebSocket client and server" single])
  (web-mode .
-	   [(13 1 21)
+	   [(14 0 0)
 	    nil "major mode for editing web templates" single])
  (web .
       [(0 5 2)
@@ -2588,7 +2588,7 @@
 		[(1 1 2)
 		 nil "hungry delete minor mode" single])
  (hugo .
-       [(0 1 0)
+       [(0 1 1)
 	nil "Helper functions for Hugo" single])
  (httpd .
 	[(1 0 1)
