@@ -25,6 +25,12 @@
       (cons '("\\.rest" . restclient-mode) auto-mode-alist))
 (add-hook 'restclient-mode-hook 'auto-complete-mode)
 
+(defun tmtxt-create-scratch-buffer nil
+       "create a scratch buffer"
+       (interactive)
+       (switch-to-buffer (get-buffer-create "*scratch*"))
+       (lisp-interaction-mode))
+
 ;;; other emacs starter kit config
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq oddmuse-directory (concat user-emacs-directory "oddmuse"))
