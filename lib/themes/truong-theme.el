@@ -564,8 +564,8 @@
      ((t (,@constant))))
    `(diredp-file-suffix
      ((t (,@context))))
-   `(diredp-ignored-file-name
-     ((t (,@vw-italic ,@note))))
+   ;; `(diredp-ignored-file-name
+   ;;   ((t (,@vw-italic ,@note))))
 
    ;; yasnippet
    `(yas--field-debug-face
