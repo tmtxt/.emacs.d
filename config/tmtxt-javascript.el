@@ -55,8 +55,9 @@
           (lambda ()
             (when (equal web-mode-content-type "jsx")
               ;; enable flycheck
-              ;; (flycheck-select-checker 'jsxhint-checker)
               (flycheck-mode)
+              (flycheck-add-mode 'javascript-eslint 'web-mode)
+              (flycheck-select-checker 'javascript-eslint)
               ;; auto complete
               (auto-complete-mode 1)
               ;; (tern-mode t)
