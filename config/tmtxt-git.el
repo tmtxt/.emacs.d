@@ -12,4 +12,18 @@
 (tmtxt/set-up 'gist
   (setq gist-view-gist t))
 
+(defun tmtxt/increase-tag () "Auto increase tag"
+       (interactive)
+       (let* ((current-version (->> (magit-get-current-tag)
+                                    (s-split "[.]")))
+              (minor-version (-> current-version
+                                 (-last-item)
+                                 (string-to-number)))
+              (next-minor-version (-> minor-version (+ 1) (number-to-string)))
+              (last-pos (- (length current-version) 1))
+              (next-version (-replace-at last-pos next-minor-version current-version))
+              (next-version (s-join "." next-version)))
+         (magit-tag next-version "HEAD")
+         (message next-version)))
+
 (provide 'tmtxt-git)
