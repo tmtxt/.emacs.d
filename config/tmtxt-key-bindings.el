@@ -1,4 +1,5 @@
 (require 'window-numbering)
+(require 'web-mode)
 
 ;;; util functions for defining/undefining keys
 ;;; should be loaded at the end
@@ -344,19 +345,18 @@
   (tmtxt/define-keys global-map
     "C-c SPC" 'ace-jump-mode))
 
-(tmtxt/set-up 'web-mode
-  (tmtxt/define-keys web-mode-map
-    "s-y"   'tmtxt/web-mode-change-indentation
-    "s-g"   'web-mode-element-content-select
-    "s-i"   'web-mode-element-parent
-    "s-k"   'web-mode-element-child
-    "s-l"   'web-mode-element-next
-    "s-j"   'web-mode-element-previous
-    "s-h"   'web-mode-element-kill
-    "s-n"   'web-mode-element-select
-    ;; web mode tag match function not defined as interactive
-    "s-m"   (lambda () (interactive) (web-mode-tag-match))
-    "s-p"   'tmtxt/switch-php-mode))
+(tmtxt/define-keys web-mode-map
+  "s-y"   'tmtxt/web-mode-change-indentation
+  "s-g"   'web-mode-element-content-select
+  "s-i"   'web-mode-element-parent
+  "s-k"   'web-mode-element-child
+  "s-l"   'web-mode-element-next
+  "s-j"   'web-mode-element-previous
+  "s-h"   'web-mode-element-kill
+  "s-n"   'web-mode-element-select
+  ;; web mode tag match function not defined as interactive
+  "s-m"   (lambda () (interactive) (web-mode-tag-match))
+  "s-p"   'tmtxt/switch-php-mode)
 
 (tmtxt/set-up 'cider
   (tmtxt/define-keys cider-repl-mode-map
