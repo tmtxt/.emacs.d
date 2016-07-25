@@ -17,7 +17,8 @@
 ;;; auto pair the brackets
 (tmtxt/set-up 'autopair
   (autopair-global-mode 1)
-  (setq autopair-autowrap t))
+  ;; (setq autopair-autowrap t)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; select all line

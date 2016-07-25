@@ -111,6 +111,9 @@
   "s-1"    'select-window-1
   "s-2"    'select-window-2
   "s-3"    'select-window-3
+
+  "{"     'paredit-open-curly
+  "}"     'paredit-close-curly
   )
 
 ;;; TODO: rebind these keys
