@@ -15,6 +15,7 @@
 (add-hook 'js2-mode-hook
           (lambda ()
             (js2-mode-hide-warnings-and-errors)
+            (which-function-mode t)
             (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
             (tern-mode t)))
 
@@ -129,5 +130,10 @@
                         start end)
     (comint-send-string (get-process nodejs-repl-process-name)
                         "\n")))
+
+(defun tmtxt/js-which-function ()
+  (->> (which-function)
+       (s-split "[.]")
+       (-last-item)))
 
 (provide 'tmtxt-javascript)
