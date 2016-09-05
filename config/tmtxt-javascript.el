@@ -45,14 +45,6 @@
         ad-do-it)
     ad-do-it))
 
-;;;
-;; (flycheck-define-checker jsxhint-checker
-;;   "A JSX syntax and style checker based on JSXHint."
-
-;;   :command ("jsxhint" source)
-;;   :error-patterns
-;;   ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-;;   :modes (web-mode))
 (add-hook 'web-mode-hook
           (lambda ()
             (when (equal web-mode-content-type "jsx")
@@ -93,13 +85,6 @@
           (lambda ()
             (setq-local json-reformat:indent-width 2)
             (setq-local js-indent-level 2)))
-;;; coffeescript
-;; (defun tmtxt/setup-coffee ()
-;;   (auto-complete-mode t)
-;;   (flycheck-mode t)
-;;   (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
-;; (tmtxt/set-up 'coffee-mode
-;;   (add-hook 'coffee-mode-hook 'tmtxt/setup-coffee))
 
 (tmtxt/set-up 'nodejs-repl
   (setq nodejs-repl-arguments
