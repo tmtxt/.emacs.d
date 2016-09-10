@@ -1,16 +1,22 @@
-;;; setting for javascript development
+;;; tmtxt-javascript.el --- Config for javascript
 
+;;; Commentary:
+
+;;; Load dependencies
 (require 'js2-mode)
 (require 'js2-refactor)
 (require 'ac-js2)
 (require 'flycheck)
 (require 'json-mode)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
+;;; Code:
+
+;;; js2
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-hook 'js2-mode-hook 'auto-complete-mode)
 (add-hook 'js2-mode-hook 'flycheck-mode)
 (add-hook 'js2-mode-hook 'tmtxt-paredit-nonlisp)
-;; (add-hook 'js2-mode-hook 'js2-refactor-mode)
+(add-hook 'js2-mode-hook 'js2-refactor-mode)
 ;; (add-hook 'js2-mode-hook 'js2-highlight-vars-mode)
 (add-hook 'js2-mode-hook
           (lambda ()
@@ -18,11 +24,10 @@
             (which-function-mode t)
             (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
             (tern-mode t)))
-
 (setq-default js2-basic-offset 2
               js2-bounce-indent-p nil)
 
-;;; mozrepl integration
+;;; mozrepl
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 (add-hook 'js2-mode-hook 'moz-minor-mode)
 (add-hook 'inferior-moz-mode-hook 'auto-complete-mode)
@@ -37,7 +42,7 @@
   (interactive)
   (delete-process "Tern"))
 
-;;; enable web mode and highlighting
+;;; jsx
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 (defadvice web-mode-highlight-part (around tweak-jsx activate)
   (if (equal web-mode-content-type "jsx")
@@ -54,9 +59,15 @@
               (flycheck-select-checker 'javascript-eslint)
               ;; auto complete
               (auto-complete-mode 1)
-              ;; (tern-mode t)
               )))
 
+;;; json
+(add-hook 'json-mode-hook
+          (lambda ()
+            (setq-local json-reformat:indent-width 2)
+            (setq-local js-indent-level 2)))
+
+;;; Font lock
 (dolist (mode '(js-mode js2-mode web-mode))
   (font-lock-add-keywords
    mode `(
@@ -80,11 +91,6 @@
            (0 (progn (compose-region (match-beginning 1) (match-end 1)
                                      ?▸ 'decompose-region)
                      nil))))))
-
-(add-hook 'json-mode-hook
-          (lambda ()
-            (setq-local json-reformat:indent-width 2)
-            (setq-local js-indent-level 2)))
 
 (tmtxt/set-up 'nodejs-repl
   (setq nodejs-repl-arguments
@@ -122,3 +128,4 @@
        (-last-item)))
 
 (provide 'tmtxt-javascript)
+;;; tmtxt-javascript.el ends here

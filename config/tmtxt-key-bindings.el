@@ -1,5 +1,17 @@
 (require 'window-numbering)
 (require 'web-mode)
+(require 'paredit)
+(require 'hideshow)
+(require 'projectile)
+(require 'helm-projectile)
+(require 'flycheck)
+(require 'smart-forward)
+(require 'sql-indent)
+(require 'git-messenger)
+(require 'ace-jump-mode)
+(require 'cider)
+(require 'cypher-mode)
+(require 'yasnippet)
 
 ;;; util functions for defining/undefining keys
 ;;; should be loaded at the end
@@ -35,10 +47,9 @@
     global-map
   '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>"))
 
-(tmtxt/set-up 'paredit
-  (tmtxt/undefine-keys
-      paredit-mode-map
-    '("C-j")))
+(tmtxt/undefine-keys
+    paredit-mode-map
+  '("C-j"))
 
 (tmtxt/define-keys
     global-map
@@ -94,16 +105,8 @@
   "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX
   "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Linux
   "C-x C-b"            'ibuffer
-  ;; "s-k"                'kill-this-buffer
   "<C-tab>"            'ido-switch-buffer
 
-  ;; ECB
-  ;; "C-x C-;"   'ecb-activate
-  ;; "C-x C-'"   'tmtxt/ecb-deactivate
-  ;; "C-;"       'tmtxt/ecb-show-ecb-windows
-  ;; "C-'"       'tmtxt/ecb-hide-ecb-windows
-
-  "C-S-f"     'yas-expand
   "M-="       'er/expand-region         ;expand region
   "C-M-S-s"   'tmtxt/sql-connect-server
   "C-M-S-c"   'tmtxt/switch-to-cider-repl
@@ -115,9 +118,6 @@
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
   )
-
-;;; TODO: rebind these keys
-;;; M-j (comment-indent-new-line)
 
 (tmtxt/define-keys
     key-translation-map
@@ -154,6 +154,9 @@
   "M-SPC"   "C-SPC"
   "M-g"     "C-k"
   )
+
+(tmtxt/define-keys yas-minor-mode-map
+  "C-S-f"     'yas-expand)
 
 (tmtxt/define-keys
     org-mode-map
@@ -225,27 +228,16 @@
       dired-mode-map
     "C-c C-o"   'tmtxt/open-current-dir-in-terminal))
 
-;; (tmtxt/keys 'ecb
-;;     ecb-mode-map
-;;   "C-M-<"     'ecb-toggle-compile-window-height
-;;   "C-)"       'ecb-goto-window-edit1
-;;   "C-!"       'ecb-goto-window-directories
-;;   "C-@"       'ecb-goto-window-sources
-;;   "C-#"       'ecb-goto-window-methods
-;;   "C-%"       'ecb-goto-window-compilation
-;;   )
-
-(tmtxt/set-up 'hideshow
-  (tmtxt/define-keys
-      hs-minor-mode-map
-    "C-c C-h"   'hs-hide-block
-    "C-c C-d"   'hs-show-block
-    "C-c C-t"   'hs-toggle-hiding
-    "C-c C-;"   'hs-hide-all
-    "C-c C-'"   'hs-show-all
-    "C-c C-l"   'hs-hide-level
-    "C-S-r"     'hs-toggle-hiding
-    ))
+(tmtxt/define-keys
+    hs-minor-mode-map
+  "C-c C-h"   'hs-hide-block
+  "C-c C-d"   'hs-show-block
+  "C-c C-t"   'hs-toggle-hiding
+  "C-c C-;"   'hs-hide-all
+  "C-c C-'"   'hs-show-all
+  "C-c C-l"   'hs-hide-level
+  "C-S-r"     'hs-toggle-hiding
+  )
 
 (tmtxt/define-keys
     ac-completing-map
@@ -256,11 +248,10 @@
   "S-TAB" 'tmtxt/mark-file-name-backward
   "s-o"   'tmtxt/dired-do-shell-open)
 
-(tmtxt/set-up 'projectile
-  (tmtxt/keys 'projectile
-      global-map
-    "C-x C-d"     'projectile-dired
-    "C-x i"       'projectile-invalidate-cache))
+(tmtxt/keys 'projectile
+    global-map
+  "C-x C-d"     'projectile-dired
+  "C-x i"       'projectile-invalidate-cache)
 
 (tmtxt/keys 'helm
     global-map
@@ -271,17 +262,11 @@
   "M-V"    'helm-show-kill-ring
   "C-S-s"     'helm-occur)
 
-(tmtxt/set-up 'helm-projectile
-  (tmtxt/keys 'helm-projectile
-      global-map
-    "C-x C-S-f"        'helm-projectile-find-file
-    "C-x C-S-d"        'helm-projectile-find-dir
-    "C-x C-S-s"        'helm-projectile-switch-project))
-
-;; (tmtxt/set-up 'helm-swoop
-;;   (tmtxt/keys 'helm-swoop
-;;       global-map
-;;     "C-S-s"        'helm-swoop))
+(tmtxt/keys 'helm-projectile
+    global-map
+  "C-x C-S-f"        'helm-projectile-find-file
+  "C-x C-S-d"        'helm-projectile-find-dir
+  "C-x C-S-s"        'helm-projectile-switch-project)
 
 (tmtxt/keys 'helm-dired-recent-dirs
     global-map
@@ -294,19 +279,9 @@
   "C-M->" 'js2-mode-toggle-element
   "C-t"  'tmtxt/delete-tern-process)
 
-(tmtxt/set-up 'helm-flycheck
-  (tmtxt/keys 'flycheck
-      flycheck-mode-map
-    "C-c C-p"     'helm-flycheck))
-
-(tmtxt/set-up 'ac-helm
-  (tmtxt/keys 'ac-helm
-      global-map
-    "C-:"        'ac-complete-with-helm)
-
-  (tmtxt/keys 'ac-helm
-      ac-complete-mode-map
-    "C-:"        'ac-complete-with-helm))
+(tmtxt/keys 'flycheck
+    flycheck-mode-map
+  "C-c C-p"     'helm-flycheck)
 
 (tmtxt/keys 'evil
     evil-motion-state-map
@@ -316,13 +291,12 @@
     evil-emacs-state-map
   "M-q"        'tmtxt/evil-exit-insert-state)
 
-(tmtxt/set-up 'smart-forward
-  (tmtxt/keys 'smart-forward
-      global-map
-    "C-M-S-l"        'smart-forward
-    "C-M-S-j"        'smart-backward
-    "C-M-S-i"        'smart-up
-    "C-M-S-k"        'smart-down))
+(tmtxt/keys 'smart-forward
+    global-map
+  "C-M-S-l"        'smart-forward
+  "C-M-S-j"        'smart-backward
+  "C-M-S-i"        'smart-up
+  "C-M-S-k"        'smart-down)
 
 (tmtxt/keys 'moz
     moz-minor-mode-map
@@ -332,21 +306,14 @@
   "C-M-i"    'comint-previous-matching-input-from-input
   "C-M-k"    'comint-next-matching-input-from-input)
 
-(tmtxt/set-up 'sql-indent
-  (tmtxt/define-keys sql-mode-map
-    "C-M-\\"  'sql-indent-buffer))
+(tmtxt/define-keys sql-mode-map
+  "C-M-\\"  'sql-indent-buffer)
 
-(tmtxt/set-up 'git-messenger
-  (tmtxt/define-keys global-map
-    "C-c m"   'git-messenger:popup-message))
+(tmtxt/define-keys global-map
+  "C-c m"   'git-messenger:popup-message)
 
-(tmtxt/set-up 'zygospore
-  (tmtxt/define-keys global-map
-    "C-x 1"     'zygospore-toggle-delete-other-windows))
-
-(tmtxt/set-up 'ace-jump-mode
-  (tmtxt/define-keys global-map
-    "C-c SPC" 'ace-jump-mode))
+(tmtxt/define-keys global-map
+  "C-c SPC" 'ace-jump-mode)
 
 (tmtxt/define-keys web-mode-map
   "s-y"   'tmtxt/web-mode-change-indentation
@@ -361,15 +328,13 @@
   "s-m"   (lambda () (interactive) (web-mode-tag-match))
   "s-p"   'tmtxt/switch-php-mode)
 
-(tmtxt/set-up 'cider
-  (tmtxt/define-keys cider-repl-mode-map
-    "C-M-i"    'cider-repl-previous-input
-    "C-M-k"    'cider-repl-next-input
-    "M-s-n"    'cider-repl-set-ns))
+(tmtxt/define-keys cider-repl-mode-map
+  "C-M-i"    'cider-repl-previous-input
+  "C-M-k"    'cider-repl-next-input
+  "M-s-n"    'cider-repl-set-ns)
 
-(tmtxt/set-up 'cypher-mode
-  (tmtxt/define-keys cypher-mode-map
-    "M-s-s"   'n4js-send-dwim))
+(tmtxt/define-keys cypher-mode-map
+  "M-s-s"   'n4js-send-dwim)
 
 (add-hook
  'eshell-mode-hook

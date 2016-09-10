@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : console.log
+# --
+logTrace.add('info', '${1:`(tmtxt/js-which-function)`}()', \`${2:var}: \${${2:$(yas/substr yas-text "[^ ]*")}}`);

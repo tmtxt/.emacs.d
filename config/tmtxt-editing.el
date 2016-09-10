@@ -1,6 +1,7 @@
 ;;; some config for easy editing
 
 (require 'textmate)
+(require 'yasnippet)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; UTF-8
@@ -82,10 +83,9 @@ user."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; yasnippet
 ;;; should be loaded before auto complete so that they can work together
-(tmtxt/set-up 'yasnippet
-  (yas-global-mode 1)
-  (setq yas/root-directory "~/.emacs.d/data/yasnippet/snippets")
-  (yas/load-directory yas/root-directory))
+(add-to-list 'yas-snippet-dirs "/Volumes/tmtxt/.emacs.d/data/yasnippet/snippets")
+(yas-global-mode 1)
+(yas-reload-all)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fix paredit and comment-dwim conflict
@@ -148,11 +148,6 @@ user."
   (setq-local c-basic-offset indentation))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; aggresive indent
-;(require 'aggressive-indent)
-;(global-aggressive-indent-mode 1)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; quote
 ;;; taken from http://ergoemacs.org/emacs/elisp_escape_quotes.html
 (defun tmtxt/escape-quotes (φbegin φend)
@@ -165,11 +160,11 @@ Version 2015-05-04"
        (list (region-beginning) (region-end))
      (list (line-beginning-position) (line-end-position))))
   (save-excursion
-      (save-restriction
-        (narrow-to-region φbegin φend)
-        (goto-char (point-min))
-        (while (search-forward "\"" nil t)
-          (replace-match "\\\"" 'FIXEDCASE 'LITERAL)))))
+    (save-restriction
+      (narrow-to-region φbegin φend)
+      (goto-char (point-min))
+      (while (search-forward "\"" nil t)
+        (replace-match "\\\"" 'FIXEDCASE 'LITERAL)))))
 
 (defun tmtxt/unescape-quotes (φbegin φend)
   "Replace  「\\\"」 by 「\"」 in current line or text selection.
