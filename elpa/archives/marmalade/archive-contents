@@ -1672,7 +1672,7 @@
 	       (6 1)))
 	     "basic support for magit links" single])
  (org-journal .
-	      [(1 11 1)
+	      [(1 11 2)
 	       nil "a simple org-mode based journaling mode" single])
  (org-gnome .
 	    [(0 1)
@@ -2997,6 +2997,11 @@
  (fsvn .
        [(0 9 13)
 	nil "Another frontend of subversion." tar])
+ (fsbot-data-browser .
+		     [(0 1)
+		      ((dash
+			(2 12 1)))
+		      "browse the fsbot database using tabulated-list-mode" single])
  (fringe-helper .
 		[(1 0 1)
 		 nil "helper functions for fringe bitmaps" single])
@@ -3941,7 +3946,7 @@
 	 [(0 1 1)
 	  nil "Table component for Emacs Lisp" single])
  (csharp-mode .
-	      [(0 8 12)
+	      [(0 9 0)
 	       ((cl-lib
 		 (0 5)))
 	       "C# mode derived mode" tar])
@@ -4513,7 +4518,7 @@
 		 (24 1)))
 	       "Ansible documentation Minor Mode" single])
  (annotate .
-	   [(0 4 5)
+	   [(0 4 6)
 	    nil "annotate files without changing them" single])
  (angular-snippets .
 		   [(0 2 3)

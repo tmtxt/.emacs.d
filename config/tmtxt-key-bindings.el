@@ -58,7 +58,7 @@
   "C--"     'text-scale-decrease
   "M-%"     'query-replace-regexp
   "C-M-%"   'query-replace
-  "C-x C-i" 'imenu
+  "C-x C-i" 'helm-imenu
   "C-x M-f" 'ido-find-file-other-window
   "C-c y"   'bury-buffer
   "C-c r"   'revert-buffer
@@ -68,7 +68,7 @@
   "M-:"     'evilnc-comment-or-uncomment-lines
   "s-&"     'kill-this-buffer
 
-  "M-x"     'smex
+  "M-x"     'helm-M-x
   "C-M-\""  'mark-defun
 
   ;; editing
@@ -272,12 +272,12 @@
     global-map
   "C-c C-y"  'helm-dired-recent-dirs-view)
 
-(tmtxt/define-keys js2-minor-mode-map
-  "C-M-?" 'ac-js2-jump-to-definition
+(tmtxt/define-keys js2-mode-map
   "C-M-\"" 'js2-mark-defun
   "C-M-:" 'js2-mode-toggle-hide-functions
   "C-M->" 'js2-mode-toggle-element
-  "C-t"  'tmtxt/delete-tern-process)
+  "C-t"  'tmtxt/delete-tern-process
+  "C-M-S-d" 'js-doc-insert-function-doc-snippet)
 
 (tmtxt/keys 'flycheck
     flycheck-mode-map
