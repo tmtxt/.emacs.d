@@ -277,7 +277,7 @@
   "C-M-:" 'js2-mode-toggle-hide-functions
   "C-M->" 'js2-mode-toggle-element
   "C-t"  'tmtxt/delete-tern-process
-  "C-M-S-d" 'js-doc-insert-function-doc-snippet)
+  "C-M-S-d" 'tmtxt/js-doc-insert-function-doc-snippet)
 
 (tmtxt/keys 'flycheck
     flycheck-mode-map

@@ -127,5 +127,39 @@
        (s-split "[.]")
        (-last-item)))
 
+(defun tmtxt/js-doc-insert-function-doc-snippet ()
+  "Insert JsDoc style comment of the function with yasnippet."
+  (interactive)
+
+  (with-eval-after-load 'yasnippet
+    (js-doc--beginning-of-defun)
+
+    (let ((metadata (js-doc--function-doc-metadata))
+          (field-count 1))
+      (yas-expand-snippet
+       (concat
+        js-doc-top-line
+        " * ${1:Function description.}\n"
+        (mapconcat (lambda (param)
+                     (format
+                      " * @param {${%d:Type of %s}} %s ${%d:}\n"
+                      (incf field-count)
+                      param
+                      param
+                      (incf field-count)))
+                   (cdr (assoc 'params metadata))
+                   "")
+        (when (assoc 'returns metadata)
+          (format
+           " * @returns {${%d:Return Type}} ${%d:}\n"
+           (incf field-count)
+           (incf field-count)))
+        (when (assoc 'throws metadata)
+          (format
+           " * @throws {${%d:Exception Type}} ${%d:}\n"
+           (incf field-count)
+           (incf field-count)))
+        js-doc-bottom-line)))))
+
 (provide 'tmtxt-javascript)
 ;;; tmtxt-javascript.el ends here
