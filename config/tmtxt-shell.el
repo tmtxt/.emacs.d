@@ -3,6 +3,8 @@
 ;;; Commentary:
 ;;; Author: truongtx
 
+(require 'eshell)
+
 ;;; Code:
 ;;; copy PATH from my default shell
 (tmtxt/set-up 'exec-path-from-shell
@@ -14,6 +16,10 @@
 (setq eshell-buffer-shorthand t)		;shorthand buffer name
 
 (add-hook 'eshell-mode-hook
+          (lambda ()
+            (setq-local show-trailing-whitespace nil)))
+
+(add-hook 'term-mode-hook
           (lambda ()
             (setq-local show-trailing-whitespace nil)))
 

@@ -8,6 +8,7 @@
 (require 'ac-js2)
 (require 'flycheck)
 (require 'json-mode)
+(require 'js-doc)
 
 ;;; Code:
 
