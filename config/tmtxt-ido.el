@@ -1,12 +1,11 @@
 ;;; config for ido
 
-;;; some require packages
-(require 'tmtxt-util)
+;;; require
 (require 'ido)
 (require 'ido-ubiquitous)
 (require 'smex)
 
-;;; enable ido and ido ubiquitous
+;;; enable ido
 (ido-mode t)
 (ido-ubiquitous t)
 

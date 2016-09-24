@@ -20,10 +20,16 @@
   (add-to-list 'package-archives source t))
 (package-initialize)
 
-;;; ------------------------------------------------------------------
+;;; Add dir in "lib" folder to load path
+(defun tmtxt/add-lib (dir-name)
+  "Append dir-name to ~/.emacs.d/lib/ and then add them to \"load-path\".
+
+DIR-NAME directory name inside lib folder"
+  (add-to-list 'load-path (concat "~/.emacs.d/lib/" dir-name)))
+(tmtxt/add-lib "single-file-modes")
+
 ;;; some my own useful config
 (require 'tmtxt-util)					;utilities
-(tmtxt/add-lib "single-file-modes")
 (require 'tmtxt-misc)					;misc
 (require 'tmtxt-ido)					;config for ido
 (require 'tmtxt-flymake)				;flymake

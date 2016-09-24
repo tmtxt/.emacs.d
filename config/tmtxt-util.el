@@ -1,18 +1,12 @@
-;;; some of my utility functions
+;;; tmtxt-util -- some of my utility functions
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; add dir in "lib" folder to load path
-(defun tmtxt/add-lib (dir-name)
-  "Append dir-name to ~/.emacs.d/lib/ and then add them to load-path"
-  (add-to-list 'load-path (concat "~/.emacs.d/lib/" dir-name)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; separate OS-specific stuff
-;;; Example:
-;;; (tmtxt/in '(darwin) something here) ;macos system
-;;; (tmtxt/in '(gnu/linux) something here) ;gnu linux system
+;;; OS-specific stuff
 (defmacro tmtxt/in (systems &rest body)
-  "Run BODY if `system-type' is in the list of SYSTEMS."
+  "Run BODY if `system-type' is in the list of SYSTEMS.
+
+Example:
+(tmtxt/in '(darwin) something here)
+(tmtxt/in '(gnu/linux) something here)"
   (declare (indent 1))
   `(when (member system-type ,systems)
      ,@body))
