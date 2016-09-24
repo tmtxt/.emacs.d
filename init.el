@@ -1,14 +1,14 @@
-;;; Truong Tx's emacs init file
+;;; init.el --- Truong Tx's emacs init file
 
+;;; Commentary:
 ;;; NOTE: the functions with prefix tmtxt- are the functions that I add to
-;;; emacs. I just make the prefix to prevent duplicate function if in the future
-;;; emacs add the functions with the same name with them
+;;; Emacs.   I just make the prefix to prevent duplicate function if in the future
+;;; Emacs adds the functions with the same name with them
 
-;;; ------------------------------------------------------------------
+;;; Code:
 ;;; define some load path here
 (add-to-list 'load-path "~/.emacs.d/config/")
 
-;;; ------------------------------------------------------------------
 ;;; Emacs is not a package manager, and here we load its package manager!
 (require 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
@@ -33,7 +33,6 @@
 (require 'tmtxt-editing)          ;editing config
 (require 'tmtxt-auto-complete)          ;
 (require 'tmtxt-project)
-;; ;; (require 'tmtxt-ecb)					;emacs code browser
 (require 'tmtxt-google)					;config for google stuffs
 (require 'tmtxt-desktop)				;auto save mode
 (require 'tmtxt-org)					;org mode config
