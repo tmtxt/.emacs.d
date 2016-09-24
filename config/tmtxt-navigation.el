@@ -1,12 +1,8 @@
-;;; navigation util
+;;; require
+(require 'cl)
 
-;;; include common lisp
-(eval-when-compile (require 'cl))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Better C-x C-x
 ;;; exchange point and mark but not mark the region
-;; `http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/'
 (defun tmtxt/exchange-point-and-mark-no-activate ()
   "Identical to \\[exchange-point-and-mark] but will not activate the region."
   (interactive)
@@ -15,7 +11,6 @@
 (define-key global-map [remap exchange-point-and-mark]
   'tmtxt/exchange-point-and-mark-no-activate)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Better C-a
 (defun tmtxt/back-to-indentation-or-line-beginning ()
   "Go back to indentation, or if already there, to the beginning
@@ -28,9 +23,7 @@ of line."
 (define-key global-map [remap move-beginning-of-line]
   'tmtxt/back-to-indentation-or-line-beginning)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Swap windows
-;;; `http://sites.google.com/site/steveyegge2/my-dot-emacs-file'
 (defun tmtxt/swap-windows ()
   "If you have 2 windows, it swaps them."
   (interactive)
@@ -50,10 +43,6 @@ of line."
   (other-window 1))
 
 (windmove-default-keybindings) ;; Shift+direction
-
-;;; custom key bindings
-;; switch to other window in the same frame
-(global-set-key (kbd "C-S-o") 'other-window)
 
 ;;; finally, provide the library
 (provide 'tmtxt-navigation)

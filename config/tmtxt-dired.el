@@ -40,7 +40,7 @@
  tda/download-command "wget"
  )
 
-(tmtxt/on-fn 'image-dired-display-image-mode)
+(image-dired-display-image-mode)
 
 
 ;;; Mac OS
