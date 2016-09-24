@@ -29,36 +29,38 @@ DIR-NAME directory name inside lib folder"
 (tmtxt/add-lib "single-file-modes")
 
 ;;; some my own useful config
-(require 'tmtxt-util)					;utilities
-(require 'tmtxt-misc)					;misc
-(require 'tmtxt-ido)					;config for ido
-(require 'tmtxt-bookmark)				;load the bookmark and my config
-(require 'tmtxt-dired)					;dired mode config (for file management)
-(require 'tmtxt-navigation)     ;navigation util
-(require 'tmtxt-editing)          ;editing config
-(require 'tmtxt-auto-complete)          ;
-(require 'tmtxt-project)
-(require 'tmtxt-google)					;config for google stuffs
-(require 'tmtxt-desktop)				;auto save mode
-(require 'tmtxt-org)					;org mode config
-(require 'tmtxt-appearance)				;how my emacs appears
-(require 'tmtxt-cc)						;config for cc-mode
-(require 'tmtxt-buffers-management)		;config for managing buffer
-(require 'tmtxt-shell)					;config for shell
-(require 'tmtxt-javascript)				;config for js development
-(require 'tmtxt-web)					;config for web development
-(require 'tmtxt-php)					;config for php coding
-(require 'tmtxt-helm)					;config for helm
-(require 'tmtxt-markdown)				;config for markdown
-(require 'tmtxt-twitter)				;config for twitter
-(require 'tmtxt-lisp)					;config for working with lisp language
-(require 'tmtxt-ruby)					;config for working with ruby
-(require 'tmtxt-grep)					;grep find
-(require 'tmtxt-evil)
-(require 'tmtxt-sql)
-(require 'tmtxt-git)
-(require 'tmtxt-python)
-(require 'tmtxt-key-bindings)			;key bindings
+(dolist (cfg '(tmtxt-util
+               tmtxt-misc
+               tmtxt-bookmark
+               tmtxt-dired
+               tmtxt-navigation
+               tmtxt-editing
+               tmtxt-auto-complete
+               tmtxt-project
+               tmtxt-google
+               tmtxt-desktop
+               tmtxt-org
+               tmtxt-appearance
+               tmtxt-cc
+               tmtxt-buffers-management
+               tmtxt-shell
+               tmtxt-javascript
+               tmtxt-web
+               tmtxt-php
+               tmtxt-helm
+               tmtxt-markdown
+               tmtxt-twitter
+               tmtxt-lisp
+               tmtxt-ruby
+               tmtxt-grep
+               tmtxt-evil
+               tmtxt-evil
+               tmtxt-sql
+               tmtxt-git
+               tmtxt-python
+               tmtxt-key-bindings
+               ))
+  (require cfg))
 
 ;; Save positions in visited files
 (setq-default save-place t)

@@ -59,7 +59,6 @@
   "M-%"     'query-replace-regexp
   "C-M-%"   'query-replace
   "C-x C-i" 'helm-imenu
-  "C-x M-f" 'ido-find-file-other-window
   "C-c y"   'bury-buffer
   "C-c r"   'revert-buffer
   "C-c g"   'magit-status
@@ -105,7 +104,7 @@
   "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX
   "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Linux
   "C-x C-b"            'ibuffer
-  "<C-tab>"            'ido-switch-buffer
+  "<C-tab>"            'switch-to-buffer
 
   "M-="       'er/expand-region         ;expand region
   "C-M-S-s"   'tmtxt/sql-connect-server
@@ -179,7 +178,6 @@
   "C-M-S-l"       'org-forward-heading-same-level
   "C-M-S-j"       'org-backward-heading-same-level
   "C-M-S-u"       'outline-up-heading
-  "<C-tab>"       'ido-switch-buffer
   )
 
 (tmtxt/in '(darwin)
