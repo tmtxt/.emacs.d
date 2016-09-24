@@ -32,7 +32,6 @@ DIR-NAME directory name inside lib folder"
 (require 'tmtxt-util)					;utilities
 (require 'tmtxt-misc)					;misc
 (require 'tmtxt-ido)					;config for ido
-(require 'tmtxt-flymake)				;flymake
 (require 'tmtxt-bookmark)				;load the bookmark and my config
 (require 'tmtxt-dired)					;dired mode config (for file management)
 (require 'tmtxt-navigation)     ;navigation util
