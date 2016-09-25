@@ -1,22 +1,24 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; auto complete mod
+;;; tmtxt-auto-complete
 ;;; should be loaded after yasnippet so that they can work together
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+
 (ac-config-default)
-;;; set the trigger key so that it can work together with yasnippet on tab key,
-;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
-;;; activate, otherwise, auto-complete will
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+
+;;; config
+(setq-default
+ ac-ignore-case nil
+ ac-use-quick-help t
+ ac-quick-help-delay 0.3)
+
+;;; trigger key
 (ac-set-trigger-key "TAB")
 (ac-set-trigger-key "<tab>")
-(setq ac-ignore-case nil)
 
-;;; use quick help
-(setq ac-use-quick-help t
-      ac-quick-help-delay 0.5)
-
-;;; complete in string
+;;; I need completion in these faces oo
 (delete 'font-lock-string-face ac-disable-faces)
+(delete 'font-lock-comment-face ac-disable-faces)
+(delete 'font-lock-doc-face ac-disable-faces)
 
-;;;
+
 (provide 'tmtxt-auto-complete)
