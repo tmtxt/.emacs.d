@@ -20,6 +20,8 @@ See URL `http://php.net/manual/en/features.commandline.php'."
   ;; indentation
   (make-local-variable 'web-mode-code-indent-offset)
   (make-local-variable 'web-mode-markup-indent-offset)
+  (make-local-variable 'web-mode-comment-style)
+  (setq web-mode-comment-style 2)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-markup-indent-offset 2)
 
@@ -52,21 +54,17 @@ See URL `http://php.net/manual/en/features.commandline.php'."
 
   ;; undo
   (make-local-variable 'undo-outer-limit)
-  (setq undo-outer-limit 100000000)
-
-  ;; comment
-  (make-local-variable 'web-mode-comment-style)
-  (setq web-mode-comment-style 2)
+  (setq
+   undo-outer-limit 100000000
+   fill-column 500
+   )
 
   ;; paredit
   (tmtxt-paredit-nonlisp)
 
   ;; flycheck
   (flycheck-select-checker 'tmtxt-php)
-  (flycheck-mode t)
-
-  ;; fill column
-  (setq fill-column 500))
+  (flycheck-mode t))
 
 ;;; function for switching between web mode and php mode
 (defun tmtxt/switch-php-mode ()

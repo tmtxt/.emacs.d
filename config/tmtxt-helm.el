@@ -1,23 +1,14 @@
 ;;; config for helm
 
+(require 'helm)
+(require 'helm-descbinds)
+
 ;;; enable helm
 (helm-mode 1)
-
-;;; helm locate
-(tmtxt/in '(darwin)
-  (setq helm-locate-command "mdfind %s %s"))
-(tmtxt/in '(gnu/linux)
-  (setq helm-locate-command "locate %s -r %s"))
-
-;;; helm recent dir
-;(tmtxt/set-up 'helm-dired-recent-dirs)
-
-;;; helm desc bind
-(tmtxt/set-up 'helm-descbinds
-  (helm-descbinds-install))
+(helm-descbinds-install)
 
 ;;; some variables
-(setq
+(setq-default
  helm-mp-highlight-delay 0.7
  helm-mp-highlight-threshold 4
  helm-maybe-use-default-as-input nil
@@ -27,6 +18,10 @@
  helm-always-two-windows nil
  helm-split-window-default-side 'other
  helm-candidate-number-limit 200
+
+ helm-locate-command (case system-type
+                       ('darwin "mdfind %s %s")
+                       ('gnu/linux "locate %s -r %s"))
  )
 
 ;;; custom helm source for quick jump

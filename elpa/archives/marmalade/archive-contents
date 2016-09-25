@@ -1,4 +1,11 @@
 (1
+ (prompt-you .
+	     [(20160925 1115)
+	      ((emacs
+		(24))
+	       (cl-lib
+		(0 5)))
+	      "A simple library to prompt user to select from a list of options" single])
  (zone-nyan .
 	    [(0 2 2)
 	     ((esxml
