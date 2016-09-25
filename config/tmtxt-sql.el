@@ -1,47 +1,31 @@
+;;; working with sql databases
+
+;;; default login params
 (setq sql-postgres-login-params
       '((user :default "postgres")
         (database :default "postgres")
         (server :default "localhost")
         (port :default 5432)))
 
+;;; hooks
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
             (toggle-truncate-lines t)
             (setq-local show-trailing-whitespace nil)
             (auto-complete-mode t)))
 
+(add-hook 'sql-mode-hook
+          (lambda ()
+            (setq-local ac-ignore-case t)
+            (auto-complete-mode)))
+
 ;;; server list
 (setq sql-connection-alist
-      '((icon.dev (sql-product 'postgres)
-                  (sql-port 54321)
-                  (sql-server "localhost")
-                  (sql-user "icon")
-                  (sql-database "icon"))
-        (pedigree.dev (sql-product 'postgres)
+      '((pedigree.dev (sql-product 'postgres)
                       (sql-port 5432)
                       (sql-server "pd.dev")
                       (sql-user "postgres")
-                      (sql-database "pedigree"))
-        (carrier.adapter (sql-product 'mysql)
-                         (sql-port 3306)
-                         (sql-server "carrier_adapter.host")
-                         (sql-user "root")
-                         (sql-database "carrier_adapter"))
-        (oms.local (sql-product 'mysql)
-                   (sql-port 3306)
-                   (sql-server "oms.local")
-                   (sql-user "oms_local")
-                   (sql-database "oms_local"))
-        (paul.ann (sql-product 'mysql)
-                  (sql-port 3306)
-                  (sql-server "10.103.1.17")
-                  (sql-user "annh")
-                  (sql-database "annh_alice_my"))
-        (api.id.staging (sql-product 'mysql)
-                        (sql-port 3306)
-                        (sql-server "172.18.1.56")
-                        (sql-user "qbui")
-                        (sql-database "adapter"))))
+                      (sql-database "pedigree"))))
 
 ;;; TODO update this function
 (defun tmtxt/sql-connect-server (connection)
@@ -73,10 +57,5 @@
     (if current-prefix-arg
         (sql-connect connection connection)
       (sql-connect connection))))
-
-(add-hook 'sql-mode-hook
-          (lambda ()
-            (setq-local ac-ignore-case t)
-            (auto-complete-mode)))
 
 (provide 'tmtxt-sql)

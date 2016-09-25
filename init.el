@@ -52,7 +52,6 @@ DIR-NAME directory name inside lib folder"
                tmtxt-ruby
                tmtxt-grep
                tmtxt-evil
-               tmtxt-evil
                tmtxt-sql
                tmtxt-git
                tmtxt-python
