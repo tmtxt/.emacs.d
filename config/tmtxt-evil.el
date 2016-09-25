@@ -11,8 +11,8 @@
                 nodejs-repl-mode
                 dired-mode
                 wdired-mode
-                twittering-mode
-                twittering-edit-mode
+                ;; twittering-mode
+                ;; twittering-edit-mode
                 skewer-repl-mode
                 fundamental-mode
                 inferior-moz-mode
@@ -40,7 +40,7 @@
      ((member major-mode '(dired-mode)) (evil-motion-state 1))
 
      ;; do nothing for these mode
-     ((member major-mode '(twittering-mode)))
+     ;; ((member major-mode '(twittering-mode)))
 
      ;; default switch to normal state
      (t (evil-normal-state 1))))

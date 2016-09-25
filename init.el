@@ -48,7 +48,6 @@ DIR-NAME directory name inside lib folder"
                tmtxt-php
                tmtxt-helm
                tmtxt-markdown
-               tmtxt-twitter
                tmtxt-lisp
                tmtxt-ruby
                tmtxt-grep
