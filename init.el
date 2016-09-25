@@ -26,7 +26,6 @@
 
 DIR-NAME directory name inside lib folder"
   (add-to-list 'load-path (concat "~/.emacs.d/lib/" dir-name)))
-(tmtxt/add-lib "single-file-modes")
 
 ;;; some my own useful config
 (dolist (cfg '(tmtxt-util

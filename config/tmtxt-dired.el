@@ -12,7 +12,6 @@
 ;;; require
 (require 'dired+)
 (require 'dired-details+)
-(require 'dired-sort-map)
 (require 'tmtxt-async-tasks)
 (require 'tmtxt-dired-async)
 (require 'wdired)
