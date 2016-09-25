@@ -1,16 +1,13 @@
 ;;; config for buffer management
 
-(require 'tmtxt-util)
+(require 'ibuffer)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Switch to last buffer
 (defun tmtxt/switch-to-last-buffer ()
   (interactive)
   (switch-to-buffer (other-buffer)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; buffer managers using ibuffer
-(require 'ibuffer)
 (setq ibuffer-saved-filter-groups
 	  (quote (("default"
 			   ("Org" ;; all org-related buffers
