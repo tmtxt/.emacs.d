@@ -31,4 +31,9 @@
 (set-face-foreground 'magit-diff-add "green4")
 (set-face-foreground 'magit-diff-del "red3")
 
+(tmtxt/set-up 'git-messenger
+  (add-hook 'git-messenger:after-popup-hook
+            (lambda ()
+              (evil-exit-emacs-state))))
+
 (provide 'tmtxt-git)
