@@ -1,6 +1,7 @@
 ;;; moz.el --- Lets current buffer interact with inferior mozilla.
 
 ;; URL: http://github.com/bard/mozrepl/raw/master/chrome/content/moz.el
+;; Package-Version: 1.1.0
 
 ;; Copyright (C) 2006 by Massimiliano Mirra
 ;;

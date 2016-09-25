@@ -12,6 +12,7 @@
 (require 'tern)
 (require 'tern-auto-complete)
 (require 'nodejs-repl)
+(require 'moz)
 
 ;;; Code:
 
@@ -60,7 +61,7 @@
 
 
 ;;; mozrepl
-(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+;; (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 (add-hook 'js2-mode-hook 'moz-minor-mode)
 (add-hook 'inferior-moz-mode-hook 'auto-complete-mode)
 
