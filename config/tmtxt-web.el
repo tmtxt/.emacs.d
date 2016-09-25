@@ -3,9 +3,9 @@
 ;;; required library
 (require 'tmtxt-util)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; emmet mode
 (require 'emmet-mode)
+(require 'scss-mode)
 
 ;;; auto start on sgml and css mode
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
@@ -18,7 +18,7 @@
 ;;; bind key
 (define-key emmet-mode-keymap (kbd "C-j") 'emmet-expand-yas)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; web mode
 ;;; associate with web mode
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
@@ -35,12 +35,13 @@
 (add-to-list 'auto-mode-alist '("\\.mako$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mak$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.twig$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
 ;;; disable rainbow-mode and whitespace-mode when use web-mode
 (defun web-mode-hook ()
   "Config for working with web mode"
 
-  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
+  (tmtxt/prog-mode-setup)
 
   ;; disable rainbow, whitespace, idle highlight, font lock mode
   (rainbow-mode 0)
@@ -67,15 +68,15 @@
   ;; auto complete and tern
   (auto-complete-mode 1)
   (if web-mode-ac-sources-alist
-    (progn
-      (add-to-list 'web-mode-ac-sources-alist '("css" . (ac-source-words-in-buffer ac-source-css-property)))
-      (add-to-list 'web-mode-ac-sources-alist '("html" . (ac-source-words-in-buffer ac-source-abbrev)))
-      (add-to-list 'web-mode-ac-sources-alist '("jsx" . (ac-source-words-in-buffer ac-source-words-in-same-mode-buffers))))
-  (setq web-mode-ac-sources-alist
-        '(("css" . (ac-source-words-in-buffer ac-source-css-property))
-          ("html" . (ac-source-words-in-buffer ac-source-abbrev))
-          ("jsx" . (ac-source-words-in-buffer ac-source-words-in-same-mode-buffers)))))
-)
+      (progn
+        (add-to-list 'web-mode-ac-sources-alist '("css" . (ac-source-words-in-buffer ac-source-css-property)))
+        (add-to-list 'web-mode-ac-sources-alist '("html" . (ac-source-words-in-buffer ac-source-abbrev)))
+        (add-to-list 'web-mode-ac-sources-alist '("jsx" . (ac-source-words-in-buffer ac-source-words-in-same-mode-buffers))))
+    (setq web-mode-ac-sources-alist
+          '(("css" . (ac-source-words-in-buffer ac-source-css-property))
+            ("html" . (ac-source-words-in-buffer ac-source-abbrev))
+            ("jsx" . (ac-source-words-in-buffer ac-source-words-in-same-mode-buffers)))))
+  )
 (add-hook 'web-mode-hook 'web-mode-hook)
 
 ;;; indentation
@@ -84,21 +85,19 @@
 (setq web-mode-code-indent-offset 2)	;script
 (setq web-mode-indent-style 2)		;fix side effect for html indentation
 
+
 ;;; sass mode
 (defun tmtxt/scss-setup ()
-  (setq-local css-indent-offset 2)
-  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
+  "Setup scss mode"
+  (setq-local css-indent-offset 2))
+(setq scss-compile-at-save nil)
+(add-hook 'scss-mode-hook 'tmtxt/scss-setup)
+(add-hook 'scss-mode-hook 'tmtxt/prog-mode-setup)
 
-(tmtxt/set-up 'scss-mode
-  (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
-  (setq scss-compile-at-save nil)
-  (add-hook 'scss-mode-hook 'tmtxt/scss-setup))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; misc
 ;;; auto insert and tag when typing </
 (setq nxml-slash-auto-complete-flag t)
-;(add-to-list 'aggressive-indent-excluded-modes 'web-mode)
 
 ;;; change indentation manually
 (defun tmtxt/web-mode-change-indentation (indentation)

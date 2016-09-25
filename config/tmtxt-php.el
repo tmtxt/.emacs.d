@@ -49,8 +49,7 @@ See URL `http://php.net/manual/en/features.commandline.php'."
 
 ;;; setting up php mode
 (defun tmtxt/setup-php ()
-  ;; delete trailing whitespace
-  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)
+  (tmtxt/prog-mode-setup)
 
   ;; undo
   (make-local-variable 'undo-outer-limit)

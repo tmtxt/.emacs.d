@@ -34,9 +34,7 @@
              js2-refactor-mode
              ))
   (add-hook 'js2-mode-hook f))
-(add-hook 'js2-mode-hook
-          (lambda ()
-            (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)))
+(add-hook 'js2-mode-hook 'tmtxt/prog-mode-setup)
 
 ;;; json
 (add-hook 'json-mode-hook

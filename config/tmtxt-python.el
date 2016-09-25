@@ -1,7 +1,5 @@
 ;;; remove trailing white space since python uses indentation for code block
-(defun tmtxt/setup-python ()
-  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
-(add-hook 'python-mode-hook 'tmtxt/setup-python)
+(add-hook 'python-mode-hook 'tmtxt/prog-mode-setup)
 
 ;;; syntax checking using pyflakes
 ;; (require 'flycheck-pyflakes)

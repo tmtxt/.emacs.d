@@ -32,6 +32,11 @@
  mouse-yank-at-point t
  whitespace-line-column 80)
 
+(defun tmtxt-local-comment-auto-fill ()
+  (set (make-local-variable 'comment-auto-fill-only-comments) t)
+  (auto-fill-mode t))
+(add-hook 'prog-mode-hook 'tmtxt-local-comment-auto-fill)
+
 ;;; select all line
 (defun tmtxt/select-all-line ()
   "select all line and put the cursor at the end of that line"
@@ -113,15 +118,6 @@
           "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
-
-(defun tmtxt/insert-date ()
-  "Insert a time-stamp according to locale's date and time format."
-  (interactive)
-  (insert (format-time-string "%c" (current-time))))
-
-(defun tmtxt/edit-before-save-prog ()
-  "Some util commands should be run on prog mode save"
-  (delete-trailing-whitespace))
 
 (defun tmtxt/change-indentation-locally (indentation)
   "Change indentation locally"

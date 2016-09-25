@@ -108,6 +108,15 @@
 ;;; default font
 (set-default-font "Hack")
 
+
+;;; watch words
+(defun tmtxt-add-watchwords ()
+  "Add watch words"
+  (font-lock-add-keywords
+   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|HACK\\|REFACTOR\\|NOCOMMIT\\)"
+          1 font-lock-warning-face t))))
+(add-hook 'prog-mode-hook 'tmtxt-add-watchwords)
+
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
 ;;; tmtxt-appearance.el ends here
