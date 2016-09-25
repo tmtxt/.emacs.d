@@ -1,29 +1,32 @@
 ;;; config for working with markdown mode
 
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
-;;; associate markdown with .md file
-(setq auto-mode-alist
-      (cons '("\\.md" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.mkd" . markdown-mode) auto-mode-alist))
+(tmtxt/add-lib "livedown")
 
-;; (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
-
+(require 'markdown-mode)
+(require 'ac-ispell)
 (when (executable-find "livedown")
-  (progn
-    (tmtxt/add-lib "livedown")
-    (require 'livedown)))
+  (require 'livedown))
 
-;; (custom-set-variables
-;;  '(ac-ispell-requires 4))
-;; (eval-after-load "auto-complete"
-;;   '(progn
-;;      (ac-ispell-setup)))
-;; (defun my/enable-ac-ispell ()
-;;   (add-to-list 'ac-sources 'ac-source-ispell))
-;; (add-hook 'markdown-mode-hook 'my/enable-ac-ispell)
+;;; associate
+(add-to-list 'auto-mode-alist '("\\.md" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.mkd" . markdown-mode))
+
+;;; config
+(setq-default
+ ac-ispell-requires 4
+ )
+
+;;; setup
+(ac-ispell-setup)
+
+;;; markdown mode hook
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (flyspell-mode 1)
+            (flyspell-buffer)
+            (auto-complete-mode)
+            (add-to-list 'ac-sources 'ac-source-ispell)
+            ))
 
 (provide 'tmtxt-markdown)

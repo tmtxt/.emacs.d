@@ -2,6 +2,7 @@
 
 (require 'helm)
 (require 'helm-descbinds)
+(require 'helm-cmd-t)
 
 ;;; enable helm
 (helm-mode 1)
@@ -24,8 +25,9 @@
                        ('gnu/linux "locate %s -r %s"))
  )
 
-;;; custom helm source for quick jump
+
 (defun tmtxt/helm-sources ()
+  "My combined sources"
   (let ((base '(helm-source-projectile-projects
                 helm-source-buffers-list
                 helm-source-files-in-current-dir
@@ -34,15 +36,7 @@
                 helm-source-projectile-buffers-list
                 helm-source-projectile-files-list
                 helm-source-file-cache)))
-    base
-
-    ;; (if (featurep 'helm-cmd-t)
-    ;;     ;; FIX
-    ;;     (condition-case nil
-    ;;         (cons (helm-cmd-t-get-create-source (helm-cmd-t-root-data)) base)
-    ;;       (error base))
-    ;;   base)
-    ))
+    base))
 
 (defun tmtxt/helm ()
   (interactive)
