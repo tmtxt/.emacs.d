@@ -1,6 +1,12 @@
 ;;; config for managing project
-(tmtxt/set-up 'projectile
-	(projectile-global-mode)
-  (setq projectile-enable-caching t))
+
+(require 'projectile)
+
+;;; enable
+(projectile-global-mode)
+
+;;; config
+(setq-default
+ projectile-enable-caching t)
 
 (provide 'tmtxt-project)
