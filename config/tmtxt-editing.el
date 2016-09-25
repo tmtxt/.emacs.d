@@ -2,10 +2,10 @@
 
 (require 'textmate)
 (require 'yasnippet)
+(require 'autopair)
+(require 'undo-tree)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; UTF-8
-;;; set the encoding for emacs and external program to interact with each other
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -14,14 +14,24 @@
 (setq default-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; auto pair the brackets
-(tmtxt/set-up 'autopair
-  (autopair-global-mode 1)
-  ;; (setq autopair-autowrap t)
-  )
+;;; enable modes
+(autopair-global-mode 1)
+(delete-selection-mode 1)
+(global-undo-tree-mode)
+(global-subword-mode t)
+(global-auto-revert-mode 1)
+(toggle-text-mode-auto-fill)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; minor config
+(setq-default
+ next-line-add-newlines t
+ fill-column 100
+ indent-tabs-mode nil
+ sentence-end-double-space nil
+ shift-select-mode nil
+ mouse-yank-at-point t
+ whitespace-line-column 80)
+
 ;;; select all line
 (defun tmtxt/select-all-line ()
   "select all line and put the cursor at the end of that line"
@@ -30,9 +40,7 @@
   (set-mark-command nil)
   (move-end-of-line nil))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; copy/cut whole line if no region is selected
-;;; http://www.emacswiki.org/emacs/WholeLineOrRegion
 (dolist (command (list 'kill-ring-save 'kill-region
                        'clipboard-kill-ring-save
                        'clipboard-kill-region))
@@ -49,7 +57,6 @@
   (unless (use-region-p)
     (pop-mark)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; indent current region if active, otherwise indent all buffer
 (defun tmtxt/indent-buffer ()
   "Indent the currently visited buffer."
@@ -67,27 +74,21 @@
         (tmtxt/indent-buffer)
         (message "Buffer indented.")))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; edit file as root privileges (a bit slow at when first open)
-;; http://emacs-fu.blogspot.com/2013/03/editing-with-root-privileges-once-more.html
-;; (defun tmtxt/find-file-as-root ()
-;;   "Like `ido-find-file, but automatically edit the file with
-;; root-privileges (using tramp/sudo), if the file is not writable by
-;; user."
-;;   (interactive)
-;;   (let ((file (ido-read-file-name "Find file as root: ")))
-;;     (unless (file-writable-p file)
-;;       (setq file (concat "/sudo:root@localhost:" file)))
-;;     (find-file file)))
+(defun tmtxt/find-file-as-root ()
+  "Like `find-file, but automatically edit the file with root-privileges (using tramp/sudo), if the file is not writable by user."
+  (interactive)
+  (let ((file (helm-read-file-name "Find file as root: ")))
+    (unless (file-writable-p file)
+      (setq file (concat "/sudo:root@localhost:" file)))
+    (find-file file)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; yasnippet
 ;;; should be loaded before auto complete so that they can work together
-(add-to-list 'yas-snippet-dirs "/Volumes/tmtxt/.emacs.d/data/yasnippet/snippets")
+(add-to-list 'yas-snippet-dirs "~/.emacs.d/data/yasnippet/snippets")
 (yas-global-mode 1)
 (yas-reload-all)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fix paredit and comment-dwim conflict
 (add-hook 'paredit-mode-hook (lambda () (define-key paredit-mode-map (kbd "M-;") nil)))
 (defadvice comment-dwim (around lisp-specific activate)
@@ -97,15 +98,12 @@
     (message "normal")
     ad-do-it))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; untabify current buffer
-(defun tmtxt-untabify-buffer ()
+(defun tmtxt/untabify-buffer ()
+  "Untabify whole buffer"
   (interactive)
   (untabify (point-min) (point-max)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; insert sample lorem text
-(defun tmtxt-lorem ()
+(defun tmtxt/lorem ()
   "Insert a lorem ipsum."
   (interactive)
   (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
@@ -116,40 +114,20 @@
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; insert current time
-(defun tmtxt-insert-date ()
+(defun tmtxt/insert-date ()
   "Insert a time-stamp according to locale's date and time format."
   (interactive)
   (insert (format-time-string "%c" (current-time))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; autocomplete from ispell
-(custom-set-variables
- '(ac-ispell-requires 4))
-(eval-after-load "auto-complete"
-  '(progn
-     (ac-ispell-setup)))
-(defun my/enable-ac-ispell ()
-  (add-to-list 'ac-sources 'ac-source-ispell))
-(add-hook 'markdown-mode-hook 'my/enable-ac-ispell)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; misc for prog mode
 (defun tmtxt/edit-before-save-prog ()
-  (delete-trailing-whitespace)
-  ;; (tmtxt-untabify-buffer)
-  )
+  "Some util commands should be run on prog mode save"
+  (delete-trailing-whitespace))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; change indentation locally
 (defun tmtxt/change-indentation-locally (indentation)
+  "Change indentation locally"
   (interactive (list (string-to-number (read-string "Indentation level: "))))
   (setq-local c-basic-offset indentation))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; quote
-;;; taken from http://ergoemacs.org/emacs/elisp_escape_quotes.html
 (defun tmtxt/escape-quotes (φbegin φend)
   "Replace 「\"」 by 「\\\"」 in current line or text selection.
 See also: `xah-unescape-quotes'
@@ -182,21 +160,5 @@ Version 2015-05-04"
       (while (search-forward "\\\"" nil t)
         (replace-match "\"" 'FIXEDCASE 'LITERAL)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Some minor config
-(delete-selection-mode 1)				;delete selection mode
-(setq next-line-add-newlines t)			;auto new line
-(setq-default fill-column 100)			;fill column 80
-(setq-default indent-tabs-mode nil)
-(tmtxt/set-up 'undo-tree (global-undo-tree-mode)) ;undo tree
-(tmtxt/enable '(narrow-to-region set-goal-column upcase-region downcase-region))
-(setq sentence-end-double-space nil)	;one space not end setence
-(setq shift-select-mode nil)			;not use shift to select
-(setq mouse-yank-at-point t)
-(setq whitespace-line-column 80)
-(global-subword-mode t)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-(global-auto-revert-mode 1)
 
-;;; finally provide the library
 (provide 'tmtxt-editing)

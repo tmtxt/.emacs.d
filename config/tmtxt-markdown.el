@@ -17,4 +17,13 @@
     (tmtxt/add-lib "livedown")
     (require 'livedown)))
 
+;; (custom-set-variables
+;;  '(ac-ispell-requires 4))
+;; (eval-after-load "auto-complete"
+;;   '(progn
+;;      (ac-ispell-setup)))
+;; (defun my/enable-ac-ispell ()
+;;   (add-to-list 'ac-sources 'ac-source-ispell))
+;; (add-hook 'markdown-mode-hook 'my/enable-ac-ispell)
+
 (provide 'tmtxt-markdown)
