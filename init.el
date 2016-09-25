@@ -30,7 +30,6 @@ DIR-NAME directory name inside lib folder"
 
 ;;; some my own useful config
 (dolist (cfg '(tmtxt-util
-               tmtxt-misc
                tmtxt-bookmark
                tmtxt-dired
                tmtxt-navigation
@@ -56,57 +55,50 @@ DIR-NAME directory name inside lib folder"
                tmtxt-git
                tmtxt-python
                tmtxt-key-bindings
+
+               ;; other packages
+               saveplace
+               restclient
+               n4js
                ))
   (require cfg))
 
-;; Save positions in visited files
-(setq-default save-place t)
-(require 'saveplace)
-(setq save-place-file "~/.emacs.d/.saveplace")
 
-;;; custom file
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+;;; some default config
+(setq-default
+ save-place t                           ;save positions in visited files
+ save-place-file "~/.emacs.d/.saveplace"
 
+ custom-file "~/.emacs.d/custom.el"
+ require-final-newline t
+ gc-cons-threshold 100000000
+ ediff-window-setup-function 'ediff-setup-windows-plain
+ oddmuse-directory (concat user-emacs-directory "oddmuse")
+ diff-switches "-u"
+ imenu-auto-rescan t
+
+ backup-directory-alist `((".*" . ,temporary-file-directory))
+ auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+ )
 ;;; use spotlight search for locate command in macos
 (tmtxt/in '(darwin)
   (setq locate-command "mdfind"))
 
-;;; thesaurus
-(require 'thesaurus)
-(thesaurus-set-bhl-api-key-from-file "~/BigHugeLabs.apikey.txt")
-(define-key global-map (kbd "C-x t") 'thesaurus-choose-synonym-and-replace)
-
-;;; clojure
-;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-
-;;; auto save file
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
-(setq-default require-final-newline t)
-
-;;; garbage collector
-(setq gc-cons-threshold 100000000)
-
-;;; recent file
-;; (require 'recentf)
-;; (recentf-mode 1)
-;; (setq recentf-max-menu-items 100)
-
-;;; view large file
-;; (require 'vlf-integrate)
-
+;;; other config
+(defalias 'yes-or-no-p 'y-or-n-p)
+(load custom-file)                      ;custom file
+(server-start)                          ;daemon
 ;; (setq debug-on-error t)
 
-;;; n4js
-(tmtxt/add-lib "n4js")
-(require 'n4js)
-(setq n4js-cli-program "vagrant")
-(setq n4js-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475"))
-(setq n4js-pop-to-buffer t)
-(add-hook 'neo4j-shell-mode (lambda () (toggle-truncate-lines t)))
 
-(server-start)
+;;; rest client mode
+(add-to-list 'auto-mode-alist '("\\.rest\\'" . restclient-mode))
+(add-hook 'restclient-mode-hook 'auto-complete-mode)
+
+
+;;; neo4j shell
+(setq-default
+ n4js-cli-program "vagrant"
+ n4js-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475")
+ n4js-pop-to-buffer t)
+(add-hook 'neo4j-shell-mode (lambda () (toggle-truncate-lines t)))
