@@ -85,7 +85,7 @@
    `(default
       ((t (,@fw :foreground ,fg :backend ,bg))))
    `(fixed-pitch
-     ((t (:family "Fira Code"))))
+     ((t (:family "Hack"))))
    `(variable-pitch
      ((t (:family "Sans Serif"))))
    `(shadow
