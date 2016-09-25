@@ -7,7 +7,7 @@
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-safe-themes
    (quote
-    ("e4b1468bc1def510a4157664603f2edfe9b57551a30969040f1d9313a3ee0b7b" "3b8360712df847fb54effa6c2f311a5c57060a6bfbf0c5fd70e50d32af4e97f7" default)))
+    ("96664d44144f7782ec2355105199250720a0f23f6e5bf4d5fb5432d9dbf4706d" "e4b1468bc1def510a4157664603f2edfe9b57551a30969040f1d9313a3ee0b7b" "3b8360712df847fb54effa6c2f311a5c57060a6bfbf0c5fd70e50d32af4e97f7" default)))
  '(ecb-options-version "2.40")
  '(ergoemacs-mode-used "5.7.5")
  '(ergoemacs-theme "5.7.5")
