@@ -11,6 +11,13 @@ Example:
   `(when (member system-type ,systems)
      ,@body))
 
+(defun tmtxt/prog-mode-setup ()
+  "Some util for prog modes"
+  (add-hook
+   'before-save-hook
+   (lambda ()
+     (delete-trailing-whitespace))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; a replacement for (require 'xxx)
 ;;; https://github.com/ubolonton/.emacs.d/blob/master/config/ublt-editing.el

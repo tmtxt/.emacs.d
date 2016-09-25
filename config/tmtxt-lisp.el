@@ -1,59 +1,56 @@
 ;;; some of the code is from emacs starter kit
 
-(add-hook 'lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'emacs-lisp-mode-hook 'tmtxt-remove-elc-on-save)
-(add-hook 'emacs-lisp-mode-hook 'tmtxt-pretty-lambdas)
-(add-hook 'emacs-lisp-mode-hook 'tmtxt-pretty-fn)
-(add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
-;; (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
-(add-hook 'emacs-lisp-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
-(add-hook 'emacs-lisp-mode-hook (lambda () (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t)))
+(require 'flycheck)
+(require 'clojure-mode)
+(require 'cider)
+(require 'ac-cider)
+(require 'quack)
 
-(defun tmtxt-remove-elc-on-save ()
+;;; LISP & EMACS LISP
+;;; hook
+(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+(dolist (f '(enable-paredit-mode
+             turn-on-eldoc-mode
+             elisp-slime-nav-mode
+             tmtxt/remove-elc-on-save
+             tmtxt/add-elisp-font-lock
+             tmtxt/prog-mode-setup))
+  (add-hook 'emacs-lisp-mode-hook f))
+
+;;; flycheck setup
+(flycheck-package-setup)
+
+(defun tmtxt/remove-elc-on-save ()
   "If you're saving an elisp file, likely the .elc is no longer valid."
   (make-local-variable 'after-save-hook)
   (add-hook 'after-save-hook
-			(lambda ()
-			  (if (file-exists-p (concat buffer-file-name "c"))
-				  (delete-file (concat buffer-file-name "c"))))))
+            (lambda ()
+              (if (file-exists-p (concat buffer-file-name "c"))
+                  (delete-file (concat buffer-file-name "c"))))))
 
-(defun tmtxt-pretty-lambdas ()
-  "prettify lambda"
+(defun tmtxt/add-elisp-font-lock ()
+  "Add font lock keywords for emacs lisp"
   (font-lock-add-keywords
    nil `(("(?\\(lambda\\>\\)"
           (0 (progn (compose-region (match-beginning 1) (match-end 1)
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
 
-(defun tmtxt-pretty-fn ()
-  ;; prettify the function
-  (font-lock-add-keywords nil `(("(\\(\\<fn\\>\\)"
-								 (0 (progn (compose-region (match-beginning 1)
-														   (match-end 1)
-														   "\u0192"
-														   'decompose-region)))))))
 
-(eval-after-load 'flycheck
-  '(flycheck-package-setup))
-
-;;; key bindings
-(define-key lisp-mode-map (kbd "C-c C-r") 'eval-region)
-(define-key emacs-lisp-mode-map (kbd "C-c C-r") 'eval-region)
-(define-key emacs-lisp-mode-map (kbd "C-c v") 'eval-buffer)
-(define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
-(define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Clojure
-(add-hook 'clojure-mode-hook 'tmtxt-pretty-fn)
-(add-hook 'clojurescript-mode-hook 'tmtxt-pretty-fn)
+;;; CLOJURE & CLOJURESCRIPT
+(add-hook 'clojure-mode-hook 'tmtxt/add-clj-font-lock)
+(add-hook 'clojurescript-mode-hook 'tmtxt/add-clj-font-lock)
 (add-hook 'clojure-mode-hook 'paredit-mode)
-(add-hook 'clojure-mode-hook 'tmtxt/set-up-clojure)
+(add-hook 'clojure-mode-hook 'tmtxt/prog-mode-setup)
 
-(defun tmtxt/set-up-clojure ()
-  (add-hook 'before-save-hook 'tmtxt/edit-before-save-prog nil t))
+(defun tmtxt/add-clj-font-lock ()
+  "Add font lock keywords for clojure"
+  (font-lock-add-keywords
+   nil `(("(\\(\\<fn\\>\\)"
+          (0 (progn (compose-region (match-beginning 1)
+                                    (match-end 1)
+                                    "\u0192"
+                                    'decompose-region)))))))
 
 (defun tmtxt/switch-to-cider-repl ()
   "Switch directly to cider repl buffer if exist, otherwise, connect to a new one"
@@ -69,31 +66,26 @@
         (switch-to-buffer (first cider-buffers))
       (call-interactively 'cider-connect))))
 
-;;; auto complete cider
-(require 'ac-cider)
-(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-cider-setup)
-(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
-;; (add-hook 'cider-repl-mode-hook (lambda () (toggle-truncate-lines t)))
-(eval-after-load "auto-complete"
-  '(progn
-     (add-to-list 'ac-modes 'cider-mode)
-     (add-to-list 'ac-modes 'cider-repl-mode)))
-(defun set-auto-complete-as-completion-at-point-function ()
-  (setq completion-at-point-functions '(auto-complete)))
-(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
-(add-hook 'cider-mode-hook 'set-auto-complete-as-completion-at-point-function)
+(dolist (f '(ac-flyspell-workaround
+             ac-cider-setup
+             ac-cider-setup))
+  (add-hook 'cider-mode-hook f))
+(add-to-list 'ac-modes 'cider-mode)
+(add-to-list 'ac-modes 'cider-repl-mode)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Scheme config
-;; Enable Quack mode
+(defun tmtxt/set-auto-complete-as-completion-at-point-function ()
+  (setq completion-at-point-functions '(auto-complete)))
+(add-hook 'auto-complete-mode-hook 'tmtxt/set-auto-complete-as-completion-at-point-function)
+(add-hook 'cider-mode-hook 'tmtxt/set-auto-complete-as-completion-at-point-function)
+
+
+;; SCHEME
 ;; The binary of your interpreter
 (setq scheme-program-name "mit-scheme")
 ;; This hook lets you use your theme colours instead of quack's ones.
-(defun scheme-mode-quack-hook ()
-  (require 'quack)
+(defun tmtxt/scheme-mode-quack-hook ()
   (setq quack-fontify-style 'emacs))
-(add-hook 'scheme-mode-hook 'scheme-mode-quack-hook)
+(add-hook 'scheme-mode-hook 'tmtxt/scheme-mode-quack-hook)
 (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
 
 (provide 'tmtxt-lisp)

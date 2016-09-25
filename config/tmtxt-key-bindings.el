@@ -158,6 +158,18 @@
   "C-S-f"     'yas-expand)
 
 (tmtxt/define-keys
+    emacs-lisp-mode-map
+  "C-c C-r"  'eval-region)
+
+(tmtxt/define-keys
+    read-expression-map
+  "TAB" 'lisp-complete-symbol)
+
+(tmtxt/define-keys
+    lisp-mode-shared-map
+  "RET" 'reindent-then-newline-and-indent)
+
+(tmtxt/define-keys
     org-mode-map
 
   ;; move meta up/down/left/right
