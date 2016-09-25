@@ -1,3 +1,5 @@
+(require 'magit)
+
 ;;; commit length
 (tmtxt/set-up 'git-commit-mode
   (setq git-commit-summary-max-length 70))
@@ -25,5 +27,8 @@
               (next-version (s-join "." next-version)))
          (magit-tag next-version "HEAD")
          (message next-version)))
+
+(set-face-foreground 'magit-diff-add "green4")
+(set-face-foreground 'magit-diff-del "red3")
 
 (provide 'tmtxt-git)
