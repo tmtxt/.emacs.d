@@ -101,7 +101,7 @@ DIR-NAME directory name inside lib folder"
 ;;; view large file
 ;; (require 'vlf-integrate)
 
-;; (setq debug-on-error t)
+(setq debug-on-error t)
 
 ;;; n4js
 (tmtxt/add-lib "n4js")

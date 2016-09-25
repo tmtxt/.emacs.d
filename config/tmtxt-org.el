@@ -1,13 +1,14 @@
 ;;; config for org mode
 
 (require 'org)
-(require 'tmtxt-util)
 
 ;;; some recomended settings from org mode manual
-(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when global-font-lock-mode is on
-(add-hook 'org-mode-hook (tmtxt/on-fn 'org-indent-mode))
+(add-hook 'org-mode-hook (lambda ()
+                           (flyspell-mode 1)
+                           (org-indent-mode 1)
+                           (turn-on-font-lock)))
 
-(setq
+(setq-default
  ;; fontify code block
  org-src-fontify-natively t
 
@@ -32,13 +33,12 @@
 
  ;; special C-a, C-e, C-k
  org-special-ctrl-a/e t
- org-special-ctrl-k t)
+ org-special-ctrl-k t
 
-(dolist (hook '(org-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode 1))))
+ ;; speed keys
+ org-use-speed-commands t
+ )
 
-;;; speed keys
-(setq org-use-speed-commands t)
 (add-to-list 'org-speed-commands-user
              '("k" org-speed-move-safe 'outline-next-visible-heading))
 (add-to-list 'org-speed-commands-user
@@ -47,9 +47,6 @@
              '("l" org-speed-move-safe 'org-forward-heading-same-level))
 (add-to-list 'org-speed-commands-user
              '("j" org-speed-move-safe 'org-backward-heading-same-level))
-
-;;; org-trello
-(tmtxt/set-up 'org-trello)
 
 ;;; finally, provide the library
 (provide 'tmtxt-org)
