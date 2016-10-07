@@ -26,3 +26,4 @@ projectile.cache
 request/*
 var/*
 sql-history/*
+*.elc
