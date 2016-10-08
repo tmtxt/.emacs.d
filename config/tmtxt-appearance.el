@@ -6,6 +6,8 @@
 (require 'idle-highlight-mode)
 (require 'nyan-mode)
 (require 'golden-ratio)
+(require 'diminish)
+
 
 ;;; custom theme
 (if (window-system)
@@ -78,7 +80,6 @@
  )
 
 
-
 ;;; same window buffer
 (add-to-list 'same-window-buffer-names "*MozRepl*")
 (add-to-list 'same-window-buffer-names "*SQL*")
@@ -116,6 +117,27 @@
    nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|HACK\\|REFACTOR\\|NOCOMMIT\\)"
           1 font-lock-warning-face t))))
 (add-hook 'prog-mode-hook 'tmtxt-add-watchwords)
+
+;;; diminish
+(dolist (d '((yas-minor-mode             "яс"   yasnippet)
+             ;; (paredit-mode               "(П)"  paredit)
+             ;; (elisp-slime-nav-mode       ""     elisp-slime-nav)
+             ;; (magit-auto-revert-mode     ""     magit)
+             ;; (helm-mode                  ""     helm)
+             ;; (highlight-parentheses-mode ""     highlight-parentheses)
+             ;; (projectile-mode            ""     projectile)
+             ;; (autopair-mode              ""     autopair)
+             ;; (subword-mode               "")
+             ;; (eldoc-mode                 "")
+             ;; (auto-fill-function " ⏎")
+             ;; (golden-ratio-mode          "ф"    golden-ratio)
+             ;; (undo-tree-mode             "⌘-Z"  undo-tree)
+             ))
+  (destructuring-bind (mode display &optional feature) d
+    (if feature
+        (with-eval-after-load feature
+          (diminish mode display)))))
+
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
