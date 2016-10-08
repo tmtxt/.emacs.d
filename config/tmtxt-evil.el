@@ -93,11 +93,11 @@
   "Evil visual mode indicator face")
 
 (setq evil-mode-line-format 'before
-      evil-normal-state-tag (propertize "« N »" 'face 'tmtxt/evil-normal-tag)
-      evil-motion-state-tag (propertize "« M »" 'face 'tmtxt/evil-normal-tag)
-      evil-insert-state-tag (propertize "« I »" 'face 'tmtxt/evil-insert-tag)
-      evil-emacs-state-tag (propertize "« E »" 'face 'tmtxt/evil-emacs-tag)
-      evil-visual-state-tag (propertize "« ∞ »" 'face 'tmtxt/evil-visual-tag)
+      evil-normal-state-tag nil ;; (propertize "« N »" 'face 'tmtxt/evil-normal-tag)
+      evil-motion-state-tag nil ;; (propertize "« M »" 'face 'tmtxt/evil-normal-tag)
+      evil-insert-state-tag nil ;; (propertize "« I »" 'face 'tmtxt/evil-insert-tag)
+      evil-emacs-state-tag nil ;; (propertize "« E »" 'face 'tmtxt/evil-emacs-tag)
+      evil-visual-state-tag nil ;; (propertize "« ∞ »" 'face 'tmtxt/evil-visual-tag)
       evil-motion-state-cursor '(box "YellowGreen")
       evil-normal-state-cursor '(box "YellowGreen")
       evil-insert-state-cursor '(bar "White")

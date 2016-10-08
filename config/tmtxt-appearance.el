@@ -75,7 +75,7 @@
  show-trailing-whitespace t
  frame-title-format '(buffer-file-name "%f" ("%b"))
 
- nyan-bar-length 15
+ nyan-bar-length 10
  golden-ratio-exclude-modes '("ediff-mode")
  )
 
