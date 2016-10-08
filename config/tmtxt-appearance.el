@@ -120,7 +120,7 @@
 
 ;;; diminish
 (dolist (d '((yas-minor-mode             "яс"   yasnippet)
-             ;; (paredit-mode               "(П)"  paredit)
+             (paredit-mode               "(П)"  paredit)
              ;; (elisp-slime-nav-mode       ""     elisp-slime-nav)
              ;; (magit-auto-revert-mode     ""     magit)
              ;; (helm-mode                  ""     helm)
@@ -135,8 +135,11 @@
              ))
   (destructuring-bind (mode display &optional feature) d
     (if feature
-        (with-eval-after-load feature
-          (diminish mode display)))))
+        (eval-after-load feature
+          `(diminish ',mode ,display))
+      (diminish mode display))
+
+    ))
 
 
 ;;; finally, provide the library
