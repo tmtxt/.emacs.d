@@ -121,25 +121,23 @@
 ;;; diminish
 (dolist (d '((yas-minor-mode             "яс"   yasnippet)
              (paredit-mode               "(П)"  paredit)
-             ;; (elisp-slime-nav-mode       ""     elisp-slime-nav)
-             ;; (magit-auto-revert-mode     ""     magit)
-             ;; (helm-mode                  ""     helm)
-             ;; (highlight-parentheses-mode ""     highlight-parentheses)
-             ;; (projectile-mode            ""     projectile)
-             ;; (autopair-mode              ""     autopair)
-             ;; (subword-mode               "")
-             ;; (eldoc-mode                 "")
-             ;; (auto-fill-function " ⏎")
-             ;; (golden-ratio-mode          "ф"    golden-ratio)
-             ;; (undo-tree-mode             "⌘-Z"  undo-tree)
+             (elisp-slime-nav-mode       ""     elisp-slime-nav)
+             (magit-auto-revert-mode     ""     magit)
+             (helm-mode                  ""     helm-mode)
+             (highlight-parentheses-mode ""     highlight-parentheses)
+             (projectile-mode            ""     projectile)
+             (autopair-mode              ""     autopair)
+             (subword-mode               "")
+             (eldoc-mode                 "")
+             (auto-fill-function " ⏎")
+             (golden-ratio-mode          "ф"    golden-ratio)
+             (undo-tree-mode             "⌘-Z"  undo-tree)
              ))
   (destructuring-bind (mode display &optional feature) d
     (if feature
         (eval-after-load feature
           `(diminish ',mode ,display))
-      (diminish mode display))
-
-    ))
+      (diminish mode display))))
 
 
 ;;; finally, provide the library
