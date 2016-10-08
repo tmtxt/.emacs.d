@@ -7,6 +7,7 @@
 (require 'nyan-mode)
 (require 'golden-ratio)
 (require 'diminish)
+(require 'anzu)
 
 
 ;;; custom theme
@@ -129,6 +130,7 @@
              (autopair-mode              ""     autopair)
              (subword-mode               "")
              (eldoc-mode                 "")
+             (anzu-mode                  ""     anzu)
              (auto-fill-function " ⏎")
              (golden-ratio-mode          "ф"    golden-ratio)
              (undo-tree-mode             "⌘-Z"  undo-tree)
@@ -139,6 +141,8 @@
           `(diminish ',mode ,display))
       (diminish mode display))))
 
+;;; anzu
+(global-anzu-mode +1)
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
