@@ -88,7 +88,7 @@ DIR-NAME directory name inside lib folder"
 (defalias 'yes-or-no-p 'y-or-n-p)
 (load custom-file)                      ;custom file
 (server-start)                          ;daemon
-(setq debug-on-error t)
+;; (setq debug-on-error t)
 
 
 ;;; rest client mode

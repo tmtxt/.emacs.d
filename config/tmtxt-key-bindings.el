@@ -272,6 +272,10 @@
   "M-V"    'helm-show-kill-ring
   "C-S-s"     'helm-occur)
 
+(tmtxt/keys 'helm helm-map
+  "C-M-S-k"  'helm-next-source
+  "C-M-S-i"  'helm-previous-source)
+
 (tmtxt/keys 'helm-projectile
     global-map
   "C-x C-S-f"        'helm-projectile-find-file

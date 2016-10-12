@@ -49,7 +49,7 @@
   (setq-default
    ns-auto-hide-menu-bar nil
    ns-use-native-fullscreen nil)
-  (set-face-attribute 'default nil :height 120))
+  (set-face-attribute 'default nil :height 110))
 
 ;;; linux specific
 (tmtxt/in '(gnu/linux)
