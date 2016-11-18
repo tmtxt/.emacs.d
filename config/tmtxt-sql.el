@@ -25,7 +25,12 @@
                       (sql-port 5432)
                       (sql-server "pd.dev")
                       (sql-user "postgres")
-                      (sql-database "pedigree"))))
+                      (sql-database "pedigree"))
+        (imgnew.dev (sql-product 'postgres)
+                    (sql-port 5432)
+                    (sql-server "localhost")
+                    (sql-user "app_auth")
+                    (sql-database "app_auth"))))
 
 ;;; TODO update this function
 (defun tmtxt/sql-connect-server (connection)

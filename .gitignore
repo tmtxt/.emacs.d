@@ -27,3 +27,4 @@ request/*
 var/*
 sql-history/*
 *.elc
+*.tern-port
