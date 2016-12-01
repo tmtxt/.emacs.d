@@ -291,6 +291,7 @@
   "C-M-:" 'js2-mode-toggle-hide-functions
   "C-M->" 'js2-mode-toggle-element
   "C-t"  'tmtxt/delete-tern-process
+  "C-M-\\" 'web-beautify-js
   "C-M-S-d" 'tmtxt/js-doc-insert-function-doc-snippet)
 
 (tmtxt/keys 'flycheck
