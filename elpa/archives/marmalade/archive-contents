@@ -460,7 +460,7 @@
 	     [(12)
 	      nil "A theme loosely based on Tron: Legacy colors" single])
  (transmission .
-	       [(0 9)
+	       [(0 10)
 		((emacs
 		  (24 4))
 		 (let-alist
@@ -1572,7 +1572,7 @@
 		      [(1 0 5)
 		       nil "outline-minor-mode settings for emacs lisp" single])
  (outer-spaces .
-	       [(20161028 2230)
+	       [(20161029 2230)
 		nil "A minimalistic minor-mode to highlight redundant spaces" single])
  (otter-mode .
 	     [(1 2)
@@ -3374,7 +3374,7 @@
        (2 2 0)))
      "Modern API for working with files and directories" single])
  (eyebrowse .
-	    [(0 7 1)
+	    [(0 7 2)
 	     ((dash
 	       (2 7 0))
 	      (emacs
