@@ -335,7 +335,7 @@
   "s-g"   'web-mode-element-content-select
   "s-i"   'web-mode-element-parent
   "s-k"   'web-mode-element-child
-  "s-l"   'web-mode-element-next
+  ;; "s-l"   'web-mode-element-next
   "s-j"   'web-mode-element-previous
   "s-h"   'web-mode-element-kill
   "s-n"   'web-mode-element-select

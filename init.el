@@ -54,6 +54,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-sql
                tmtxt-git
                tmtxt-python
+               tmtxt-elixir
                tmtxt-key-bindings
 
                ;; other packages
