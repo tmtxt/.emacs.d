@@ -33,9 +33,13 @@
              which-function-mode
              tern-mode
              js2-refactor-mode
+             toggle-truncate-lines
              ))
   (add-hook 'js2-mode-hook f))
 (add-hook 'js2-mode-hook 'tmtxt/prog-mode-setup)
+(add-hook 'js2-mode-hook
+          (lambda () (setq fill-column 700))
+          t)
 
 ;;; json
 (add-hook 'json-mode-hook

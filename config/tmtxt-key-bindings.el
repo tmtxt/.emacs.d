@@ -333,10 +333,10 @@
 (tmtxt/define-keys web-mode-map
   "s-y"   'tmtxt/web-mode-change-indentation
   "s-g"   'web-mode-element-content-select
-  "s-i"   'web-mode-element-parent
-  "s-k"   'web-mode-element-child
-  ;; "s-l"   'web-mode-element-next
-  "s-j"   'web-mode-element-previous
+  "s-I"   'web-mode-element-parent
+  "s-K"   'web-mode-element-child
+  "s-L"   'web-mode-element-next
+  "s-J"   'web-mode-element-previous
   "s-h"   'web-mode-element-kill
   "s-n"   'web-mode-element-select
   ;; web mode tag match function not defined as interactive
@@ -350,6 +350,10 @@
 
 (tmtxt/define-keys cypher-mode-map
   "M-s-s"   'n4js-send-dwim)
+
+(tmtxt/define-keys magit-status-mode-map
+  "C-M-S-r"   'tmtxt/ar-replace-dockerfile
+  "C-M-S-i"   'tmtxt/increase-tag)
 
 (add-hook
  'eshell-mode-hook

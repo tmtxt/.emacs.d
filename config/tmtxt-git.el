@@ -39,4 +39,11 @@
 (set-face-foreground 'magit-diff-add "green4")
 (set-face-foreground 'magit-diff-del "red3")
 
+(defun tmtxt/ar-replace-dockerfile ()
+  "Update workflow.lib version in dockerfile for current repo"
+  (interactive)
+  (let* ((command "~/bin/replace-Dockerfile-for-current-repo.sh"))
+    (shell-command command)
+    ))
+
 (provide 'tmtxt-git)
