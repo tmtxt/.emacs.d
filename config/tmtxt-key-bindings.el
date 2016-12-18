@@ -1,4 +1,3 @@
-(require 'window-numbering)
 (require 'web-mode)
 (require 'paredit)
 (require 'hideshow)
@@ -109,10 +108,6 @@
   "M-="       'er/expand-region         ;expand region
   "C-M-S-s"   'tmtxt/sql-connect-server
   "C-M-S-c"   'tmtxt/switch-to-cider-repl
-
-  "s-1"    'select-window-1
-  "s-2"    'select-window-2
-  "s-3"    'select-window-3
 
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly

@@ -1875,7 +1875,7 @@
 	     [(0 8 8)
 	      nil "Managing multiple terminal buffers in Emacs." single])
  (multi-project .
-		[(0 0 17)
+		[(0 0 18)
 		 nil "Easily work with multiple projects." single])
  (multi-eshell .
 	       [(0 0 1)
@@ -3559,6 +3559,11 @@
 	      ((json
 		(1 4)))
 	      "View xkcd from Emacs" single])
+ (emacs-sounds .
+	       [(20161211 1530)
+		((sound-wav
+		  (20160725 724)))
+		"Sound effects for Emacs" single])
  (emacs-droid .
 	      [(0 0 0)
 	       nil "Android application development tools for Emacs" single])
