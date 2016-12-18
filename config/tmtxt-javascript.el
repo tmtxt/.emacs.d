@@ -25,6 +25,18 @@
  js2-bounce-indent-p nil
  )
 
+;;; flycheck
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(javascript-jshint)))
+(flycheck-add-mode 'javascript-eslint 'js2-mode)
+(flycheck-add-mode 'javascript-eslint 'js-mode)
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+;; relative executable eslint
+(when (executable-find "eslint-project-relative")
+  (setq flycheck-javascript-eslint-executable "eslint-project-relative"))
+
 ;;; js2
 (dolist (f '(auto-complete-mode
              flycheck-mode
@@ -58,7 +70,6 @@
           (lambda ()
             (when (equal web-mode-content-type "jsx")
               (flycheck-mode)
-              (flycheck-add-mode 'javascript-eslint 'web-mode)
               (flycheck-select-checker 'javascript-eslint)
               (auto-complete-mode 1)
               )))
