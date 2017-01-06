@@ -334,6 +334,7 @@
   "s-J"   'web-mode-element-previous
   "s-h"   'web-mode-element-kill
   "s-n"   'web-mode-element-select
+  "C-M-|" 'web-beautify-js
   ;; web mode tag match function not defined as interactive
   "s-m"   (lambda () (interactive) (web-mode-tag-match))
   "s-p"   'tmtxt/switch-php-mode)

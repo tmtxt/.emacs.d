@@ -28,3 +28,4 @@ var/*
 sql-history/*
 *.elc
 *.tern-port
+*ido.last~
