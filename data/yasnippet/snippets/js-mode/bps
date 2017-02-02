@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : beautify preserve start
+# --
+/* beautify preserve:start */$0

@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : beautify preserve end
+# --
+/* beautify preserve:end */$0
