@@ -53,6 +53,11 @@
           (lambda () (setq fill-column 700))
           t)
 
+;;; js2 jsx mode
+(dolist (f '(tmtxt-paredit-nonlisp
+             emmet-mode))
+  (add-hook 'js2-mode-hook f))
+
 ;;; json
 (add-hook 'json-mode-hook
           (lambda ()
@@ -180,6 +185,14 @@
            (incf field-count)
            (incf field-count)))
         js-doc-bottom-line)))))
+
+(defun tmtxt/switch-to-web-mode ()
+  (interactive)
+  (web-mode))
+
+(defun tmtxt/switch-to-js2-jsx-mode ()
+  (interactive)
+  (js2-jsx-mode))
 
 (provide 'tmtxt-javascript)
 ;;; tmtxt-javascript.el ends here

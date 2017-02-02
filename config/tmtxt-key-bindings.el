@@ -287,8 +287,11 @@
   "C-M-:" 'js2-mode-toggle-hide-functions
   "C-M->" 'js2-mode-toggle-element
   "C-t"  'tmtxt/delete-tern-process
-  "C-M-\\" 'web-beautify-js
+  "C-M-|" 'web-beautify-js
   "C-M-S-d" 'tmtxt/js-doc-insert-function-doc-snippet)
+
+(tmtxt/define-keys js2-jsx-mode-map
+  "s-j"  'tmtxt/switch-to-web-mode)
 
 (tmtxt/keys 'flycheck
     flycheck-mode-map
@@ -338,7 +341,8 @@
   "C-M-|" 'web-beautify-js
   ;; web mode tag match function not defined as interactive
   "s-m"   (lambda () (interactive) (web-mode-tag-match))
-  "s-p"   'tmtxt/switch-php-mode)
+  "s-p"   'tmtxt/switch-php-mode
+  "s-j"   'tmtxt/switch-to-js2-jsx-mode)
 
 (tmtxt/define-keys cider-repl-mode-map
   "C-M-i"    'cider-repl-previous-input
@@ -349,8 +353,7 @@
   "M-s-s"   'n4js-send-dwim)
 
 (tmtxt/define-keys magit-status-mode-map
-  "C-M-S-r"   'tmtxt/ar-replace-dockerfile
-  "C-M-S-i"   'tmtxt/increase-tag)
+  "C-M-S-i"   'tmtxt/ar-increase-tag)
 
 (add-hook
  'eshell-mode-hook
