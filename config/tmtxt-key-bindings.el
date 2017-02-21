@@ -111,7 +111,7 @@
   "C-M-S-c"   'tmtxt/switch-to-cider-repl
 
   ;; windows related keys
-  "M-s-1"     'golden-ratio-mode
+  ;; "M-s-1"     'golden-ratio-mode
 
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
@@ -157,6 +157,7 @@
   "M-s-l"   "<S-right>"
   "M-2"     "C-x o"
   "M-s-o"   "C-x o"
+  "C-S-b"   "C-x +"
   )
 
 (tmtxt/define-keys yas-minor-mode-map
