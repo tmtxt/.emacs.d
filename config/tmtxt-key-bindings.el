@@ -109,6 +109,8 @@
   "M-="       'er/expand-region         ;expand region
   "C-M-S-s"   'tmtxt/sql-connect-server
   "C-M-S-c"   'tmtxt/switch-to-cider-repl
+
+  ;; windows related keys
   "M-s-1"     'golden-ratio-mode
 
   "{"     'paredit-open-curly
@@ -144,11 +146,17 @@
   "M-D"     "M-d"
   "M-F"     "M-DEL"
   "M-W"     "s-&"
-  "M-1"     "C-c C-a"
-  "M-2"     "C-x o"
   "M-m"     "C-m"
   "M-SPC"   "C-SPC"
   "M-g"     "C-k"
+
+  ;; move between windows (up/down/left/right)
+  "M-s-i"   "<S-up>"
+  "M-s-k"   "<S-down>"
+  "M-s-j"   "<S-left>"
+  "M-s-l"   "<S-right>"
+  "M-2"     "C-x o"
+  "M-s-o"   "C-x o"
   )
 
 (tmtxt/define-keys yas-minor-mode-map
