@@ -29,7 +29,8 @@
                 global-hl-line-mode
                 line-number-mode
                 global-linum-mode
-                golden-ratio-mode))
+                ;; golden-ratio-mode
+                ))
   (when (fboundp mode) (funcall mode 1)))
 (golden-ratio-toggle-widescreen)
 (split-window-right)

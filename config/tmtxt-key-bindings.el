@@ -11,6 +11,7 @@
 (require 'cider)
 (require 'cypher-mode)
 (require 'yasnippet)
+(require 'golden-ratio)
 
 ;;; util functions for defining/undefining keys
 ;;; should be loaded at the end
@@ -108,6 +109,7 @@
   "M-="       'er/expand-region         ;expand region
   "C-M-S-s"   'tmtxt/sql-connect-server
   "C-M-S-c"   'tmtxt/switch-to-cider-repl
+  "M-s-1"     'golden-ratio-mode
 
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
