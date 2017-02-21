@@ -34,6 +34,8 @@
   (when (fboundp mode) (funcall mode 1)))
 (golden-ratio-toggle-widescreen)
 (split-window-right)
+(split-window-right)
+(balance-windows)
 (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
 
 ;;; disabled modes
