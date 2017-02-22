@@ -370,8 +370,8 @@
  'eshell-mode-hook
  (lambda ()
    (tmtxt/define-keys eshell-mode-map
-     "C-M-i" 'eshell-previous-input
-     "C-M-k" 'eshell-next-input
+     "C-S-i" 'eshell-previous-input
+     "C-S-k" 'eshell-next-input
      )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
