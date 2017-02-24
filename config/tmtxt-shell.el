@@ -43,18 +43,21 @@
     (unless (get-buffer-process buf)
       (funcall cd-eshell))))
 
+(defun tmtxt/eshell-change-buffer-name ()
+  "Change the current eshell buffer name to current directory related name"
+  (let* ((dir-name (-> default-directory
+                       (directory-file-name)
+                       (file-name-nondirectory)))
+         (new-buffer-name (s-concat "*eshell " dir-name "*")))
+    (rename-buffer new-buffer-name t)))
+
 ;;; hook
 (add-hook 'eshell-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
+(add-hook 'eshell-mode-hook 'tmtxt/eshell-change-buffer-name)
 
-(add-hook 'eshell-directory-change-hook
-          (lambda ()
-            (let* ((dir-name (-> default-directory
-                                 (directory-file-name)
-                                 (file-name-nondirectory)))
-                   (new-buffer-name (s-concat "*eshell " dir-name "*")))
-              (rename-buffer new-buffer-name t))))
+(add-hook 'eshell-directory-change-hook 'tmtxt/eshell-change-buffer-name)
 
 (provide 'tmtxt-shell)
 ;;; tmtxt-shell.el ends here
