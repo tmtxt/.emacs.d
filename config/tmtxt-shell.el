@@ -3,7 +3,9 @@
 ;;; Commentary:
 ;;; Author: truongtx
 
+(require 's)
 (require 'eshell)
+(require 'em-smart)
 (require 'exec-path-from-shell)
 
 ;;; Code:
@@ -21,13 +23,16 @@
 
 ;;; the rest is eshell config
 ;;; eshell
+(setq eshell-where-to-jump 'begin)
+(setq eshell-review-quick-commands nil)
+(setq eshell-smart-space-goes-to-end t)
 (setq-default
  eshell-save-history-on-exit t          ;save history
  eshell-cmpl-cycle-completions t        ;TAB for suggestion
  eshell-buffer-shorthand t              ;shorthand buffer name
  )
 
-
+;;; custom functions to activate eshell
 (defun tmtxt/eshell (&optional arg)
   "Wrapper around default eshell command to keep the exec path and other env as expected"
   (interactive "P")
@@ -42,6 +47,14 @@
 (add-hook 'eshell-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
+
+(add-hook 'eshell-directory-change-hook
+          (lambda ()
+            (let* ((dir-name (-> default-directory
+                                 (directory-file-name)
+                                 (file-name-nondirectory)))
+                   (new-buffer-name (s-concat "*eshell " dir-name "*")))
+              (rename-buffer new-buffer-name t))))
 
 (provide 'tmtxt-shell)
 ;;; tmtxt-shell.el ends here
