@@ -27,26 +27,21 @@
  eshell-buffer-shorthand t              ;shorthand buffer name
  )
 
-(defun tmtxt/eshell ()
-  (interactive)
-  (let ((cd-eshell (lambda ()
+
+(defun tmtxt/eshell (&optional arg)
+  "Wrapper around default eshell command to keep the exec path and other env as expected"
+  (interactive "P")
+  (let ((buf (call-interactively 'eshell arg))
+        (cd-eshell (lambda ()
                      (eshell/cd default-directory)
                      (eshell-reset))))
-    (if (get-buffer "*eshell*")
-        (switch-to-buffer "*eshell*")
-      (call-interactively 'eshell))
-    (unless (get-buffer-process (current-buffer))
-      (funcall cd-eshell)))
-  )
+    (unless (get-buffer-process buf)
+      (funcall cd-eshell))))
 
 ;;; hook
 (add-hook 'eshell-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
-
-;;; env
-;; (add-hook 'eshell-mode-hook 'exec-path-from-shell-initialize)
-
 
 (provide 'tmtxt-shell)
 ;;; tmtxt-shell.el ends here
