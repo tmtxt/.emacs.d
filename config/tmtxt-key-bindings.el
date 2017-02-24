@@ -155,7 +155,7 @@
   "M-s-k"   "<S-down>"
   "M-s-j"   "<S-left>"
   "M-s-l"   "<S-right>"
-  "M-2"     "C-x o"
+  "M-q"     "C-x o"
   "M-s-o"   "C-x o"
   "C-S-b"   "C-x +"
   )
