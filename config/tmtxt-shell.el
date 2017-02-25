@@ -26,6 +26,7 @@
 (setq eshell-where-to-jump 'begin)
 (setq eshell-review-quick-commands nil)
 (setq eshell-smart-space-goes-to-end t)
+(setq eshell-last-dir-ring-size 500)
 (setq-default
  eshell-save-history-on-exit t          ;save history
  eshell-cmpl-cycle-completions t        ;TAB for suggestion
@@ -59,6 +60,33 @@
 (add-hook 'eshell-mode-hook 'tmtxt/eshell-change-buffer-name)
 
 (add-hook 'eshell-directory-change-hook 'tmtxt/eshell-change-buffer-name)
+
+;;; autojump
+(eval-after-load 'eshell
+  '(require 'eshell-autojump nil t))
+
+;;; eshell prompt
+(defun tmtxt/shortened-path (path max-len)
+  "Return a modified version of `path', replacing some components
+      with single characters starting from the left to try and get
+      the path down to `max-len'"
+  (let* ((components (split-string (abbreviate-file-name path) "/"))
+         (len (+ (1- (length components))
+                 (reduce '+ components :key 'length)))
+         (str ""))
+    (while (and (> len max-len)
+                (cdr components))
+      (setq str (concat str (if (= 0 (length (car components)))
+                                "/"
+                              (string (elt (car components) 0) ?/)))
+            len (- len (1- (length (car components))))
+            components (cdr components)))
+    (concat str (reduce (lambda (a b) (concat a "/" b)) components))))
+(defun tmtxt/eshell-prompt-function ()
+  (concat (tmtxt/shortened-path (eshell/pwd) 40)
+          (if (= (user-uid) 0) " # " " $ ")))
+(setq eshell-prompt-function 'tmtxt/eshell-prompt-function)
+
 
 (provide 'tmtxt-shell)
 ;;; tmtxt-shell.el ends here
