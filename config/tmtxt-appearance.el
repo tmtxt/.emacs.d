@@ -8,6 +8,7 @@
 (require 'golden-ratio)
 (require 'diminish)
 (require 'anzu)
+(require 'eyebrowse)
 
 
 ;;; custom theme
@@ -146,6 +147,10 @@
 
 ;;; anzu
 (global-anzu-mode +1)
+
+;;; eyebrowse
+(eyebrowse-mode t)
+(eyebrowse-setup-opinionated-keys)
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)

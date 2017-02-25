@@ -45,7 +45,7 @@
 
 (tmtxt/undefine-keys
     global-map
-  '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>"))
+  '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\""))
 
 (tmtxt/undefine-keys
     paredit-mode-map
@@ -112,6 +112,7 @@
 
   ;; windows related keys
   ;; "M-s-1"     'golden-ratio-mode
+  "C-M-S-w"  'eyebrowse-close-window-config
 
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
@@ -155,9 +156,15 @@
   "M-s-k"   "<S-down>"
   "M-s-j"   "<S-left>"
   "M-s-l"   "<S-right>"
+  "M-s-}"   "<S-up>"
+  "M-s-˚"   "<S-down>"
+  "M-s-˝"   "<S-left>"
+  "M-s--"   "<S-right>"
   "M-q"     "C-x o"
   "M-s-o"   "C-x o"
   "C-S-b"   "C-x +"
+  "s-d"     "C-x 3"
+  "s-D"     "C-x 2"
   )
 
 (tmtxt/define-keys yas-minor-mode-map
