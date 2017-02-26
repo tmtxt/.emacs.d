@@ -82,9 +82,39 @@
             len (- len (1- (length (car components))))
             components (cdr components)))
     (concat str (reduce (lambda (a b) (concat a "/" b)) components))))
+
+(defun tmtxt/random-kamoji ()
+  (let* ((kamoji-list '("(╯‵□′)╯︵┻━┻ Lộn cái bàn"
+                        "［(－－)］ZZzzz"
+                        "(o_O) Lại bug"
+                        "( ⊙△⊙) - noooooo!!!!"
+                        ;; "(￣へ ￣ 凸 F**k"
+                        ;; "┐(´～`)┌ [No idea]"
+                        ))
+         (idx (random (length kamoji-list)))
+         (kamoji (nth idx kamoji-list)))
+    kamoji))
+
 (defun tmtxt/eshell-prompt-function ()
-  (concat (tmtxt/shortened-path (eshell/pwd) 40)
-          (if (= (user-uid) 0) " # " " $ ")))
+  (let* ((user-name (user-login-name))
+         (pwd (tmtxt/shortened-path (eshell/pwd) 40))
+         (kamoji (tmtxt/random-kamoji))
+         (len (+ (length user-name)
+                 (length pwd)
+                 (length kamoji)
+                 3))
+         (line-len (- (window-width) len))
+         (line (s-repeat line-len " ")))
+    (concat
+     (propertize user-name 'face `(:foreground "#00DD00"))
+     " "
+     (propertize pwd 'face `(:foreground "#00CDCD" :weight bold))
+     " "
+     (propertize kamoji 'face `(:foreground "#B8860B"))
+     " "
+     (propertize line 'face `(:strike-through t))
+     "\n➤ "
+     )))
 (setq eshell-prompt-function 'tmtxt/eshell-prompt-function)
 
 

@@ -29,3 +29,4 @@ sql-history/*
 *.elc
 *.tern-port
 *ido.last~
+eshell/autojump
