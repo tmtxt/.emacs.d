@@ -34,8 +34,8 @@
 (flycheck-add-mode 'javascript-eslint 'js-mode)
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 ;; relative executable eslint
-;; (when (executable-find "eslint-project-relative")
-;;   (setq flycheck-javascript-eslint-executable "eslint-project-relative"))
+(when (executable-find "eslint-project-relative")
+  (setq flycheck-javascript-eslint-executable "eslint-project-relative"))
 
 ;;; js2
 (dolist (f '(auto-complete-mode
