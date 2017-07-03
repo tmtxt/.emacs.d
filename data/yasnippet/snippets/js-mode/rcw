@@ -1,0 +1,46 @@
+# -*- mode: snippet -*-
+#name : react component wrapped
+# --
+// @flow
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+
+// types
+import type { ExportComponentType } from 'lib/flow-types';
+
+type Props = {
+  // passed from parent
+
+  // connect actions
+
+  // connect props
+};
+type ExportedProps = {
+
+};
+type $1Type = ExportComponentType<ExportedProps>;
+
+export class ${1:ComponentName} extends Component {
+  static displayName = '$1';
+
+  props: Props;
+
+  render() {
+    $0
+  }
+}
+
+const mapStateToProps = (state: Object, ownProps: ExportedProps) => {
+  return {};
+};
+const mapDispatchToProps = {
+
+};
+
+const hoc = compose(
+  connect(mapStateToProps, mapDispatchToProps)
+);
+const $1Component: $1Type = hoc($1);
+
+export default $1Component;

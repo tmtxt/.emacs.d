@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+#name : react dumb component
+# --
+// @flow
+import React from 'react';
+
+type PropsType = {};
+export const ${1:ComponentName} = (props: PropsType) => {
+  $0
+};
+
+export default $1;

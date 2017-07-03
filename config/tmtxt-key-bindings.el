@@ -305,7 +305,8 @@
   "C-M-:" 'js2-mode-toggle-hide-functions
   "C-M->" 'js2-mode-toggle-element
   "C-t"  'tmtxt/delete-tern-process
-  "C-M-|" 'web-beautify-js
+  "C-M-|" 'prettier
+  "s-p"   'tmtxt/toggle-prettier-line-width
   "C-M-S-d" 'tmtxt/js-doc-insert-function-doc-snippet)
 
 (tmtxt/define-keys js2-jsx-mode-map
@@ -356,7 +357,7 @@
   "s-J"   'web-mode-element-previous
   "s-h"   'web-mode-element-kill
   "s-n"   'web-mode-element-select
-  "C-M-|" 'web-beautify-js
+  "C-M-|" 'prettier
   ;; web mode tag match function not defined as interactive
   "s-m"   (lambda () (interactive) (web-mode-tag-match))
   "s-p"   'tmtxt/switch-php-mode

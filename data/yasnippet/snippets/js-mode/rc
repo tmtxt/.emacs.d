@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+#name : react component
+# --
+// @flow
+import React, { Component } from 'react';
+
+export class ${1:ComponentName} extends Component {
+  static displayName = '$1';
+
+  props: {
+
+  }
+
+  render() {
+    $0
+  }
+}
+
+export default $1;

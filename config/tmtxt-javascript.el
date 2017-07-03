@@ -3,6 +3,8 @@
 ;;; Commentary:
 
 ;;; Load dependencies
+(tmtxt/add-lib "prettier-js")
+
 (require 'js2-mode)
 (require 'js2-refactor)
 (require 'ac-js2)
@@ -13,6 +15,7 @@
 (require 'tern-auto-complete)
 (require 'nodejs-repl)
 (require 'moz)
+(require 'prettier-js)
 
 ;;; Code:
 
@@ -193,6 +196,14 @@
 (defun tmtxt/switch-to-js2-jsx-mode ()
   (interactive)
   (js2-jsx-mode))
+
+(setq prettier-args '("--single-quote" "--parser" "flow" "--print-width" "100"))
+
+(defun tmtxt/toggle-prettier-line-width ()
+  (interactive)
+  (let* ((current-line-width (-last-item prettier-args))
+         (next-line-width (if (s-equals? current-line-width "80") "100" "80")))
+    (setq prettier-args `("--single-quote" "--parser" "flow" "--print-width" ,next-line-width))))
 
 (provide 'tmtxt-javascript)
 ;;; tmtxt-javascript.el ends here
