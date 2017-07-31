@@ -508,7 +508,7 @@
 	    [(2012 4 7)
 	     nil "replace a word with a synonym looked up in a web service." single])
  (theme-looper .
-	       [(20150723 1104)
+	       [(20170330 1829)
 		((cl-lib
 		  (0 5)))
 		"Loop thru the available color-themes" single])
@@ -1638,6 +1638,9 @@
  (org-table-comment .
 		    [(0 2)
 		     nil "Org table comment modes." single])
+ (org-static-blog .
+		  [(1 0 1)
+		   nil "a simple org-mode based static blog generator" single])
  (org-readme .
 	     [(20130322 926)
 	      ((http-post-simple
@@ -1878,7 +1881,7 @@
 	     [(0 8 8)
 	      nil "Managing multiple terminal buffers in Emacs." single])
  (multi-project .
-		[(0 0 21)
+		[(0 0 24)
 		 nil "Easily work with multiple projects." single])
  (multi-eshell .
 	       [(0 0 1)
@@ -2498,7 +2501,7 @@
 	      [(1 6 2)
 	       nil "Major mode for Inform 6 interactive fiction code" single])
  (inf-ruby .
-	   [(2 3 2)
+	   [(2 5 0)
 	    nil "Run a Ruby process in a buffer" single])
  (inf-groovy .
 	     [(2 0)
@@ -3527,13 +3530,6 @@
        ((cl-lib
 	 (0 3)))
        "Emacs Package Library" single])
- (epc .
-      [(0 1 1)
-       ((concurrent
-	 (0 3 1))
-	(ctable
-	 (0 1 1)))
-       "A RPC stack for the Emacs Lisp" single])
  (env-var-import .
 		 [(2 1)
 		  nil "Import shell environment variables in GUI Emacs" single])
@@ -3567,6 +3563,13 @@
 		((sound-wav
 		  (20160725 724)))
 		"Sound effects for Emacs" single])
+ (emacs-home .
+	     [(20170624 1315)
+	      ((emacs
+		(24))
+	       (cl-lib
+		(0 5)))
+	      "A home-screen for Emacs" single])
  (emacs-droid .
 	      [(0 0 0)
 	       nil "Android application development tools for Emacs" single])
@@ -3730,15 +3733,6 @@
 	    ((dash
 	      (1 1 0)))
 	    "Extensions for Edebug" single])
- (edbi .
-       [(0 1 1)
-	((concurrent
-	  (0 3 1))
-	 (ctable
-	  (0 1 1))
-	 (epc
-	  (0 1 1)))
-	"Emacs Database Interface" tar])
  (ecb-snapshot .
 	       [(20120830)
 		nil "Emacs Code Browser CVS snapshot" tar])
@@ -3875,9 +3869,6 @@
  (deft .
      [(0 3)
       nil "quickly browse, filter, and edit plain text notes" single])
- (deferred .
-     [(0 3 1)
-      nil "Simple asynchronous functions for emacs lisp" single])
  (deep-thought-theme .
 		     [(0 1 1)
 		      nil "Emacs 24 theme with the Answer to The Ultimate Question" single])
@@ -3953,9 +3944,6 @@
  (ctags .
 	[(1 1 1)
 	 nil "Exuberant Ctags utilities for Emacs" single])
- (ctable .
-	 [(0 1 1)
-	  nil "Table component for Emacs Lisp" single])
  (csharp-mode .
 	      [(0 9 0)
 	       ((cl-lib
@@ -4007,11 +3995,6 @@
  (config-block .
 	       [(0 0 1)
 		nil "config-block is utility for individual settings (e.g. .emacs)." single])
- (concurrent .
-	     [(0 3 1)
-	      ((deferred
-		   (0 3 1)))
-	      "Concurrent utility functions for emacs lisp" single])
  (company-inf-ruby .
 		   [(0 2)
 		    ((company
@@ -4025,7 +4008,7 @@
 		   (0 6 8)))
 		 "company-mode completion back-end for CMake" single])
  (common-header-mode-line .
-			  [(0 5 5)
+			  [(0 5 6)
 			   nil "Manage per-frame and per-window header- and mode- lines." tar])
  (command-t .
 	    [(0 0 1)
@@ -4343,11 +4326,6 @@
  (calfw-gcal .
 	     [(0 0 3)
 	      nil "edit Google calendar for calfw.el." single])
- (cacoo .
-	[(2 1 2)
-	 ((concurrent
-	   (0 3 1)))
-	 "Minor mode for Cacoo : http://cacoo.com" tar])
  (cache .
 	[(0 1)
 	 nil "implementation of a hash table whose key-value pairs expire" single])
