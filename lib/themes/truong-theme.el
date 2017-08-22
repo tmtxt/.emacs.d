@@ -305,7 +305,7 @@
    `(font-lock-builtin-face
      ((t (,@fw ,@constant))))
    `(font-lock-comment-face
-     ((t (,@vw-italic ,@note))))
+     ((t (,@note))))
    `(font-lock-comment-delimiter-face
      ((t (:inherit font-lock-comment-face))))
    `(font-lock-doc-string-face
@@ -323,7 +323,7 @@
    `(font-lock-string-face
      ((t (,@fw ,@string))))
    `(font-lock-doc-face
-     ((t (,@vw-italic ,@string))))
+     ((t (,@string))))
    `(font-lock-type-face
      ((t (,@fw ,@type))))
    `(font-lock-preprocessor-face

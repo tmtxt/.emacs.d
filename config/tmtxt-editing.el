@@ -156,5 +156,14 @@ Version 2015-05-04"
       (while (search-forward "\\\"" nil t)
         (replace-match "\"" 'FIXEDCASE 'LITERAL)))))
 
+(defun tmtxt/insert-tab-as-spaces ()
+  "Insert a tab character and then convert it to spaces"
+  (interactive)
+  (let (start end)
+    (setq start (point))
+    (insert "\t")
+    (setq end (point))
+    (untabify start end)
+    ))
 
 (provide 'tmtxt-editing)

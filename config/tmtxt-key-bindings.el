@@ -66,6 +66,7 @@
   "M-;"     'comment-dwim
   "M-:"     'evilnc-comment-or-uncomment-lines
   "s-&"     'kill-this-buffer
+  "M-t"     'tmtxt/insert-tab-as-spaces
 
   "M-x"     'helm-M-x
   "C-M-\""  'mark-defun

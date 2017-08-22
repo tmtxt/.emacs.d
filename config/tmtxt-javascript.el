@@ -111,14 +111,15 @@
            (0 (progn (compose-region (match-beginning 1) (match-end 1)
                                      ?ζ 'decompose-region)
                      nil)))
-          ("\\(ret\\)urn"
-           (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                     ?▸ 'decompose-region)
-                     nil)))
-          ("ret\\(urn\\)"
-           (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                     ?▸ 'decompose-region)
-                     nil))))))
+          ;; ("\\(ret\\)urn"
+          ;;  (0 (progn (compose-region (match-beginning 1) (match-end 1)
+          ;;                            ?▸ 'decompose-region)
+          ;;            nil)))
+          ;; ("ret\\(urn\\)"
+          ;;  (0 (progn (compose-region (match-beginning 1) (match-end 1)
+          ;;                            ?▸ 'decompose-region)
+          ;;            nil)))
+          )))
 
 (setq-default nodejs-repl-arguments
               '("--use-strict"
@@ -170,7 +171,7 @@
         " * ${1:Function description.}\n"
         (mapconcat (lambda (param)
                      (format
-                      " * @param {${%d:Type of %s}} %s ${%d:}\n"
+                      " * @param {${%d:Type of %s}} %s ${%d:}\n*\n"
                       (incf field-count)
                       param
                       param
