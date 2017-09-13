@@ -206,5 +206,43 @@
          (next-line-width (if (s-equals? current-line-width "80") "100" "80")))
     (setq prettier-args `("--single-quote" "--parser" "flow" "--print-width" ,next-line-width))))
 
+(defun tmtxt/find-max-length-for-columns (regex-list beg end)
+  (let ((cols-max-length '((1 . 0) (2 . 0) (3 . 0))))
+    (dolist (re regex-list)
+      (goto-char beg)
+
+      (while (re-search-forward re nil t)
+        (cl-loop
+         for (col . max-length) in cols-max-length collect
+         (when (match-beginning col)
+           (let ((current-length (->
+                                  (buffer-substring-no-properties
+                                   (match-beginning col)
+                                   (match-end col))
+                                  (length))))
+             (when (> current-length max-length)
+               (add-to-list 'cols-max-length `(,col . ,current-length))))))))
+    cols-max-length
+    ))
+
+(defun tmtxt/align-js-doc ()
+  (interactive)
+
+  (let* ((comments (js2-ast-root-comments js2-mode-ast)) beg end)
+    (save-excursion
+      (let ((node (-first-item comments)))
+        (when (eq (js2-comment-node-format node) 'jsdoc)
+          (setq beg (js2-node-abs-pos node)
+                end (+ beg (js2-node-len node)))
+          (save-restriction
+            (narrow-to-region beg end)
+            (let* ((regex-list (list js2-jsdoc-param-tag-regexp js2-jsdoc-typed-tag-regexp))
+                   (cols-max-length) (tmtxt/find-max-length-for-columns beg end))
+
+              ))))
+      ;; (dolist (node comments)
+      ;;   )
+      )))
+
 (provide 'tmtxt-javascript)
 ;;; tmtxt-javascript.el ends here
