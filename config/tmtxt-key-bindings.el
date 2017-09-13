@@ -373,7 +373,10 @@
   "M-s-s"   'n4js-send-dwim)
 
 (tmtxt/define-keys magit-status-mode-map
-  "C-M-S-i"   'tmtxt/ar-increase-tag)
+  "C-M-S-u"   'ar/increase-tag
+  "C-M-S-i"   'ar/increase-major-tag
+  "C-M-S-o"   'ar/increase-minor-tag
+  "C-M-S-p"   'ar/increase-patch-tag)
 
 (add-hook
  'eshell-mode-hook
