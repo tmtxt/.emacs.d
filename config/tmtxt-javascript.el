@@ -168,7 +168,7 @@
       (yas-expand-snippet
        (concat
         js-doc-top-line
-        " * ${1:Function description.}\n"
+        " * ${1:Function description.}\n *\n"
         (mapconcat (lambda (param)
                      (format
                       " * @param {${%d:Type of %s}} %s ${%d:}\n*\n"

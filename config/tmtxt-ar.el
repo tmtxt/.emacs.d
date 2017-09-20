@@ -35,7 +35,7 @@
 
 (defun ar/select-tag-type ()
   "Ask for user input 1 tag type"
-  (helm-comp-read "Select next tag type: " (list "hot-fix" "build-test")))
+  (helm-comp-read "Select next tag type: " (list "build-test" "hot-fix")))
 
 (defun ar/get-version-from-tag (tag-name)
   "Get the version from tag name"
@@ -61,7 +61,7 @@
          ;; filter to the tags that match the service name
          (-filter (lambda (tag) (s-contains? regex tag)) it)
          ;; sort the tags, the oldest first
-         (-sort 'tmtxt/ar-tag-less? it)
+         (-sort 'ar/compare-tags it)
          ;; pick the last tag (the latest one)
          (-last-item it)
          )))
