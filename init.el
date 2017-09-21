@@ -53,6 +53,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-evil
                tmtxt-sql
                tmtxt-git
+               tmtxt-go
                tmtxt-python
                tmtxt-elixir
                tmtxt-ar
