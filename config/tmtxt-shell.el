@@ -12,6 +12,7 @@
 
 ;;; copy PATH from my default shell
 (add-to-list 'exec-path-from-shell-variables "NODE_PATH")
+(add-to-list 'exec-path-from-shell-variables "GOPATH")
 (exec-path-from-shell-initialize)
 
 ;;; disable trailing whitespace for term modes
