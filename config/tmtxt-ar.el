@@ -35,7 +35,7 @@
 
 (defun ar/select-tag-type ()
   "Ask for user input 1 tag type"
-  (helm-comp-read "Select next tag type: " (list "build-test" "hot-fix")))
+  (helm-comp-read "Select next tag type: " (list "unit-test" "cascading-unit-test" "hot-fix")))
 
 (defun ar/get-version-from-tag (tag-name)
   "Get the version from tag name"
@@ -113,7 +113,8 @@
 (defun ar/get-tag-suffix (tag-type)
   "Get tag suffix"
   (cond
-   ((string= tag-type "build-test") "-build-test")
+   ((string= tag-type "unit-test") "-unit-test")
+   ((string= tag-type "cascading-unit-test") "-cascading-unit-test")
    (t "")))
 
 (defun ar/get-next-tag (service-name tag-name version-type tag-type)
@@ -121,8 +122,8 @@
    service-name: microservice.realm
    tag-name: microservice.realm-v0.0.3
    version-type: major
-   tag-type: build-test
-   => microservice.realm-v1.0.0-build-test"
+   tag-type: unit-test
+   => microservice.realm-v1.0.0-unit-test"
   (let* ((tag-name-without-version (s-concat service-name "-v"))
          (next-version (-> tag-name
                            (ar/get-version-from-tag)

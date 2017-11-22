@@ -27,6 +27,7 @@
             (flyspell-buffer)
             (auto-complete-mode)
             (add-to-list 'ac-sources 'ac-source-ispell)
+            (toggle-truncate-lines)
             ))
 
 (provide 'tmtxt-markdown)
