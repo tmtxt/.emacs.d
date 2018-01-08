@@ -56,6 +56,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-go
                tmtxt-python
                tmtxt-elixir
+               tmtxt-yaml
                tmtxt-ar
                tmtxt-key-bindings
 

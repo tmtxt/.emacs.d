@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcFormV2r
+# --
+const svcFormV2 = require('workflow.lib/services/services/form-v2');

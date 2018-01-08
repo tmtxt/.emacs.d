@@ -1,4 +1,4 @@
 # -*- mode: snippet -*-
-#name : console.log
+#name : lte
 # --
-logTrace.add('info', '${1:`(tmtxt/js-which-function)`}()', '$0');
+logTrace.add('${1:info}', '${2:`(tmtxt/js-which-function)`}()', '$0');

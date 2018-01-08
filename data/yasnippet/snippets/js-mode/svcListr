@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcListr
+# --
+const svcList = require('workflow.lib/services/services/list');

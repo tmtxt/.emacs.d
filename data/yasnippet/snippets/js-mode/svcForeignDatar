@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcForeignDatar
+# --
+const svcForeignData = require('workflow.lib/services/services/foreign-data');

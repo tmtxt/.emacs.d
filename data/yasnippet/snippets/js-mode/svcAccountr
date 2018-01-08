@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcAccountr
+# --
+const svcAccount = require('workflow.lib/services/services/account');

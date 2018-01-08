@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: apiCampaignr
+# --
+const apiCampaign = require('workflow.lib/api-helpers/campaign');

@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcRealmr
+# --
+const svcRealm = require('workflow.lib/services/services/realm');

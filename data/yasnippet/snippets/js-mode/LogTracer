@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: LogTracer
+# --
+const LogTrace = require('workflow.lib/log-trace').LogTrace;

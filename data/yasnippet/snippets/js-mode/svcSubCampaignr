@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcSubCampaignr
+# --
+const svcSubCampaign = require('workflow.lib/services/services/sub-campaign');

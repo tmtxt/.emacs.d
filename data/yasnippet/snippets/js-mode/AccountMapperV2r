@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: AccountMapperV2r
+# --
+const AccountMapperV2 = require('workflow.lib/models/messages/account-mapper-v2');

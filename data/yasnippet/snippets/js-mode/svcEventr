@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcEventr
+# --
+const svcEvent = require('workflow.lib/services/services/event');

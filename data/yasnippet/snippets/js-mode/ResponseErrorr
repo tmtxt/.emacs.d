@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: ResponseErrorr
+# --
+const ResponseError = require('workflow.lib/services/response-error');

@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: lodashr
+# --
+const _ = require('lodash');

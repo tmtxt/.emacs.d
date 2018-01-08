@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: apiMapperV2r
+# --
+const apiMapperV2 = require('workflow.lib/api-helpers/mapper-v2');

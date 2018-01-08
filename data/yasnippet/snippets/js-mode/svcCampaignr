@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcCampaignr
+# --
+const svcCampaign = require('workflow.lib/services/services/campaign');

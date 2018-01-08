@@ -108,7 +108,7 @@
    `(linum
      ((t (:inherit fringe ,@dimmed :slant normal :weight normal
                    :underline nil :strike-through nil :overline nil
-                   :background ,bg :box nil))))
+                   :background ,bg :box nil :foreground ,radio))))
    `(linum-relative-current-face
      ((t (:inherit (hl-line linum) ,@context ,@bold))))
 

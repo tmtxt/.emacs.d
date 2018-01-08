@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: uuidr
+# --
+const uuid = require('node-uuid');

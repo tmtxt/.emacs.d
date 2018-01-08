@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: SubCampaignUnsubscriberr
+# --
+const SubCampaignUnsubscriber = require('workflow.lib/models/messages/sub-campaign-unsubscriber');

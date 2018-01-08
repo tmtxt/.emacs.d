@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : env
+# --
+"{{ lookup('env', '${1:ENV-NAME}') | default('${2:ENV_VAL}', true) }}"$0
