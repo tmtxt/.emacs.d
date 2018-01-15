@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcMapperr
+# --
+const svcMapper = require('workflow.lib/services/services/mapper');

@@ -83,7 +83,7 @@
 
    ;; Bases
    `(default
-      ((t (,@fw :foreground ,fg :backend ,bg))))
+      ((t (,@fw :foreground ,fg+1 :backend ,bg))))
    `(fixed-pitch
      ((t (:family "Hack"))))
    `(variable-pitch
