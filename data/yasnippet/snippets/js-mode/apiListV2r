@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: apiListV2r
+# --
+const apiListV2 = require('workflow.lib/api-helpers/list-v2');
