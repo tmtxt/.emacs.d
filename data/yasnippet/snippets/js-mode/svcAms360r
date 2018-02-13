@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcAms360r
+# --
+const svcAms360 = require('workflow.lib/services/services/ams360');

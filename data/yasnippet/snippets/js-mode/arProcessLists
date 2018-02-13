@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: arProcessList
+# --
+'use strict';
+
+const logger = require('workflow.lib/log-trace/logger');
+
+const toolHelpers = require('./tool-helpers');
+
+////////////////////
+///  ENV VARS
+////////////////////
+
+////////////////////
+
+/**
+ * Process a list
+ *
+ * @param {object} list          {
+ *                                 realmId: string,
+ *                                 realmName: string,
+ *                                 sandboxed: boolean,
+ *                                 listId: string,
+ *                                 listName: string,
+ *                                 type: string,
+ *                                 integrationStatus: string
+ *                               }
+ *
+ * @param {integer} listIndex    List index
+ *
+ * @param {integer} listCount    Number of filtered lists
+ */
+function* processList(list, listIndex, listCount) {
+  $0
+}
+
+/*
+ * Start processing lists
+ */
+toolHelpers.startProcessingLists(processList);
