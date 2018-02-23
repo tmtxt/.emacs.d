@@ -168,4 +168,20 @@
         (tag-type (ar/select-tag-type)))
     (ar/increase-tag-handler service-name "patch" tag-type)))
 
+;; (defun ar/get-current-file-name ()
+;;   (cond ((equal major-mode 'dired-mode) )
+;;         ))
+
+;; (defun ar/get-test-file-command ()
+;;   ""
+;;   (interactive)
+;;   (let* ((absolute-path (buffer-file-name))
+;;          (relative-path (-> absolute-path
+;;                             (list)
+;;                             (projectile-make-relative-to-root)
+;;                             (-first-item)))
+;;          )
+;;     (s-join "" (list "npm run test-file ./" relative-path))
+;;     ))
+
 (provide 'tmtxt-ar)
