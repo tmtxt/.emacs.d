@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcEmailTemplater
+# --
+const svcEmailTemplate = require('workflow.lib/services/services/email-template');
