@@ -1,0 +1,53 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: arTestWorker
+# --
+'use strict';
+
+const _ = require('lodash');
+const uuid = require('node-uuid');
+
+const TestWorker = require('workflow.lib/worker.base').TestWorker;
+const LogTrace = require('workflow.lib/log-trace/log-trace');
+const cloneDataHelpers = require('workflow.lib/ar-test-helpers/clone-data-helpers');
+const ${1:WorkerName} = require('workflow.lib/models/messages/blast-emails-prerenderer');
+
+const $1Worker = require('../workers/tam-match-finder');
+
+describe('$1', function() {
+  const realmId = uuid.v4();
+  const testWorker = new TestWorker();
+  const logTrace = new LogTrace();
+
+  let list, listId;
+  let testMessage;
+
+  $0
+
+  before(function*() {
+    // Ensure topic and subscription
+    yield testWorker.ensureTopicsAndSubscriptions(['BlastEmailsPrerenderer']);
+  });
+
+  it('Should send $1 message and start worker', function*() {
+    testMessage = new $1({
+      id: uuid.v4(),
+      realmId,
+      listId
+    });
+    yield testWorker.sendMessage({
+      topic: $1.name,
+      message: testMessage
+    });
+
+    testWorker.createWorkerInstance($1Worker, {
+      msWaitIfNoMessagePulled: 5000,
+      stopIfNoMessagesPulled: true
+    });
+  });
+
+  after(function*() {
+    yield [testWorker.tearDown()];
+
+    logTrace.end();
+  });
+});

@@ -1,0 +1,7 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: arCreateTestRealm
+# --
+it('Create one realm', function*(){
+    realm = yield svcRealm.createRealm('test.com', logTrace);
+    realmId = realm.id;
+  });

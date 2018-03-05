@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcBlastMessager
+# --
+const svcBlastMessage = require('workflow.lib/services/services/blast-message');

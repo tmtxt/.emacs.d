@@ -1,4 +1,0 @@
-# -*- mode: snippet -*-
-#name : console.log
-# --
-logTrace.add('info', '${1:`(tmtxt/js-which-function)`}()', '$0');
