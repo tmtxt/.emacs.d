@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcSubscriberr
+# --
+const svcSubscriber = require('workflow.lib/services/services/subscriber');

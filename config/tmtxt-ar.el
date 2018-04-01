@@ -20,10 +20,16 @@
                                   (directory-files it)
                                   (-map (lambda (service) (s-concat service ".golang")) it)))
 
+;;; list of integration test services
+(defconst AR-INTEGRATION-TEST-SERVICES (--> AR-CONNECT-PATH
+                                            (s-concat it "/tests")
+                                            (directory-files it)))
+
 ;;; all services
 (defconst AR-ALL-SERVICES (-distinct (-concat AR-FRONTEND-SERVICES
                                               AR-NODE-SERVICES
-                                              AR-GOLANG-SERVICES)))
+                                              AR-GOLANG-SERVICES
+                                              AR-INTEGRATION-TEST-SERVICES)))
 
 (defun ar/select-service ()
   "Ask for user input for 1 service name from one the above"

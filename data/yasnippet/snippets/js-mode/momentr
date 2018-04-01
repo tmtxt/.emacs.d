@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: momentr
+# --
+const moment = require('moment-timezone');

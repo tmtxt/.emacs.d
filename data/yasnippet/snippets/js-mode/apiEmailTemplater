@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: apiEmailTemplater
+# --
+const apiEmailTemplate = require('workflow.lib/api-helpers/email-template');

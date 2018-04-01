@@ -1,0 +1,7 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: arCreateTestCampaign
+# --
+it('Create one campaign', function*(){
+    campaign = yield svcCampaign.createCampaign(realmId, { listId, name: 'test' }, logTrace);
+    campaignId = campaign.id;
+  });
