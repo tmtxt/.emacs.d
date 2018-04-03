@@ -30,14 +30,16 @@
                 global-hl-line-mode
                 line-number-mode
                 global-linum-mode
-                ;; golden-ratio-mode
+                golden-ratio-mode
                 ))
   (when (fboundp mode) (funcall mode 1)))
-(golden-ratio-toggle-widescreen)
+;; (golden-ratio-toggle-widescreen)
 (split-window-right)
 (split-window-right)
 (balance-windows)
 (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
+(setq golden-ratio-adjust-factor 0.82)
+(golden-ratio)
 
 ;;; disabled modes
 (dolist (mode '(menu-bar-mode
