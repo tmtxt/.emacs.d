@@ -30,12 +30,13 @@
   "My combined sources"
   (let ((base '(helm-source-projectile-projects
                 helm-source-buffers-list
-                helm-source-bookmarks
-                helm-source-recentf
-                helm-source-files-in-current-dir
-                helm-source-projectile-buffers-list
-                helm-source-projectile-files-list
-                helm-source-file-cache)))
+                ;; helm-source-bookmarks
+                ;; helm-source-recentf
+                ;; helm-source-files-in-current-dir
+                ;; helm-source-projectile-buffers-list
+                ;; helm-source-projectile-files-list
+                ;; helm-source-file-cache
+                )))
     base))
 
 (defun tmtxt/helm ()

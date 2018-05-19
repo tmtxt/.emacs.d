@@ -1,1 +1,0 @@
-(define-package "ob-cypher" "20150224.1837" "query neo4j using cypher in org-mode blocks" '((s "1.9.0") (cypher-mode "0.0.6") (dash "2.10.0") (dash-functional "1.2.0")) :url "http://github.com/zweifisch/ob-cypher" :keywords '("org" "babel" "cypher" "neo4j"))

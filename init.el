@@ -28,7 +28,7 @@ DIR-NAME directory name inside lib folder"
   (add-to-list 'load-path (concat "~/.emacs.d/lib/" dir-name)))
 
 ;;; some my own useful config
-(dolist (cfg '(tmtxt-util
+(dolist (cfg '(dash tmtxt-util
                tmtxt-bookmark
                tmtxt-ido
                tmtxt-dired
