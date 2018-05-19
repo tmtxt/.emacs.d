@@ -3,17 +3,10 @@
 # --
 'use strict';
 
-const RethinkdbPool = require('workflow.lib/rethinkdb/pool');
-const parser = require('workflow.lib/parser');
 const logger = require('workflow.lib/log-trace').logger;
 const LogTrace = require('workflow.lib/log-trace').LogTrace;
 
 const toolHelpers = require('../tool-helpers');
-
-const r = new RethinkdbPool({
-  servers: parser.parseConnectionString(process.env.RETHINKDB_CONN_STRING),
-  db: process.env.RETHINKDB_DB
-});
 
 /**
  * Process task

@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: apiSegmentV2r
+# --
+const apiSegmentV2 = require('workflow.lib/api-helpers/segment-v2');
