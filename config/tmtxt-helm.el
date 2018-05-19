@@ -3,6 +3,7 @@
 (require 'helm)
 (require 'helm-descbinds)
 (require 'helm-cmd-t)
+(require 'helm-bookmark)
 
 ;;; enable helm
 (helm-mode 1)
@@ -30,7 +31,7 @@
   "My combined sources"
   (let ((base '(helm-source-projectile-projects
                 helm-source-buffers-list
-                ;; helm-source-bookmarks
+                helm-source-bookmarks
                 ;; helm-source-recentf
                 ;; helm-source-files-in-current-dir
                 ;; helm-source-projectile-buffers-list
