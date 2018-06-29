@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcOutboxQueuer
+# --
+const svcOutboxQueue = require('workflow.lib/services/services/outbox-queue');
