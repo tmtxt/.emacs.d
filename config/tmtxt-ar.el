@@ -174,6 +174,12 @@
         (tag-type (ar/select-tag-type)))
     (ar/increase-tag-handler service-name "patch" tag-type)))
 
+(defun ar/create-branch (jira-issue)
+  (interactive
+   (list (read-string "Jira issue number: ")))
+  (let ((branch-name (s-concat "jira-ar" jira-issue)))
+    (magit-create-branch branch-name (magit-get-current-branch))))
+
 ;; (defun ar/get-current-file-name ()
 ;;   (cond ((equal major-mode 'dired-mode) )
 ;;         ))
