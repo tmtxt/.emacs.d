@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : arPr
+# --
+const ${1:realmId} = this.params.$1;

@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: msgCampaign
+# --
+const campaignId = msgVal.campaignId;

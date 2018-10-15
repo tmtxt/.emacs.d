@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcScreenshotr
+# --
+const svcScreenshot = require('workflow.lib/services/services/screenshot');

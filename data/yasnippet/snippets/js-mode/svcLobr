@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcLobr
+# --
+const svcLob = require('workflow.lib/services/services/lob');

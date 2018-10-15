@@ -1,0 +1,9 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: arParams
+# --
+const logTrace = this.logTrace;
+const realmId = this.params.realmId;
+const listId = this.params.listId;
+const campaignId = this.params.campaignId;
+const subCampaignId = this.params.subCampaignId;
+const emailTemplateId = this.params.emailTemplateId;

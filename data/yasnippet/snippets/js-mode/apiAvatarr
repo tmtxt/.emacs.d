@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: apiAvatarr
+# --
+const apiAvatar = require('workflow.lib/api-helpers/avatar');

@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcUserActivityr
+# --
+const svcUserActivity = require('workflow.lib/services/services/user-activity');

@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: msgRealm
+# --
+const realmId = msgVal.realmId;

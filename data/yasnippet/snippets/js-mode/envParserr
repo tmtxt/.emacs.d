@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: envParserr
+# --
+const envParser = require('workflow.lib/env-vars/parser');

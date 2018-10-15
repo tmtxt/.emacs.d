@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: apiUserActivityr
+# --
+const apiUserActivity = require('workflow.lib/api-helpers/user-activity');

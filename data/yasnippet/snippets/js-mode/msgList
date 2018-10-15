@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: msgList
+# --
+const listId = msgVal.listId;

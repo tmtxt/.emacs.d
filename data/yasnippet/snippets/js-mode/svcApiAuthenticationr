@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcAuthenticationr
+# --
+const svcApiAuthentication = require('workflow.lib/services/services/api-authentication');

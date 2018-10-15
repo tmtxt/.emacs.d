@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: apiMessageStatr
+# --
+const apiMessageStat = require('workflow.lib/api-helpers/message-stat');

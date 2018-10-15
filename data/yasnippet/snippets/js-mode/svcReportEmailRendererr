@@ -1,0 +1,4 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: svcReportEmailRendererr
+# --
+const svcReportEmailRenderer = require('workflow.lib/services/services/report-email-renderer');
