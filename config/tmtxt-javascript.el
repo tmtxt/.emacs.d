@@ -37,8 +37,19 @@
 (flycheck-add-mode 'javascript-eslint 'js-mode)
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 ;; relative executable eslint
-(when (executable-find "eslint-project-relative")
-  (setq flycheck-javascript-eslint-executable "eslint-project-relative"))
+;; (when (executable-find "eslint-project-relative")
+;;   (setq flycheck-javascript-eslint-executable "eslint-project-relative"))
+(defun my/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
 ;;; js2
 (dolist (f '(auto-complete-mode

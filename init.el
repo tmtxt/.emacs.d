@@ -106,3 +106,4 @@ DIR-NAME directory name inside lib folder"
  n4js-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475")
  n4js-pop-to-buffer t)
 (add-hook 'neo4j-shell-mode (lambda () (toggle-truncate-lines t)))
+(put 'downcase-region 'disabled nil)
