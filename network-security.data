@@ -1,5 +1,7 @@
 (
- (:id "sha1:85457c729378cc93c732b6a3941c8e4f9c2e60f3" :fingerprint "sha1:ab:a6:d7:6a:b3:d3:63:fa:19:0d:65:41:60:23:6e:ef:d3:2a:46:dc" :host "marmalade-repo.org:443" :conditions (:insecure :unknown-ca :invalid))
+ (:id "sha1:85457c729378cc93c732b6a3941c8e4f9c2e60f3" :fingerprint "sha1:ab:a6:d7:6a:b3:d3:63:fa:19:0d:65:41:60:23:6e:ef:d3:2a:46:dc" :host "marmalade-repo.org:443" :conditions (:expired :insecure :unknown-ca :invalid))
+ (:id "sha1:aa146d72ee347d399bf58654d7ae3b2089168855" :fingerprint "sha1:ca:f6:0a:45:f3:00:5f:01:bc:73:61:24:bb:d9:5a:9d:ac:6e:3f:85" :host "na59.salesforce.com:443" :conditions (:insecure :unknown-ca :invalid))
+ (:id "sha1:81cd2b8e236a04f0dfa74c008a4ffb60536c4d44" :fingerprint "sha1:ca:f6:0a:45:f3:00:5f:01:bc:73:61:24:bb:d9:5a:9d:ac:6e:3f:85" :host "ap5.salesforce.com:443" :conditions (:insecure :unknown-ca :invalid))
  (:id "sha1:17b3f74a40d3f3551e55c15f6ff8d283c6e219ac" :fingerprint "sha1:08:70:6f:7d:4c:9a:2a:4c:b9:9a:76:74:b6:a1:7a:f7:af:4f:1e:6a" :host "connect.agencyrevolution.com:443" :conditions (:insecure :unknown-ca :invalid))
  (:id "sha1:5a526a60a9037cd0d863ac23834e813525364963" :fingerprint "sha1:99:02:12:96:68:19:0c:76:88:39:1e:86:db:29:93:6f:31:ed:01:3e" :host "events.pagerduty.com:443" :conditions (:insecure :unknown-ca :invalid))
 )

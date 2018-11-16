@@ -1423,7 +1423,7 @@
 	   [(0 0 1)
 	    nil "get stuff from pinboard" single])
  (picpocket .
-	    [(38)
+	    [(40)
 	     ((emacs
 	       (24 4)))
 	     "Image viewer" single])
@@ -1451,7 +1451,7 @@
      [(0 12)
       nil "Emacs Lisp interface to the PostgreSQL RDBMS" single])
  (perspective .
-	      [(1 12)
+	      [(2 1)
 	       ((cl-lib
 		 (0 5)))
 	       "switch between named \"perspectives\" of the editor" single])
@@ -3612,13 +3612,13 @@
 	      [(0 0 0)
 	       nil "Android application development tools for Emacs" single])
  (emacs-daily-events .
-		     [(20170911 2235)
+		     [(20180707 2135)
 		      ((emacs
 			(24))
 		       (cl-lib
 			(0 5))
 		       (emacs-visual-notifications
-			(20170908 2035)))
+			(20180707 2135)))
 		      "An Emacs package to notify you on specified daily occurring events" single])
  (emacs-cl .
 	   [(0 5)
