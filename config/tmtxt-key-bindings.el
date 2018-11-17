@@ -108,7 +108,7 @@
   "<C-tab>"            'switch-to-buffer
 
   "M-="       'er/expand-region         ;expand region
-  "C-M-S-s"   'tmtxt/sql-connect-server
+  ;; "C-M-S-s"   'tmtxt/sql-connect-server
   "C-M-S-c"   'tmtxt/switch-to-cider-repl
 
   ;; windows related keys
@@ -151,6 +151,7 @@
   "M-m"     "C-m"
   "M-SPC"   "C-SPC"
   "M-g"     "C-k"
+  "C-M-S-s" "C-x #"
 
   ;; move between windows (up/down/left/right)
   "M-s-i"   "<S-up>"
