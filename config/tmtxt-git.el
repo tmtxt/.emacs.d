@@ -13,7 +13,10 @@
 
 ;;; hook
 (add-hook 'git-commit-mode-hook
-          (lambda () (flyspell-mode 0)) t)
+          (lambda ()
+            (flyspell-mode 0)
+            (setq fill-column 100)
+            ) t)
 
 (add-hook 'magit-mode-hook 'magit-load-config-extensions)
 
