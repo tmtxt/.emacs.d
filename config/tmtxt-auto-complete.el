@@ -15,10 +15,9 @@
 (ac-set-trigger-key "TAB")
 (ac-set-trigger-key "<tab>")
 
-;;; I need completion in these faces oo
+;;; I need completion in these faces, too
 (delete 'font-lock-string-face ac-disable-faces)
 (delete 'font-lock-comment-face ac-disable-faces)
 (delete 'font-lock-doc-face ac-disable-faces)
-
 
 (provide 'tmtxt-auto-complete)

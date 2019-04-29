@@ -5,8 +5,9 @@
   "Run BODY if `system-type' is in the list of SYSTEMS.
 
 Example:
-(tmtxt/in '(darwin) something here)
-(tmtxt/in '(gnu/linux) something here)"
+(tmtxt/in '(darwin) body here)
+(tmtxt/in '(gnu/linux) body here)
+(tmtxt/in '(windows-nt) body-here)"
   (declare (indent 1))
   `(when (member system-type ,systems)
      ,@body))
