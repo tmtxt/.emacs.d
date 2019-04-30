@@ -43,6 +43,10 @@
                 ,@mappings)
               (message "Updated keymap `%s'" ',map)))))
 
+;;; use Windows key as super key
+(setq w32-lwindow-modifier 'super)
+
+;;; key definitions
 (tmtxt/undefine-keys
     global-map
   '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\""))
@@ -65,7 +69,7 @@
   ;; "C-x c"   'compile
   "M-;"     'comment-dwim
   "M-:"     'evilnc-comment-or-uncomment-lines
-  ;; "s-&"     'kill-this-buffer
+  "s-&"     'kill-this-buffer
   "M-t"     'tmtxt/insert-tab-as-spaces
 
   "M-x"     'helm-M-x
@@ -165,8 +169,8 @@
   "M-q"     "C-x o"
   "M-s-o"   "C-x o"
   "C-S-b"   "C-x +"
-  "s-d"     "C-x 3"
-  "s-D"     "C-x 2"
+  ;; "s-d"     "C-x 3"
+  ;; "s-D"     "C-x 2"
   )
 
 (tmtxt/define-keys yas-minor-mode-map
