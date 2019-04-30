@@ -268,9 +268,9 @@
   "C-S-r"     'hs-toggle-hiding
   )
 
-(tmtxt/define-keys
-    ac-completing-map
-  "M-/"     'ac-stop)
+;; (tmtxt/define-keys
+;;     ac-completing-map
+;;   "M-/"     'ac-stop)
 
 (tmtxt/keys 'wdired wdired-mode-map
   "TAB"   'tmtxt/mark-file-name-forward
@@ -284,8 +284,8 @@
 
 (tmtxt/keys 'helm
     global-map
-  "M-X"                  'helm-M-x
-  "C-x f"                'helm-recentf
+  ;; "M-X"                  'helm-M-x
+  ;; "C-x f"                'helm-recentf
   "<C-M-S-tab>"          'tmtxt/helm
   "<C-M-S-iso-lefttab>"  'tmtxt/helm
   "M-V"    'helm-show-kill-ring
@@ -377,12 +377,12 @@
 (tmtxt/define-keys cypher-mode-map
   "M-s-s"   'n4js-send-dwim)
 
-(tmtxt/define-keys magit-status-mode-map
-  "C-M-S-u"   'ar/increase-tag
-  "C-M-S-i"   'ar/increase-major-tag
-  "C-M-S-o"   'ar/increase-minor-tag
-  "C-M-S-p"   'ar/increase-patch-tag
-  "C-M-S-b"   'ar/create-branch)
+;; (tmtxt/define-keys magit-status-mode-map
+;;   "C-M-S-u"   'ar/increase-tag
+;;   "C-M-S-i"   'ar/increase-major-tag
+;;   "C-M-S-o"   'ar/increase-minor-tag
+;;   "C-M-S-p"   'ar/increase-patch-tag
+;;   "C-M-S-b"   'ar/create-branch)
 
 (add-hook
  'eshell-mode-hook
