@@ -17,7 +17,7 @@ tramp
 .saveplace
 el-get
 .emacs.desktop*
-recentf
+recentf*
 session*
 ido.last
 projectile-bookmarks.eld
@@ -29,4 +29,4 @@ sql-history/*
 *.elc
 *.tern-port
 *ido.last~
-eshell/autojump
+eshell/autojump*
