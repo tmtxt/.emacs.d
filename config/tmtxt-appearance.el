@@ -10,7 +10,6 @@
 (require 'anzu)
 (require 'eyebrowse)
 
-
 ;;; custom theme
 (if (window-system)
     (progn
@@ -34,9 +33,6 @@
                 ))
   (when (fboundp mode) (funcall mode 1)))
 ;; (golden-ratio-toggle-widescreen)
-(split-window-right)
-(split-window-right)
-(balance-windows)
 (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
 ;; (setq golden-ratio-adjust-factor 0.82)
 ;; (golden-ratio)

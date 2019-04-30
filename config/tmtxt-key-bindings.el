@@ -53,19 +53,19 @@
 
 (tmtxt/define-keys
     global-map
-  "C-c f"   'find-file-in-project
+  ;; "C-c f"   'find-file-in-project
   "C-+"     'text-scale-increase
   "C--"     'text-scale-decrease
   "M-%"     'query-replace-regexp
   "C-M-%"   'query-replace
   "C-x C-i" 'helm-imenu
-  "C-c y"   'bury-buffer
-  "C-c r"   'revert-buffer
+  ;; "C-c y"   'bury-buffer
+  ;; "C-c r"   'revert-buffer
   "C-c g"   'magit-status
-  "C-x c"   'compile
+  ;; "C-x c"   'compile
   "M-;"     'comment-dwim
   "M-:"     'evilnc-comment-or-uncomment-lines
-  "s-&"     'kill-this-buffer
+  ;; "s-&"     'kill-this-buffer
   "M-t"     'tmtxt/insert-tab-as-spaces
 
   "M-x"     'helm-M-x
@@ -73,7 +73,7 @@
 
   ;; editing
   "C-c q"   'join-line
-  "C-c C-a" 'tmtxt/select-all-line
+  ;; "C-c C-a" 'tmtxt/select-all-line
   "C-S-a"   'tmtxt/select-all-line
   "C-M-\\"  'tmtxt/indent-region-or-buffer
   "C-x F"   'tmtxt/find-file-as-root
@@ -84,7 +84,7 @@
   "C-M-j"   'downcase-word
   "M-/"     'hippie-expand
   "s-y"     'tmtxt/change-indentation-locally
-  "M-G"     'kill-whole-line
+  ;; "M-G"     'kill-whole-line
 
   ;; isearch
   "C-s"     'isearch-forward-regexp
@@ -102,18 +102,18 @@
   "C-c b"   'org-iswitchb
 
   ;; buffer managements
-  "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX
-  "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Linux
+  "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX,Windows
+  "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Ubuntu
   "C-x C-b"            'ibuffer
   "<C-tab>"            'switch-to-buffer
 
   "M-="       'er/expand-region         ;expand region
   ;; "C-M-S-s"   'tmtxt/sql-connect-server
-  "C-M-S-c"   'tmtxt/switch-to-cider-repl
+  ;; "C-M-S-c"   'tmtxt/switch-to-cider-repl
 
   ;; windows related keys
   ;; "M-s-1"     'golden-ratio-mode
-  "C-M-S-w"  'eyebrowse-close-window-config
+  ;; "C-M-S-w"  'eyebrowse-close-window-config
 
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
