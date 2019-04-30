@@ -286,7 +286,8 @@
     global-map
   ;; "M-X"                  'helm-M-x
   ;; "C-x f"                'helm-recentf
-  "<C-M-S-tab>"          'tmtxt/helm
+  ;; "<C-M-S-tab>"          'tmtxt/helm
+  "C-S-q" 'tmtxt/helm
   "<C-M-S-iso-lefttab>"  'tmtxt/helm
   "M-V"    'helm-show-kill-ring
   "C-S-s"     'helm-occur)
