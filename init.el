@@ -57,7 +57,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-python
                tmtxt-elixir
                tmtxt-yaml
-               tmtxt-ar
+               ;tmtxt-ar
                tmtxt-key-bindings
 
                ;; other packages
@@ -84,6 +84,7 @@ DIR-NAME directory name inside lib folder"
  backup-directory-alist `((".*" . ,temporary-file-directory))
  auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
  )
+
 ;;; use spotlight search for locate command in macos
 (tmtxt/in '(darwin)
   (setq locate-command "mdfind"))
