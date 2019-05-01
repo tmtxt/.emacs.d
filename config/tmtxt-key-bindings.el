@@ -385,6 +385,11 @@
 ;;   "C-M-S-p"   'ar/increase-patch-tag
 ;;   "C-M-S-b"   'ar/create-branch)
 
+;;; Windows specific keys
+(tmtxt/in '(windows-nt)
+  (tmtxt/define-keys key-translation-map
+    "<M-f4>" "C-x C-c"))
+
 (add-hook
  'eshell-mode-hook
  (lambda ()
