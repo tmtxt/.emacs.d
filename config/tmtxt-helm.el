@@ -53,10 +53,18 @@
 
 ;;; helm always display at the bottom
 (add-to-list 'display-buffer-alist
-                    `(,(rx bos "*helm" (* not-newline) "*" eos)
-                         (display-buffer-in-side-window)
-                         (inhibit-same-window . t)
-                         (window-height . 0.4)))
+             `(,(rx bos "*helm" (* not-newline) "*" eos)
+               (display-buffer-in-side-window)
+               (inhibit-same-window . t)
+               (window-height . 0.4)))
+
+;;; set executable path for ag on Windows
+;;; install ag in this path
+;;; download ag from https://github.com/k-takata/the_silver_searcher-win32
+(tmtxt/in '(windows-nt)
+  (setenv "PATH" (concat (getenv "PATH") "C:\\Program Files\\ag"))
+  (setq exec-path (append exec-path '("C:\\Program Files\\ag")))
+)
 
 ;;; finally provide the library
 (provide 'tmtxt-helm)

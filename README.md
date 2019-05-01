@@ -15,5 +15,7 @@ git clone --recursive git@github.com:tmtxt/.emacs.d.git ~/.emacs.d
 * **gnupg** for using EasyPG. Install it using **macports**: sudo port install gnupg
 * **aspell** for spell checking. Install it using **macports**: sudo port
   install aspell / sudo port install aspell-dict-en
+* **ag**: for quick search https://agel.readthedocs.io/en/latest/installation.html#ag
 
-## This repo does not support MS Windows
+## Windows
+* **ag**: for quick search https://agel.readthedocs.io/en/latest/installation.html#ag
