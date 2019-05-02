@@ -45,6 +45,7 @@
 
 ;;; use Windows key as super key
 (setq w32-lwindow-modifier 'super)
+(setq w32-rwindow-modifier 'super)
 
 ;;; key definitions
 (tmtxt/undefine-keys
