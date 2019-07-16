@@ -57,6 +57,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-python
                tmtxt-elixir
                tmtxt-yaml
+               tmtxt-powershell
                ;tmtxt-ar
                tmtxt-key-bindings
 

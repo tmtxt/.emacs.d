@@ -1,4 +1,9 @@
 (
+ (:id "sha1:24c7a1e6369fef1e50de1deb1a9e5bbc68f80c8b" :fingerprint "sha1:38:34:b6:47:e9:45:0f:96:93:29:aa:43:fd:b6:54:ba:58:0c:49:58" :host "orgmode.org:443" :conditions (:insecure :unknown-ca :invalid))
+ (:id "sha1:643fa8d1b5fb04d0d47c79367b0ffa99fa88243d" :fingerprint "sha1:53:40:01:e4:6b:d4:ea:f5:82:92:68:45:08:93:69:d5:8f:06:65:e0" :host "api.crmworkspace.com:443" :conditions (:insecure :unknown-ca :invalid))
+ (:id "sha1:65a01c01459729af09e22b4b181425d4605aa3e9" :fingerprint "sha1:53:40:01:e4:6b:d4:ea:f5:82:92:68:45:08:93:69:d5:8f:06:65:e0" :host "app.crmworkspace.com:443" :conditions (:insecure :unknown-ca :invalid))
+ (:id "sha1:e5407fbf75eea78c602a9897d7ede30d4f048c15" :fingerprint "sha1:2e:e4:17:9c:c0:ac:a3:5c:59:3d:15:d7:4a:26:dc:4f:88:f1:bf:4c" :host "2pnbthi4db.execute-api.us-east-1.amazonaws.com:443" :conditions (:insecure :unknown-ca :invalid))
+ (:id "sha1:4d61c19cb786683772656dd4f9557119983a9aff" :fingerprint "sha1:f5:85:2e:5b:64:17:df:6c:9f:cf:69:6d:b2:3e:fa:e0:a3:de:4c:2e" :host "zcg3uyopah.execute-api.ap-northeast-1.amazonaws.com:443" :conditions (:insecure :unknown-ca :invalid))
  (:id "sha1:85457c729378cc93c732b6a3941c8e4f9c2e60f3" :fingerprint "sha1:ab:a6:d7:6a:b3:d3:63:fa:19:0d:65:41:60:23:6e:ef:d3:2a:46:dc" :host "marmalade-repo.org:443" :conditions (:expired :insecure :unknown-ca :invalid))
  (:id "sha1:aa146d72ee347d399bf58654d7ae3b2089168855" :fingerprint "sha1:ca:f6:0a:45:f3:00:5f:01:bc:73:61:24:bb:d9:5a:9d:ac:6e:3f:85" :host "na59.salesforce.com:443" :conditions (:insecure :unknown-ca :invalid))
  (:id "sha1:81cd2b8e236a04f0dfa74c008a4ffb60536c4d44" :fingerprint "sha1:ca:f6:0a:45:f3:00:5f:01:bc:73:61:24:bb:d9:5a:9d:ac:6e:3f:85" :host "ap5.salesforce.com:443" :conditions (:insecure :unknown-ca :invalid))

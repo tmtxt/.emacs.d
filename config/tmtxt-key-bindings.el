@@ -50,7 +50,7 @@
 ;;; key definitions
 (tmtxt/undefine-keys
     global-map
-  '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\""))
+  '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\"" "s-l"))
 
 (tmtxt/undefine-keys
     paredit-mode-map
@@ -82,8 +82,8 @@
   "C-S-a"   'tmtxt/select-all-line
   "C-M-\\"  'tmtxt/indent-region-or-buffer
   "C-x F"   'tmtxt/find-file-as-root
-  "C-S-j"   'textmate-shift-left
-  "C-S-l"   'textmate-shift-right
+  ;; "C-S-j"   'textmate-shift-left
+  ;; "C-S-l"   'textmate-shift-right
   "C-m"     'newline-and-indent
   "C-M-u"   'upcase-word
   "C-M-j"   'downcase-word
@@ -122,6 +122,8 @@
 
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
+
+  "C-S-p" 'goto-line
   )
 
 (tmtxt/define-keys
