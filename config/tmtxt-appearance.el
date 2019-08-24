@@ -5,10 +5,10 @@
 
 (require 'idle-highlight-mode)
 (require 'nyan-mode)
-;; (require 'golden-ratio)
+(require 'golden-ratio)
 (require 'diminish)
 (require 'anzu)
-(require 'eyebrowse)
+;; (require 'eyebrowse)
 
 ;;; custom theme
 (if (window-system)
@@ -29,13 +29,13 @@
                 global-hl-line-mode
                 line-number-mode
                 global-linum-mode
-                ;; golden-ratio-mode
+                golden-ratio-mode
                 ))
   (when (fboundp mode) (funcall mode 1)))
-;; (golden-ratio-toggle-widescreen)
+(golden-ratio-toggle-widescreen)
 (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
-;; (setq golden-ratio-adjust-factor 0.82)
-;; (golden-ratio)
+(setq golden-ratio-adjust-factor 0.82)
+(golden-ratio)
 
 ;;; disabled modes
 (dolist (mode '(menu-bar-mode
@@ -147,8 +147,8 @@
 (global-anzu-mode +1)
 
 ;;; eyebrowse
-(eyebrowse-mode t)
-(eyebrowse-setup-opinionated-keys)
+;; (eyebrowse-mode t)
+;; (eyebrowse-setup-opinionated-keys)
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
