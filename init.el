@@ -58,7 +58,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-elixir
                tmtxt-yaml
                tmtxt-powershell
-               ;tmtxt-ar
+               tmtxt-fmgsuite
                tmtxt-key-bindings
 
                ;; other packages
