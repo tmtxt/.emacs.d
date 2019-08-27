@@ -58,7 +58,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-elixir
                tmtxt-yaml
                tmtxt-powershell
-               tmtxt-fmgsuite
+               ;; tmtxt-fmgsuite
                tmtxt-key-bindings
 
                ;; other packages
@@ -67,6 +67,12 @@ DIR-NAME directory name inside lib folder"
                n4js
                ))
   (require cfg))
+
+(if (file-directory-p "~/Projects/agencyrevolution/connect")
+    (progn
+      (defconst FMGSUITE-FEATURES-ENABLED t)
+      (require 'tmtxt-fmgsuite))
+  (defconst FMGSUITE-FEATURES-ENABLED nil))
 
 
 ;;; some default config
