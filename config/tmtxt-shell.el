@@ -90,8 +90,8 @@
                         "［(－－)］ZZzzz"
                         "(o_O) Lại bug"
                         "( ⊙△⊙) - noooooo!!!!"
-                        ;; "(￣へ ￣ 凸 F**k"
-                        ;; "┐(´～`)┌ [No idea]"
+                        "(￣へ ￣ 凸 F**k"
+                        "┐(´～`)┌ [No idea]"
                         ))
          (idx (random (length kamoji-list)))
          (kamoji (nth idx kamoji-list)))
@@ -104,7 +104,7 @@
          (len (+ (length user-name)
                  (length pwd)
                  (length kamoji)
-                 3))
+                 10))
          (line-len (- (window-width) len))
          (line (s-repeat line-len " ")))
     (concat

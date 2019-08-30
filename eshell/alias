@@ -1,23 +1,2 @@
-alias nrtp npm run truong-prod
-alias nrts npm run truong-stg
-alias kbpl kubectl --context=production logs --tail=100 -f $*
-alias kbsl kubectl --context=staging logs --tail=100 -f $*
-alias kbp kubectl --context=production $*
-alias kbs kubectl --context=staging $*
-alias kb kubectl $*
-alias dcb docker-compose build $*
-alias dcl docker-compose logs -f --tail=100 $*
-alias dcr docker-compose rm $*
-alias dcp docker-compose ps
-alias dcud docker-compose up -d $*
-alias dcu docker-compose up $*
-alias dcd docker-compose down $*
-alias dck docker-compose kill $*
-alias jks jekyll serve -w -D $*
-alias rs rsync -avz --progress $*
-alias ll ls -alh $*
-alias d dired $1
-alias aria2 touch $HOME/Downloads/session.txt && aria2c --enable-rpc --rpc-listen-all --save-session=$HOME/Downloads/session.txt --input-file=$HOME/Downloads/session.txt -x16 -s16 -k1M --dir=$HOME/Downloads --daemon --on-download-complete=$HOME/bin/aria2-download-complete.sh
-alias jsk jekyll serve -w -D
-alias du du -h
-alias df df -h
+alias kbs kubectl --context=gke_agency-revolution_asia-southeast1-a_staging --namespace=staging $*
+alias kbsl kubectl --context=gke_agency-revolution_asia-southeast1-a_staging --namespace=staging logs --tail=100 -f $*
