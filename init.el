@@ -68,11 +68,12 @@ DIR-NAME directory name inside lib folder"
                ))
   (require cfg))
 
-(if (file-directory-p "~/Projects/agencyrevolution/connect")
-    (progn
-      (defconst FMGSUITE-FEATURES-ENABLED t)
-      (require 'tmtxt-fmgsuite))
-  (defconst FMGSUITE-FEATURES-ENABLED nil))
+(require 'tmtxt-fmgsuite)
+;; (if (file-directory-p "~/Projects/connect")
+;;     (progn
+;;       (defconst FMGSUITE-FEATURES-ENABLED t)
+;;       (require 'tmtxt-fmgsuite))
+;;   (defconst FMGSUITE-FEATURES-ENABLED nil))
 
 
 ;;; some default config

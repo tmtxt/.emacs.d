@@ -1,41 +1,51 @@
 ;;; Config specific for working with AR project
 
-;;; path to connect repo
-(defconst AR-CONNECT-PATH "~/Projects/agencyrevolution/connect")
+;;; Whether to enable AR-related features
+(let* ((connect-dirs '("~/Projects/connect"))  ;list of possible locations of AR Connect repo
+       (connect-dir (-find 'file-directory-p connect-dirs)))
+  (if connect-dir
+      (progn
+        (defconst AR-FEATURES-ENABLED t)
 
-;;; list of frontend services
-(defconst AR-FRONTEND-SERVICES (-> AR-CONNECT-PATH
-                                   (s-concat "/frontend")
-                                   (directory-files)))
+        ;; Path to AR Connect repo
+        (defconst AR-CONNECT-PATH connect-dir)
 
-;;; list of nodejs services
-(defconst AR-NODE-SERVICES (-> AR-CONNECT-PATH
-                               (s-concat "/nodejs")
-                               (directory-files)))
+        ;; list of frontend services
+        (defconst AR-FRONTEND-SERVICES (-> AR-CONNECT-PATH
+                                           (s-concat "/frontend")
+                                           (directory-files)))
 
-;;; list of golang services
-;;; golang services need .golang suffix
-(defconst AR-GOLANG-SERVICES (--> AR-CONNECT-PATH
-                                  (s-concat it "/golang")
-                                  (directory-files it)
-                                  (-map (lambda (service) (s-concat service ".golang")) it)))
+        ;; list of nodejs services
+        (defconst AR-NODE-SERVICES (-> AR-CONNECT-PATH
+                                       (s-concat "/nodejs")
+                                       (directory-files)))
 
-(defconst AR-CSHARP-SERVICES (--> AR-CONNECT-PATH
-                                  (s-concat it "/csharp")
-                                  (directory-files it)
-                                  (-map (lambda (service) (s-concat service ".csharp")) it)))
+        ;; list of golang services
+        ;; golang services need .golang suffix
+        (defconst AR-GOLANG-SERVICES (--> AR-CONNECT-PATH
+                                          (s-concat it "/golang")
+                                          (directory-files it)
+                                          (-map (lambda (service) (s-concat service ".golang")) it)))
 
-;;; list of integration test services
-(defconst AR-INTEGRATION-TEST-SERVICES (--> AR-CONNECT-PATH
-                                            (s-concat it "/tests")
-                                            (directory-files it)))
+        ;; list of c# services
+        ;; c# services need .csharp suffix
+        (defconst AR-CSHARP-SERVICES (--> AR-CONNECT-PATH
+                                          (s-concat it "/csharp")
+                                          (directory-files it)
+                                          (-map (lambda (service) (s-concat service ".csharp")) it)))
 
-;;; all services
-(defconst AR-ALL-SERVICES (-distinct (-concat AR-FRONTEND-SERVICES
-                                              AR-NODE-SERVICES
-                                              AR-GOLANG-SERVICES
-                                              AR-CSHARP-SERVICES
-                                              AR-INTEGRATION-TEST-SERVICES)))
+        ;; list of integration test services
+        (defconst AR-INTEGRATION-TEST-SERVICES (--> AR-CONNECT-PATH
+                                                    (s-concat it "/tests")
+                                                    (directory-files it)))
+
+        ;; all services
+        (defconst AR-ALL-SERVICES (-distinct (-concat AR-FRONTEND-SERVICES
+                                                      AR-NODE-SERVICES
+                                                      AR-GOLANG-SERVICES
+                                                      AR-CSHARP-SERVICES
+                                                      AR-INTEGRATION-TEST-SERVICES))))
+    (defconst AR-FEATURES-ENABLED nil)))
 
 (defun ar/select-service ()
   "Ask for user input for 1 service name from one the above"

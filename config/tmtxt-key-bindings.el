@@ -381,12 +381,13 @@
 (tmtxt/define-keys cypher-mode-map
   "M-s-s"   'n4js-send-dwim)
 
-;; (tmtxt/define-keys magit-status-mode-map
-;;   "C-M-S-u"   'ar/increase-tag
-;;   "C-M-S-i"   'ar/increase-major-tag
-;;   "C-M-S-o"   'ar/increase-minor-tag
-;;   "C-M-S-p"   'ar/increase-patch-tag
-;;   "C-M-S-b"   'ar/create-branch)
+(when AR-FEATURES-ENABLED
+  (tmtxt/define-keys magit-status-mode-map
+    "C-M-S-u"   'ar/increase-tag
+    "C-M-S-i"   'ar/increase-major-tag
+    "C-M-S-o"   'ar/increase-minor-tag
+    "C-M-S-p"   'ar/increase-patch-tag
+    "C-M-S-b"   'ar/create-branch))
 
 ;;; Windows specific keys
 (tmtxt/in '(windows-nt)
