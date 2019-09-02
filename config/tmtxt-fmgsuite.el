@@ -1,7 +1,75 @@
 ;;; Config specific for working with AR project
 
+;;; Helper functions for working with version
+(defun tmtxt/extract-version (str)
+  "Extract version from a string. Ex: integrations-v1.1.0 -> 1.1.0"
+  (->> str
+       (s-match "[0-9]+\.[0-9]+\.[0-9]+")
+       (-last-item)))
+
+(defun tmtxt/compare-version-strings (str1 str2)
+  "Extract the version string the 2 input strings and compare them. Return true if tag1 < tag2, false if tag1 > tag2
+   Ex: microservice.realm-v0.0.3 and microservice.realm-v0.1.2
+   Return true in the example above
+   "
+  (let* ((version1 (tmtxt/extract-version str1))
+         (version2 (tmtxt/extract-version str2)))
+    (version< version1 version2)))
+
+;;; Helper functions to compute the next major/minor/patch version
+(defun tmtxt/get-next-major-version (current-version)
+  "Get the next major version of the current-version string.
+   Ex: current-version = 1.2.3, next-major-version = 2.0.0"
+  (->> current-version
+       ;; convert the version string to list of int
+       (version-to-list)
+       ;; increase the major version
+       (-update-at 0 '1+)
+       ;; reset minor and patch to 0
+       (-replace-at 1 0)
+       (-replace-at 2 0)
+       ;; join back to a string
+       (-map 'number-to-string)
+       (s-join ".")))
+
+(defun tmtxt/get-next-minor-version (current-version)
+  "Get the next minor version of the current-version string.
+   Ex: current-version = 1.2.3, next-major-version = 1.3.0"
+  (->> current-version
+       ;; convert the version string to list of int
+       (version-to-list)
+       ;; increase the minor version
+       (-update-at 1 '1+)
+       ;; reset patch to 0
+       (-replace-at 2 0)
+       ;; join back to a string
+       (-map 'number-to-string)
+       (s-join ".")))
+
+(defun tmtxt/get-next-patch-version (current-version)
+  "Get the next patch version of the current-version string.
+   Ex: current-version = 1.2.3, next-major-version = 1.2.4"
+  (->> current-version
+       ;; convert the version string to list of int
+       (version-to-list)
+       ;; increase the patch version
+       (-update-at 2 '1+)
+       ;; join back to a string
+       (-map 'number-to-string)
+       (s-join ".")))
+
+(defun tmtxt/get-next-version (current-version version-type)
+  "Get the next version
+   version-type: major/minor/patch
+   Ex: current-version: 4.5.6 -> next major 5.0.0"
+  (cond
+   ((string= version-type "major") (tmtxt/get-next-major-version current-version))
+   ((string= version-type "minor") (tmtxt/get-next-minor-version current-version))
+   (t (tmtxt/get-next-patch-version current-version))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Whether to enable AR-related features
-(let* ((connect-dirs '("~/Projects/connect"))  ;list of possible locations of AR Connect repo
+(let* ((connect-dirs '("~/Projects/connect" "c:/Users/me/Projects/connect"))  ;list of possible locations of AR Connect repo
        (connect-dir (-find 'file-directory-p connect-dirs)))
   (if connect-dir
       (progn
@@ -59,20 +127,6 @@
   "Ask for user input 1 tag type"
   (helm-comp-read "Select next tag type: " (list "unit-test" "cascading-unit-test" "hot-fix")))
 
-(defun ar/get-version-from-tag (tag-name)
-  "Get the version from tag name"
-  (->> tag-name
-       (s-match "[0-9]+\.[0-9]+\.[0-9]+")
-       (-last-item)))
-
-(defun ar/compare-tags (tag1 tag2)
-  "Compare the 2 input tag: microservice.realm-v0.0.3 and microservice.realm-v0.1.2
-   Return true if tag1 < tag2, false if tag1 > tag2. Return true in the example above
-   "
-  (let* ((version1 (ar/get-version-from-tag tag1))
-         (version2 (ar/get-version-from-tag tag2)))
-    (version< version1 version2)))
-
 (defun ar/get-latest-tag (service-name)
   "Get the latest tag for one service name"
   (let ((default-directory AR-CONNECT-PATH)
@@ -83,54 +137,9 @@
          ;; filter to the tags that match the service name
          (-filter (lambda (tag) (s-contains? regex tag)) it)
          ;; sort the tags, the oldest first
-         (-sort 'ar/compare-tags it)
+         (-sort 'tmtxt/compare-version-strings it)
          ;; pick the last tag (the latest one)
-         (-last-item it)
-         )))
-
-(defun ar/get-next-major-tags (current-version)
-  (->> current-version
-       (version-to-list)
-       ;; increase the major version
-       (-update-at 0 '1+)
-       ;; reset minor and patch to 0
-       (-replace-at 1 0)
-       (-replace-at 2 0)
-       ;; join back to a string
-       (-map 'number-to-string)
-       (s-join ".")
-       ))
-
-(defun ar/get-next-minor-tags (current-version)
-  (->> current-version
-       (version-to-list)
-       ;; increase the minor version
-       (-update-at 1 '1+)
-       ;; reset patch to 0
-       (-replace-at 2 0)
-       ;; join back to a string
-       (-map 'number-to-string)
-       (s-join ".")
-       ))
-
-(defun ar/get-next-patch-tags (current-version)
-  (->> current-version
-       (version-to-list)
-       ;; increase the patch version
-       (-update-at 2 '1+)
-       ;; join back to a string
-       (-map 'number-to-string)
-       (s-join ".")
-       ))
-
-(defun ar/get-next-version (version version-type)
-  "Get the next version
-   version-type: major/minor/patch
-   Ex: version: 4.5.6 -> next major 5.0.0"
-  (cond
-   ((string= version-type "major") (ar/get-next-major-tags version))
-   ((string= version-type "minor") (ar/get-next-minor-tags version))
-   (t (ar/get-next-patch-tags version))))
+         (-last-item it))))
 
 (defun ar/get-tag-suffix (tag-type)
   "Get tag suffix"
@@ -148,69 +157,44 @@
    => microservice.realm-v1.0.0-unit-test"
   (let* ((tag-name-without-version (s-concat service-name "-v"))
          (next-version (-> tag-name
-                           (ar/get-version-from-tag)
-                           (ar/get-next-version version-type)))
+                           (tmtxt/extract-version)
+                           (tmtxt/get-next-version version-type)))
          (tag-suffix (ar/get-tag-suffix tag-type)))
     (s-concat tag-name-without-version next-version tag-suffix)))
 
-(defun ar/increase-tag-handler (service-name version-type tag-type)
-  (let* ((next-tag (--> service-name
+(defun ar/increase-version (version-type)
+  "Ask user to input service-name, tag-type and then increase the version-type git tag"
+  (let* (
+         ;; ask user to input a service name
+         (service-name (ar/select-service))
+
+         ;; ask user to input a tag type
+         (tag-type (ar/select-tag-type))
+
+         ;; compute the next tag
+         (next-tag (--> service-name
                         (ar/get-latest-tag it)
                         (ar/get-next-tag service-name it version-type tag-type)))
-         (default-directory AR-CONNECT-PATH))
-    (magit-tag next-tag "HEAD")
-    (message next-tag)))
 
-(defun ar/increase-tag ()
-  "Interactive function for increasing tag in general"
-  (interactive)
-  (let ((service-name (ar/select-service))
-        (version-type (ar/select-version-type))
-        (tag-type (ar/select-tag-type)))
-    (ar/increase-tag-handler service-name version-type tag-type)))
+         ;; set default dir for git to run
+         (default-directory AR-CONNECT-PATH))
+    (message next-tag)
+    (magit-tag next-tag "HEAD")))
 
 (defun ar/increase-major-tag ()
-  ""
+  "Select a service then increase the major version and add a git tag"
   (interactive)
-  (let ((service-name (ar/select-service))
-        (tag-type (ar/select-tag-type)))
-    (ar/increase-tag-handler service-name "major" tag-type)))
+  (ar/increase-version "major"))
 
 (defun ar/increase-minor-tag ()
-  ""
+  "Select a service then increase the minor version and add a git tag"
   (interactive)
-  (let ((service-name (ar/select-service))
-        (tag-type (ar/select-tag-type)))
-    (ar/increase-tag-handler service-name "minor" tag-type)))
+  (ar/increase-version "minor"))
 
 (defun ar/increase-patch-tag ()
-  ""
+  "Select a service then increase the patch version and add a git tag"
   (interactive)
-  (let ((service-name (ar/select-service))
-        (tag-type (ar/select-tag-type)))
-    (ar/increase-tag-handler service-name "patch" tag-type)))
-
-(defun ar/create-branch (jira-issue)
-  (interactive
-   (list (read-string "Jira issue number: ")))
-  (let ((branch-name (s-concat "jira-ar" jira-issue)))
-    (magit-create-branch branch-name (magit-get-current-branch))))
-
-;; (defun ar/get-current-file-name ()
-;;   (cond ((equal major-mode 'dired-mode) )
-;;         ))
-
-;; (defun ar/get-test-file-command ()
-;;   ""
-;;   (interactive)
-;;   (let* ((absolute-path (buffer-file-name))
-;;          (relative-path (-> absolute-path
-;;                             (list)
-;;                             (projectile-make-relative-to-root)
-;;                             (-first-item)))
-;;          )
-;;     (s-join "" (list "npm run test-file ./" relative-path))
-;;     ))
+  (ar/increase-version "patch"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; FMGSUITE
