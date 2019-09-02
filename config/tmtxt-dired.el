@@ -32,39 +32,34 @@
  delete-by-moving-to-trash t
  global-auto-revert-non-file-buffers t
 
- ;; display directory first
- dired-listing-switches "--group-directories-first -alh"
-
  tda/get-files-size-command "du"
  tda/download-command "wget"
  )
 
 (image-dired-display-image-mode)
 
+;;; *Nix configuration - config that are shared between Mac and Linux
+(tmtxt/in '(darwin gnu/linux)
+  (setq-default
+   ;; display directory first
+   dired-listing-switches "--group-directories-first -alh"))
 
-;;; Mac OS
+;;; Mac OS specific configuration
 (tmtxt/in '(darwin)
+  ;; Override this function to move file to trash
   (defun system-move-file-to-trash (file)
     "Delete files by moving to the folder emacs in Trash folder"
     (call-process (executable-find "trash")
                   nil 0 nil
-                  file))
+                  file)))
 
-  ;; open current folder in terminal
-  (defvar tmtxt/macos-default-terminal-app-path
-    "/Applications/Terminal.app" "The default path to terminal application in MacOS")
-  (setq-default tmtxt/macos-default-terminal-app-path "/Volumes/tmtxt/Applications/iTerm.app")
-  (defun tmtxt/open-current-dir-in-terminal ()
-    "Open current directory in dired mode in terminal application. For MacOS only"
-    (interactive)
-    (shell-command (concat "open -a "
-                           (shell-quote-argument tmtxt/macos-default-terminal-app-path)
-                           " "
-                           (shell-quote-argument (file-truename default-directory)))))
-  )
-
+;;; Linux specific configuration
 (tmtxt/in '(gnu/linux)
   (setq trash-directory "~/.local/share/Trash/files/emacs"))
+
+;;; Windows specific configuration
+(tmtxt/in '(windows-nt)
+  (setq-default ls-lisp-dirs-first t))
 
 ;;; Othrer util functions
 (defun tmtxt/dired-do-shell-open ()
