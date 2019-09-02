@@ -158,7 +158,7 @@
       (2 12 1)))
     "Use the Emacsclient as $EDITOR" tar])
  (wisp-mode .
-	    [(0 2 3)
+	    [(0 2 5)
 	     nil "Tools for wisp: the Whitespace-to-Lisp preprocessor" single])
  (wisp .
        [(0 1 4)
