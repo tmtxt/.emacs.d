@@ -68,9 +68,6 @@ DIR-NAME directory name inside lib folder"
                ))
   (require cfg))
 
-;; (require 'tmtxt-theme)
-;; (load-theme 'tmtxt-dark)
-
 ;;; some default config
 (setq-default
  save-place t                           ;save positions in visited files
