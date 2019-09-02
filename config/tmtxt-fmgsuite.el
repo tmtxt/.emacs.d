@@ -1,6 +1,11 @@
 ;;; Config specific for working with AR project
 
-;;; Helper functions for working with version
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Helper functions
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Helper functions for parsing version and string
+
 (defun tmtxt/extract-version (str)
   "Extract version from a string. Ex: integrations-v1.1.0 -> 1.1.0"
   (->> str
@@ -15,6 +20,9 @@
   (let* ((version1 (tmtxt/extract-version str1))
          (version2 (tmtxt/extract-version str2)))
     (version< version1 version2)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Helper functions for comparing and computing the next version
 
 ;;; Helper functions to compute the next major/minor/patch version
 (defun tmtxt/get-next-major-version (current-version)
@@ -68,53 +76,65 @@
    (t (tmtxt/get-next-patch-version current-version))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Whether to enable AR-related features
-(let* ((connect-dirs '("~/Projects/connect" "c:/Users/me/Projects/connect"))  ;list of possible locations of AR Connect repo
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; AR specific features
+
+;;; Whether to enable the feature or not
+(let* (;; list of possible locations of AR Connect repo
+       (connect-dirs '("~/Projects/connect" "c:/Users/me/Projects/connect"))
+
+       ;; find the one that exists
        (connect-dir (-find 'file-directory-p connect-dirs)))
   (if connect-dir
       (progn
+        ;; Enable the feature
         (defconst AR-FEATURES-ENABLED t)
-
         ;; Path to AR Connect repo
-        (defconst AR-CONNECT-PATH connect-dir)
-
-        ;; list of frontend services
-        (defconst AR-FRONTEND-SERVICES (-> AR-CONNECT-PATH
-                                           (s-concat "/frontend")
-                                           (directory-files)))
-
-        ;; list of nodejs services
-        (defconst AR-NODE-SERVICES (-> AR-CONNECT-PATH
-                                       (s-concat "/nodejs")
-                                       (directory-files)))
-
-        ;; list of golang services
-        ;; golang services need .golang suffix
-        (defconst AR-GOLANG-SERVICES (--> AR-CONNECT-PATH
-                                          (s-concat it "/golang")
-                                          (directory-files it)
-                                          (-map (lambda (service) (s-concat service ".golang")) it)))
-
-        ;; list of c# services
-        ;; c# services need .csharp suffix
-        (defconst AR-CSHARP-SERVICES (--> AR-CONNECT-PATH
-                                          (s-concat it "/csharp")
-                                          (directory-files it)
-                                          (-map (lambda (service) (s-concat service ".csharp")) it)))
-
-        ;; list of integration test services
-        (defconst AR-INTEGRATION-TEST-SERVICES (--> AR-CONNECT-PATH
-                                                    (s-concat it "/tests")
-                                                    (directory-files it)))
-
-        ;; all services
-        (defconst AR-ALL-SERVICES (-distinct (-concat AR-FRONTEND-SERVICES
-                                                      AR-NODE-SERVICES
-                                                      AR-GOLANG-SERVICES
-                                                      AR-CSHARP-SERVICES
-                                                      AR-INTEGRATION-TEST-SERVICES))))
+        (defconst AR-CONNECT-PATH connect-dir))
     (defconst AR-FEATURES-ENABLED nil)))
 
+;;; Only define the list of services when the feature is enabled
+(when AR-FEATURES-ENABLED
+  ;; Define list of AR services when the feature is enabled
+  (progn
+    ;; list of frontend services
+    (defconst AR-FRONTEND-SERVICES (-> AR-CONNECT-PATH
+                                       (s-concat "/frontend")
+                                       (directory-files)))
+
+    ;; list of nodejs services
+    (defconst AR-NODE-SERVICES (-> AR-CONNECT-PATH
+                                   (s-concat "/nodejs")
+                                   (directory-files)))
+
+    ;; list of golang services
+    ;; golang services need .golang suffix
+    (defconst AR-GOLANG-SERVICES (--> AR-CONNECT-PATH
+                                      (s-concat it "/golang")
+                                      (directory-files it)
+                                      (-map (lambda (service) (s-concat service ".golang")) it)))
+
+    ;; list of c# services
+    ;; c# services need .csharp suffix
+    (defconst AR-CSHARP-SERVICES (--> AR-CONNECT-PATH
+                                      (s-concat it "/csharp")
+                                      (directory-files it)
+                                      (-map (lambda (service) (s-concat service ".csharp")) it)))
+
+    ;; list of integration test services
+    (defconst AR-INTEGRATION-TEST-SERVICES (--> AR-CONNECT-PATH
+                                                (s-concat it "/tests")
+                                                (directory-files it)))
+
+    ;; all services
+    (defconst AR-ALL-SERVICES (-distinct (-concat AR-FRONTEND-SERVICES
+                                                  AR-NODE-SERVICES
+                                                  AR-GOLANG-SERVICES
+                                                  AR-CSHARP-SERVICES
+                                                  AR-INTEGRATION-TEST-SERVICES)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Helper functions for user input
 (defun ar/select-service ()
   "Ask for user input for 1 service name from one the above"
   (helm-comp-read "Select service to tag: " AR-ALL-SERVICES))
@@ -127,6 +147,8 @@
   "Ask for user input 1 tag type"
   (helm-comp-read "Select next tag type: " (list "unit-test" "cascading-unit-test" "hot-fix")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Helper functions for computing the next git tag
 (defun ar/get-latest-tag (service-name)
   "Get the latest tag for one service name"
   (let ((default-directory AR-CONNECT-PATH)
@@ -162,10 +184,11 @@
          (tag-suffix (ar/get-tag-suffix tag-type)))
     (s-concat tag-name-without-version next-version tag-suffix)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Functions for increasing the tag
 (defun ar/increase-version (version-type)
   "Ask user to input service-name, tag-type and then increase the version-type git tag"
-  (let* (
-         ;; ask user to input a service name
+  (let* (;; ask user to input a service name
          (service-name (ar/select-service))
 
          ;; ask user to input a tag type
@@ -181,43 +204,27 @@
     (message next-tag)
     (magit-tag next-tag "HEAD")))
 
-(defun ar/increase-major-tag ()
-  "Select a service then increase the major version and add a git tag"
-  (interactive)
-  (ar/increase-version "major"))
-
-(defun ar/increase-minor-tag ()
-  "Select a service then increase the minor version and add a git tag"
-  (interactive)
-  (ar/increase-version "minor"))
-
-(defun ar/increase-patch-tag ()
-  "Select a service then increase the patch version and add a git tag"
-  (interactive)
-  (ar/increase-version "patch"))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; FMGSUITE
-(defconst FMG-INTEGRATIONS-PATH "~/Projects/agencyrevolution/fmg.integrations/")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; FMGSUITE specific functions
+
+(let* (;; list of possible locations of FMG.Integrations repo
+       (integration-dirs '("~/Projects/fmg.integrations" "c:/Users/me/Projects/fmg.integrations"))
+
+       ;; find the one that exists
+       (integration-dir (-find 'file-directory-p integration-dirs)))
+  (if integration-dir
+      (progn
+        ;; Enable the feature
+        (defconst FMG-FEATURES-ENABLED t)
+        ;; Path to FMG.Integrations repo
+        (defconst FMG-INTEGRATIONS-PATH integration-dir))
+    (defconst FMG-FEATURES-ENABLED nil)))
 
 (defun fmg/select-service ()
   "Ask for user input for 1 service name"
   (interactive)
   (helm-comp-read "Select service to tag: " '("Integrations" "EmailJournaling")))
-
-(defun fmg/extract-version (str)
-  "Extract version from a string. Ex: integrations-v1.1.0 -> 1.1.0"
-  (->> str
-       (s-match "[0-9]+\.[0-9]+\.[0-9]+")
-       (-last-item)))
-
-(defun fmg/compare-tags (tag1 tag2)
-  "Compare the 2 input tag: Integrations-v0.0.3 and Integrations-v0.1.2
-   Return true if tag1 < tag2, false if tag1 > tag2. Return true in the example above
-   "
-  (let* ((version1 (fmg/extract-version tag1))
-         (version2 (fmg/extract-version tag2)))
-    (version< version1 version2)))
 
 (defun fmg/get-latest-tag (service-name)
   "Get the latest tag for one service name"
@@ -229,15 +236,70 @@
          ;; filter to the tags that match the service name
          (-filter (lambda (tag) (s-contains? regex tag)) it)
          ;; ;; sort the tags, the oldest first
-         (-sort 'fmg/compare-tags it)
+         (-sort 'tmtxt/compare-version-strings it)
          ;; ;; pick the last tag (the latest one)
          (-last-item it))))
 
-(defun fmg/increase-patch-tag ()
-  ""
-  (interactive)
-  (let ((service-name (fmg/select-service)))
+(defun fmg/get-next-tag (service-name tag-name version-type)
+  "Get next tag for the input tag-name
+   service-name: Integrations
+   tag-name: Integrations-v0.0.3
+   version-type: major
+   => Integrations-v1.0.0"
+  (let* ((tag-name-without-version (s-concat service-name "-v"))
+         (next-version (-> tag-name
+                           (tmtxt/extract-version)
+                           (tmtxt/get-next-version version-type))))
+    (s-concat tag-name-without-version next-version)))
 
-    ))
+(defun fmg/increase-version (version-type)
+  "Ask user to input service-name and then increase the version-type git tag"
+  (let* (;; ask user to input a service name
+         (service-name (fmg/select-service))
+
+         ;; compute the next tag
+         (next-tag (--> service-name
+                        (fmg/get-latest-tag it)
+                        (fmg/get-next-tag service-name it version-type)))
+
+         ;; set default dir for git to run
+         (default-directory FMG-INTEGRATIONS-PATH))
+    (message next-tag)
+    (magit-tag next-tag "HEAD")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Interactive functions for interacting/switching the 2 projects
+(defun get-current-project ()
+  "Get the current project, connect or fmg.integrations"
+  (let* ((get-dir-name (lambda (dir) (-> dir (file-truename) (file-name-as-directory))))
+         (current-dir (-> default-directory (file-truename) (file-name-as-directory)))
+         (connect-dir (-> AR-CONNECT-PATH (file-truename) (file-name-as-directory)))
+         (integrations-dir (-> FMG-INTEGRATIONS-PATH (file-truename) (file-name-as-directory))))
+    (cond
+     ((string= current-dir connect-dir) 'connect)
+     ((string= current-dir integrations-dir) 'integrations)
+     t nil)))
+
+(defun fmg/increase-major-tag ()
+  "Select a service then increase the major version and add a git tag"
+  (interactive)
+  (cond
+   ((eq (get-current-project) 'connect) (ar/increase-version "major"))
+   ((eq (get-current-project) 'integrations) (fmg/increase-version "major"))))
+
+(defun fmg/increase-minor-tag ()
+  "Select a service then increase the minor version and add a git tag"
+  (interactive)
+  (cond
+   ((eq (get-current-project) 'connect) (ar/increase-version "minor"))
+   ((eq (get-current-project) 'integrations) (fmg/increase-version "minor"))))
+
+(defun fmg/increase-patch-tag ()
+  "Select a service then increase the patch version and add a git tag"
+  (interactive)
+  (cond
+   ((eq (get-current-project) 'connect) (ar/increase-version "patch"))
+   ((eq (get-current-project) 'integrations) (fmg/increase-version "patch"))))
 
 (provide 'tmtxt-fmgsuite)
