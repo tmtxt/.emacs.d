@@ -1,2 +1,3 @@
 alias kbs kubectl --context=gke_agency-revolution_asia-southeast1-a_staging --namespace=staging $*
 alias kbsl kubectl --context=gke_agency-revolution_asia-southeast1-a_staging --namespace=staging logs --tail=100 -f $*
+alias ll ls -alh

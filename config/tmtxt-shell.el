@@ -57,7 +57,7 @@
 ;;; hook
 (add-hook 'eshell-mode-hook
           (lambda ()
-            (toggle-truncate-lines t)
+            ;; (toggle-truncate-lines t)
             (setq-local pcomplete-ignore-case t)))
 (add-hook 'eshell-mode-hook 'tmtxt/eshell-change-buffer-name)
 
@@ -92,6 +92,7 @@
                         "( ⊙△⊙) - noooooo!!!!"
                         "(￣へ ￣ 凸 F**k"
                         "┐(´～`)┌ [No idea]"
+                        "┌∩┐(ಠ_ಠ)┌∩┐ Bực VL"
                         ))
          (idx (random (length kamoji-list)))
          (kamoji (nth idx kamoji-list)))
