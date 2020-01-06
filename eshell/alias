@@ -1,4 +1,5 @@
 alias kbs kubectl --context=gke_agency-revolution_asia-southeast1-a_staging --namespace=staging $*
 alias kbsl kubectl --context=gke_agency-revolution_asia-southeast1-a_staging --namespace=staging logs --tail=100 -f $*
 alias kbp kubectl --context=gke_agency-revolution_us-west1-b_production --namespace=production $*
+alias kbpl kubectl --context=gke_agency-revolution_us-west1-b_production --namespace=production logs --tail=100 -f $*
 alias ll ls -alh

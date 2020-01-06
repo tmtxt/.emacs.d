@@ -2,13 +2,13 @@
 
 ;; Author     : Dylan R. E. Moonfire (original)
 ;; Maintainer : Jostein Kjønigsen <jostein@gmail.com>
-;; Created    : Feburary 2005
-;; Modified   : 2016
-;; Version    : 0.9.1
-;; Package-Version: 20180315.203
+;; Created    : February 2005
+;; Modified   : 2018
+;; Version    : 0.9.2
+;; Package-Version: 20191126.1928
 ;; Keywords   : c# languages oop mode
 ;; X-URL      : https://github.com/josteink/csharp-mode
-;; Last-saved : 2017-Jan-11
+;; Last-saved : 2018-Jul-08
 
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -120,7 +120,7 @@
 ;;
 ;;   Method names with a preceding attribute are not fontified.
 ;;
-;;   The symbol followng #if is not fontified.  It should be treated like
+;;   The symbol following #if is not fontified.  It should be treated like
 ;;   define and get font-lock-variable-name-face .
 ;;
 ;;   This code doesn't seem to work when you compile it, then
@@ -178,7 +178,7 @@
 ;;            compiled.
 ;;    0.6.0 - Added the c-filter-ops patch for 5.31.1 which made that
 ;;            function in cc-langs.el unavailable.
-;;          - Added a csharp-lineup-region for indention #region and
+;;          - Added a csharp-lineup-region for indentation #region and
 ;;            #endregion block differently.
 ;;    0.7.0 - Added autoload so update-directory-autoloads works
 ;;            (Thank you, Nikolaj Schumacher)
@@ -300,6 +300,9 @@
 ;;          - Fix fontification of using and namespace-statements with
 ;;            underscores in them.
 ;;          - Fixes for indentation for many kinds of type-initializers.
+;;
+;;    0.9.2 2018 July
+;;          - Try to fix some breakage introduced by changes in Emacs 27.
 ;;
 ;;; Code:
 
@@ -754,7 +757,9 @@ to work properly with code that includes attributes."
              ;; Match a char before the string starter to make
              ;; `c-skip-comments-and-strings' work correctly.
              (concat ".\\(" c-string-limit-regexp "\\)")
-             '((c-font-lock-invalid-string)))
+             '((if (fboundp 'c-font-lock-invalid-string)
+                   (c-font-lock-invalid-string)
+                 (csharp-mode-font-lock-invalid-string))))
 
 
            ;; Fontify keyword constants.
@@ -774,7 +779,7 @@ to work properly with code that includes attributes."
                 "[ \t\n\f\v\r]*="
                 "[ \t\n\f\v\r]*"
                 "\\)?"
-                "\\(\\(?:[A-Za-z0-9_]+\\.\\)*[A-Za-z_]+\\)"
+                "\\(\\(?:[A-Za-z0-9_]+\\.\\)*[A-Za-z0-9_]+\\)"
                 "[ \t\n\f\v\r]*;")
               (2 font-lock-constant-face t t)
               (3 font-lock-constant-face))
@@ -880,7 +885,7 @@ to work properly with code that includes attributes."
                                     (eq (char-after) ?{) ;; open curly
                                     ;; is square parenthesis block? - start
                                     (let* ((start (point)) ;; used to hold our position, so that we know that
-                                           (end))          ;; our code isn't stuck trying to look for a non-existant sexp.
+                                           (end))          ;; our code isn't stuck trying to look for a non-existent sexp.
                                       (and (eq (char-after) 91) ;; open square
                                            (while (and (eq (char-after) 91)
                                                        (not (eq start end)))
@@ -982,7 +987,7 @@ to work properly with code that includes attributes."
                                                       'c-decl-id-start)
                                  (c-forward-syntactic-ws))
                                (save-match-data
-                                 (ignore-errors
+                                 (with-no-warnings
                                    (condition-case nil
                                        (c-font-lock-declarators limit t nil)
                                      (wrong-number-of-arguments
@@ -1126,6 +1131,12 @@ to work properly with code that includes attributes."
               2 font-lock-constant-face t)
 
 
+           ;; Highlight function-invocation.
+           ;; (this may in the future use font-lock-function-call-face, if standardized)
+           ,`(,"\\.\\([A-Za-z0-9_]+\\)("
+              1 font-lock-function-name-face t)
+
+
            ))
 
 ;; verbatim string literals can be multiline
@@ -1259,7 +1270,7 @@ Currently handled:
 ;; instead of create one.
 (c-lang-defconst c-type-modifier-kwds
   ;; EMCA-344, S?
-  csharp '("readonly" "const" "volatile" "new" "unsafe"))
+  csharp '("readonly" "const" "volatile" "new"))
 
 
 ;; Tue, 20 Apr 2010  16:02
@@ -1314,7 +1325,7 @@ Currently handled:
   csharp '("public" "partial" "private" "const" "abstract" "sealed"
            "protected" "ref" "out" "static" "virtual"
            "implicit" "explicit" "fixed"
-           "override" "params" "internal" "async" "extern"))
+           "override" "params" "internal" "async" "extern" "unsafe"))
 
 
 ;; Thu, 22 Apr 2010  23:02
@@ -1353,7 +1364,7 @@ This regexp is assumed to not match any non-operator identifier."
 ;; Statement keywords followed directly by a substatement.
 ;; catch is not one of them, because catch has a paren (typically).
 (c-lang-defconst c-block-stmt-1-kwds
-  csharp '("do" "else" "try" "finally" "unsafe"))
+  csharp '("do" "else" "try" "finally"))
 
 
 ;; Statement keywords followed by a paren sexp and then by a substatement.
@@ -1374,7 +1385,7 @@ This regexp is assumed to not match any non-operator identifier."
 
 ;; Constant keywords
 (c-lang-defconst c-constant-kwds
-  csharp '("true" "false" "null"))
+  csharp '("true" "false" "null" "value"))
 
 ;; Keywords that start "primary expressions."
 (c-lang-defconst c-primary-expr-kwds
@@ -1789,7 +1800,7 @@ to the beginning of the prior namespace."
 (defconst csharp--imenu-expression
   (let* ((single-space                   "[ \t\n\r\f\v]")
          (optional-space                 (concat single-space "*"))
-         (bol                            "^[ \t]*") ;; BOL shouldnt accept lineshift.
+         (bol                            "^[ \t]*") ;; BOL shouldn't accept lineshift.
          (space                          (concat single-space "+"))
          (access-modifier (regexp-opt '( "public" "private" "protected" "internal"
                                          "static" "sealed" "partial" "override" "virtual"
@@ -1923,7 +1934,7 @@ to the beginning of the prior namespace."
                         type
                         "\\)"
                         optional-space "{" optional-space
-                        ;; unless we are super-specific and expect the accesors,
+                        ;; unless we are super-specific and expect the accessors,
                         ;; lots of weird things gets slurped into the name.
                         ;; including the accessors themselves.
                         (regexp-opt '("get" "set"))
@@ -1936,7 +1947,7 @@ to the beginning of the prior namespace."
                         type
                         "\\)"
                         optional-space "{" optional-space
-                        ;; unless we are super-specific and expect the accesors,
+                        ;; unless we are super-specific and expect the accessors,
                         ;; lots of weird things gets slurped into the name.
                         ;; including the accessors themselves.
                         (regexp-opt '("get" "set"))
@@ -1970,7 +1981,7 @@ to the beginning of the prior namespace."
                         "\\]"
                         "\\)"
                         optional-space "{" optional-space
-                        ;; unless we are super-specific and expect the accesors,
+                        ;; unless we are super-specific and expect the accessors,
                         ;; lots of weird things gets slurped into the name.
                         ;; including the accessors themselves.
                         (regexp-opt '("get" "set"))) 1)
@@ -2150,7 +2161,7 @@ This is done by modifying the contents of `RESULT' in place."
         (setf (cdr item) (csharp--imenu-sort (cdr item)))))
 
     ;; sort main list
-    ;; (Enums always sort last though, because they dont have
+    ;; (Enums always sort last though, because they don't have
     ;; sub-menus)
     (csharp--imenu-sort result)))
 
@@ -2468,7 +2479,47 @@ are the string substitutions (see `format')."
 ;; these defuns.
 ;;
 
-(defun c-looking-at-inexpr-block (lim containing-sexp &optional check-at-end)
+;; verabatim copy of c-font-lock-invalid-string before it was removed
+;; from emacs/cc-mode in Git commit bb591f139f0602af292c772f974dcc14dabb1deb.
+
+(defun csharp-mode-font-lock-invalid-string ()
+  ;; Assuming the point is after the opening character of a string,
+  ;; fontify that char with `font-lock-warning-face' if the string
+  ;; decidedly isn't terminated properly.
+  ;;
+  ;; This function does hidden buffer changes.
+  (let ((start (1- (point))))
+    (save-excursion
+      (and (eq (elt (parse-partial-sexp start (c-point 'eol)) 8) start)
+	   (if (if (eval-when-compile (integerp ?c))
+		   ;; Emacs
+		   (integerp c-multiline-string-start-char)
+		 ;; XEmacs
+		 (characterp c-multiline-string-start-char))
+	       ;; There's no multiline string start char before the
+	       ;; string, so newlines aren't allowed.
+	       (not (eq (char-before start) c-multiline-string-start-char))
+	     ;; Multiline strings are allowed anywhere if
+	     ;; c-multiline-string-start-char is t.
+	     (not c-multiline-string-start-char))
+	   (if c-string-escaped-newlines
+	       ;; There's no \ before the newline.
+	       (not (eq (char-before (point)) ?\\))
+	     ;; Escaped newlines aren't supported.
+	     t)
+	   (c-put-font-lock-face start (1+ start) 'font-lock-warning-face)))))
+
+(advice-add 'c-looking-at-inexpr-block
+            :around 'csharp--c-looking-at-inexpr-block-hack)
+
+(defun csharp--c-looking-at-inexpr-block-hack (orig-fun &rest args)
+  (apply
+   (if (eq major-mode 'csharp-mode)
+       #'csharp--c-looking-at-inexpr-block
+     orig-fun)
+   args))
+
+(defun csharp--c-looking-at-inexpr-block (lim containing-sexp &optional check-at-end)
   ;; Return non-nil if we're looking at the beginning of a block
   ;; inside an expression.  The value returned is actually a cons of
   ;; either 'inlambda, 'inexpr-statement or 'inexpr-class and the
@@ -2877,14 +2928,14 @@ Otherwise run `c-inside-bracelist-p'."
                                    (brace-list-close      . 0)
                                    (brace-list-entry      . 0)
                                    (brace-list-intro      . +)
-                                   (brace-list-open       . +)
+                                   (brace-list-open       . 0)
                                    (c                     . c-lineup-C-comments)
                                    (case-label            . +)
                                    (catch-clause          . 0)
                                    (class-close           . 0)
                                    (class-open            . 0)
                                    (comment-intro         . c-lineup-comment)
-                                   (cpp-macro             . 0)
+                                   (cpp-macro             . [0])
                                    (cpp-macro-cont        . c-lineup-dont-change)
                                    (defun-block-intro     . +)
                                    (defun-close           . 0)
@@ -2896,7 +2947,7 @@ Otherwise run `c-inside-bracelist-p'."
                                    (friend                . 0)
                                    (func-decl-cont        . +)
                                    (inclass               . +)
-                                   (inexpr-class          . +)
+                                   (inexpr-class          . 0)
                                    (inexpr-statement      . 0)
                                    (inextern-lang         . +)
                                    (inher-cont            . c-lineup-multi-inher)
@@ -3027,10 +3078,10 @@ Key bindings:
 
   ;; The paragraph-separate variable was getting stomped by
   ;; other hooks, so it must reside here.
-  (setq paragraph-separate
-        "[ \t]*\\(//+\\|\\**\\)\\([ \t]+\\|[ \t]+<.+?>\\)$\\|^\f")
+  (setq-local paragraph-separate
+              "[ \t]*\\(//+\\|\\**\\)\\([ \t]+\\|[ \t]+<.+?>\\)$\\|^\f")
 
-  (setq beginning-of-defun-function 'csharp-move-back-to-beginning-of-defun)
+  (setq-local beginning-of-defun-function 'csharp-move-back-to-beginning-of-defun)
   ;; `end-of-defun-function' can remain forward-sexp !!
 
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
@@ -3058,4 +3109,3 @@ Key bindings:
 (provide 'csharp-mode)
 
 ;;; csharp-mode.el ends here
-
