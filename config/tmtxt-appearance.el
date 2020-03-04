@@ -110,7 +110,7 @@
 
 
 ;;; default font
-(set-default-font "Hack")
+;; (set-default-font "Hack")
 
 
 ;;; watch words

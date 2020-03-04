@@ -35,7 +35,7 @@ scaled. This \"base face\" trick is used by `tmtxt-dark-theme.el'."
                                      :height ratio)))
     (force-window-update (current-buffer))))
 
-(defcustom tmtxt/alt-fixed-pitch-font "Hack"
+(defcustom tmtxt/alt-fixed-pitch-font "Fantasque Sans Mono"
   "Alternative fixed-pitch font to use for certain faces."
   :group 'tmtxt-dark)
 
