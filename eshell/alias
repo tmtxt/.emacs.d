@@ -3,3 +3,5 @@ alias kbsl kubectl --context=gke_agency-revolution_asia-southeast1-a_staging --n
 alias kbp kubectl --context=gke_agency-revolution_us-west1-b_production --namespace=production $*
 alias kbpl kubectl --context=gke_agency-revolution_us-west1-b_production --namespace=production logs --tail=100 -f $*
 alias ll ls -alh
+
+alias gccl gcloud compute instances list | grep staging
