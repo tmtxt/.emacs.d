@@ -6,15 +6,15 @@
 (tmtxt/add-lib "prettier-js")
 
 (require 'js2-mode)
-(require 'js2-refactor)
+;; (require 'js2-refactor)
 (require 'ac-js2)
 (require 'flycheck)
 (require 'json-mode)
 (require 'js-doc)
-(require 'tern)
-(require 'tern-auto-complete)
-(require 'nodejs-repl)
-(require 'moz)
+;; (require 'tern)
+;; (require 'tern-auto-complete)
+;; (require 'nodejs-repl)
+;; (require 'moz)
 (require 'prettier-js)
 
 ;;; Code:
@@ -57,8 +57,8 @@
              tmtxt-paredit-nonlisp
              js2-mode-hide-warnings-and-errors
              which-function-mode
-             tern-mode
-             js2-refactor-mode
+             ;; tern-mode
+             ;; js2-refactor-mode
              toggle-truncate-lines
              ))
   (add-hook 'js2-mode-hook f))
@@ -96,8 +96,8 @@
 
 ;;; mozrepl
 ;; (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-(add-hook 'js2-mode-hook 'moz-minor-mode)
-(add-hook 'inferior-moz-mode-hook 'auto-complete-mode)
+;; (add-hook 'js2-mode-hook 'moz-minor-mode)
+;; (add-hook 'inferior-moz-mode-hook 'auto-complete-mode)
 
 
 (defun tmtxt/delete-tern-process ()
@@ -132,34 +132,34 @@
           ;;            nil)))
           )))
 
-(setq-default nodejs-repl-arguments
-              '("--use-strict"
-                "--es_staging"
-                "--harmony"
-                "--harmony_shipping"
-                "--harmony_modules"
-                "--harmony_arrays"
-                "--harmony_array_includes"
-                "--harmony_regexps"
-                "--harmony_arrow_functions"
-                "--harmony_proxies"
-                "--harmony_sloppy"
-                "--harmony_unicode"
-                "--harmony_tostring"
-                "--harmony_classes"
-                "--harmony_object_literals"
-                "--harmony_numeric_literals"
-                "--harmony_strings"
-                "--harmony_scoping"
-                "--harmony_templates"))
+;; (setq-default nodejs-repl-arguments
+;;               '("--use-strict"
+;;                 "--es_staging"
+;;                 "--harmony"
+;;                 "--harmony_shipping"
+;;                 "--harmony_modules"
+;;                 "--harmony_arrays"
+;;                 "--harmony_array_includes"
+;;                 "--harmony_regexps"
+;;                 "--harmony_arrow_functions"
+;;                 "--harmony_proxies"
+;;                 "--harmony_sloppy"
+;;                 "--harmony_unicode"
+;;                 "--harmony_tostring"
+;;                 "--harmony_classes"
+;;                 "--harmony_object_literals"
+;;                 "--harmony_numeric_literals"
+;;                 "--harmony_strings"
+;;                 "--harmony_scoping"
+;;                 "--harmony_templates"))
 
-(defun tmtxt/send-region-nodejs-repl (start end)
-  "Send region to `nodejs-repl' process."
-  (interactive "r")
-  (comint-send-region (get-process nodejs-repl-process-name)
-                      start end)
-  (comint-send-string (get-process nodejs-repl-process-name)
-                      "\n"))
+;; (defun tmtxt/send-region-nodejs-repl (start end)
+;;   "Send region to `nodejs-repl' process."
+;;   (interactive "r")
+;;   (comint-send-region (get-process nodejs-repl-process-name)
+;;                       start end)
+;;   (comint-send-string (get-process nodejs-repl-process-name)
+;;                       "\n"))
 
 (defun tmtxt/js-which-function ()
   "Identical to which-function but strip to get only the function name"
