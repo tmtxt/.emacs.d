@@ -170,7 +170,7 @@
   "M-s-˝"   "<S-left>"
   "M-s--"   "<S-right>"
   "M-q"     "C-x o"
-  "M-s-o"   "C-x o"
+  ;; "M-s-o"   "C-x o"
   "C-S-b"   "C-x +"
   ;; "s-d"     "C-x 3"
   ;; "s-D"     "C-x 2"
@@ -254,6 +254,10 @@
     dired-mode-map
   "s-o"     'tmtxt/dired-do-shell-open
   "s-O"     'tmtxt/dired-open-current-directory)
+
+(tmtxt/in '(windows-nt)
+  (tmtxt/define-keys dired-mode-map
+    "s-O" 'tmtxt/dired-open-current-directory))
 
 (tmtxt/in '(darwin)
   (tmtxt/define-keys
