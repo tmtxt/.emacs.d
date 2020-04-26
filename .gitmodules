@@ -1,9 +1,9 @@
 [submodule "lib/tmtxt-dired-async"]
 	path = lib/tmtxt-dired-async
-	url = git@github.com:tmtxt/tmtxt-dired-async.git
+	url = https://github.com/tmtxt/tmtxt-dired-async.git
 [submodule "lib/tmtxt-async-tasks"]
 	path = lib/tmtxt-async-tasks
-	url = git@github.com:tmtxt/tmtxt-async-tasks.git
+	url = https://github.com/tmtxt/tmtxt-async-tasks.git
 [submodule "lib/livedown"]
 	path = lib/livedown
-	url = git@github.com:shime/emacs-livedown.git
+	url = https://github.com/shime/emacs-livedown.git

@@ -225,7 +225,7 @@
 (defun fmg/select-service ()
   "Ask for user input for 1 service name"
   (interactive)
-  (helm-comp-read "Select service to tag: " '("Integrations" "EmailJournaling" "ContentApi")))
+  (helm-comp-read "Select service to tag: " '("Integrations" "EmailJournaling" "ContentApi" "Printing")))
 
 (defun fmg/get-latest-tag (service-name)
   "Get the latest tag for one service name"

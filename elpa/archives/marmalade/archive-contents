@@ -1,11 +1,11 @@
 (1
  (zone-tunnels .
-	       [(20180309 2159)
+	       [(20200126 1129)
 		((emacs
 		  (24)))
 		"A zone program inspired from the old DOS game" single])
  (zone-quotes .
-	      [(20190425 2327)
+	      [(20200126 1129)
 	       ((emacs
 		 (24)))
 	       "A zone program to display quotes from a specific collection" single])
