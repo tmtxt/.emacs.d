@@ -90,7 +90,8 @@
   (save-window-excursion
     (let ((command (case system-type
                      ('darwin "open .")
-                     ('gnu/linux "xdg-open ."))))
+                     ('gnu/linux "xdg-open .")
+                     ('windows-nt "explorer.exe ."))))
       (async-shell-command command))))
 
 
