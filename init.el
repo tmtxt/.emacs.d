@@ -55,7 +55,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-git
                tmtxt-go
                tmtxt-python
-               tmtxt-elixir
+               ;; tmtxt-elixir
                tmtxt-yaml
                tmtxt-powershell
                tmtxt-fmgsuite
