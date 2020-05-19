@@ -8,7 +8,7 @@
 (require 'sql-indent)
 (require 'git-messenger)
 (require 'ace-jump-mode)
-(require 'cider)
+;; (require 'cider)
 (require 'cypher-mode)
 (require 'yasnippet)
 ;; (require 'golden-ratio)
@@ -377,10 +377,10 @@
   "s-p"   'tmtxt/switch-php-mode
   "s-j"   'tmtxt/switch-to-js2-jsx-mode)
 
-(tmtxt/define-keys cider-repl-mode-map
-  "C-M-i"    'cider-repl-previous-input
-  "C-M-k"    'cider-repl-next-input
-  "M-s-n"    'cider-repl-set-ns)
+;; (tmtxt/define-keys cider-repl-mode-map
+;;   "C-M-i"    'cider-repl-previous-input
+;;   "C-M-k"    'cider-repl-next-input
+;;   "M-s-n"    'cider-repl-set-ns)
 
 (tmtxt/define-keys cypher-mode-map
   "M-s-s"   'n4js-send-dwim)

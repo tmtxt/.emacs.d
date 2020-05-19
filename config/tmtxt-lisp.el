@@ -1,9 +1,9 @@
 ;;; some of the code is from emacs starter kit
 
 (require 'flycheck)
-(require 'clojure-mode)
-(require 'cider)
-(require 'ac-cider)
+;; (require 'clojure-mode)
+;; (require 'cider)
+;; (require 'ac-cider)
 (require 'quack)
 
 ;;; LISP & EMACS LISP
@@ -38,45 +38,45 @@
 
 
 ;;; CLOJURE & CLOJURESCRIPT
-(add-hook 'clojure-mode-hook 'tmtxt/add-clj-font-lock)
-(add-hook 'clojurescript-mode-hook 'tmtxt/add-clj-font-lock)
-(add-hook 'clojure-mode-hook 'paredit-mode)
-(add-hook 'clojure-mode-hook 'tmtxt/prog-mode-setup)
+;; (add-hook 'clojure-mode-hook 'tmtxt/add-clj-font-lock)
+;; (add-hook 'clojurescript-mode-hook 'tmtxt/add-clj-font-lock)
+;; (add-hook 'clojure-mode-hook 'paredit-mode)
+;; (add-hook 'clojure-mode-hook 'tmtxt/prog-mode-setup)
 
-(defun tmtxt/add-clj-font-lock ()
-  "Add font lock keywords for clojure"
-  (font-lock-add-keywords
-   nil `(("(\\(\\<fn\\>\\)"
-          (0 (progn (compose-region (match-beginning 1)
-                                    (match-end 1)
-                                    "\u0192"
-                                    'decompose-region)))))))
+;; (defun tmtxt/add-clj-font-lock ()
+;;   "Add font lock keywords for clojure"
+;;   (font-lock-add-keywords
+;;    nil `(("(\\(\\<fn\\>\\)"
+;;           (0 (progn (compose-region (match-beginning 1)
+;;                                     (match-end 1)
+;;                                     "\u0192"
+;;                                     'decompose-region)))))))
 
-(defun tmtxt/switch-to-cider-repl ()
-  "Switch directly to cider repl buffer if exist, otherwise, connect to a new one"
-  (interactive)
-  ;; check whether cider repl buffer exists
-  (let* ((cider-buffer? (lambda (buffer)
-                          (->> buffer
-                               (buffer-name)
-                               (s-contains? "cider-repl"))))
-         (cider-buffers (->> (buffer-list)
-                             (-filter cider-buffer?))))
-    (if cider-buffers
-        (switch-to-buffer (first cider-buffers))
-      (call-interactively 'cider-connect))))
+;; (defun tmtxt/switch-to-cider-repl ()
+;;   "Switch directly to cider repl buffer if exist, otherwise, connect to a new one"
+;;   (interactive)
+;;   ;; check whether cider repl buffer exists
+;;   (let* ((cider-buffer? (lambda (buffer)
+;;                           (->> buffer
+;;                                (buffer-name)
+;;                                (s-contains? "cider-repl"))))
+;;          (cider-buffers (->> (buffer-list)
+;;                              (-filter cider-buffer?))))
+;;     (if cider-buffers
+;;         (switch-to-buffer (first cider-buffers))
+;;       (call-interactively 'cider-connect))))
 
-(dolist (f '(ac-flyspell-workaround
-             ac-cider-setup
-             ac-cider-setup))
-  (add-hook 'cider-mode-hook f))
-(add-to-list 'ac-modes 'cider-mode)
-(add-to-list 'ac-modes 'cider-repl-mode)
+;; (dolist (f '(ac-flyspell-workaround
+;;              ac-cider-setup
+;;              ac-cider-setup))
+;;   (add-hook 'cider-mode-hook f))
+;; (add-to-list 'ac-modes 'cider-mode)
+;; (add-to-list 'ac-modes 'cider-repl-mode)
 
-(defun tmtxt/set-auto-complete-as-completion-at-point-function ()
-  (setq completion-at-point-functions '(auto-complete)))
-(add-hook 'auto-complete-mode-hook 'tmtxt/set-auto-complete-as-completion-at-point-function)
-(add-hook 'cider-mode-hook 'tmtxt/set-auto-complete-as-completion-at-point-function)
+;; (defun tmtxt/set-auto-complete-as-completion-at-point-function ()
+;;   (setq completion-at-point-functions '(auto-complete)))
+;; (add-hook 'auto-complete-mode-hook 'tmtxt/set-auto-complete-as-completion-at-point-function)
+;; (add-hook 'cider-mode-hook 'tmtxt/set-auto-complete-as-completion-at-point-function)
 
 
 ;; SCHEME
