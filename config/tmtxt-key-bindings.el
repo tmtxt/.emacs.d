@@ -11,7 +11,7 @@
 (require 'cider)
 (require 'cypher-mode)
 (require 'yasnippet)
-(require 'golden-ratio)
+;; (require 'golden-ratio)
 
 ;;; util functions for defining/undefining keys
 ;;; should be loaded at the end
