@@ -5,3 +5,10 @@ alias kbpl kubectl --context=gke_agency-revolution_us-west1-b_production --names
 alias ll ls -alh
 
 alias gccl gcloud compute instances list | grep staging
+
+alias dcu docker-compose up $*
+alias dcud docker-compose up -d $*
+alias dcp docker-compose ps
+alias dcl docker-compose logs -f --tail=50 $*
+alias dck docker-compose kill $*
+alias dcr docker-compose rm $*
