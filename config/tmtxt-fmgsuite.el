@@ -146,7 +146,7 @@
 
 (defun ar/select-tag-type ()
   "Ask for user input 1 tag type"
-  (helm-comp-read "Select next tag type: " (list "unit-test" "cascading-unit-test" "hot-fix")))
+  (helm-comp-read "Select next tag type: " (list "hot-fix" "unit-test" "cascading-unit-test")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Helper functions for computing the next git tag

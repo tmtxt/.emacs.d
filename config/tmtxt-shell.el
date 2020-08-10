@@ -57,7 +57,7 @@
 ;;; hook
 (add-hook 'eshell-mode-hook
           (lambda ()
-            ;; (toggle-truncate-lines t)
+            (toggle-truncate-lines t)
             (setq-local pcomplete-ignore-case t)))
 (add-hook 'eshell-mode-hook 'tmtxt/eshell-change-buffer-name)
 
