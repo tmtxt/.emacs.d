@@ -11,10 +11,15 @@
 ;;; Code:
 
 ;;; copy PATH from my default shell
+;;; Mac
 (tmtxt/in '(darwin)
   (add-to-list 'exec-path-from-shell-variables "NODE_PATH")
   (add-to-list 'exec-path-from-shell-variables "GOPATH")
   (exec-path-from-shell-initialize))
+;;; Windows
+(tmtxt/in '(windows-nt)
+  (add-to-list 'exec-path "C:/Users/me/scoop/apps/msys2/current/usr/bin")
+  (setenv "PATH" (mapconcat #'identity exec-path path-separator)))
 
 ;;; disable trailing whitespace for term modes
 (dolist (hook '(eshell-mode-hook
