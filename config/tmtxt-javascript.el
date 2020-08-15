@@ -3,7 +3,7 @@
 ;;; Commentary:
 
 ;;; Load dependencies
-(tmtxt/add-lib "prettier-js")
+;; (tmtxt/add-lib "prettier-js")
 
 (require 'js2-mode)
 ;; (require 'js2-refactor)
@@ -15,7 +15,7 @@
 ;; (require 'tern-auto-complete)
 ;; (require 'nodejs-repl)
 ;; (require 'moz)
-(require 'prettier-js)
+;; (require 'prettier-js)
 
 ;;; Code:
 
@@ -60,6 +60,7 @@
              ;; tern-mode
              ;; js2-refactor-mode
              toggle-truncate-lines
+             prettier-mode
              ))
   (add-hook 'js2-mode-hook f))
 (add-hook 'js2-mode-hook 'tmtxt/prog-mode-setup)
@@ -209,13 +210,13 @@
   (interactive)
   (js2-jsx-mode))
 
-(setq prettier-args '("--single-quote" "--parser" "flow" "--print-width" "100"))
+;; (setq prettier-args '("--single-quote" "--parser" "flow" "--print-width" "100"))
 
-(defun tmtxt/toggle-prettier-line-width ()
-  (interactive)
-  (let* ((current-line-width (-last-item prettier-args))
-         (next-line-width (if (s-equals? current-line-width "80") "100" "80")))
-    (setq prettier-args `("--single-quote" "--parser" "flow" "--print-width" ,next-line-width))))
+;; (defun tmtxt/toggle-prettier-line-width ()
+;;   (interactive)
+;;   (let* ((current-line-width (-last-item prettier-args))
+;;          (next-line-width (if (s-equals? current-line-width "80") "100" "80")))
+;;     (setq prettier-args `("--single-quote" "--parser" "flow" "--print-width" ,next-line-width))))
 
 (defun tmtxt/find-max-length-for-columns (regex-list beg end)
   (let ((cols-max-length '((1 . 0) (2 . 0) (3 . 0))))
