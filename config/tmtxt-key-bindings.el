@@ -58,16 +58,12 @@
 
 (tmtxt/define-keys
     global-map
-  ;; "C-c f"   'find-file-in-project
   "C-+"     'text-scale-increase
   "C--"     'text-scale-decrease
   "M-%"     'query-replace-regexp
   "C-M-%"   'query-replace
   "C-x C-i" 'helm-imenu
-  ;; "C-c y"   'bury-buffer
-  ;; "C-c r"   'revert-buffer
   "C-c g"   'magit-status
-  ;; "C-x c"   'compile
   "M-;"     'comment-dwim
   "M-:"     'evilnc-comment-or-uncomment-lines
   "s-&"     'kill-this-buffer
@@ -78,7 +74,6 @@
 
   ;; editing
   "C-c q"   'join-line
-  ;; "C-c C-a" 'tmtxt/select-all-line
   "C-S-a"   'tmtxt/select-all-line
   "C-M-\\"  'tmtxt/indent-region-or-buffer
   "C-x F"   'tmtxt/find-file-as-root
@@ -319,8 +314,6 @@
   "C-M-:" 'js2-mode-toggle-hide-functions
   "C-M->" 'js2-mode-toggle-element
   "C-t"  'tmtxt/delete-tern-process
-  ;; "C-M-|" 'prettier
-  ;; "s-p"   'tmtxt/toggle-prettier-line-width
   "C-M-S-d" 'tmtxt/js-doc-insert-function-doc-snippet)
 
 (tmtxt/define-keys js2-jsx-mode-map
@@ -371,7 +364,6 @@
   "s-J"   'web-mode-element-previous
   "s-h"   'web-mode-element-kill
   "s-n"   'web-mode-element-select
-  ;; "C-M-|" 'prettier
   ;; web mode tag match function not defined as interactive
   "s-m"   (lambda () (interactive) (web-mode-tag-match))
   "s-p"   'tmtxt/switch-php-mode
