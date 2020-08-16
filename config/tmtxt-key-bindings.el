@@ -8,7 +8,6 @@
 (require 'sql-indent)
 (require 'git-messenger)
 (require 'ace-jump-mode)
-;; (require 'cider)
 (require 'cypher-mode)
 (require 'yasnippet)
 ;; (require 'golden-ratio)
@@ -77,14 +76,11 @@
   "C-S-a"   'tmtxt/select-all-line
   "C-M-\\"  'tmtxt/indent-region-or-buffer
   "C-x F"   'tmtxt/find-file-as-root
-  ;; "C-S-j"   'textmate-shift-left
-  ;; "C-S-l"   'textmate-shift-right
   "C-m"     'newline-and-indent
   "C-M-u"   'upcase-word
   "C-M-j"   'downcase-word
   "M-/"     'hippie-expand
   "s-y"     'tmtxt/change-indentation-locally
-  ;; "M-G"     'kill-whole-line
 
   ;; isearch
   "C-s"     'isearch-forward-regexp
@@ -109,11 +105,6 @@
 
   "M-="       'er/expand-region         ;expand region
   ;; "C-M-S-s"   'tmtxt/sql-connect-server
-  ;; "C-M-S-c"   'tmtxt/switch-to-cider-repl
-
-  ;; windows related keys
-  ;; "M-s-1"     'golden-ratio-mode
-  ;; "C-M-S-w"  'eyebrowse-close-window-config
 
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
@@ -165,10 +156,7 @@
   "M-s-˝"   "<S-left>"
   "M-s--"   "<S-right>"
   "M-q"     "C-x o"
-  ;; "M-s-o"   "C-x o"
   "C-S-b"   "C-x +"
-  ;; "s-d"     "C-x 3"
-  ;; "s-D"     "C-x 2"
   )
 
 (tmtxt/define-keys yas-minor-mode-map
@@ -270,13 +258,9 @@
   "C-S-r"     'hs-toggle-hiding
   )
 
-;; (tmtxt/define-keys
-;;     ac-completing-map
-;;   "M-/"     'ac-stop)
-
 (tmtxt/keys 'wdired wdired-mode-map
-  "TAB"   'tmtxt/mark-file-name-forward
-  "S-TAB" 'tmtxt/mark-file-name-backward
+  ;; "TAB"   'tmtxt/mark-file-name-forward
+  ;; "S-TAB" 'tmtxt/mark-file-name-backward
   "s-o"   'tmtxt/dired-do-shell-open)
 
 (tmtxt/keys 'projectile
@@ -286,9 +270,6 @@
 
 (tmtxt/keys 'helm
     global-map
-  ;; "M-X"                  'helm-M-x
-  ;; "C-x f"                'helm-recentf
-  ;; "<C-M-S-tab>"          'tmtxt/helm
   "C-S-q" 'tmtxt/helm
   "<C-M-S-iso-lefttab>"  'tmtxt/helm
   "M-V"    'helm-show-kill-ring
@@ -368,11 +349,6 @@
   "s-m"   (lambda () (interactive) (web-mode-tag-match))
   "s-p"   'tmtxt/switch-php-mode
   "s-j"   'tmtxt/switch-to-js2-jsx-mode)
-
-;; (tmtxt/define-keys cider-repl-mode-map
-;;   "C-M-i"    'cider-repl-previous-input
-;;   "C-M-k"    'cider-repl-next-input
-;;   "M-s-n"    'cider-repl-set-ns)
 
 (tmtxt/define-keys cypher-mode-map
   "M-s-s"   'n4js-send-dwim)

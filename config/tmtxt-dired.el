@@ -96,50 +96,50 @@
 
 
 ;;; fast renaming for wdired
-(defun tmtxt/mark-file-name-for-rename ()
-  "Mark file name on current line except its extension"
-  (interactive)
+;; (defun tmtxt/mark-file-name-for-rename ()
+;;   "Mark file name on current line except its extension"
+;;   (interactive)
 
-  ;; get the file file name first
-  ;; full-name: full file name
-  ;; extension: extension of the file
-  ;; base-name: file name without extension
-  (let ((full-name (file-name-nondirectory (dired-get-filename)))
-        extension base-name)
+;;   ;; get the file file name first
+;;   ;; full-name: full file name
+;;   ;; extension: extension of the file
+;;   ;; base-name: file name without extension
+;;   (let ((full-name (file-name-nondirectory (dired-get-filename)))
+;;         extension base-name)
 
-    ;; check if it's a dir or a file
-    ;; TODO not use if, use switch case check for symlink
-    (if (file-directory-p full-name)
-        (progn
-          ;; if file name is directory, mark file name should mark the whole
-          ;; file name
-          (call-interactively 'end-of-line) ;move the end of line
-          (backward-char (length full-name)) ;back to the beginning
-          (set-mark (point))
-          (forward-char (length full-name)))
-      (progn
-        ;; if current file is a file, mark file name mark only the base name,
-        ;; exclude the extension
-        (setq extension (file-name-extension full-name))
-        (setq base-name (file-name-sans-extension full-name))
-        (call-interactively 'end-of-line)
-        (backward-char (length full-name))
-        (set-mark (point))
-        (forward-char (length base-name))))))
+;;     ;; check if it's a dir or a file
+;;     ;; TODO not use if, use switch case check for symlink
+;;     (if (file-directory-p full-name)
+;;         (progn
+;;           ;; if file name is directory, mark file name should mark the whole
+;;           ;; file name
+;;           (call-interactively 'end-of-line) ;move the end of line
+;;           (backward-char (length full-name)) ;back to the beginning
+;;           (set-mark (point))
+;;           (forward-char (length full-name)))
+;;       (progn
+;;         ;; if current file is a file, mark file name mark only the base name,
+;;         ;; exclude the extension
+;;         (setq extension (file-name-extension full-name))
+;;         (setq base-name (file-name-sans-extension full-name))
+;;         (call-interactively 'end-of-line)
+;;         (backward-char (length full-name))
+;;         (set-mark (point))
+;;         (forward-char (length base-name))))))
 
-(defun tmtxt/mark-file-name-forward ()
-  "Mark file name on the next line"
-  (interactive)
-  (deactivate-mark)
-  (next-line)
-  (tmtxt/mark-file-name-for-rename))
+;; (defun tmtxt/mark-file-name-forward ()
+;;   "Mark file name on the next line"
+;;   (interactive)
+;;   (deactivate-mark)
+;;   (next-line)
+;;   (tmtxt/mark-file-name-for-rename))
 
-(defun tmtxt/mark-file-name-backward ()
-  "Mark file name on the next line"
-  (interactive)
-  (deactivate-mark)
-  (previous-line)
-  (tmtxt/mark-file-name-for-rename))
+;; (defun tmtxt/mark-file-name-backward ()
+;;   "Mark file name on the next line"
+;;   (interactive)
+;;   (deactivate-mark)
+;;   (previous-line)
+;;   (tmtxt/mark-file-name-for-rename))
 
 (provide 'tmtxt-dired)
 ;;; tmtxt-dired.el ends here
