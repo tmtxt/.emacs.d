@@ -137,10 +137,10 @@
                          when (eq (buffer-local-value 'major-mode buf) 'eshell-mode)
                          collect (cons (buffer-local-value 'default-directory buf)
                                        buf)))
-              :action (list (cons "Switch to eshell" #'switch-to-buffer))
+              :action (list (cons "Switch to buffer" #'switch-to-buffer))
               )))
-  :buffer "*helm test*"
-  :prompt "eshell in: ")
+  :buffer "*helm eshell*"
+  :prompt "Switch to Eshell buffer: ")
 
 (provide 'tmtxt-shell)
 ;;; tmtxt-shell.el ends here

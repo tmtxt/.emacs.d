@@ -90,7 +90,7 @@
 
   ;; eshell
   "C-x m"   'eshell
-  "C-x M"   (lambda () (interactive) (eshell t)) ;Start a new eshell even if one is active.
+  "C-S-e"   'tmtxt/helm-eshell
 
   ;; org mode
   "C-c l"   'org-store-link
