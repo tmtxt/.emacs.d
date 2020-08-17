@@ -1,7 +1,5 @@
 ;;; git
 (require 'magit)
-;; (require 'git-commit-mode)
-;; (require 'gist)
 ;; (require 'git-messenger)
 
 ;;; commit length
