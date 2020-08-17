@@ -11,11 +11,7 @@
             (flyspell-mode 0)
             (setq fill-column 1000)))
 
-;; (add-hook 'magit-mode-hook 'magit-load-config-extensions)
-
-;; (add-hook 'git-messenger:after-popup-hook
-;;           (lambda ()
-;;             (evil-exit-emacs-state)))
+(add-hook 'magit-mode-hook 'magit-load-config-extensions)
 
 ;; (defun tmtxt/increase-tag ()
 ;;   "Auto increase tag for the last version number. 0.0.1 -> 0.0.2"
@@ -31,8 +27,5 @@
 ;;          (next-version (s-join "." next-version)))
 ;;     (magit-tag next-version "HEAD")
 ;;     (message next-version)))
-
-;; (set-face-foreground 'magit-diff-add "green4")
-;; (set-face-foreground 'magit-diff-del "red3")
 
 (provide 'tmtxt-git)
