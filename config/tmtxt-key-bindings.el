@@ -55,6 +55,10 @@
     paredit-mode-map
   '("C-j"))
 
+(tmtxt/undefine-keys
+    magit-status-mode-map
+  '("<C-tab>"))
+
 (tmtxt/define-keys
     global-map
   "C-+"     'text-scale-increase
