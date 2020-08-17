@@ -125,5 +125,11 @@
   :buffer "*helm eshell*"
   :prompt "Switch to Eshell buffer: ")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Powershell config
+(add-hook 'powershell-mode-hook
+          (lambda ()
+            (auto-complete-mode)))
+
 (provide 'tmtxt-shell)
 ;;; tmtxt-shell.el ends here
