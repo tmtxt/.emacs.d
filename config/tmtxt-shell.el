@@ -10,6 +10,9 @@
 
 ;;; Code:
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; ENV and PATH
+
 ;;; copy PATH from my default shell
 ;;; Mac
 (tmtxt/in '(darwin)
@@ -39,17 +42,6 @@
  eshell-cmpl-cycle-completions t        ;TAB for suggestion
  eshell-buffer-shorthand t              ;shorthand buffer name
  )
-
-;;; custom functions to activate eshell
-;; (defun tmtxt/eshell (&optional arg)
-;;   "Wrapper around default eshell command to keep the exec path and other env as expected"
-;;   (interactive "P")
-;;   (let ((buf (call-interactively 'eshell arg))
-;;         (cd-eshell (lambda ()
-;;                      (eshell/cd default-directory)
-;;                      (eshell-reset))))
-;;     (unless (get-buffer-process buf)
-;;       (funcall cd-eshell))))
 
 (defun tmtxt/eshell-change-buffer-name ()
   "Change the current eshell buffer name to current directory related name"
