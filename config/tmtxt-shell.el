@@ -41,15 +41,15 @@
  )
 
 ;;; custom functions to activate eshell
-(defun tmtxt/eshell (&optional arg)
-  "Wrapper around default eshell command to keep the exec path and other env as expected"
-  (interactive "P")
-  (let ((buf (call-interactively 'eshell arg))
-        (cd-eshell (lambda ()
-                     (eshell/cd default-directory)
-                     (eshell-reset))))
-    (unless (get-buffer-process buf)
-      (funcall cd-eshell))))
+;; (defun tmtxt/eshell (&optional arg)
+;;   "Wrapper around default eshell command to keep the exec path and other env as expected"
+;;   (interactive "P")
+;;   (let ((buf (call-interactively 'eshell arg))
+;;         (cd-eshell (lambda ()
+;;                      (eshell/cd default-directory)
+;;                      (eshell-reset))))
+;;     (unless (get-buffer-process buf)
+;;       (funcall cd-eshell))))
 
 (defun tmtxt/eshell-change-buffer-name ()
   "Change the current eshell buffer name to current directory related name"
@@ -125,6 +125,22 @@
      )))
 (setq eshell-prompt-function 'tmtxt/eshell-prompt-function)
 
+;;; TODO eval after load helm
+(defun tmtxt/helm-eshell ()
+  "Switch between eshell buffers using helm"
+  (interactive)
+  (helm
+   :sources (list (helm-build-sync-source "Eshell buffers"
+              :candidates
+              (lambda ()
+                (cl-loop for buf in (buffer-list)
+                         when (eq (buffer-local-value 'major-mode buf) 'eshell-mode)
+                         collect (cons (buffer-local-value 'default-directory buf)
+                                       buf)))
+              :action (list (cons "Switch to eshell" #'switch-to-buffer))
+              )))
+  :buffer "*helm test*"
+  :prompt "eshell in: ")
 
 (provide 'tmtxt-shell)
 ;;; tmtxt-shell.el ends here
