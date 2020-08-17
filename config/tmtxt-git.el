@@ -1,13 +1,9 @@
 ;;; git
 (require 'magit)
-;; (require 'git-messenger)
 
-;;; commit length
-;; (setq-default
-;;  gist-view-gist t
-;;  git-commit-summary-max-length 80
-;;  magit-stage-all-confirm nil
-;;  magit-use-overlays nil)
+;; commit length
+(setq-default
+ git-commit-summary-max-length 100)
 
 ;;; hook
 ;; (add-hook 'git-commit-mode-hook
