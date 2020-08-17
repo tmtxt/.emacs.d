@@ -210,10 +210,6 @@
     ))
 
 (tmtxt/define-keys
-    c++-mode-map
-  "C-S-<return>"    'ac-complete-clang)
-
-(tmtxt/define-keys
     dired-mode-map
   "s-u"     'tmtxt/dired-do-shell-unmount-device
   "C-c C-r"   'tda/rsync
