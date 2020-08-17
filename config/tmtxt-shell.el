@@ -24,24 +24,24 @@
   (add-to-list 'exec-path "C:/Users/me/scoop/apps/msys2/current/usr/bin")
   (setenv "PATH" (mapconcat #'identity exec-path path-separator)))
 
-;;; disable trailing whitespace for term modes
-(dolist (hook '(eshell-mode-hook
-                term-mode-hook))
-  (add-hook hook
-            (lambda ()
-              (setq-local show-trailing-whitespace nil))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Eshell
 
-;;; the rest is eshell config
-;;; eshell
-(setq eshell-where-to-jump 'begin)
-(setq eshell-review-quick-commands nil)
-(setq eshell-smart-space-goes-to-end t)
-(setq eshell-last-dir-ring-size 500)
+;;; General config
 (setq-default
  eshell-save-history-on-exit t          ;save history
  eshell-cmpl-cycle-completions t        ;TAB for suggestion
- eshell-buffer-shorthand t              ;shorthand buffer name
- )
+ eshell-where-to-jump 'begin
+ eshell-review-quick-commands nil
+ eshell-smart-space-goes-to-end t
+ eshell-last-dir-ring-size 500)
+
+;;; Buffer-local config
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (setq-local show-trailing-whitespace nil)
+            (setq-local pcomplete-ignore-case t)
+            (toggle-truncate-lines t)))
 
 (defun tmtxt/eshell-change-buffer-name ()
   "Change the current eshell buffer name to current directory related name"
@@ -52,17 +52,9 @@
     (rename-buffer new-buffer-name t)))
 
 ;;; hook
-(add-hook 'eshell-mode-hook
-          (lambda ()
-            (toggle-truncate-lines t)
-            (setq-local pcomplete-ignore-case t)))
 (add-hook 'eshell-mode-hook 'tmtxt/eshell-change-buffer-name)
 
 (add-hook 'eshell-directory-change-hook 'tmtxt/eshell-change-buffer-name)
-
-;;; autojump
-(eval-after-load 'eshell
-  '(require 'eshell-autojump nil t))
 
 ;;; eshell prompt
 (defun tmtxt/shortened-path (path max-len)
@@ -123,14 +115,14 @@
   (interactive)
   (helm
    :sources (list (helm-build-sync-source "Eshell buffers"
-              :candidates
-              (lambda ()
-                (cl-loop for buf in (buffer-list)
-                         when (eq (buffer-local-value 'major-mode buf) 'eshell-mode)
-                         collect (cons (buffer-local-value 'default-directory buf)
-                                       buf)))
-              :action (list (cons "Switch to buffer" #'switch-to-buffer))
-              )))
+                    :candidates
+                    (lambda ()
+                      (cl-loop for buf in (buffer-list)
+                               when (eq (buffer-local-value 'major-mode buf) 'eshell-mode)
+                               collect (cons (buffer-local-value 'default-directory buf)
+                                             buf)))
+                    :action (list (cons "Switch to buffer" #'switch-to-buffer))
+                    )))
   :buffer "*helm eshell*"
   :prompt "Switch to Eshell buffer: ")
 

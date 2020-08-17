@@ -6,7 +6,6 @@
 (require 'flycheck)
 (require 'smart-forward)
 (require 'sql-indent)
-(require 'git-messenger)
 (require 'ace-jump-mode)
 (require 'cypher-mode)
 (require 'yasnippet)
