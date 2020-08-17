@@ -43,6 +43,7 @@
             (setq-local pcomplete-ignore-case t)
             (toggle-truncate-lines t)))
 
+;;; Change buffer name to the current directory
 (defun tmtxt/eshell-change-buffer-name ()
   "Change the current eshell buffer name to current directory related name"
   (let* ((dir-name (-> default-directory
@@ -51,12 +52,10 @@
          (new-buffer-name (s-concat "*eshell " dir-name "*")))
     (rename-buffer new-buffer-name t)))
 
-;;; hook
 (add-hook 'eshell-mode-hook 'tmtxt/eshell-change-buffer-name)
-
 (add-hook 'eshell-directory-change-hook 'tmtxt/eshell-change-buffer-name)
 
-;;; eshell prompt
+;;; Custom prompt
 (defun tmtxt/shortened-path (path max-len)
   "Return a modified version of `path', replacing some components
       with single characters starting from the left to try and get
@@ -109,7 +108,7 @@
      )))
 (setq eshell-prompt-function 'tmtxt/eshell-prompt-function)
 
-;;; TODO eval after load helm
+;;; Custom function for switching Eshell buffers using Helm
 (defun tmtxt/helm-eshell ()
   "Switch between eshell buffers using helm"
   (interactive)
