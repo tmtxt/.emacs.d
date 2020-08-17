@@ -6,11 +6,10 @@
  git-commit-summary-max-length 100)
 
 ;;; hook
-;; (add-hook 'git-commit-mode-hook
-;;           (lambda ()
-;;             (flyspell-mode 0)
-;;             (setq fill-column 100)
-;;             ) t)
+(add-hook 'git-commit-mode-hook
+          (lambda ()
+            (flyspell-mode 0)
+            (setq fill-column 1000)))
 
 ;; (add-hook 'magit-mode-hook 'magit-load-config-extensions)
 
