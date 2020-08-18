@@ -129,75 +129,6 @@
           ;;            nil)))
           )))
 
-;; (setq-default nodejs-repl-arguments
-;;               '("--use-strict"
-;;                 "--es_staging"
-;;                 "--harmony"
-;;                 "--harmony_shipping"
-;;                 "--harmony_modules"
-;;                 "--harmony_arrays"
-;;                 "--harmony_array_includes"
-;;                 "--harmony_regexps"
-;;                 "--harmony_arrow_functions"
-;;                 "--harmony_proxies"
-;;                 "--harmony_sloppy"
-;;                 "--harmony_unicode"
-;;                 "--harmony_tostring"
-;;                 "--harmony_classes"
-;;                 "--harmony_object_literals"
-;;                 "--harmony_numeric_literals"
-;;                 "--harmony_strings"
-;;                 "--harmony_scoping"
-;;                 "--harmony_templates"))
-
-;; (defun tmtxt/send-region-nodejs-repl (start end)
-;;   "Send region to `nodejs-repl' process."
-;;   (interactive "r")
-;;   (comint-send-region (get-process nodejs-repl-process-name)
-;;                       start end)
-;;   (comint-send-string (get-process nodejs-repl-process-name)
-;;                       "\n"))
-
-(defun tmtxt/js-which-function ()
-  "Identical to which-function but strip to get only the function name"
-  (->> (which-function)
-       (s-split "[.]")
-       (-last-item)))
-
-(defun tmtxt/js-doc-insert-function-doc-snippet ()
-  "Insert JsDoc style comment of the function with yasnippet. Taken from js-doc code to change the snippet"
-  (interactive)
-
-  (with-eval-after-load 'yasnippet
-    (js-doc--beginning-of-defun)
-
-    (let ((metadata (js-doc--function-doc-metadata))
-          (field-count 1))
-      (yas-expand-snippet
-       (concat
-        js-doc-top-line
-        " * ${1:Function description.}\n *\n"
-        (mapconcat (lambda (param)
-                     (format
-                      " * @param {${%d:Type of %s}} %s ${%d:}\n*\n"
-                      (incf field-count)
-                      param
-                      param
-                      (incf field-count)))
-                   (cdr (assoc 'params metadata))
-                   "")
-        (when (assoc 'returns metadata)
-          (format
-           " * @returns {${%d:Return Type}} ${%d:}\n"
-           (incf field-count)
-           (incf field-count)))
-        (when (assoc 'throws metadata)
-          (format
-           " * @throws {${%d:Exception Type}} ${%d:}\n"
-           (incf field-count)
-           (incf field-count)))
-        js-doc-bottom-line)))))
-
 (defun tmtxt/switch-to-web-mode ()
   (interactive)
   (web-mode))
@@ -205,44 +136,6 @@
 (defun tmtxt/switch-to-js2-jsx-mode ()
   (interactive)
   (js2-jsx-mode))
-
-(defun tmtxt/find-max-length-for-columns (regex-list beg end)
-  (let ((cols-max-length '((1 . 0) (2 . 0) (3 . 0))))
-    (dolist (re regex-list)
-      (goto-char beg)
-
-      (while (re-search-forward re nil t)
-        (cl-loop
-         for (col . max-length) in cols-max-length collect
-         (when (match-beginning col)
-           (let ((current-length (->
-                                  (buffer-substring-no-properties
-                                   (match-beginning col)
-                                   (match-end col))
-                                  (length))))
-             (when (> current-length max-length)
-               (add-to-list 'cols-max-length `(,col . ,current-length))))))))
-    cols-max-length
-    ))
-
-(defun tmtxt/align-js-doc ()
-  (interactive)
-
-  (let* ((comments (js2-ast-root-comments js2-mode-ast)) beg end)
-    (save-excursion
-      (let ((node (-first-item comments)))
-        (when (eq (js2-comment-node-format node) 'jsdoc)
-          (setq beg (js2-node-abs-pos node)
-                end (+ beg (js2-node-len node)))
-          (save-restriction
-            (narrow-to-region beg end)
-            (let* ((regex-list (list js2-jsdoc-param-tag-regexp js2-jsdoc-typed-tag-regexp))
-                   (cols-max-length) (tmtxt/find-max-length-for-columns beg end))
-
-              ))))
-      ;; (dolist (node comments)
-      ;;   )
-      )))
 
 (provide 'tmtxt-javascript)
 ;;; tmtxt-javascript.el ends here

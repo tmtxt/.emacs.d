@@ -42,6 +42,7 @@
               (message "Updated keymap `%s'" ',map)))))
 
 ;;; use Windows key as super key
+(setq w32-pass-lwindow-to-system nil)
 (setq w32-lwindow-modifier 'super)
 (setq w32-rwindow-modifier 'super)
 
@@ -294,7 +295,7 @@
   "C-M-:" 'js2-mode-toggle-hide-functions
   "C-M->" 'js2-mode-toggle-element
   "C-t"  'tmtxt/delete-tern-process
-  "C-M-S-d" 'tmtxt/js-doc-insert-function-doc-snippet)
+  "C-M-S-d" 'js-doc-insert-function-doc-snippet)
 
 (tmtxt/define-keys js2-jsx-mode-map
   "s-j"  'tmtxt/switch-to-web-mode)
