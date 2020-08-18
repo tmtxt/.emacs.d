@@ -5,14 +5,12 @@
 ;;; Load dependencies
 
 (require 'js2-mode)
-;; (require 'js2-refactor)
 (require 'ac-js2)
 (require 'flycheck)
 (require 'json-mode)
 (require 'js-doc)
 ;; (require 'tern)
 ;; (require 'tern-auto-complete)
-;; (require 'nodejs-repl)
 ;; (require 'moz)
 
 ;;; Code:
