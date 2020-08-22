@@ -6,7 +6,6 @@
 (require 'flycheck)
 (require 'smart-forward)
 (require 'sql-indent)
-(require 'ace-jump-mode)
 (require 'cypher-mode)
 (require 'yasnippet)
 ;; (require 'golden-ratio)
@@ -332,9 +331,6 @@
 
 (tmtxt/define-keys global-map
   "C-c m"   'git-messenger:popup-message)
-
-(tmtxt/define-keys global-map
-  "C-c SPC" 'ace-jump-mode)
 
 (tmtxt/define-keys web-mode-map
   "s-y"   'tmtxt/web-mode-change-indentation
