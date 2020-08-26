@@ -203,7 +203,7 @@
          ;; set default dir for git to run
          (default-directory AR-CONNECT-PATH))
     (message next-tag)
-    (magit-tag next-tag "HEAD")))
+    (magit-tag-create next-tag "HEAD")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

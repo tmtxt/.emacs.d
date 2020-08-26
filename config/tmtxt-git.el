@@ -3,7 +3,8 @@
 
 ;; commit length
 (setq-default
- git-commit-summary-max-length 100)
+ git-commit-summary-max-length 100
+ magit-no-confirm '(stage-all-changes))
 
 ;;; hook
 (add-hook 'git-commit-mode-hook
