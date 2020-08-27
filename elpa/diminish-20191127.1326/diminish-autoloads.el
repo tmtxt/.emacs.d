@@ -1,10 +1,12 @@
 ;;; diminish-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "diminish" "diminish.el" (23295 61995 604041
-;;;;;;  917000))
+;;;### (autoloads nil "diminish" "diminish.el" (0 0 0 0))
 ;;; Generated autoloads from diminish.el
 
 (autoload 'diminish "diminish" "\
@@ -47,11 +49,14 @@ what diminished modes would be on the mode-line if they were still minor.
 
 \(fn)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "diminish" '("diminish")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; diminish-autoloads.el ends here
