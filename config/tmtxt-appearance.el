@@ -12,9 +12,11 @@
 ;;; custom theme
 (if (window-system)
     (progn
-      (setq custom-theme-directory "~/.emacs.d/lib/themes/")
-      (add-to-list 'custom-theme-load-path custom-theme-directory)
-      (load-theme 'tmtxt-dark t))
+      ;; (setq custom-theme-directory "~/.emacs.d/lib/themes/")
+      ;; (add-to-list 'custom-theme-load-path custom-theme-directory)
+      ;; (load-theme 'tmtxt-dark t)
+      (load-theme 'zenburn t)
+      )
   (progn
     (load-theme 'manoj-dark)))
 

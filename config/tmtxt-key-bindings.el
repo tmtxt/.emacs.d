@@ -58,6 +58,10 @@
     magit-status-mode-map
   '("<C-tab>"))
 
+(tmtxt/undefine-keys
+    magit-process-mode-map
+  '("<C-tab>"))
+
 (tmtxt/define-keys
     global-map
   "C-+"     'text-scale-increase
