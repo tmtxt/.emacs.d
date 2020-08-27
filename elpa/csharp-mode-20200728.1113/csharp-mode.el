@@ -5,7 +5,8 @@
 ;; Created    : February 2005
 ;; Modified   : 2018
 ;; Version    : 0.9.2
-;; Package-Version: 20191126.1928
+;; Package-Version: 20200728.1113
+;; Package-Commit: 48851778e0f01a2b0395e054e418a1d8a1687a06
 ;; Keywords   : c# languages oop mode
 ;; X-URL      : https://github.com/josteink/csharp-mode
 ;; Last-saved : 2018-Jul-08
@@ -557,6 +558,10 @@ to work properly with code that includes attributes."
        (t nil))
       )))
 
+(defun csharp--at-lambda-header ()
+  "Determines if there is lambda header at point"
+  (or (looking-at "([[:alnum:][:space:]_,]*)[ \t\n]*=>[ \t\n]*{")
+      (looking-at "[[:alnum:]_]+[ \t\n]*=>[ \t\n]*{")))
 
 ;; ==================================================================
 ;; end of csharp-mode utility and feature defuns
@@ -1395,6 +1400,12 @@ This regexp is assumed to not match any non-operator identifier."
 ;; works properly.
 (c-lang-defconst c-other-block-decl-kwds
   csharp '("namespace"))
+
+(c-lang-defconst c-ref-list-kwds
+  csharp nil)
+
+(c-lang-defconst c-other-decl-kwds
+  csharp nil)
 
 (c-lang-defconst c-other-kwds
   csharp '("sizeof" "typeof" "is" "as" "yield"
@@ -2550,7 +2561,8 @@ are the string substitutions (see `format')."
                          (> (point) closest-lim))
                   (not (bobp))
                   (progn (backward-char)
-                         (looking-at "[\]\).]\\|\w\\|\\s_"))
+                         (or (looking-at "[\]\).]\\|\w\\|\\s_")
+                             (looking-at ">")))
                   (c-safe (forward-char)
                           (goto-char (scan-sexps (point) -1))))
 
@@ -2613,7 +2625,10 @@ are the string substitutions (see `format')."
                             'maybe)
                       (setq passed-paren (char-after))
                       'maybe)
-                  'maybe))))
+                  'maybe)
+
+                (if (csharp--at-lambda-header)
+                    (cons 'inexpr (point))))))
 
       (if (eq res 'maybe)
           (when (and c-recognize-paren-inexpr-blocks
