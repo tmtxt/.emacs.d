@@ -3,12 +3,10 @@
 (require 'evil)
 (require 'key-chord)
 (require 'evil-nerd-commenter)
-;; (require 'evil-matchit)
 
 ;;; enable
 (evil-mode 1)
 (evilnc-default-hotkeys)
-;; (global-evil-matchit-mode 1)
 
 ;;; not use evil insert state, prefer emacs state
 (add-hook 'evil-insert-state-entry-hook
