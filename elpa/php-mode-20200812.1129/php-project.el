@@ -1,12 +1,11 @@
 ;;; php-project.el --- Project support for PHP application  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2018  Friends of Emacs-PHP development
+;; Copyright (C) 2020  Friends of Emacs-PHP development
 
 ;; Author: USAMI Kenta <tadsan@zonu.me>
 ;; Keywords: tools, files
-;; URL: https://github.com/ejmr/php-mode
-;; Version: 1.19.1
-;; Package-Requires: ((emacs "24.3") (cl-lib "0.5"))
+;; URL: https://github.com/emacs-php/php-mode
+;; Version: 1.23.0
 ;; License: GPL-3.0-or-later
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -68,9 +67,29 @@
 
 ;;; Code:
 (require 'cl-lib)
+(require 'projectile nil t)
 
 ;; Constants
 (defconst php-project-composer-autoloader "vendor/autoload.php")
+
+;; Custom variables
+(defgroup php-project nil
+  "Major mode for editing PHP code."
+  :tag "PHP Project"
+  :prefix "php-project-"
+  :group 'php)
+
+(defcustom php-project-auto-detect-etags-file nil
+  "If `T', automatically detect etags file when file is opened."
+  :tag "PHP Project Auto Detect Etags File"
+  :group 'php-project
+  :type 'boolean)
+
+(defcustom php-project-use-projectile-to-detect-root nil
+  "If `T' and projectile-mode is activated, use Projectile for root detection."
+  :tag "PHP Project Use Projectile To Detect Root"
+  :group 'php-project
+  :type 'boolean)
 
 ;; Variables
 (defvar php-project-available-root-files
@@ -102,40 +121,99 @@ STRING
       If the string is an actual directory path, it is set as the absolute path
       of the root directory, not the marker.")
   (put 'php-project-root 'safe-local-variable
-       #'(lambda (v) (or (stringp v) (assq v php-project-available-root-files)))))
+       #'(lambda (v) (or (stringp v) (assq v php-project-available-root-files))))
 
-;;;###autoload
-(progn
+  (defvar-local php-project-etags-file nil)
+  (put 'php-project-etags-file 'safe-local-variable
+       #'(lambda (v) (or (functionp v)
+                         (eq v t)
+                         (php-project--eval-bootstrap-scripts v))))
+
   (defvar-local php-project-bootstrap-scripts nil
     "List of path to bootstrap php script file.
 
 The ideal bootstrap file is silent, it only includes dependent files,
 defines constants, and sets the class loaders.")
-  (put 'php-project-bootstrap-scripts 'safe-local-variable #'php-project--eval-bootstrap-scripts))
+  (put 'php-project-bootstrap-scripts 'safe-local-variable #'php-project--eval-bootstrap-scripts)
 
-;;;###autoload
-(progn
   (defvar-local php-project-php-executable nil
     "Path to php executable file.")
   (put 'php-project-php-executable 'safe-local-variable
-       #'(lambda (v) (and (stringp v) (file-executable-p v)))))
+       #'(lambda (v) (and (stringp v) (file-executable-p v))))
 
-;;;###autoload
-(progn
   (defvar-local php-project-phan-executable nil
     "Path to phan executable file.")
-  (put 'php-project-phan-executable 'safe-local-variable #'php-project--eval-bootstrap-scripts))
+  (put 'php-project-phan-executable 'safe-local-variable #'php-project--eval-bootstrap-scripts)
 
-;;;###autoload
-(progn
   (defvar-local php-project-coding-style nil
     "Symbol value of the coding style of the project that PHP major mode refers to.
 
 Typically it is `pear', `drupal', `wordpress', `symfony2' and `psr2'.")
-  (put 'php-project-coding-style 'safe-local-variable #'symbolp))
+  (put 'php-project-coding-style 'safe-local-variable #'symbolp)
 
+  (defvar-local php-project-align-lines t
+    "If T, automatically turn on `php-align-mode' by `php-align-setup'.")
+  (put 'php-project-align-lines 'safe-local-variable #'booleanp)
+
+  (defvar-local php-project-php-file-as-template 'auto
+    "
+`auto' (default)
+      Automatically switch to mode for template when HTML tag detected in file.
+
+`t'
+      Switch all PHP files in that directory to mode for HTML template.
+
+`nil'
+      Any .php  in that directory is just a PHP script.
+
+\(\(PATTERN . SYMBOL))
+      Alist of file name pattern regular expressions and the above symbol pairs.
+      PATTERN is regexp pattern.
+")
+  (put 'php-project-php-file-as-template 'safe-local-variable #'php-project--validate-php-file-as-template)
+
+  (defvar-local php-project-repl nil
+    "Function name or path to REPL (interactive shell) script.")
+  (put 'php-project-repl 'safe-local-variable
+       #'(lambda (v) (or (functionp v)
+                         (php-project--eval-bootstrap-scripts v))))
+
+  (defvar-local php-project-unit-test nil
+    "Function name or path to unit test script.")
+  (put 'php-project-unit-test 'safe-local-variable
+       #'(lambda (v) (or (functionp v)
+                         (php-project--eval-bootstrap-scripts v))))
+
+  (defvar-local php-project-deploy nil
+    "Function name or path to deploy script.")
+  (put 'php-project-deploy 'safe-local-variable
+       #'(lambda (v) (or (functionp v)
+                         (php-project--eval-bootstrap-scripts v))))
+
+  (defvar-local php-project-build nil
+    "Function name or path to build script.")
+  (put 'php-project-build 'safe-local-variable
+       #'(lambda (v) (or (functionp v)
+                         (php-project--eval-bootstrap-scripts v))))
+
+  (defvar-local php-project-server-start nil
+    "Function name or path to server-start script.")
+  (put 'php-project-server-start 'safe-local-variable
+       #'(lambda (v) (or (functionp v)
+                         (php-project--eval-bootstrap-scripts v)))))
 
 ;; Functions
+(defun php-project--validate-php-file-as-template (val)
+  "Return T when `VAL' is valid list of safe ."
+  (cond
+   ((null val) t)
+   ((memq val '(t auto)) t)
+   ((listp val)
+    (cl-loop for v in val
+             always (and (consp v)
+                         (stringp (car v))
+                         (php-project--validate-php-file-as-template (cdr v)))))
+   (t nil)))
 
 (defun php-project--eval-bootstrap-scripts (val)
   "Return T when `VAL' is valid list of safe bootstrap php script."
@@ -168,6 +246,28 @@ Typically it is `pear', `drupal', `wordpress', `symfony2' and `psr2'.")
                        (cons 'root "vendor/bin/phan"))))
       (executable-find "phan")))
 
+(defun php-project-get-file-html-template-type (filename)
+  "Return symbol T, NIL or `auto' by `FILENAME'."
+  (cond
+   ((not php-project-php-file-as-template) nil)
+   ((eq t php-project-php-file-as-template) t)
+   ((eq 'auto php-project-php-file-as-template) 'auto)
+   ((listp php-project-php-file-as-template)
+    (assoc-default filename php-project-php-file-as-template #'string-match-p))
+   (t (prog1 nil
+        (warn "php-project-php-file-as-template is unexpected format")))))
+
+(defun php-project-apply-local-variables ()
+  "Apply php-project variables to local variables."
+  (when (null tags-file-name)
+    (when (or (and php-project-auto-detect-etags-file
+                   (null php-project-etags-file))
+              (eq php-project-etags-file t))
+      (let ((tags-file (expand-file-name "TAGS" (php-project-get-root-dir))))
+        (when (file-exists-p tags-file)
+          (setq-local php-project-etags-file tags-file))))
+    (when php-project-etags-file
+      (setq-local tags-file-name (php-project--eval-bootstrap-scripts php-project-etags-file)))))
 ;;;###autoload
 (defun php-project-get-bootstrap-scripts ()
   "Return list of bootstrap script."
@@ -179,6 +279,14 @@ Typically it is `pear', `drupal', `wordpress', `symfony2' and `psr2'.")
   "Return path to current PHP project."
   (if (and (stringp php-project-root) (file-directory-p php-project-root))
       php-project-root
+    (php-project--detect-root-dir)))
+
+(defun php-project--detect-root-dir ()
+  "Return detected project root."
+  (if (and php-project-use-projectile-to-detect-root
+           (bound-and-true-p projectile-mode)
+           (fboundp 'projectile-project-root))
+      (projectile-project-root default-directory)
     (let ((detect-method
            (cond
             ((stringp php-project-root) (list php-project-root))

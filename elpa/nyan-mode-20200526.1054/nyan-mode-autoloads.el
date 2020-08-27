@@ -1,10 +1,12 @@
 ;;; nyan-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "nyan-mode" "nyan-mode.el" (23295 61891 557338
-;;;;;;  335000))
+;;;### (autoloads nil "nyan-mode" "nyan-mode.el" (0 0 0 0))
 ;;; Generated autoloads from nyan-mode.el
 
 (defvar nyan-mode nil "\
@@ -26,10 +28,11 @@ option `scroll-bar-mode'.
 
 \(fn &optional ARG)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nyan-mode" '("nyan-" "+nyan-")))
+
 ;;;***
 
-;;;### (autoloads nil nil ("nyan-mode-pkg.el") (23295 61891 588026
-;;;;;;  140000))
+;;;### (autoloads nil nil ("nyan-mode-pkg.el") (0 0 0 0))
 
 ;;;***
 
@@ -37,5 +40,6 @@ option `scroll-bar-mode'.
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; nyan-mode-autoloads.el ends here
