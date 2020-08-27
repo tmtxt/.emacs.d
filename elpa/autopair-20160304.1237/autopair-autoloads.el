@@ -1,9 +1,12 @@
 ;;; autopair-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "autopair" "autopair.el" (22477 32532 0 0))
+;;;### (autoloads nil "autopair" "autopair.el" (0 0 0 0))
 ;;; Generated autoloads from autopair.el
 
 (autoload 'autopair-mode "autopair" "\
@@ -13,7 +16,8 @@ Automagically pair braces and quotes like in TextMate.
 
 (defvar autopair-global-mode nil "\
 Non-nil if Autopair-Global mode is enabled.
-See the command `autopair-global-mode' for a description of this minor mode.
+See the `autopair-global-mode' command
+for a description of this minor mode.
 Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `autopair-global-mode'.")
@@ -32,11 +36,14 @@ See `autopair-mode' for more information on Autopair mode.
 
 \(fn &optional ARG)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "autopair" '("autopair-")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; autopair-autoloads.el ends here
