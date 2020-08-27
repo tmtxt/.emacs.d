@@ -4,7 +4,8 @@
 
 ;; Author: Josh Johnston
 ;; URL: https://github.com/joshwnj/json-mode
-;; Package-Version: 20170719.2205
+;; Package-Version: 20190123.422
+;; Package-Commit: 0e819e519ae17a2686e0881c4ca51fa873fa9b83
 ;; Version: 1.6.0
 ;; Package-Requires: ((json-reformat "0.0.5") (json-snatcher "1.0.0"))
 
@@ -122,25 +123,14 @@ This function calls `json-mode--update-auto-mode' to change the
   (set (make-local-variable 'font-lock-defaults) '(json-font-lock-keywords-1 t)))
 
 ;; Well formatted JSON files almost always begin with “{” or “[”.
-(add-to-list 'magic-mode-alist '("^[{[]$" . json-mode))
+;;;###autoload
+(add-to-list 'magic-fallback-mode-alist '("^[{[]$" . json-mode))
 
 ;;;###autoload
 (defun json-mode-show-path ()
+  "Print the path to the node at point to the minibuffer, and yank to the kill ring."
   (interactive)
-  (let ((temp-name "*json-path*"))
-    (with-output-to-temp-buffer temp-name (jsons-print-path))
-
-    (let ((temp-window (get-buffer-window temp-name)))
-      ;; delete the window if we have one,
-      ;; so we can recreate it in the correct position
-      (if temp-window
-          (delete-window temp-window))
-
-      ;; always put the temp window below the json window
-      (set-window-buffer (if (fboundp 'split-window-below)
-                             (split-window-below)
-                           (split-window-vertically)) temp-name))
-    ))
+  (message (jsons-print-path)))
 
 (define-key json-mode-map (kbd "C-c C-p") 'json-mode-show-path)
 
