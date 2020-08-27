@@ -24,7 +24,6 @@
                 wdired-mode
                 skewer-repl-mode
                 fundamental-mode
-                inferior-moz-mode
                 process-menu-mode
                 cider-repl-mode
                 neo4j-shell-mode
@@ -45,7 +44,6 @@
   (when (member major-mode
                 '(eshell-mode
                   sql-interactive-mode
-                  inferior-moz-mode
                   inferior-emacs-lisp-mode
                   inferior-lisp-mode
                   cider-repl-mode

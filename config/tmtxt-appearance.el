@@ -85,7 +85,6 @@
 
 
 ;;; same window buffer
-(add-to-list 'same-window-buffer-names "*MozRepl*")
 (add-to-list 'same-window-buffer-names "*SQL*")
 (add-to-list 'same-window-buffer-names "*Help*")
 (add-to-list 'same-window-buffer-names "*Apropos*")

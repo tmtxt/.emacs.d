@@ -10,7 +10,6 @@
 (require 'js-doc)
 ;; (require 'tern)
 ;; (require 'tern-auto-complete)
-;; (require 'moz)
 
 ;;; Code:
 
@@ -84,12 +83,6 @@
             (setq-local json-reformat:indent-width 2)
             (setq-local js-indent-level 2)
             (flycheck-mode)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; mozrepl
-;; (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-;; (add-hook 'js2-mode-hook 'moz-minor-mode)
-;; (add-hook 'inferior-moz-mode-hook 'auto-complete-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Font lock

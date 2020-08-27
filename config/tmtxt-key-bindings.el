@@ -323,10 +323,6 @@
   "C-M-S-i"        'smart-up
   "C-M-S-k"        'smart-down)
 
-(tmtxt/keys 'moz
-    moz-minor-mode-map
-  "C-c C-q"        'moz-send-region)
-
 (tmtxt/define-keys comint-mode-map
   "C-M-i"    'comint-previous-matching-input-from-input
   "C-M-k"    'comint-next-matching-input-from-input)
