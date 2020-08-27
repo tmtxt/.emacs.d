@@ -31,3 +31,4 @@ sql-history/*
 *ido.last~
 eshell/autojump*
 server/*
+transient/*
