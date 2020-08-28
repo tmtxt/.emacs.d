@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "ob-cypher" "20200521.936" "query neo4j using cypher in org-mode blocks" '((s "1.9.0") (cypher-mode "0.0.6") (dash "2.10.0") (dash-functional "1.2.0")) :commit "da9f97339474a48d759fc128cee610c0bc9ae6c0" :keywords '("org" "babel" "cypher" "neo4j") :authors '(("ZHOU Feng" . "zf.pascal@gmail.com")) :maintainer '("ZHOU Feng" . "zf.pascal@gmail.com") :url "http://github.com/zweifisch/ob-cypher")

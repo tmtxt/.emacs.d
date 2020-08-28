@@ -86,6 +86,6 @@
 (defun tmtxt/scheme-mode-quack-hook ()
   (setq quack-fontify-style 'emacs))
 (add-hook 'scheme-mode-hook 'tmtxt/scheme-mode-quack-hook)
-(add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
+;; (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
 
 (provide 'tmtxt-lisp)
