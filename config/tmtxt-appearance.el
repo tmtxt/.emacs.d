@@ -12,9 +12,15 @@
 ;;; custom theme
 (if (window-system)
     (progn
+      ;; My custom dark theme
       ;; (setq custom-theme-directory "~/.emacs.d/lib/themes/")
       ;; (add-to-list 'custom-theme-load-path custom-theme-directory)
       ;; (load-theme 'tmtxt-dark t)
+
+      ;; Use zenburn theme for now
+      (setq zenburn-use-variable-pitch t)
+      (setq zenburn-scale-org-headlines t)
+      (setq zenburn-scale-outline-headlines t)
       (load-theme 'zenburn t)
       )
   (progn

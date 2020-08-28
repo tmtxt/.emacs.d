@@ -3,8 +3,9 @@
 ;; Copyright (C) 2010 Georg Brandl
 ;;
 ;; Author: Georg Brandl <georg@python.org>
-;; Version: 20141123.1320
-;; X-Original-Version: 0.1
+;; Version: 0.1
+;; Package-Version: 20141123.2120
+;; Package-Commit: 4b0152d606360c70204fb4c27f68de79ca885386
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
