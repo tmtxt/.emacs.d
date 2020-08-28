@@ -4,7 +4,8 @@
 
 ;; Author: Christopher Wellons <mosquitopsu@gmail.com>
 ;; URL: https://github.com/skeeto/emacs-memoize
-;; Package-Version: 20170720.1802
+;; Package-Version: 20200103.2036
+;; Package-Commit: 51b075935ca7070f62fae1d69fe0ff7d8fa56fdd
 ;; Version: 1.1
 
 ;;; Commentary:
@@ -19,7 +20,7 @@
 ;; `defmemoize' defines a memoized function directly, behaving just
 ;; like `defun'.
 
-;;     (defmemoize my-expensive-function (x)
+;;     (defmemoize my-expensive-function (n)
 ;;       (if (zerop n)
 ;;           1
 ;;         (* n (my-expensive-function (1- n)))))
@@ -37,7 +38,7 @@
 ;; Memoization takes up memory, which should be freed at some point.
 ;; Because of this, all memoization has a timeout from when the last
 ;; access was. The default timeout is set by
-;; `memoize-default-timeout'.  It can be overriden by using the
+;; `memoize-default-timeout'.  It can be overridden by using the
 ;; `memoize' function, but the `defmemoize' macro will always just use
 ;; the default timeout.
 
@@ -68,11 +69,26 @@ will apply after the last access (unless another access
 happens)."
   (cl-typecase func
     (symbol
+     (when (get func :memoize-original-function)
+       (user-error "%s is already memoized" func))
+     (put func :memoize-original-documentation (documentation func))
      (put func 'function-documentation
           (concat (documentation func) " (memoized)"))
+     (put func :memoize-original-function (symbol-function func))
      (fset func (memoize--wrap (symbol-function func) timeout))
      func)
     (function (memoize--wrap func timeout))))
+
+(defun memoize-restore (func)
+  "Restore the original, non-memoized definition of FUNC.
+FUNC should be a symbol which has been memoized with `memoize'."
+  (unless (get func :memoize-original-function)
+    (user-error "%s is not memoized" func))
+  (fset func (get func :memoize-original-function))
+  (put func :memoize-original-function nil)
+  (put func 'function-documentation
+       (get func :memoize-original-documentation))
+  (put func :memoize-original-documentation nil))
 
 (defun memoize--wrap (func timeout)
   "Return the memoized version of FUNC.
@@ -99,7 +115,7 @@ care."
 (defmacro defmemoize (name arglist &rest body)
   "Create a memoize'd function. NAME, ARGLIST, DOCSTRING and BODY
 have the same meaning as in `defun'."
-  (declare (indent defun))
+  (declare (indent 2) (doc-string 3) (debug defun))
   `(progn
      (defun ,name ,arglist
        ,@body)

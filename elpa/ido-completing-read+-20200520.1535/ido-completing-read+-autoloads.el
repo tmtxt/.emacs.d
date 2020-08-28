@@ -1,17 +1,20 @@
 ;;; ido-completing-read+-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
 ;;;### (autoloads nil "ido-completing-read+" "ido-completing-read+.el"
-;;;;;;  (23295 61916 835168 328000))
+;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from ido-completing-read+.el
 
 (defvar ido-cr+-minibuffer-depth -1 "\
 Minibuffer depth of the most recent ido-cr+ activation.
 
 If this equals the current minibuffer depth, then the minibuffer
-is currently being used by ido-cr+, and ido-cr+ feature will be
+is currently being used by ido-cr+, and ido-cr+ features will be
 active. Otherwise, something else is using the minibuffer and
 ido-cr+ features will be deactivated to avoid interfering with
 the other command.
@@ -30,10 +33,10 @@ https://github.com/DarwinAwardWinner/ido-completing-read-plus/issues")
 (custom-autoload 'ido-cr+-replace-completely "ido-completing-read+" t)
 
 (defsubst ido-cr+-active nil "\
-Returns non-nil if ido-cr+ is currently using the minibuffer." (>= ido-cr+-minibuffer-depth (minibuffer-depth)))
+Return non-nil if ido-cr+ is currently using the minibuffer." (>= ido-cr+-minibuffer-depth (minibuffer-depth)))
 
 (autoload 'ido-completing-read+ "ido-completing-read+" "\
-ido-based method for reading from the minibuffer with completion.
+Ido-based method for reading from the minibuffer with completion.
 
 See `completing-read' for the meaning of the arguments.
 
@@ -41,6 +44,8 @@ This function is a wrapper for `ido-completing-read' designed to
 be used as the value of `completing-read-function'. Importantly,
 it detects edge cases that ido cannot handle and uses normal
 completion for them.
+
+See `completing-read' for the meaning of the arguments.
 
 \(fn PROMPT COLLECTION &optional PREDICATE REQUIRE-MATCH INITIAL-INPUT HIST DEF INHERIT-INPUT-METHOD)" nil nil)
 
@@ -81,11 +86,14 @@ when ido completion is or is not used by customizing
 
 \(fn &optional ARG)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ido-completing-read+" '("ido-" "minibuf-eldef-update-minibuffer@ido-cr+-compat" "define-ido-internal-var")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; ido-completing-read+-autoloads.el ends here

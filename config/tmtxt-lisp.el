@@ -18,7 +18,7 @@
   (add-hook 'emacs-lisp-mode-hook f))
 
 ;;; flycheck setup
-(flycheck-package-setup)
+;; (flycheck-package-setup)
 
 (defun tmtxt/remove-elc-on-save ()
   "If you're saving an elisp file, likely the .elc is no longer valid."
