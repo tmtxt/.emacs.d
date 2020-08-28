@@ -306,7 +306,7 @@
 
 (tmtxt/keys 'flycheck
     flycheck-mode-map
-  "C-c C-p"     'helm-flycheck)
+  "C-x C-p"     'helm-flycheck)
 
 (tmtxt/keys 'evil
     evil-motion-state-map
