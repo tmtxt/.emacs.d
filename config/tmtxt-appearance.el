@@ -3,7 +3,7 @@
 
 ;;; Code:
 
-(require 'idle-highlight-mode)
+;; (require 'idle-highlight-mode)
 (require 'nyan-mode)
 ;; (require 'golden-ratio)
 (require 'diminish)

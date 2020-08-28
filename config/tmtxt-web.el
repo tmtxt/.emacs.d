@@ -47,7 +47,7 @@
   ;; (rainbow-turn-off)
   (whitespace-mode 0)
   (font-lock-mode 1)
-  (idle-highlight-mode 0)
+  ;; (idle-highlight-mode 0)
   (setq fill-column 500)
 
   ;; indentation
