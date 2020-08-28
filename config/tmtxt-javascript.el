@@ -34,6 +34,7 @@
              tmtxt-paredit-nonlisp
              tmtxt/prog-mode-setup
              toggle-truncate-lines
+             js2-highlight-vars-mode
              which-function-mode))
   (add-hook 'js2-mode-hook f))
 (add-hook 'js2-mode-hook (lambda () (setq fill-column 700)) t)

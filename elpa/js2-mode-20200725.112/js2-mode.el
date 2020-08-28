@@ -161,6 +161,21 @@
             window alert confirm document java navigator prompt screen
             self top requestAnimationFrame cancelAnimationFrame
 
+            ;; Window or WorkerGlobalScope with support in Chromium and Firefox:
+            ;; https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope
+            ;; properties
+            caches indexedDB isSecureContext origin
+            ;; methods
+            atob btoa clearInterval clearTimeout
+            createImageBitmap fetch queueMicrotask setInterval
+            setTimeout
+
+            ;; from jslint "browser"
+            history location
+
+            ;; HTML element constructors
+            Audio Image Option
+
             ;; W3C CSS
             CSSCharsetRule CSSFontFace CSSFontFaceRule
             CSSImportRule CSSMediaRule CSSPageRule
@@ -637,8 +652,9 @@ which doesn't seem particularly useful, but Rhino permits it."
 (defvar js2-HOOK 170)          ; conditional (?:)
 (defvar js2-OPTIONAL-CHAINING 171) ; optional chaining (?.prop obj?.[expr] func?.())
 (defvar js2-EXPON 172)
+(defvar js2-NULLISH-COALESCING 173) ; nullish coalescing (obj.value ?? obj.defaultValue ?? 0))
 
-(defconst js2-num-tokens (1+ js2-EXPON))
+(defconst js2-num-tokens (1+ js2-NULLISH-COALESCING))
 
 (defconst js2-debug-print-trees nil)
 
@@ -3467,6 +3483,7 @@ The type field inherited from `js2-node' holds the operator."
                (cons js2-COLON ":")
                (cons js2-OR "||")
                (cons js2-AND "&&")
+               (cons js2-NULLISH-COALESCING "??")
                (cons js2-INC "++")
                (cons js2-DEC "--")
                (cons js2-BITOR "|")
@@ -5119,7 +5136,8 @@ You should use `js2-print-tree' instead of this function."
        ((= tt js2-COMMA)
         (js2-node-has-side-effects (js2-infix-node-right node)))
        ((or (= tt js2-AND)
-            (= tt js2-OR))
+            (= tt js2-OR)
+            (= tt js2-NULLISH-COALESCING))
         (or (js2-node-has-side-effects (js2-infix-node-right node))
             (js2-node-has-side-effects (js2-infix-node-left node))))
        ((= tt js2-HOOK)
@@ -6078,9 +6096,11 @@ its relevant fields and puts it into `js2-ti-tokens'."
                           (?,
                            (throw 'return js2-COMMA))
                           (??
-                           (if (js2-match-char ?.)
-                               (throw 'return js2-OPTIONAL-CHAINING)
-                             (throw 'return js2-HOOK)))
+                           (if (js2-match-char ??)
+                               (throw 'return js2-NULLISH-COALESCING)
+                             (if (js2-match-char ?.)
+                                 (throw 'return js2-OPTIONAL-CHAINING)
+                               (throw 'return js2-HOOK))))
                           (?:
                            (if (js2-match-char ?:)
                                js2-COLONCOLON
@@ -7687,7 +7707,8 @@ For instance, processing a nested scope requires a parent function node."
   (let (result fn parent-qname p elem)
     (dolist (entry js2-imenu-recorder)
       ;; function node goes first
-      (cl-destructuring-bind (current-fn &rest (&whole chain head &rest)) entry
+      (cl-destructuring-bind
+          (current-fn &rest (&whole chain head &rest rest)) entry
         ;; Examine head's defining scope:
         ;; Pre-processed chain, or top-level/external, keep as-is.
         (if (or (stringp head) (js2-node-top-level-decl-p head))
@@ -9917,7 +9938,7 @@ If NODE is non-nil, it is the AST node associated with the symbol."
 
 (defun js2-parse-cond-expr ()
   (let ((pos (js2-current-token-beg))
-        (pn (js2-parse-or-expr))
+        (pn (js2-parse-nullish-coalescing-expr))
         test-expr
         if-true
         if-false
@@ -10000,6 +10021,15 @@ FIXME: The latter option is unused?"
       (setq pn (js2-make-binary js2-BITAND
                                 pn
                                 'js2-parse-eq-expr)))
+    pn))
+
+
+(defun js2-parse-nullish-coalescing-expr ()
+  (let ((pn (js2-parse-or-expr)))
+    (when (js2-match-token js2-NULLISH-COALESCING)
+      (setq pn (js2-make-binary js2-NULLISH-COALESCING
+                                pn
+                                'js2-parse-nullish-coalescing-expr)))
     pn))
 
 (defconst js2-parse-eq-ops
@@ -10963,8 +10993,8 @@ expression)."
       ;; Clear out any lookahead tokens (possibly wrong modifier).
       ;; FIXME: Deal with this problem in a more systematic fashion.
       ;; Perhaps by making this modifier affect not how the token
-      ;; struct is constructed, but when js2-get-token returns based
-      ;; on it.
+      ;; struct value is constructed, but what js2-get-token returns
+      ;; based on it.
       (when (> js2-ti-lookahead 0)
         (setq js2-ti-lookahead 0)
         (setq js2-ts-cursor (js2-current-token-end)))
@@ -11669,7 +11699,7 @@ highlighting features of `js2-mode'."
         (let ((inhibit-read-only t))
           (erase-buffer)
           (dolist (err all-errs)
-            (cl-destructuring-bind ((msg-key beg _end &rest) type line) err
+            (cl-destructuring-bind ((msg-key beg _end &rest rest) type line) err
               (insert-text-button
                (format "line %d: %s" line (js2-get-msg msg-key))
                'face type
