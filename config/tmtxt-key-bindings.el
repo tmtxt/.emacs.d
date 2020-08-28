@@ -275,7 +275,7 @@
     global-map
   "C-S-q" 'tmtxt/helm
   "<C-M-S-iso-lefttab>"  'tmtxt/helm
-  "M-V"    'helm-show-kill-ring
+  ;; "M-V"    'helm-show-kill-ring
   "C-S-s"     'helm-occur)
 
 (tmtxt/keys 'helm helm-map
@@ -286,7 +286,7 @@
     global-map
   "C-x C-S-f"        'helm-projectile-find-file
   "C-x C-S-d"        'helm-projectile-find-dir
-  "C-x C-S-s"        'helm-projectile-switch-project
+  ;; "C-x C-S-s"        'helm-projectile-switch-project
   "C-x C-S-r"        'helm-projectile-ag)
 
 (tmtxt/keys 'helm-dired-recent-dirs
