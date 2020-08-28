@@ -1,10 +1,12 @@
 ;;; restclient-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "restclient" "restclient.el" (23295 61874 515875
-;;;;;;  556000))
+;;;### (autoloads nil "restclient" "restclient.el" (0 0 0 0))
 ;;; Generated autoloads from restclient.el
 
 (autoload 'restclient-http-send-current "restclient" "\
@@ -29,11 +31,14 @@ Turn on restclient mode.
 
 \(fn)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "restclient" '("res")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; restclient-autoloads.el ends here

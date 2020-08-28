@@ -26,7 +26,7 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl-lib))
 (require 'expand-region-custom)
 (declare-function er/expand-region "expand-region")
 
@@ -44,14 +44,17 @@
 (defvar er/try-expand-list nil
   "A list of functions that are tried when expanding.")
 
+(defvar er/save-mode-excursion nil
+  "A function to save excursion state when expanding.")
+
 (defun er--prepare-expanding ()
   (when (and (er--first-invocation)
              (not (use-region-p)))
     (push-mark nil t)  ;; one for keeping starting position
     (push-mark nil t)) ;; one for replace by set-mark in expansions
 
-  (when (not (eq t transient-mark-mode))
-    (setq transient-mark-mode (cons 'only transient-mark-mode))))
+  (when (not transient-mark-mode)
+    (setq-local transient-mark-mode (cons 'only transient-mark-mode))))
 
 (defun er--copy-region-to-register ()
   (when (and (stringp expand-region-autocopy-register)
@@ -64,6 +67,13 @@
   (when (< emacs-major-version 25)
     (defmacro save-mark-and-excursion (&rest body)
       `(save-excursion ,@body))))
+
+(defmacro er--save-excursion (&rest body)
+  `(let ((action (lambda ()
+                   (save-mark-and-excursion ,@body))))
+     (if er/save-mode-excursion
+         (funcall er/save-mode-excursion action)
+       (funcall action))))
 
 (defun er--expand-region-1 ()
   "Increase selected region by semantic units.
@@ -96,7 +106,7 @@ moving point or mark as little as possible."
       (setq start (point)))
 
     (while try-list
-      (save-mark-and-excursion
+      (er--save-excursion
        (ignore-errors
          (funcall (car try-list))
          (when (and (region-active-p)
@@ -150,7 +160,7 @@ before calling `er/expand-region' for the first time."
         (setq arg (length er/history)))
 
       (when (not transient-mark-mode)
-        (setq transient-mark-mode (cons 'only transient-mark-mode)))
+        (setq-local transient-mark-mode (cons 'only transient-mark-mode)))
 
       ;; Advance through the list the desired distance
       (while (and (cdr er/history)
@@ -200,10 +210,10 @@ before calling `er/expand-region' for the first time."
              `(lambda ()
                 (interactive)
                 (setq this-command `,(cadr ',binding))
-                (or (minibufferp) (message "%s" ,msg))
+                (or (not expand-region-show-usage-message) (minibufferp) (message "%s" ,msg))
                 (eval `,(cdr ',binding))))))
        t)
-      (or (minibufferp) (message "%s" msg)))))
+      (or (not expand-region-show-usage-message) (minibufferp) (message "%s" msg)))))
 
 (if (fboundp 'set-temporary-overlay-map)
     (fset 'er/set-temporary-overlay-map 'set-temporary-overlay-map)
@@ -277,6 +287,14 @@ remove the keymap depends on user input and KEEP-PRED:
     (dolist (buffer (buffer-list))
       (with-current-buffer buffer
         (when (derived-mode-p mode)
+          (funcall add-fn))))))
+
+(defun er/enable-minor-mode-expansions (mode add-fn)
+  (add-hook (intern (format "%s-hook" mode)) add-fn)
+  (save-window-excursion
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (symbol-value mode)
           (funcall add-fn))))))
 
 ;; Some more performant version of `looking-back'
