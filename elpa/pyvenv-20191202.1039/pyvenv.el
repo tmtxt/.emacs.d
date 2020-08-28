@@ -4,8 +4,9 @@
 
 ;; Author: Jorgen Schaefer <contact@jorgenschaefer.de>
 ;; URL: http://github.com/jorgenschaefer/pyvenv
-;; Package-Version: 20180512.315
-;; Version: 1.14
+;; Package-Version: 20191202.1039
+;; Package-Commit: 861998b6d157ae73b829f02a5a6c8a9118310831
+;; Version: 1.21
 ;; Keywords: Python, Virtualenv, Tools
 
 ;; This program is free software; you can redistribute it and/or
@@ -108,6 +109,12 @@ educated guess, but that can be off."
   :type '(file :must-match t)
   :group 'pyvenv)
 
+(defcustom pyvenv-default-virtual-env-name nil
+  "Default directory to use when prompting for a virtualenv directory
+in `pyvenv-activate'."
+  :type 'string
+  :group 'pyvenv)
+
 ;; API for other libraries
 
 (defvar pyvenv-virtual-env nil
@@ -177,10 +184,20 @@ This is usually the base name of `pyvenv-virtual-env'.")
                           venv-name)))
     (unless (file-exists-p venv-dir)
       (run-hooks 'pyvenv-pre-create-hooks)
-      (with-current-buffer (generate-new-buffer "*virtualenv*")
-        (call-process "virtualenv" nil t t
-                      "-p" python-executable venv-dir)
-        (display-buffer (current-buffer)))
+      (cond
+       ((executable-find "virtualenv")
+        (with-current-buffer (generate-new-buffer "*virtualenv*")
+          (call-process "virtualenv" nil t t
+                        "-p" python-executable venv-dir)
+          (display-buffer (current-buffer))))
+       ((= 0 (call-process python-executable nil nil nil
+                           "-m" "venv" "-h"))
+        (with-current-buffer (generate-new-buffer "*venv*")
+          (call-process python-executable nil t t
+                        "-m" "venv" venv-dir)
+          (display-buffer (current-buffer))))
+       (t
+        (error "Pyvenv necessitates the 'virtualenv' python package")))
       (run-hooks 'pyvenv-post-create-hooks))
     (pyvenv-activate venv-dir)))
 
@@ -188,7 +205,8 @@ This is usually the base name of `pyvenv-virtual-env'.")
 ;;;###autoload
 (defun pyvenv-activate (directory)
   "Activate the virtual environment in DIRECTORY."
-  (interactive "DActivate venv: ")
+  (interactive (list (read-directory-name "Activate venv: " nil nil nil
+					  pyvenv-default-virtual-env-name)))
   (setq directory (expand-file-name directory))
   (pyvenv-deactivate)
   (setq pyvenv-virtual-env (file-name-as-directory directory)
@@ -196,6 +214,17 @@ This is usually the base name of `pyvenv-virtual-env'.")
                                  (directory-file-name directory))
         python-shell-virtualenv-path directory
         python-shell-virtualenv-root directory)
+  ;; Set venv name as parent directory for generic directories or for
+  ;; the user's default venv name
+  (when (or (member pyvenv-virtual-env-name '("venv" ".venv" "env" ".env"))
+	    (and pyvenv-default-virtual-env-name
+		 (string= pyvenv-default-virtual-env-name
+			  pyvenv-virtual-env-name)))
+    (setq pyvenv-virtual-env-name
+          (file-name-nondirectory
+           (directory-file-name
+            (file-name-directory
+             (directory-file-name directory))))))
   ;; Preserve variables from being overwritten.
   (let ((old-exec-path exec-path)
         (old-eshell-path eshell-path-env)
@@ -281,16 +310,15 @@ This is usually the base name of `pyvenv-virtual-env'.")
 
 ;;;###autoload
 (defun pyvenv-workon (name)
-  "Activate a virtual environment from $WORKON_HOME."
+  "Activate a virtual environment from $WORKON_HOME.
+
+If the virtual environment NAME is already active, this function
+does not try to reactivate the environment."
   (interactive
    (list
     (completing-read "Work on: " (pyvenv-virtualenv-list)
                      nil t nil 'pyvenv-workon-history nil nil)))
-  (when (not (or (equal name "")
-                 ;; Some completion frameworks can return nil for the
-                 ;; default, see
-                 ;; https://github.com/jorgenschaefer/elpy/issues/144
-                 (equal name nil)))
+  (unless (member name (list "" nil pyvenv-virtual-env-name))
     (pyvenv-activate (format "%s/%s"
                              (pyvenv-workon-home)
                              name))))
@@ -311,6 +339,8 @@ configured."
                   (file-exists-p (format "%s/%s/bin/python"
                                          workon-home name))
                   (file-exists-p (format "%s/%s/Scripts/activate.bat"
+                                         workon-home name))
+                  (file-exists-p (format "%s/%s/python.exe"
                                          workon-home name)))
           (setq result (cons name result))))
       (sort result (lambda (a b)
@@ -329,7 +359,7 @@ configured."
                                     (pyvenv-virtualenv-list t))))
     (widget-types-convert-widget widget))
 
-  :prompt-value (lambda (widget prompt value unbound)
+  :prompt-value (lambda (_widget prompt _value _unbound)
                   (let ((name (completing-read
                                prompt
                                (cons "None"
