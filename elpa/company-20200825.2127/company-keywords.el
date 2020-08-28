@@ -35,22 +35,30 @@
 (defvar company-keywords-alist
   ;; Please contribute corrections or additions.
   `((c++-mode
-     "alignas" "alignof" "asm" "auto" "bool" "break" "case" "catch" "char"
-     "char16_t" "char32_t" "class" "const" "const_cast" "constexpr" "continue"
-     "decltype" "default" "delete" "do" "double" "dynamic_cast" "else" "enum"
-     "explicit" "export" "extern" "false" "final" "float" "for" "friend"
-     "goto" "if" "inline" "int" "long" "mutable" "namespace" "new" "noexcept"
-     "nullptr" "operator" "override"
-     "private" "protected" "public" "register" "reinterpret_cast"
-     "return" "short" "signed" "sizeof" "static" "static_assert"
-     "static_cast" "struct" "switch" "template" "this" "thread_local"
-     "throw" "true" "try" "typedef" "typeid" "typename"
-     "union" "unsigned" "using" "virtual" "void" "volatile" "wchar_t" "while")
+     ;; from https://en.cppreference.com/w/cpp/keyword
+     "alignas" "alignof" "and" "and_eq" "asm" "atomic_cancel" "atomic_commit"
+     "atomic_noexcept" "auto" "bitand" "bitor" "bool" "break" "case" "catch"
+     "char" "char16_t" "char32_t" "char8_t" "class" "co_await" "co_return"
+     "co_yield" "compl" "concept" "const" "const_cast" "consteval" "constexpr"
+     "constinit" "continue" "decltype" "default" "delete" "do" "double"
+     "dynamic_cast" "else" "enum" "explicit" "export" "extern" "false" "final"
+     "float" "for" "friend" "goto" "if" "import" "inline" "int" "long" "module"
+     "mutable" "namespace" "new" "noexcept" "not" "not_eq" "nullptr" "operator"
+     "or" "or_eq" "override" "private" "protected" "public" "reflexpr" "register"
+     "reinterpret_cast" "requires" "return" "short" "signed" "sizeof" "static"
+     "static_assert" "static_cast" "struct" "switch" "synchronized" "template"
+     "this" "thread_local" "throw" "true" "try" "typedef" "typeid" "typename"
+     "union" "unsigned" "using" "virtual" "void" "volatile" "wchar_t" "while"
+     "xor" "xor_eq")
     (c-mode
+     ;; from https://en.cppreference.com/w/c/keyword
+     "_Alignas" "_Alignof" "_Atomic" "_Bool" "_Complex" "_Generic" "_Imaginary"
+     "_Noreturn" "_Static_assert" "_Thread_local"
      "auto" "break" "case" "char" "const" "continue" "default" "do"
-     "double" "else" "enum" "extern" "float" "for" "goto" "if" "int" "long"
-     "register" "return" "short" "signed" "sizeof" "static" "struct"
-     "switch" "typedef" "union" "unsigned" "void" "volatile" "while")
+     "double" "else" "enum" "extern" "float" "for" "goto" "if" "inline"
+     "int" "long" "register" "restrict" "return" "short" "signed" "sizeof"
+     "static" "struct" "switch" "typedef" "union" "unsigned" "void" "volatile"
+     "while")
     (csharp-mode
      "abstract" "add" "alias" "as" "base" "bool" "break" "byte" "case"
      "catch" "char" "checked" "class" "const" "continue" "decimal" "default"
@@ -141,6 +149,16 @@
       "sum_suffix" "system_clock" "tan" "tanh" "target" "template" "then"
       "tiny" "transfer" "transpose" "trim" "true" "type" "ubound" "unpack"
       "use" "value" "verify" "volatile" "wait" "where" "while" "with" "write"))
+    (go-mode
+     ;; 1. Keywords ref: https://golang.org/ref/spec#Keywords
+     ;; 2. Builtin functions and types ref: https://golang.org/pkg/builtin/
+     "append" "bool" "break" "byte" "cap" "case" "chan" "close" "complex" "complex128"
+     "complex64" "const" "continue" "copy" "default" "defer" "delete" "else" "error"
+     "fallthrough" "false" "float32" "float64" "for" "func" "go" "goto" "if" "imag"
+     "import" "int" "int16" "int32" "int64" "int8" "interface" "len" "make"
+     "map" "new" "nil" "package" "panic" "print" "println" "range" "real" "recover"
+     "return" "rune" "select" "string" "struct" "switch" "true" "type" "uint" "uint16"
+     "uint32" "uint64" "uint8" "uintptr" "var")
     (java-mode
      "abstract" "assert" "boolean" "break" "byte" "case" "catch" "char" "class"
      "continue" "default" "do" "double" "else" "enum" "extends" "final"
@@ -149,9 +167,12 @@
      "return" "short" "static" "strictfp" "super" "switch" "synchronized"
      "this" "throw" "throws" "transient" "try" "void" "volatile" "while")
     (javascript-mode
-     "break" "catch" "const" "continue" "delete" "do" "else" "export" "for"
-     "function" "if" "import" "in" "instanceOf" "label" "let" "new" "return"
-     "switch" "this" "throw" "try" "typeof" "var" "void" "while" "with" "yield")
+     ;; https://tc39.github.io/ecma262/ + async, static and undefined
+     "async" "await" "break" "case" "catch" "class" "const" "continue"
+     "debugger" "default" "delete" "do" "else" "enum" "export" "extends" "false"
+     "finally" "for" "function" "if" "import" "in" "instanceof" "let" "new"
+     "null" "return" "static" "super" "switch" "this" "throw" "true" "try"
+     "typeof" "undefined" "var" "void" "while" "with" "yield")
     (kotlin-mode
      "abstract" "annotation" "as" "break" "by" "catch" "class" "companion"
      "const" "constructor" "continue" "data" "do" "else" "enum" "false" "final"
@@ -209,9 +230,11 @@
      "print" "private" "protected" "public" "require" "require_once" "return"
      "static" "switch" "this" "throw" "try" "unset" "use" "var" "while" "xor")
     (python-mode
-     "and" "assert" "break" "class" "continue" "def" "del" "elif" "else"
-     "except" "exec" "finally" "for" "from" "global" "if" "import" "in" "is"
-     "lambda" "not" "or" "pass" "print" "raise" "return" "try" "while" "yield")
+     ;; https://docs.python.org/3/reference/lexical_analysis.html#keywords
+     "False" "None" "True" "and" "as" "assert" "break" "class" "continue" "def"
+     "del" "elif" "else" "except" "exec" "finally" "for" "from" "global" "if"
+     "import" "in" "is" "lambda" "nonlocal" "not" "or" "pass" "print" "raise"
+     "return" "try" "while" "with" "yield")
     (ruby-mode
      "BEGIN" "END" "alias" "and"  "begin" "break" "case" "class" "def" "defined?"
      "do" "else" "elsif"  "end" "ensure" "false" "for" "if" "in" "module"
@@ -219,10 +242,6 @@
      "then" "true" "undef" "unless" "until" "when" "while" "yield")
     ;; From https://doc.rust-lang.org/grammar.html#keywords
     ;; but excluding unused reserved words: https://www.reddit.com/r/rust/comments/34fq0k/is_there_a_good_list_of_rusts_keywords/cqucvnj
-    (go-mode
-     "break" "case" "chan" "const" "continue" "default" "defer" "else" "fallthrough"
-     "for" "func" "go" "goto" "if" "import" "interface" "map" "package" "range"
-     "return" "select" "struct" "switch" "type" "var")
     (rust-mode
      "Self"
      "as" "box" "break" "const" "continue" "crate" "else" "enum" "extern"
@@ -267,6 +286,7 @@
     (espresso-mode . javascript-mode)
     (js-mode . javascript-mode)
     (js-jsx-mode . javascript-mode)
+    (rjsx-mode . javascript-mode)
     (cperl-mode . perl-mode)
     (jde-mode . java-mode)
     (ess-julia-mode . julia-mode)

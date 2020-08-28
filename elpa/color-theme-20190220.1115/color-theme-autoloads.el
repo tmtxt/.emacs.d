@@ -2,12 +2,11 @@
 ;;
 ;;; Code:
 
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads (color-theme-initialize color-theme-submit color-theme-install
-;;;;;;  color-theme-compare color-theme-make-snapshot color-theme-analyze-defun
-;;;;;;  color-theme-print color-theme-install-at-point-for-current-frame
-;;;;;;  color-theme-install-at-mouse color-theme-describe color-theme-select)
-;;;;;;  "color-theme" "color-theme.el" (21597 34674 0 0))
+;;;### (autoloads nil "color-theme" "color-theme.el" (0 0 0 0))
 ;;; Generated autoloads from color-theme.el
 
 (autoload 'color-theme-select "color-theme" "\
@@ -140,14 +139,14 @@ Initialize the color theme package by loading color-theme-libraries.
 
 \(fn)" t nil)
 
-;;;***
-
-;;;### (autoloads nil nil ("color-theme-pkg.el") (21597 34674 747037
-;;;;;;  0))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "color-theme" '("define-color-theme" "color-theme")))
 
 ;;;***
 
-(provide 'color-theme-autoloads)
+;;;### (autoloads nil nil ("color-theme-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
