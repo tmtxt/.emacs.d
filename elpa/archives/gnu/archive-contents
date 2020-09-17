@@ -179,7 +179,9 @@
  (bbdb .
        [(3 2)
 	((emacs
-	  (24)))
+	  (24))
+	 (cl-lib
+	  (0 5)))
 	"core of BBDB" tar
 	((:maintainer "Roland Winkler" . "winkler@gnu.org")
 	 (:url . "http://elpa.gnu.org/packages/bbdb.html"))])
@@ -603,7 +605,7 @@
 	       ("Leo Liu" . "sdl.web@gmail.com"))
 	      (:keywords "killing" "convenience"))])
  (ebdb .
-       [(0 6 18)
+       [(0 6 19)
 	((emacs
 	  (25 1))
 	 (cl-lib
@@ -685,7 +687,7 @@
 	      (:keywords "lisp")
 	      (:url . "http://elpa.gnu.org/packages/el-search.html"))])
  (eldoc .
-	[(1 8 0)
+	[(1 10 0)
 	 ((emacs
 	   (26 3)))
 	 "Show function arglist or variable docstring in echo area" single
@@ -921,7 +923,7 @@
 		  (:keywords "gnome" "c" "coding style")
 		  (:url . "http://elpa.gnu.org/packages/gnome-c-style.html"))])
  (gnorb .
-	[(1 6 7)
+	[(1 6 8)
 	 ((cl-lib
 	   (0 5)))
 	 "Glue code between Gnus, Org, and BBDB" tar
@@ -1457,8 +1459,12 @@
 	       ("Felix Lee <felix8a@gmail.com>, Michal Nazarewicz" . "mina86@mina86.com"))
 	      (:maintainer "Michal Nazarewicz" . "mina86@mina86.com"))])
  (oauth2 .
-	 [(0 13)
-	  nil "OAuth 2.0 Authorization Protocol" single
+	 [(0 15)
+	  ((cl-lib
+	    (0 5))
+	   (nadvice
+	    (0 3)))
+	  "OAuth 2.0 Authorization Protocol" single
 	  ((:url . "http://elpa.gnu.org/packages/oauth2.html")
 	   (:keywords "comm")
 	   (:authors
@@ -1504,7 +1510,7 @@
 	      (:maintainer "Michael Heerdegen" . "michael_heerdegen@web.de")
 	      (:url . "https://github.com/michael-heerdegen/on-screen.el"))])
  (org .
-      [(9 3 6)
+      [(9 3 8)
        nil "Outline-based notes management and organizer" tar
        ((:url . "https://orgmode.org")
 	(:maintainer "Bastien Guerry" . "bzg@gnu.org")
@@ -1512,7 +1518,7 @@
 	 ("Carsten Dominik <carsten at orgmode dot org>"))
 	(:keywords "outlines" "hypermedia" "calendar" "wp"))])
  (org-edna .
-	   [(1 1 1)
+	   [(1 1 2)
 	    ((emacs
 	      (25 1))
 	     (seq
@@ -1610,7 +1616,7 @@
 	     ("Phillip Lord" . "phillip.lord@russet.org.uk"))
 	    (:url . "http://elpa.gnu.org/packages/persist.html"))])
  (phps-mode .
-	    [(0 3 52)
+	    [(0 3 53)
 	     ((emacs
 	       (26)))
 	     "Major mode for PHP with Semantic integration" tar
@@ -1646,7 +1652,7 @@
 	     (:maintainer "Feng Shu" . "tumashu@163.com")
 	     (:url . "https://github.com/tumashu/posframe"))])
  (project .
-	  [(0 5 1)
+	  [(0 5 2)
 	   ((emacs
 	     (26 3))
 	    (xref
@@ -1925,7 +1931,7 @@
 	      ("Stefan Monnier" . "monnier@iro.umontreal.ca"))
 	     (:maintainer "Stefan Monnier" . "monnier@iro.umontreal.ca"))])
  (seq .
-      [(2 20)
+      [(2 22)
        nil "Sequence manipulation functions" tar
        ((:maintainer nil . "emacs-devel@gnu.org")
 	(:authors
@@ -2048,6 +2054,14 @@
 	     ("Artur Malabarba" . "emacs@endlessparentheses.com"))
 	    (:maintainer "Artur Malabarba" . "emacs@endlessparentheses.com")
 	    (:url . "https://github.com/Malabarba/spinner.el"))])
+ (sql-beeline .
+	      [(0 1)
+	       nil "Beeline support for sql.el" single
+	       ((:url . "http://elpa.gnu.org/packages/sql-beeline.html")
+		(:keywords "sql" "hive" "beeline" "hiveserver2")
+		(:authors
+		 ("Filipp Gunbin" . "fgunbin@fastmail.fm"))
+		(:maintainer "Filipp Gunbin" . "fgunbin@fastmail.fm"))])
  (sql-indent .
 	     [(1 5)
 	      ((cl-lib
@@ -2079,7 +2093,7 @@
 	   (:keywords "stream" "laziness" "sequences")
 	   (:url . "http://elpa.gnu.org/packages/stream.html"))])
  (svg .
-      [(1 0)
+      [(1 1)
        ((emacs
 	 (25)))
        "SVG image creation functions" single
@@ -2172,7 +2186,7 @@
 	  ("Oleh Krehel" . "ohwoeowho@gmail.com"))
 	 (:keywords "convenience"))])
  (tramp .
-	[(2 4 4 1)
+	[(2 4 4 2)
 	 ((emacs
 	   (24 4)))
 	 "Transparent Remote Access, Multiple Protocol" tar
@@ -2380,7 +2394,7 @@
 	      (:keywords "communication" "websocket" "server")
 	      (:url . "http://elpa.gnu.org/packages/websocket.html"))])
  (which-key .
-	    [(3 3 0)
+	    [(3 3 2)
 	     ((emacs
 	       (24 4)))
 	     "Display available keybindings in popup" tar
