@@ -107,6 +107,18 @@
                                    (s-concat "/nodejs")
                                    (directory-files)))
 
+    ;; list of nodejs Fuse Product services
+    (defconst AR-NODE-PRODUCT-SERVICES (--> AR-CONNECT-PATH
+                                            (s-concat it "/nodejs/team-fuse-product")
+                                            (directory-files it)
+                                            (-map (lambda (service) (s-concat "team-fuse-product." service)) it)))
+
+    ;; list of nodejs IA Data services
+    (defconst AR-NODE-IA-SERVICES (--> AR-CONNECT-PATH
+                                            (s-concat it "/nodejs/team-ia-data")
+                                            (directory-files it)
+                                            (-map (lambda (service) (s-concat "team-ia-data." service)) it)))
+
     ;; list of golang services
     ;; golang services need .golang suffix
     (defconst AR-GOLANG-SERVICES (--> AR-CONNECT-PATH
@@ -131,6 +143,8 @@
                                                   AR-NODE-SERVICES
                                                   AR-GOLANG-SERVICES
                                                   AR-CSHARP-SERVICES
+                                                  AR-NODE-PRODUCT-SERVICES
+                                                  AR-NODE-IA-SERVICES
                                                   ;AR-INTEGRATION-TEST-SERVICES
                                                   )))))
 

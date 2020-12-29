@@ -1,6 +1,5 @@
-# -*- coding: utf-8; mode: snippet -*-
-# name: console.log(description,object)
-# key: logl
+# -*- mode: snippet -*-
+#name : console.log
 # --
 console.log('----------------------------------------------------------------------');
 console.log($0);

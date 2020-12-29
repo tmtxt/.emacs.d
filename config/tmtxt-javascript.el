@@ -17,7 +17,7 @@
 ;;; General JS config
 
 ;;; Auto mode
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;; (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 
 ;;; Some config
@@ -31,12 +31,18 @@
              js2-mode-hide-warnings-and-errors
              prettier-mode
              tmtxt-paredit-nonlisp
-             tmtxt-paredit-nonlisp
              tmtxt/prog-mode-setup
              toggle-truncate-lines
              js2-highlight-vars-mode
              which-function-mode))
   (add-hook 'js2-mode-hook f))
+(dolist (f '(auto-complete-mode
+             flycheck-mode
+             prettier-mode
+             tmtxt-paredit-nonlisp
+             tmtxt/prog-mode-setup
+             toggle-truncate-lines))
+  (add-hook 'js-mode-hook f))
 (add-hook 'js2-mode-hook (lambda () (setq fill-column 700)) t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -75,6 +81,7 @@
               (flycheck-mode)
               (flycheck-select-checker 'javascript-eslint)
               (auto-complete-mode 1)
+              (prettier-mode)
               )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
