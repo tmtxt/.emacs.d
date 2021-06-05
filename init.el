@@ -29,7 +29,6 @@ DIR-NAME directory name inside lib folder"
 
 ;;; some my own useful config
 (dolist (cfg '(dash tmtxt-util
-               tmtxt-bookmark
                tmtxt-ido
                tmtxt-dired
                tmtxt-navigation
