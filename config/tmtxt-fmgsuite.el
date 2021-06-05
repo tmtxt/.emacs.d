@@ -115,9 +115,9 @@
 
     ;; list of nodejs IA Data services
     (defconst AR-NODE-IA-SERVICES (--> AR-CONNECT-PATH
-                                            (s-concat it "/nodejs/team-ia-data")
-                                            (directory-files it)
-                                            (-map (lambda (service) (s-concat "team-ia-data." service)) it)))
+                                       (s-concat it "/nodejs/team-ia-data")
+                                       (directory-files it)
+                                       (-map (lambda (service) (s-concat "team-ia-data." service)) it)))
 
     ;; list of golang services
     ;; golang services need .golang suffix
@@ -133,10 +133,22 @@
                                       (directory-files it)
                                       (-map (lambda (service) (s-concat service ".csharp")) it)))
 
+    ;; list of C# Fuse Product services
+    (defconst AR-CSHARP-PRODUCT-SERVICES (--> AR-CONNECT-PATH
+                                              (s-concat it "/csharp/team-fuse-product")
+                                              (directory-files it)
+                                              (-map (lambda (service) (s-concat "team-fuse-product." service ".csharp")) it)))
+
+    ;; list of C# IA Data services
+    (defconst AR-CSHARP-IA-SERVICES (--> AR-CONNECT-PATH
+                                         (s-concat it "/csharp/team-ia-data")
+                                         (directory-files it)
+                                         (-map (lambda (service) (s-concat "team-ia-data." service ".csharp")) it)))
+
     ;; list of integration test services
-    ;(defconst AR-INTEGRATION-TEST-SERVICES (--> AR-CONNECT-PATH
-    ;                                            (s-concat it "/tests")
-    ;                                            (directory-files it)))
+                                        ;(defconst AR-INTEGRATION-TEST-SERVICES (--> AR-CONNECT-PATH
+                                        ;                                            (s-concat it "/tests")
+                                        ;                                            (directory-files it)))
 
     ;; all services
     (defconst AR-ALL-SERVICES (-distinct (-concat AR-FRONTEND-SERVICES
@@ -145,7 +157,9 @@
                                                   AR-CSHARP-SERVICES
                                                   AR-NODE-PRODUCT-SERVICES
                                                   AR-NODE-IA-SERVICES
-                                                  ;AR-INTEGRATION-TEST-SERVICES
+                                                  AR-CSHARP-PRODUCT-SERVICES
+                                                  AR-CSHARP-IA-SERVICES
+                                        ;AR-INTEGRATION-TEST-SERVICES
                                                   )))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

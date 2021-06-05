@@ -37,7 +37,7 @@ errors."
   "create a scratch buffer"
   (interactive)
   (switch-to-buffer (get-buffer-create "*scratch*"))
-  (lisp-interaction-mode))
+  (fundamental-mode))
 
 (defun tmtxt/insert-date ()
   "Insert a time-stamp according to locale's date and time format."
