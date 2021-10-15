@@ -221,7 +221,7 @@
          (service-name (ar/select-service))
 
          ;; ask user to input a tag type
-         (tag-type (ar/select-tag-type))
+         (tag-type "hot-fix")
 
          ;; compute the next tag
          (next-tag (--> service-name

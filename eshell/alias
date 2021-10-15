@@ -1,7 +1,7 @@
-alias kbs kubectl --context=gke_agency-revolution_asia-southeast1-a_staging --namespace=staging $*
-alias kbsl kubectl --context=gke_agency-revolution_asia-southeast1-a_staging --namespace=staging logs --tail=100 -f $*
-alias kbp kubectl --context=gke_agency-revolution_us-west1-b_production --namespace=production $*
-alias kbpl kubectl --context=gke_agency-revolution_us-west1-b_production --namespace=production logs --tail=100 -f $*
+alias kbs kubectl --context=gke_agency-revolution_asia-southeast1-a_staging-v2 --namespace=staging-v2 $*
+alias kbsl kubectl --context=gke_agency-revolution_asia-southeast1-a_staging-v2 --namespace=staging-v2 logs --tail=100 -f $*
+alias kbp kubectl --context=gke_agency-revolution_us-west1-b_production-v2 --namespace=production-v2 $*
+alias kbpl kubectl --context=gke_agency-revolution_us-west1-b_production-v2 --namespace=production-v2 logs --tail=100 -f $*
 alias ll ls -alh
 
 alias dcu docker-compose up $*
@@ -11,5 +11,5 @@ alias dcl docker-compose logs -f --tail=50 $*
 alias dck docker-compose kill $*
 alias dcr docker-compose rm $*
 
-alias gccsl gcloud compute instances list | grep staging
-alias gccpl gcloud compute instances list | grep prod
+alias gccsl gcloud compute instances list | grep staging-v2
+alias gccpl gcloud compute instances list | grep production-v2
