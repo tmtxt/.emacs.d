@@ -155,9 +155,12 @@
 
   ;; move between windows (up/down/left/right)
   "M-s-i"   "<S-up>"
+  "M-s-^"   "<S-up>"
   "M-s-k"   "<S-down>"
   "M-s-j"   "<S-left>"
+  "M-s-∆"   "<S-left>"
   "M-s-l"   "<S-right>"
+  "M-s-¬"   "<S-right>"
   "M-s-}"   "<S-up>"
   "M-s-˚"   "<S-down>"
   "M-s-˝"   "<S-left>"
