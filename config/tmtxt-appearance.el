@@ -5,17 +5,10 @@
 
 (require 'nyan-mode)
 (require 'diminish)
-(require 'anzu)
 
 ;;; custom theme
 (if (window-system)
     (progn
-      ;; My custom dark theme
-      ;; (setq custom-theme-directory "~/.emacs.d/lib/themes/")
-      ;; (add-to-list 'custom-theme-load-path custom-theme-directory)
-      ;; (load-theme 'tmtxt-dark t)
-
-      ;; Use zenburn theme for now
       (setq zenburn-use-variable-pitch t)
       (setq zenburn-scale-org-headlines t)
       (setq zenburn-scale-outline-headlines t)
@@ -130,7 +123,6 @@
              (projectile-mode            ""     projectile)
              (subword-mode               "")
              (eldoc-mode                 "")
-             (anzu-mode                  ""     anzu)
              (auto-fill-function " ⏎")
              ))
   (destructuring-bind (mode display &optional feature) d
@@ -138,9 +130,6 @@
         (eval-after-load feature
           `(diminish ',mode ,display))
       (diminish mode display))))
-
-;;; anzu
-(global-anzu-mode +1)
 
 ;;; finally, provide the library
 (provide 'tmtxt-appearance)
