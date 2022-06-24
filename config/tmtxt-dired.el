@@ -10,19 +10,20 @@
 ;; (tmtxt/add-lib "tmtxt-dired-async")
 
 ;;; require
-(require 'dired+)
-(require 'dired-details+)
+;; (require 'dired+)
+;; (require 'dired-details+)
 ;; (require 'tmtxt-async-tasks)
 ;; (require 'tmtxt-dired-async)
 (require 'wdired)
 
 ;; some config
 (setq-default
+ ;; dired-hide-details-mode t
  dired-omit-mode t
  dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\."
- dired-omit-extensions (->> dired-omit-extensions
-                            (remove ".tp")
-                            (remove ".lib"))
+ ;; dired-omit-extensions (->> dired-omit-extensions
+ ;;                            (remove ".tp")
+ ;;                            (remove ".lib"))
 
  dired-details-hide-link-targets nil
  dired-recursive-deletes 'always
@@ -31,6 +32,8 @@
 
  delete-by-moving-to-trash t
  global-auto-revert-non-file-buffers t)
+
+(add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
 
 ;; (image-dired-display-image-mode)
 
