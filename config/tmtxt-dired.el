@@ -6,14 +6,14 @@
 
 ;;; Code:
 
-(tmtxt/add-lib "tmtxt-async-tasks")
-(tmtxt/add-lib "tmtxt-dired-async")
+;; (tmtxt/add-lib "tmtxt-async-tasks")
+;; (tmtxt/add-lib "tmtxt-dired-async")
 
 ;;; require
 (require 'dired+)
 (require 'dired-details+)
-(require 'tmtxt-async-tasks)
-(require 'tmtxt-dired-async)
+;; (require 'tmtxt-async-tasks)
+;; (require 'tmtxt-dired-async)
 (require 'wdired)
 
 ;; some config
@@ -30,13 +30,9 @@
  dired-dwim-target t
 
  delete-by-moving-to-trash t
- global-auto-revert-non-file-buffers t
+ global-auto-revert-non-file-buffers t)
 
- tda/get-files-size-command "du"
- tda/download-command "wget"
- )
-
-(image-dired-display-image-mode)
+;; (image-dired-display-image-mode)
 
 ;;; *Nix configuration - config that are shared between Mac and Linux
 (tmtxt/in '(darwin gnu/linux)
@@ -74,15 +70,15 @@
         (setq command (concat command (shell-quote-argument file) " ")))
       (async-shell-command command))))
 
-(defun tmtxt/dired-do-shell-unmount-device ()
-  "Unmount device"
-  (interactive)
-  (save-window-excursion
-    (let ((command (case system-type
-                     ('darwin "diskutil unmount")
-                     ('gnu/linux "unmount"))))
-      (dired-do-async-shell-command
-       command current-prefix-arg (dired-get-marked-files t current-prefix-arg)))))
+;; (defun tmtxt/dired-do-shell-unmount-device ()
+;;   "Unmount device"
+;;   (interactive)
+;;   (save-window-excursion
+;;     (let ((command (case system-type
+;;                      ('darwin "diskutil unmount")
+;;                      ('gnu/linux "unmount"))))
+;;       (dired-do-async-shell-command
+;;        command current-prefix-arg (dired-get-marked-files t current-prefix-arg)))))
 
 (defun tmtxt/dired-open-current-directory ()
   "Open the current directory in Finder."
