@@ -34,9 +34,9 @@ DIR-NAME directory name inside lib folder"
                tmtxt-navigation
                tmtxt-editing
                tmtxt-auto-complete
-               tmtxt-project
+;               tmtxt-project
                tmtxt-desktop
-               tmtxt-org
+               ;tmtxt-org
                tmtxt-appearance
                tmtxt-cc
                tmtxt-buffers-management
@@ -49,19 +49,19 @@ DIR-NAME directory name inside lib folder"
                tmtxt-lisp
                tmtxt-ruby
                tmtxt-grep
-               tmtxt-evil
+               ;tmtxt-evil
                tmtxt-sql
                tmtxt-git
                tmtxt-go
                tmtxt-python
                tmtxt-yaml
-               tmtxt-fmgsuite
+               ;tmtxt-fmgsuite
                tmtxt-key-bindings
 
-               ;; other packages
-               saveplace
-               restclient
-               n4js
+               ;; ;; other packages
+               ;; saveplace
+               ;; restclient
+               ;; n4js
                ))
   (require cfg))
 
