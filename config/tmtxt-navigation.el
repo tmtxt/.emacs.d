@@ -1,5 +1,5 @@
 ;;; require
-(require 'cl)
+;; (require 'cl)
 
 ;;; Better C-x C-x
 ;;; exchange point and mark but not mark the region
