@@ -13,7 +13,7 @@
  '(hl-paren-colors
    '("#00FF00" "#00DD00" "#00BB00" "#009900" "#007700" "#005500"))
  '(package-selected-packages
-   '(highlight-parentheses magit prettier ahk-mode powershell web-mode go-autocomplete js2-mode groovy-mode erlang anzu diminish helm-ag n4js helm-cmd-t yaml-mode surround sql-indent scala-mode restclient puppet-mode php-mode paredit ob-cypher nyan-mode markdown-mode less-css-mode key-chord json-mode js2-highlight-vars js-doc jinja2-mode helm-projectile helm-flycheck helm-descbinds header2 golden-ratio go-mode flycheck-pyflakes flx-ido exec-path-from-shell evil-nerd-commenter evil emmet-mode elpy elixir-mode elisp-slime-nav dockerfile-mode csharp-mode color-theme-solarized coffee-mode clojure-mode-extra-font-locking ac-ispell ac-helm))
+   '(highlight-parentheses magit prettier ahk-mode powershell web-mode js2-mode groovy-mode erlang anzu diminish helm-ag n4js helm-cmd-t yaml-mode surround sql-indent scala-mode restclient puppet-mode php-mode paredit ob-cypher nyan-mode markdown-mode less-css-mode key-chord json-mode js2-highlight-vars js-doc jinja2-mode helm-projectile helm-flycheck helm-descbinds header2 golden-ratio go-mode flycheck-pyflakes flx-ido exec-path-from-shell evil-nerd-commenter evil emmet-mode elpy elixir-mode elisp-slime-nav dockerfile-mode csharp-mode color-theme-solarized coffee-mode clojure-mode-extra-font-locking ac-helm))
  '(quack-programs
    '("mit-scheme-x86-64" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
 (custom-set-faces
