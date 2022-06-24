@@ -1,4 +1,4 @@
-;;; diminish-autoloads.el --- automatically extracted autoloads
+;;; diminish-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -22,7 +22,7 @@ The mode-line displays of minor modes usually begin with a space, so
 the modes' names appear as separate words on the mode line.  However, if
 you're having problems with a cramped mode line, you may choose to use single
 letters for some modes, without leading spaces.  Capitalizing them works
-best; if you then diminish some mode to \"X\" but have abbrev-mode enabled as
+best; if you then diminish some mode to \"X\" but have `abbrev-mode' enabled as
 well, you'll get a display like \"AbbrevX\".  This function prepends a space
 to TO-WHAT if it's > 1 char long & doesn't already begin with a space.
 
@@ -45,11 +45,9 @@ Echo all active diminished or minor modes as if they were minor.
 The display goes in the echo area; if it's too long even for that,
 you can see the whole thing in the *Messages* buffer.
 This doesn't change the status of any modes; it just lets you see
-what diminished modes would be on the mode-line if they were still minor.
+what diminished modes would be on the mode-line if they were still minor." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "diminish" '("diminish")))
+(register-definition-prefixes "diminish" '("diminish"))
 
 ;;;***
 
