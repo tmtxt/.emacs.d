@@ -36,7 +36,6 @@ DIR-NAME directory name inside lib folder"
                tmtxt-auto-complete
                tmtxt-project
                tmtxt-desktop
-               ;tmtxt-org
                tmtxt-appearance
                tmtxt-cc
                tmtxt-buffers-management
