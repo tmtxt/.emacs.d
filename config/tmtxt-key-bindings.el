@@ -108,7 +108,6 @@
   ;; buffer managements
   "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX,Windows
   "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Ubuntu
-  "C-x C-b"            'ibuffer
   "<C-tab>"            'switch-to-buffer
 
   "M-="       'er/expand-region         ;expand region
