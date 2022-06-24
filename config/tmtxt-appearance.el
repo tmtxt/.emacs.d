@@ -91,19 +91,6 @@
   (setq line-spacing 0.2))
 (add-hook 'minibuffer-setup-hook 'tmtxt/make-minibuffer-text-bigger)
 
-;;; transparent emacs
-(defun tmtxt/toggle-alpha ()
-  "Make Emacs become transparent"
-  (interactive)
-  (let ((a (frame-parameter nil 'alpha)))
-    (if (or (not (numberp a)) (= a 100))
-        (set-frame-parameter nil 'alpha 70)
-      (set-frame-parameter nil 'alpha 100))))
-
-
-;;; default font
-;; (set-default-font "Hack")
-
 
 ;;; watch words
 (defun tmtxt-add-watchwords ()
