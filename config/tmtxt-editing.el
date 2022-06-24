@@ -2,8 +2,6 @@
 
 (require 'textmate)
 (require 'yasnippet)
-;; (require 'autopair)
-;; (require 'undo-tree)
 
 ;;; UTF-8
 (prefer-coding-system 'utf-8)
@@ -15,9 +13,7 @@
 (setq locale-coding-system 'utf-8)
 
 ;;; enable modes
-;; (autopair-global-mode 1)
 (delete-selection-mode 1)
-;; (global-undo-tree-mode)
 (global-subword-mode t)
 (global-auto-revert-mode 1)
 (toggle-text-mode-auto-fill)
@@ -36,31 +32,6 @@
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (auto-fill-mode t))
 (add-hook 'prog-mode-hook 'tmtxt-local-comment-auto-fill)
-
-;;; select all line
-;; (defun tmtxt/select-all-line ()
-;;   "select all line and put the cursor at the end of that line"
-;;   (interactive)
-;;   (tmtxt/back-to-indentation-or-line-beginning)
-;;   (set-mark-command nil)
-;;   (move-end-of-line nil))
-
-;;; copy/cut whole line if no region is selected
-(dolist (command (list 'kill-ring-save 'kill-region
-                       'clipboard-kill-ring-save
-                       'clipboard-kill-region))
-  (put command 'interactive-form
-       '(interactive
-         (if (use-region-p)
-             (list (region-beginning) (region-end))
-           (list (line-beginning-position) (line-beginning-position 2))))))
-;;; Because they set mark if the region is not active
-(defadvice kill-ring-save (after pop-spurious-mark activate)
-  (unless (use-region-p)
-    (pop-mark)))
-(defadvice kill-region (after pop-spurious-mark activate)
-  (unless (use-region-p)
-    (pop-mark)))
 
 ;;; indent current region if active, otherwise indent all buffer
 (defun tmtxt/indent-buffer ()
