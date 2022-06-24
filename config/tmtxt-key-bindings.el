@@ -80,7 +80,7 @@
 
   ;; editing
   "C-c q"   'join-line
-  "C-S-a"   'tmtxt/select-all-line
+  ;; "C-S-a"   'tmtxt/select-all-line
   "C-M-\\"  'tmtxt/indent-region-or-buffer
   "C-x F"   'tmtxt/find-file-as-root
   "C-m"     'newline-and-indent

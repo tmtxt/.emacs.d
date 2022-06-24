@@ -38,12 +38,12 @@
 (add-hook 'prog-mode-hook 'tmtxt-local-comment-auto-fill)
 
 ;;; select all line
-(defun tmtxt/select-all-line ()
-  "select all line and put the cursor at the end of that line"
-  (interactive)
-  (tmtxt/back-to-indentation-or-line-beginning)
-  (set-mark-command nil)
-  (move-end-of-line nil))
+;; (defun tmtxt/select-all-line ()
+;;   "select all line and put the cursor at the end of that line"
+;;   (interactive)
+;;   (tmtxt/back-to-indentation-or-line-beginning)
+;;   (set-mark-command nil)
+;;   (move-end-of-line nil))
 
 ;;; copy/cut whole line if no region is selected
 (dolist (command (list 'kill-ring-save 'kill-region
