@@ -135,7 +135,7 @@
              (helm-mode                  ""     helm-mode)
              (highlight-parentheses-mode ""     highlight-parentheses)
              (projectile-mode            ""     projectile)
-             (autopair-mode              ""     autopair)
+             ;; (autopair-mode              ""     autopair)
              (subword-mode               "")
              (eldoc-mode                 "")
              (anzu-mode                  ""     anzu)

@@ -2,7 +2,7 @@
 
 (require 'textmate)
 (require 'yasnippet)
-(require 'autopair)
+;; (require 'autopair)
 (require 'undo-tree)
 
 ;;; UTF-8
@@ -15,7 +15,7 @@
 (setq locale-coding-system 'utf-8)
 
 ;;; enable modes
-(autopair-global-mode 1)
+;; (autopair-global-mode 1)
 (delete-selection-mode 1)
 (global-undo-tree-mode)
 (global-subword-mode t)
