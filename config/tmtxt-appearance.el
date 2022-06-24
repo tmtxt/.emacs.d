@@ -141,7 +141,7 @@
              (anzu-mode                  ""     anzu)
              (auto-fill-function " ⏎")
              ;; (golden-ratio-mode          "ф"    golden-ratio)
-             (undo-tree-mode             "⌘-Z"  undo-tree)
+             ;; (undo-tree-mode             "⌘-Z"  undo-tree)
              ))
   (destructuring-bind (mode display &optional feature) d
     (if feature

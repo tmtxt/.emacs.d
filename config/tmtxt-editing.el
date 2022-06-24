@@ -3,7 +3,7 @@
 (require 'textmate)
 (require 'yasnippet)
 ;; (require 'autopair)
-(require 'undo-tree)
+;; (require 'undo-tree)
 
 ;;; UTF-8
 (prefer-coding-system 'utf-8)
@@ -17,7 +17,7 @@
 ;;; enable modes
 ;; (autopair-global-mode 1)
 (delete-selection-mode 1)
-(global-undo-tree-mode)
+;; (global-undo-tree-mode)
 (global-subword-mode t)
 (global-auto-revert-mode 1)
 (toggle-text-mode-auto-fill)
