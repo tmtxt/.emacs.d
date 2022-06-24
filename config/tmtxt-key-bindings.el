@@ -8,7 +8,6 @@
 (require 'sql-indent)
 (require 'cypher-mode)
 (require 'yasnippet)
-;; (require 'golden-ratio)
 
 ;;; util functions for defining/undefining keys
 ;;; should be loaded at the end
@@ -44,6 +43,8 @@
 ;; (setq w32-pass-lwindow-to-system nil)
 (setq w32-lwindow-modifier 'super)
 (setq w32-rwindow-modifier 'super)
+
+(tmtxt/undefine-keys paredit-mode-map '("DEL"))
 
 ;;; key definitions
 (tmtxt/undefine-keys

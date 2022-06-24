@@ -3,9 +3,7 @@
 
 ;;; Code:
 
-;; (require 'idle-highlight-mode)
 (require 'nyan-mode)
-;; (require 'golden-ratio)
 (require 'diminish)
 (require 'anzu)
 
@@ -36,13 +34,9 @@
                 global-hl-line-mode
                 line-number-mode
                 global-linum-mode
-                ;; golden-ratio-mode
                 ))
   (when (fboundp mode) (funcall mode 1)))
-;; (golden-ratio-toggle-widescreen)
 (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
-;; (setq golden-ratio-adjust-factor 0.82)
-;; (golden-ratio)
 
 ;;; disabled modes
 (dolist (mode '(menu-bar-mode
@@ -86,7 +80,6 @@
  frame-title-format '(buffer-file-name "%f" ("%b"))
 
  nyan-bar-length 10
- ;; golden-ratio-exclude-modes '("ediff-mode")
  )
 
 
@@ -140,8 +133,6 @@
              (eldoc-mode                 "")
              (anzu-mode                  ""     anzu)
              (auto-fill-function " ⏎")
-             ;; (golden-ratio-mode          "ф"    golden-ratio)
-             ;; (undo-tree-mode             "⌘-Z"  undo-tree)
              ))
   (destructuring-bind (mode display &optional feature) d
     (if feature
