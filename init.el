@@ -11,7 +11,7 @@
 
 ;;; Emacs is not a package manager, and here we load its package manager!
 (require 'package)
-(dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
+(dolist (source '(;; ("marmalade" . "http://marmalade-repo.org/packages/")
                   ("org" . "http://orgmode.org/elpa/")
                   ("elpa" . "http://tromey.com/elpa/")
                   ("melpa-stable" . "http://stable.melpa.org/packages/")
@@ -28,8 +28,9 @@ DIR-NAME directory name inside lib folder"
   (add-to-list 'load-path (concat "~/.emacs.d/lib/" dir-name)))
 
 ;;; some my own useful config
-(dolist (cfg '(dash tmtxt-util
-               tmtxt-ido
+(dolist (cfg '(dash
+               tmtxt-util
+               ;tmtxt-ido
                tmtxt-dired
                tmtxt-navigation
                tmtxt-editing
