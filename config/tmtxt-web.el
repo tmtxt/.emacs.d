@@ -5,7 +5,6 @@
 
 ;;; emmet mode
 (require 'emmet-mode)
-;; (require 'scss-mode)
 
 ;;; auto start on sgml and css mode
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
@@ -17,7 +16,6 @@
 
 ;;; bind key
 (define-key emmet-mode-keymap (kbd "C-j") 'emmet-expand-yas)
-
 
 ;;; web mode
 ;;; associate with web mode
@@ -44,10 +42,8 @@
   (tmtxt/prog-mode-setup)
 
   ;; disable rainbow, whitespace, idle highlight, font lock mode
-  ;; (rainbow-turn-off)
   (whitespace-mode 0)
   (font-lock-mode 1)
-  ;; (idle-highlight-mode 0)
   (setq fill-column 500)
 
   ;; indentation
@@ -84,16 +80,6 @@
 (setq web-mode-css-indent-offset 2)	;css indentation
 (setq web-mode-code-indent-offset 2)	;script
 (setq web-mode-indent-style 2)		;fix side effect for html indentation
-
-
-;;; sass mode
-;; (defun tmtxt/scss-setup ()
-;;   "Setup scss mode"
-;;   (setq-local css-indent-offset 2))
-;; (setq scss-compile-at-save nil)
-;; (add-hook 'scss-mode-hook 'tmtxt/scss-setup)
-;; (add-hook 'scss-mode-hook 'tmtxt/prog-mode-setup)
-
 
 ;;; misc
 ;;; auto insert and tag when typing </
