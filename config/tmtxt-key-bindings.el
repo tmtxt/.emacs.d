@@ -5,7 +5,7 @@
 (require 'helm-projectile)
 (require 'flycheck)
 ;; (require 'smart-forward)
-(require 'sql-indent)
+;; (require 'sql-indent)
 (require 'cypher-mode)
 (require 'yasnippet)
 
@@ -330,8 +330,8 @@
   "C-M-i"    'comint-previous-matching-input-from-input
   "C-M-k"    'comint-next-matching-input-from-input)
 
-(tmtxt/define-keys sql-mode-map
-  "C-M-\\"  'sql-indent-buffer)
+;; (tmtxt/define-keys sql-mode-map
+;;   "C-M-\\"  'sql-indent-buffer)
 
 (tmtxt/define-keys global-map
   "C-c m"   'git-messenger:popup-message)
