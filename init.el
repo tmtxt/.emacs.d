@@ -48,7 +48,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-lisp
                tmtxt-ruby
                tmtxt-grep
-               tmtxt-sql
+               ; tmtxt-sql
                tmtxt-git
                tmtxt-go
                tmtxt-python

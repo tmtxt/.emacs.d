@@ -7,10 +7,11 @@
 ;; license that can be found in the LICENSE file.
 
 ;; Author: The go-mode Authors
-;; Version: 1.5.0
-;; Package-Version: 20200822.1936
-;; Package-Commit: d17d21060b16a77f9ee28ff453e674225acbf1b1
+;; Version: 1.6.0
+;; Package-Version: 20220114.2239
+;; Package-Commit: fa2693278637f56759480d2bf203bb8aad107230
 ;; Keywords: languages go
+;; Package-Requires: ((emacs "26.1"))
 ;; URL: https://github.com/dominikh/go-mode.el
 ;;
 ;; This file is not part of GNU Emacs.
@@ -24,7 +25,7 @@
 (require 'find-file)
 (require 'ring)
 (require 'url)
-(require 'xref nil :noerror)  ; xref is new in Emacs 25.1
+(require 'xref)
 
 
 (eval-when-compile
@@ -205,18 +206,13 @@ the Go build cache or Go modules."
   :package-version '(go-mode . 1.4.0)
   :group 'go)
 
-(defcustom go-guess-gopath-functions (list #'go-godep-gopath
-                                           #'go-wgo-gopath
-                                           #'go-gb-gopath
-                                           #'go-plain-gopath)
+(defcustom go-guess-gopath-functions (list #'go-plain-gopath)
   "Functions to call in sequence to detect a project's GOPATH.
 
 The functions in this list will be called one after another,
 until a function returns non-nil.  The order of the functions in
 this list is important, as some project layouts may superficially
-look like others.  For example, a subset of wgo projects look like
-gb projects.  That's why we need to detect wgo first, to avoid
-mis-identifying them as gb projects."
+look like others."
   :type '(repeat function)
   :group 'go)
 
@@ -296,13 +292,11 @@ Consider using ‘godoc-gogetdoc’ instead for more accurate results."
 You can install gogetdoc with 'go get -u github.com/zmb3/gogetdoc'."
   (if (not (buffer-file-name (go--coverage-origin-buffer)))
       ;; TODO: gogetdoc supports unsaved files, but not introducing
-      ;; new artifical files, so this limitation will stay for now.
+      ;; new artificial files, so this limitation will stay for now.
       (error "Cannot use gogetdoc on a buffer without a file name"))
   (let ((posn (format "%s:#%d" (file-truename buffer-file-name) (1- (position-bytes point))))
         (out (godoc--get-buffer "<at point>")))
-  (with-current-buffer (get-buffer-create "*go-gogetdoc-input*")
-    (setq buffer-read-only nil)
-    (erase-buffer)
+  (with-temp-buffer
     (go--insert-modified-files)
     (call-process-region (point-min) (point-max) "gogetdoc" nil out nil
                          "-modified"
@@ -493,7 +487,7 @@ statements."
      (go--match-type-alias 2 font-lock-type-face)
 
      ;; Arrays/slices: []<type> | [123]<type> | [some.Const]<type> | [someConst]<type> | [...]<type>
-     (,(concat "\\[\\(?:[[:digit:]]+\\|" go-qualified-identifier-regexp "\\|" go-identifier-regexp "\\|\\.\\.\\.\\)?\\]" go-type-name-regexp) 1 font-lock-type-face)
+     (,(concat "\\(?:^\\|[^[:word:][:multibyte:]]\\)\\[\\(?:[[:digit:]]+\\|" go-qualified-identifier-regexp "\\|" go-identifier-regexp "\\|\\.\\.\\.\\)?\\]" go-type-name-regexp) 1 font-lock-type-face)
 
      ;; Unary "!"
      ("\\(!\\)[^=]" 1 font-lock-negation-char-face)
@@ -502,7 +496,7 @@ statements."
      (,(concat go-type-name-regexp "{") 1 font-lock-type-face)
 
      ;; Map value type
-     (,(concat "\\_<map\\_>\\[[^]]+\\]" go-type-name-regexp) 1 font-lock-type-face)
+     (go--match-map-value 1 font-lock-type-face)
 
      ;; Map key type
      (,(concat "\\_<map\\_>\\[" go-type-name-regexp) 1 font-lock-type-face)
@@ -766,95 +760,6 @@ case keyword. It returns nil for the case line itself."
           (replace-regexp-in-string "/\\*" "  "
                                     (match-string-no-properties 0))))))
 
-(defun go--fill-paragraph (&rest args)
-  "Wrap fill-paragraph to set custom fill-prefix."
-  (let ((fill-prefix (go--fill-prefix))
-        (fill-paragraph-function nil))
-    (apply 'fill-paragraph args)))
-
-(defun go--empty-line-p ()
-  (looking-at "[[:space:]]*$"))
-
-(defun go--boring-comment-p ()
-  "Return non-nil if we are looking at a boring comment.
-
-A boring comment is a comment with no content. For example:
-
-////////  ; boring
-// hello
-////////  ; boring
-
-/*        ; boring
-  hello
-*/        ; boring
-"
-  (or
-   (looking-at-p "[[:space:]]*//+[[:space:]]*$")
-   (looking-at-p "[[:space:]]*\\(?:/\\*+\\|\\*/+\\)[[:space:]]*$")))
-
-(defun go--interesting-comment-p ()
-  "Return non-nil if we are looking at an interesting comment.
-
-An interesting comment is one that contains content other than
-comment starter/closer characters."
-
-  (if (go-in-comment-p)
-      (and
-       (not (go--empty-line-p))
-       (not (looking-at-p "[[:space:]]*\\*/")))
-    (and
-     (looking-at go--comment-start-regexp)
-     (not (go--boring-comment-p)))))
-
-(defun go--fill-forward-paragraph (&optional arg)
-  "forward-paragraph like function used for fill-paragraph.
-
-This function is key for making fill-paragraph do the right
-thing for comments."
-  (beginning-of-line)
-  (let* ((arg (or arg 1))
-         (single (if (> arg 0) 1 -1))
-         (done nil))
-    (while (and (not done) (not (zerop arg)))
-      ;; If we are moving backwards and aren't currently looking at a
-      ;; comment, move back one line. This is to make sure
-      ;; (go--fill-forward-paragraph -1) always works properly as the
-      ;; inverse of (go--fill-forward-paragraph 1).
-      (when (and
-             (= single -1)
-             (not (go-in-comment-p))
-             (not (looking-at-p go--comment-start-regexp)))
-        (forward-line -1))
-
-      ;; Skip empty lines and comment lines with no content.
-      (while (and
-              (or (go--empty-line-p) (go--boring-comment-p))
-              (zerop (forward-line single))))
-
-      (let (saw-comment)
-        ;; Skip comment lines that have content.
-        (while (and
-                (go--interesting-comment-p)
-                (zerop (forward-line single)))
-          (setq saw-comment t))
-
-        (if (not saw-comment)
-            (progn
-              ;; In fill-region case user may have selected a region
-              ;; with non-comments. fill-region will loop forever
-              ;; until it makes it to the end of the region, so just
-              ;; fall back to `forward-paragraph' so we make progress.
-              (when mark-active
-                (setq arg (forward-paragraph arg)))
-              (setq done t))
-          ;; If we are going backwards, back up one more line so
-          ;; we are on the line before the comment.
-          (when (= single -1)
-            (forward-line 1))
-          (cl-decf arg single))))
-    arg))
-
-
 (defun go--open-paren-position ()
   "Return non-nil if point is between '(' and ')'.
 
@@ -873,7 +778,84 @@ The return value is the position of the opening paren."
        (point)))))
 
 (defun go-indentation-at-point ()
-  "Return the appropriate indentation for the current line.
+  "Return the appropriate indentation for the current line."
+  (save-excursion
+    (beginning-of-line)
+
+    (if (go-in-comment-p)
+        (go--multiline-comment-indent)
+      (go--indentation-at-point))))
+
+;; It's unfortunate that the user cannot reindent the current line to
+;; align with the previous line; however, if they could, then people
+;; who use reindent-then-newline-and-indent wouldn't be able to
+;; explicitly indent lines inside comments.
+(defun go--multiline-comment-indent ()
+  "Return the appropriate indent inside multiline comment.
+
+Assumes point is at beginning of line within comment. This
+function has basic logic to indent as you add new lines to a
+multiline comment, and to line up all the `*' if each line starts
+with `*'. The gofmt behavior for multiline comments is
+surprisingly complex and strange/buggy, so we just aim to do
+something simple rather than encode all the subtle behavior."
+  (let* (;; Indent of current line.
+         (indent (current-indentation))
+         ;; Indent of opening "/*".
+         start-indent
+         ;; Default indent to use based on preceding context.
+         natural-indent
+         ;; Non-nil means keep existing indent and give up calculating indent.
+         give-up
+         ;; Whether all comment lines (except first) begin with "*".
+         (all-star t))
+
+    (save-excursion
+      (go-goto-beginning-of-string-or-comment)
+
+      (setq start-indent (current-indentation))
+
+      ;; If other stuff precedes start of multiline comment, give up.
+      (setq give-up (/= (current-column) start-indent))
+
+      ;; Skip "/*".
+      (forward-char 2)
+
+      (skip-syntax-forward " ")
+
+      (if (not (eolp))
+          ;; If we aren't at EOL, we have content on the first line.
+          ;; Base our natural indent on that.
+          (setq natural-indent (current-column))
+        ;; Otherwise default to 1 space beyond "/*".
+        (setq natural-indent (+ start-indent 3)))
+
+      (let (done)
+        (while (not done)
+          (setq done (or (looking-at ".*\\*/") (not (zerop (forward-line)))))
+          (setq all-star (and all-star (looking-at "[[:space:]]*\\*"))))))
+
+    ;; If previous line has comment content, use its indent as our
+    ;; natural indent.
+    (save-excursion
+      (when (zerop (forward-line -1))
+        (beginning-of-line)
+        (when (and (go-in-comment-p) (> (current-indentation) 0))
+          (setq natural-indent (current-indentation)))))
+
+    (cond
+     (give-up indent)
+
+     (all-star (1+ start-indent))
+
+     ;; Closing "*/" with no preceding content always lines up with "/*".
+     ((looking-at "[[:space:]]*\\*/") start-indent)
+
+     ;; If the line is already indented, leave it.
+     (t (if (zerop indent) natural-indent indent)))))
+
+(defun go--indentation-at-point ()
+  "Return the appropriate indentation for the current non-comment line.
 
 This function works by walking a line's characters backwards. When it
 encounters a closing paren or brace it bounces to the corresponding
@@ -1242,14 +1224,14 @@ INDENT is the normal indent of this line, i.e. that of the case body."
 (defun go-mode-indent-line ()
   (interactive)
   (let (indent
-        shift-amt
         ;; case sensitively match "case", "default", etc.
         (case-fold-search nil)
         (pos (- (point-max) (point)))
         (point (point))
-        (beg (line-beginning-position)))
+        (beg (line-beginning-position))
+        (non-tab-indents 0))
     (back-to-indentation)
-    (if (go-in-string-or-comment-p)
+    (if (go-in-string-p)
         (goto-char point)
       (setq indent (go-indentation-at-point))
       (when (or
@@ -1263,11 +1245,22 @@ INDENT is the normal indent of this line, i.e. that of the case body."
              ;; comment attached above a "case" statement
              (go--case-comment-p indent))
         (cl-decf indent tab-width))
-      (setq shift-amt (- indent (current-column)))
-      (if (zerop shift-amt)
-          nil
+
+      ;; Don't do anything if current indent is correct.
+      (when (/= indent (current-column))
+        ;; Don't use tabs for indenting beyond "/*" in multiline
+        ;; comments. They don't play well with gofmt.
+        (when (go-in-comment-p)
+          (save-excursion
+            (go-goto-beginning-of-string-or-comment)
+            (when (> indent (current-indentation))
+              (setq non-tab-indents (- indent (current-indentation)))
+              (setq indent (current-indentation)))))
+
         (delete-region beg (point))
-        (indent-to indent))
+        (indent-to indent)
+        (insert-char ?  non-tab-indents))
+
       ;; If initial point was within line's indentation,
       ;; position after the indentation.  Else stay at same point in text.
       (if (> (- (point-max) pos) (point))
@@ -1347,7 +1340,7 @@ func foo(i, j int) {}
                                     (go--parameter-list-type (point-max))
                                     'present))
 
-  ;; Remember where our match started so we can continue our serach
+  ;; Remember where our match started so we can continue our search
   ;; from here.
   (setq go--fontify-param-beg (point))
 
@@ -1518,7 +1511,7 @@ comma, it stops at it. Return non-nil if comma was found."
 (defconst go--decl-ident-re (concat "\\(?:^\\|[[:space:]]\\)\\(\\(\\(" go-identifier-regexp "\\)\\)\\)\\_>"))
 
 (defun go--match-decl (end)
-  "Match identifers in \"var\", \"type\" and \"const\" decls, as
+  "Match identifiers in \"var\", \"type\" and \"const\" decls, as
 well as \":=\" assignments.
 
 In order to only scan once, the regex has three subexpressions
@@ -1560,7 +1553,7 @@ gets highlighted by the font lock keyword."
 
          (go-fontify-variables
           (save-match-data
-            ;; Left side of ":=" assignmnet.
+            ;; Left side of ":=" assignment.
             (when (looking-at ".*:=")
               (let ((depth (go-paren-level)))
                 (goto-char (match-end 0))
@@ -1609,7 +1602,7 @@ succeeds."
   "Match single result types.
 
 Parenthetical result lists are handled by the param list keyword,
-so we need a separate keyword to handle singular reuslt types
+so we need a separate keyword to handle singular result types
 such as \"string\" in:
 
 func foo(i int) string"
@@ -1639,6 +1632,17 @@ We are looking for the right-hand-side of the type alias"
                          (go--in-paren-with-prefix-p ?\( "type"))))
     found-match))
 
+
+(defconst go--map-value-re
+  (concat "\\_<map\\_>\\[\\(?:\\[[^]]*\\]\\)*[^]]*\\]" go-type-name-regexp))
+
+(defun go--match-map-value (end)
+  "Search for map value types."
+  (when (re-search-forward go--map-value-re end t)
+    ;; Move point to beginning of map value in case value itself is
+    ;; also a map (we will match it next iteration).
+    (goto-char (match-beginning 1))
+    t))
 
 (defconst go--label-re (concat "\\(" go-label-regexp "\\):"))
 
@@ -1692,19 +1696,28 @@ This is intended to be called from `before-change-functions'."
   (setq go-dangling-cache (make-hash-table :test 'eql)))
 
 (defun go--electric-indent-function (inserted-char)
-  (cond
-   ;; Indent after starting a "//" or "/*" comment.
-   ;; This is handy for comments above "case" statements.
-   ((or (eq inserted-char ?/) (eq inserted-char ?*))
-    (when (eq (char-before (1- (point))) ?/)
-      'do-indent))
+  (let ((prev (char-before (1- (point)))))
+    (cond
+     ;; Indent after starting/ending a comment. This is handy for
+     ;; comments above "case" statements and closing multiline
+     ;; comments.
+     ((or
+       (and (eq inserted-char ?/) (eq prev ?/))
+       (and (eq inserted-char ?/) (eq prev ?*))
+       (and (eq inserted-char ?*) (eq prev ?/)))
+      'do-indent)
 
-   ((eq inserted-char ? )
-    (and
-     (eq (char-before (- (point) 1)) ?e)
-     (eq (char-before (- (point) 2)) ?s)
-     (eq (char-before (- (point) 3)) ?a)
-     (eq (char-before (- (point) 4)) ?c)))))
+     ((eq inserted-char ? )
+      (and
+       (eq prev ?e)
+       (eq (char-before (- (point) 2)) ?s)
+       (eq (char-before (- (point) 3)) ?a)
+       (eq (char-before (- (point) 4)) ?c)))
+
+     ;; Trick electric-indent-mode into indenting inside multiline
+     ;; comments.
+     ((and (eq inserted-char ?\n) (go-in-comment-p))
+      'do-indent))))
 
 (defun go--comment-region (beg end &optional arg)
   "Switch to block comment when commenting a partial line."
@@ -1799,10 +1812,25 @@ with goflymake (see URL `https://github.com/dougm/goflymake'), gocode
   (set (make-local-variable 'comment-end)   "")
   (set (make-local-variable 'comment-use-syntax) t)
   (set (make-local-variable 'comment-start-skip) "\\(//+\\|/\\*+\\)\\s *")
-  (set (make-local-variable 'comment-region-function) 'go--comment-region)
+  (set (make-local-variable 'comment-region-function) #'go--comment-region)
+  ;; Set comment-multi-line to t so that comment-indent-new-line
+  ;; doesn't use one /* */ per line. Thanks to comment-use-syntax,
+  ;; Emacs is smart enough to still insert new // for single-line
+  ;; comments.
+  (set (make-local-variable 'comment-multi-line) t)
 
   (set (make-local-variable 'beginning-of-defun-function) #'go-beginning-of-defun)
   (set (make-local-variable 'end-of-defun-function) #'go-end-of-defun)
+  (setq-local paragraph-start
+              (concat "[[:space:]]*\\(?:"
+                      comment-start-skip
+                      "\\|\\*/?[[:space:]]*\\|\\)$"))
+  (setq-local paragraph-separate paragraph-start)
+  (setq-local fill-paragraph-function #'go-fill-paragraph)
+  (setq-local fill-forward-paragraph-function #'go--fill-forward-paragraph)
+  (setq-local adaptive-fill-function #'go--find-fill-prefix)
+  (setq-local adaptive-fill-first-line-regexp "")
+  (setq-local comment-line-break-function #'go--comment-indent-new-line)
 
   (set (make-local-variable 'parse-sexp-lookup-properties) t)
   (set (make-local-variable 'syntax-propertize-function) #'go-propertize-syntax)
@@ -1815,10 +1843,6 @@ with goflymake (see URL `https://github.com/dougm/goflymake'), gocode
 
   (set (make-local-variable 'go-dangling-cache) (make-hash-table :test 'eql))
   (add-hook 'before-change-functions #'go--reset-dangling-cache-before-change t t)
-
-  (set (make-local-variable 'adaptive-fill-function) #'go--fill-prefix)
-  (set (make-local-variable 'fill-paragraph-function) #'go--fill-paragraph)
-  (set (make-local-variable 'fill-forward-paragraph-function) #'go--fill-forward-paragraph)
 
   ;; ff-find-other-file
   (setq ff-other-file-alist 'go-other-file-alist)
@@ -1842,7 +1866,7 @@ with goflymake (see URL `https://github.com/dougm/goflymake'), gocode
   ;; leading whitespace in the file name.
   ;;
   ;; http://lists.gnu.org/archive/html/bug-gnu-emacs/2001-12/msg00674.html
-  ;; documents the old, reverseed order.
+  ;; documents the old, reversed order.
   (when (and (boundp 'compilation-error-regexp-alist)
              (boundp 'compilation-error-regexp-alist-alist))
     (add-to-list 'compilation-error-regexp-alist 'go-test)
@@ -1905,7 +1929,7 @@ with goflymake (see URL `https://github.com/dougm/goflymake'), gocode
 The tool used can be set via ‘gofmt-command’ (default: gofmt) and additional
 arguments can be set as a list via ‘gofmt-args’."
   (interactive)
-  (let ((tmpfile (go--make-nearby-temp-file "gofmt" nil ".go"))
+  (let ((tmpfile (make-nearby-temp-file "gofmt" nil ".go"))
         (patchbuf (get-buffer-create "*Gofmt patch*"))
         (errbuf (if gofmt-show-errors (get-buffer-create "*Gofmt Errors*")))
         (coding-system-for-read 'utf-8)
@@ -1931,11 +1955,11 @@ arguments can be set as a list via ‘gofmt-args’."
                           ;; accepting a full path, and some features
                           ;; of goimports rely on knowing the full
                           ;; name.
-                          (list "-srcdir" (go--file-local-name
+                          (list "-srcdir" (file-local-name
                                            (file-truename buffer-file-name))))))
           (setq our-gofmt-args
                 (append our-gofmt-args gofmt-args
-                        (list "-w" (go--file-local-name tmpfile))))
+                        (list "-w" (file-local-name tmpfile))))
           (message "Calling gofmt: %s %s" gofmt-command our-gofmt-args)
           ;; We're using errbuf for the mixed stdout and stderr output. This
           ;; is not an issue because gofmt -w does not produce any stdout
@@ -1979,7 +2003,7 @@ arguments can be set as a list via ‘gofmt-args’."
                  (concat (file-name-directory filename) (file-name-nondirectory tmpfile))
                tmpfile)))
         (while (search-forward-regexp
-                (concat "^\\(" (regexp-quote (go--file-local-name truefile))
+                (concat "^\\(" (regexp-quote (file-local-name truefile))
                         "\\):")
                 nil t)
           (replace-match (file-name-nondirectory filename) t t nil 1)))
@@ -2385,16 +2409,14 @@ description at POINT."
   "Jump to the definition of the expression at POINT."
   (interactive "d")
   (condition-case nil
-      (let ((file (car (godef--call point))))
-        (if (not (godef--successful-p file))
-            (message "%s" (godef--error file))
-          (push-mark)
-          (if (eval-when-compile (fboundp 'xref-push-marker-stack))
-              ;; TODO: Integrate this facility with XRef.
-              (xref-push-marker-stack)
-            (ring-insert find-tag-marker-ring (point-marker)))
-          (godef--find-file-line-column file other-window)))
-    (file-error (message "Could not run godef binary"))))
+	  (let ((file (car (godef--call point))))
+		(if (not (godef--successful-p file))
+			(message "%s" (godef--error file))
+		  (push-mark)
+		  ;; TODO: Integrate this facility with XRef.
+		  (xref-push-marker-stack)
+		  (godef--find-file-line-column file other-window)))
+	(file-error (message "Could not run godef binary"))))
 
 (defun godef-jump-other-window (point)
   (interactive "d")
@@ -2527,7 +2549,7 @@ for."
           (display-buffer (current-buffer) `(,go-coverage-display-buffer-func))))))
 
 (defun go-goto-function (&optional arg)
-  "Go to the function defintion (named or anonymous) surrounding point.
+  "Go to the function definition (named or anonymous) surrounding point.
 
 If we are on a docstring, follow the docstring down.
 If no function is found, assume that we are at the top of a file
@@ -2606,7 +2628,7 @@ If ARG is non-nil, anonymous functions are ignored."
   (backward-char))
 
 (defun go--in-function-p (compare-point)
-  "Return t if COMPARE-POINT lies inside the function immediately surrounding point."
+  "Return t if COMPARE-POINT is inside the function immediately surrounding point."
   (save-excursion
     (when (not (looking-at "\\<func\\>"))
       (go-goto-function))
@@ -2759,10 +2781,7 @@ returned."
     (looking-at "\\<func(")))
 
 (defun go-guess-gopath (&optional buffer)
-  "Determine a suitable GOPATH for BUFFER, or the current buffer if BUFFER is nil.
-
-This function supports gb-based projects as well as Godep, in
-addition to ordinary uses of GOPATH."
+  "Determine a suitable GOPATH for BUFFER, or the current buffer if BUFFER is nil."
   (with-current-buffer (or buffer (current-buffer))
     (let ((gopath (cl-some (lambda (el) (funcall el))
                            go-guess-gopath-functions)))
@@ -2779,57 +2798,9 @@ directory up the directory tree."
     (if d
         (list d))))
 
-(defun go-godep-gopath ()
-  "Detect a Godeps workspace by looking for Godeps/_workspace up
-the directory tree. The result is combined with that of
-`go-plain-gopath'."
-  (let* ((d (locate-dominating-file buffer-file-name "Godeps"))
-         (workspace (concat d
-                            (file-name-as-directory "Godeps")
-                            (file-name-as-directory "_workspace"))))
-    (if (and d
-             (file-exists-p workspace))
-        (list workspace
-              (locate-dominating-file buffer-file-name "src")))))
-
-(defun go-gb-gopath ()
-  "Detect a gb project."
-  (or (go--gb-vendor-gopath)
-      (go--gb-vendor-gopath-reverse)))
-
-(defun go--gb-vendor-gopath ()
-  (let* ((d (locate-dominating-file buffer-file-name "src"))
-         (vendor (concat d (file-name-as-directory "vendor"))))
-    (if (and d
-             (file-exists-p vendor))
-        (list d vendor))))
-
-(defun go--gb-vendor-gopath-reverse ()
-  (let* ((d (locate-dominating-file buffer-file-name "vendor"))
-         (src (concat d (file-name-as-directory "src"))))
-    (if (and d
-             (file-exists-p src))
-        (list d (concat d
-                        (file-name-as-directory "vendor"))))))
-
-(defun go-wgo-gopath ()
-  "Detect a wgo project."
-  (or (go--wgo-gocfg "src")
-      (go--wgo-gocfg "vendor")))
-
-(defun go--wgo-gocfg (needle)
-  (let* ((d (locate-dominating-file buffer-file-name needle))
-         (gocfg (concat d (file-name-as-directory ".gocfg"))))
-    (if (and d
-             (file-exists-p gocfg))
-        (with-temp-buffer
-          (insert-file-contents (concat gocfg "gopaths"))
-          (append
-           (mapcar (lambda (el) (concat d (file-name-as-directory el))) (split-string (buffer-string) "\n" t))
-           (list (go-original-gopath)))))))
-
 (defun go-set-project (&optional buffer)
-  "Set GOPATH based on `go-guess-gopath' for BUFFER, or the current buffer if BUFFER is nil.
+  "Set GOPATH based on `go-guess-gopath' for BUFFER.
+Set it to the current buffer if BUFFER is nil.
 
 If go-guess-gopath returns nil, that is if it couldn't determine
 a valid value for GOPATH, GOPATH will be set to the initial value
@@ -2913,7 +2884,7 @@ If BUFFER, return the number of characters in that buffer instead."
 (defvar go-dot-mod-font-lock-keywords
   `(
     (,(concat "^\\s-*\\(" (regexp-opt go-dot-mod-mode-keywords t) "\\)\\s-") 1 font-lock-keyword-face)
-    ("^\\s-*\\([^[:space:]]+\\)\\s-+\\(v[0-9]+\\.[0-9]+\\.[0-9]+\\)\\([^[:space:]\n]*\\)" (1 'go-dot-mod-module-name) (2 'go-dot-mod-module-semver) (3 'go-dot-mod-module-version)))
+    ("\\(?:^\\|=>\\)\\s-*\\([^[:space:]\n()]+\\)\\(?:\\s-+\\(v[0-9]+\\.[0-9]+\\.[0-9]+\\)\\([^[:space:]\n]*\\)\\)?" (1 'go-dot-mod-module-name) (2 'go-dot-mod-module-semver nil t) (3 'go-dot-mod-module-version nil t)))
   "Keyword highlighting specification for `go-dot-mod-mode'.")
 
 ;;;###autoload
@@ -2939,27 +2910,139 @@ If BUFFER, return the number of characters in that buffer instead."
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("go\\.mod\\'" . go-dot-mod-mode))
 
-;; Polyfills for functions added in Emacs 26.  Remove these once we don’t
-;; support Emacs 25 any more.
-(defalias 'go--file-local-name
-  (if (fboundp 'file-local-name) #'file-local-name
-    (lambda (file) (or (file-remote-p file 'localname) file))))
+;; The following functions were copied (and modified) from rust-mode.el.
+;;
+;; Copyright (c) 2015 The Rust Project Developers
+;;
+;; Permission is hereby granted, free of charge, to any
+;; person obtaining a copy of this software and associated
+;; documentation files (the "Software"), to deal in the
+;; Software without restriction, including without
+;; limitation the rights to use, copy, modify, merge,
+;; publish, distribute, sublicense, and/or sell copies of
+;; the Software, and to permit persons to whom the Software
+;; is furnished to do so, subject to the following
+;; conditions:
+;;
+;; The above copyright notice and this permission notice
+;; shall be included in all copies or substantial portions
+;; of the Software.
 
-(defalias 'go--make-nearby-temp-file
-  (if (fboundp 'make-nearby-temp-file) #'make-nearby-temp-file
-    (lambda (prefix &optional dir-flag suffix)
-      (let ((temporary-file-directory (go--temporary-file-directory)))
-        (make-temp-file prefix dir-flag suffix)))))
+(defun go--fill-prefix-for-comment-start (line-start)
+  "Determine what to use for `fill-prefix' based on the text at LINE-START."
+  (let ((result
+         ;; Replace /* with same number of spaces
+         (replace-regexp-in-string
+          "\\(?:/\\*+?\\)[!*]?"
+          (lambda (s)
+            (let ((offset (if (eq t
+                                  (compare-strings "/*" nil nil
+                                                   s
+                                                   (- (length s) 2)
+                                                   (length s)))
+                              1 2)))
+              (make-string (1+ (- (length s) offset)) ?\x20)))
+          line-start)))
+    ;; Make sure we've got at least one space at the end
+    (if (not (= (aref result (- (length result) 1)) ?\x20))
+        (setq result (concat result " ")))
+    result))
 
-(defalias 'go--temporary-file-directory
-  (if (fboundp 'temporary-file-directory) #'temporary-file-directory
-    (lambda ()
-      (let ((remote (file-remote-p default-directory)))
-        (if remote
-            ;; Assume that /tmp is a temporary directory on the remote host.
-            ;; This won’t work on Windows.
-            (concat remote "/tmp")
-          temporary-file-directory)))))
+(defun go--in-comment-paragraph (body)
+  ;; We might move the point to fill the next comment, but we don't want it
+  ;; seeming to jump around on the user
+  (save-excursion
+    ;; If we're outside of a comment, with only whitespace and then a comment
+    ;; in front, jump to the comment and prepare to fill it.
+    (when (not (go-in-comment-p))
+      (beginning-of-line)
+      (when (looking-at (concat "[[:space:]\n]*" comment-start-skip))
+        (goto-char (match-end 0))))
+
+    ;; If we're at the beginning of a comment paragraph with nothing but
+    ;; whitespace til the next line, jump to the next line so that we use the
+    ;; existing prefix to figure out what the new prefix should be, rather than
+    ;; inferring it from the comment start.
+    (while (save-excursion
+             (end-of-line)
+             (and (go-in-comment-p)
+                  (save-excursion
+                    (beginning-of-line)
+                    (looking-at paragraph-start))
+                  (looking-at "[[:space:]]*$")
+                  (nth 4 (syntax-ppss (line-beginning-position 2)))))
+      (goto-char (line-beginning-position 2)))
+
+    ;; If we're on the last line of a multiline-style comment that started
+    ;; above, back up one line so we don't mistake the * of the */ that ends
+    ;; the comment for a prefix.
+    (when (save-excursion
+            (and (nth 4 (syntax-ppss (line-beginning-position 1)))
+                 (looking-at "[[:space:]]*\\*/")))
+      (goto-char (line-end-position 0)))
+    (funcall body)))
+
+(defun go--with-comment-fill-prefix (body)
+  (let*
+      ((line-string (buffer-substring-no-properties
+                     (line-beginning-position) (line-end-position)))
+       (line-comment-start
+        (when (go-in-comment-p)
+          (cond
+           ;; If we're inside the comment and see a * prefix, use it
+           ((string-match "^\\([[:space:]]*\\*+[[:space:]]*\\)"
+                          line-string)
+            (match-string 1 line-string))
+           ;; If we're at the start of a comment, figure out what prefix
+           ;; to use for the subsequent lines after it
+           ((string-match (concat "[[:space:]]*" comment-start-skip) line-string)
+            (go--fill-prefix-for-comment-start
+             (match-string 0 line-string))))))
+       (fill-prefix
+        (or line-comment-start
+            fill-prefix)))
+    (funcall body)))
+
+(defun go--find-fill-prefix ()
+  (go--in-comment-paragraph
+   (lambda ()
+     (go--with-comment-fill-prefix
+      (lambda ()
+        fill-prefix)))))
+
+(defun go-fill-paragraph (&rest args)
+  "Special wrapping for `fill-paragraph'.
+This handles multi-line comments with a * prefix on each line."
+  (go--in-comment-paragraph
+   (lambda ()
+     (go--with-comment-fill-prefix
+      (lambda ()
+        (let
+            ((fill-paragraph-function
+              (if (not (eq fill-paragraph-function 'go-fill-paragraph))
+                  fill-paragraph-function))
+             (fill-paragraph-handle-comment t))
+          (apply 'fill-paragraph args)
+          t))))))
+
+(defun go--do-auto-fill (&rest args)
+  "Special wrapping for `do-auto-fill'.
+This handles multi-line comments with a * prefix on each line."
+  (go--with-comment-fill-prefix
+   (lambda ()
+     (apply 'do-auto-fill args)
+     t)))
+
+(defun go--fill-forward-paragraph (arg)
+  ;; This is to work around some funny behavior when a paragraph separator is
+  ;; at the very top of the file and there is a fill prefix.
+  (let ((fill-prefix nil)) (forward-paragraph arg)))
+
+(defun go--comment-indent-new-line (&optional arg)
+  (go--with-comment-fill-prefix
+   (lambda () (comment-indent-new-line arg))))
+
+
 
 (provide 'go-mode)
 
