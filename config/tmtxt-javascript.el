@@ -7,9 +7,6 @@
 (require 'js2-mode)
 (require 'flycheck)
 (require 'json-mode)
-;; (require 'js-doc)
-;; (require 'tern)
-;; (require 'tern-auto-complete)
 
 ;;; Code:
 
@@ -17,7 +14,6 @@
 ;;; General JS config
 
 ;;; Auto mode
-;; (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 
 ;;; Some config
@@ -109,23 +105,10 @@
            (0 (progn (compose-region (match-beginning 1) (match-end 1)
                                      ?ζ 'decompose-region)
                      nil)))
-          ;; ("\\(ret\\)urn"
-          ;;  (0 (progn (compose-region (match-beginning 1) (match-end 1)
-          ;;                            ?▸ 'decompose-region)
-          ;;            nil)))
-          ;; ("ret\\(urn\\)"
-          ;;  (0 (progn (compose-region (match-beginning 1) (match-end 1)
-          ;;                            ?▸ 'decompose-region)
-          ;;            nil)))
           )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Other util functions
-(defun tmtxt/delete-tern-process ()
-  "Delete the currently run tern process"
-  (interactive)
-  (delete-process "Tern"))
-
 (defun tmtxt/switch-to-web-mode ()
   (interactive)
   (web-mode))
