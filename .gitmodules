@@ -4,6 +4,3 @@
 [submodule "lib/tmtxt-async-tasks"]
 	path = lib/tmtxt-async-tasks
 	url = https://github.com/tmtxt/tmtxt-async-tasks.git
-[submodule "lib/livedown"]
-	path = lib/livedown
-	url = https://github.com/shime/emacs-livedown.git
