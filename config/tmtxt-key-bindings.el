@@ -4,9 +4,6 @@
 (require 'projectile)
 (require 'helm-projectile)
 (require 'flycheck)
-;; (require 'smart-forward)
-;; (require 'sql-indent)
-;; (require 'cypher-mode)
 (require 'yasnippet)
 
 ;;; util functions for defining/undefining keys
@@ -349,14 +346,6 @@
   "s-m"   (lambda () (interactive) (web-mode-tag-match))
   ;; "s-p"   'tmtxt/switch-php-mode
   "s-j"   'tmtxt/switch-to-js2-jsx-mode)
-
-;; (tmtxt/define-keys cypher-mode-map
-;;   "M-s-s"   'n4js-send-dwim)
-
-;; (tmtxt/define-keys magit-status-mode-map
-;;   "C-M-S-i"   'fmg/increase-major-tag
-;;   "C-M-S-o"   'fmg/increase-minor-tag
-;;   "C-M-S-p"   'fmg/increase-patch-tag)
 
 ;;; Windows specific keys
 (tmtxt/in '(windows-nt)
