@@ -6,7 +6,7 @@
 (require 'flycheck)
 ;; (require 'smart-forward)
 ;; (require 'sql-indent)
-(require 'cypher-mode)
+;; (require 'cypher-mode)
 (require 'yasnippet)
 
 ;;; util functions for defining/undefining keys
@@ -350,8 +350,8 @@
   ;; "s-p"   'tmtxt/switch-php-mode
   "s-j"   'tmtxt/switch-to-js2-jsx-mode)
 
-(tmtxt/define-keys cypher-mode-map
-  "M-s-s"   'n4js-send-dwim)
+;; (tmtxt/define-keys cypher-mode-map
+;;   "M-s-s"   'n4js-send-dwim)
 
 ;; (tmtxt/define-keys magit-status-mode-map
 ;;   "C-M-S-i"   'fmg/increase-major-tag

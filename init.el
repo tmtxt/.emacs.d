@@ -59,7 +59,6 @@ DIR-NAME directory name inside lib folder"
                ;; ;; other packages
                ;; saveplace
                ;; restclient
-               ;; n4js
                ))
   (require cfg))
 
@@ -95,11 +94,4 @@ DIR-NAME directory name inside lib folder"
 (add-to-list 'auto-mode-alist '("\\.rest\\'" . restclient-mode))
 (add-hook 'restclient-mode-hook 'auto-complete-mode)
 
-
-;;; neo4j shell
-(setq-default
- n4js-cli-program "vagrant"
- n4js-cli-arguments '("ssh" "-c" "/home/vagrant/neo4j/neo4j-community-2.2.1/bin/neo4j-shell -port 7475")
- n4js-pop-to-buffer t)
-(add-hook 'neo4j-shell-mode (lambda () (toggle-truncate-lines t)))
 (put 'downcase-region 'disabled nil)
