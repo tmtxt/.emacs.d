@@ -4,7 +4,7 @@
 (require 'projectile)
 (require 'helm-projectile)
 (require 'flycheck)
-(require 'smart-forward)
+;; (require 'smart-forward)
 (require 'sql-indent)
 (require 'cypher-mode)
 (require 'yasnippet)
@@ -319,12 +319,12 @@
 ;;     evil-emacs-state-map
 ;;   "M-q"        'tmtxt/evil-exit-insert-state)
 
-(tmtxt/keys 'smart-forward
-    global-map
-  "C-M-S-l"        'smart-forward
-  "C-M-S-j"        'smart-backward
-  "C-M-S-i"        'smart-up
-  "C-M-S-k"        'smart-down)
+;; (tmtxt/keys 'smart-forward
+;;     global-map
+;;   "C-M-S-l"        'smart-forward
+;;   "C-M-S-j"        'smart-backward
+;;   "C-M-S-i"        'smart-up
+;;   "C-M-S-k"        'smart-down)
 
 (tmtxt/define-keys comint-mode-map
   "C-M-i"    'comint-previous-matching-input-from-input
