@@ -42,7 +42,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-shell
                tmtxt-javascript
                tmtxt-web
-               tmtxt-php
+               ; tmtxt-php
                tmtxt-helm
                tmtxt-markdown
                tmtxt-lisp

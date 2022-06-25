@@ -348,7 +348,7 @@
   "s-n"   'web-mode-element-select
   ;; web mode tag match function not defined as interactive
   "s-m"   (lambda () (interactive) (web-mode-tag-match))
-  "s-p"   'tmtxt/switch-php-mode
+  ;; "s-p"   'tmtxt/switch-php-mode
   "s-j"   'tmtxt/switch-to-js2-jsx-mode)
 
 (tmtxt/define-keys cypher-mode-map
