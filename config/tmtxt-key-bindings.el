@@ -1,8 +1,8 @@
 (require 'web-mode)
 (require 'paredit)
 (require 'hideshow)
-;(require 'projectile)
-;(require 'helm-projectile)
+(require 'projectile)
+(require 'helm-projectile)
 (require 'flycheck)
 (require 'smart-forward)
 (require 'sql-indent)
@@ -72,7 +72,7 @@
   "C-x C-i" 'helm-imenu
   "C-c g"   'magit-status
   "M-;"     'comment-dwim
-  ;"M-:"     'evilnc-comment-or-uncomment-lines
+                                        ;"M-:"     'evilnc-comment-or-uncomment-lines
   "s-&"     'kill-this-buffer
   "M-t"     'tmtxt/insert-tab-as-spaces
 
@@ -101,9 +101,9 @@
   "C-S-e"   'tmtxt/helm-eshell
 
   ;; org mode
-  ;"C-c l"   'org-store-link
-;  "C-c a"   'org-agenda
- ; "C-c b"   'org-iswitchb
+                                        ;"C-c l"   'org-store-link
+                                        ;  "C-c a"   'org-agenda
+                                        ; "C-c b"   'org-iswitchb
 
   ;; buffer managements
   "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX,Windows
@@ -184,37 +184,37 @@
     lisp-mode-shared-map
   "RET" 'reindent-then-newline-and-indent)
 
-;(tmtxt/define-keys
-;    org-mode-map
-;
-  ;; move meta up/down/left/right
- ; "C-s-j"       'org-metaleft
-;  "C-s-l"       'org-metaright
-;  "C-s-i"       'org-metaup
-;  "C-s-k"       'org-metadown
+                                        ;(tmtxt/define-keys
+                                        ;    org-mode-map
+                                        ;
+;; move meta up/down/left/right
+                                        ; "C-s-j"       'org-metaleft
+                                        ;  "C-s-l"       'org-metaright
+                                        ;  "C-s-i"       'org-metaup
+                                        ;  "C-s-k"       'org-metadown
 
-  ;; shift meta up/down/left/right
- ; "C-S-s-j"       'org-shiftmetaleft
-;  "C-S-s-l"       'org-shiftmetaright
-;  "C-S-s-i"       'org-shiftmetaup
- ; "C-S-s-k"       'org-shiftmetadown
+;; shift meta up/down/left/right
+                                        ; "C-S-s-j"       'org-shiftmetaleft
+                                        ;  "C-S-s-l"       'org-shiftmetaright
+                                        ;  "C-S-s-i"       'org-shiftmetaup
+                                        ; "C-S-s-k"       'org-shiftmetadown
 
-  ;; navigation between headings
-;  "C-M-S-k"       'outline-next-visible-heading
-;  "C-M-S-i"       'outline-previous-visible-heading
-;  "C-M-S-l"       'org-forward-heading-same-level
-;  "C-M-S-j"       'org-backward-heading-same-level
-;  "C-M-S-u"       'outline-up-heading
- ; )
+;; navigation between headings
+                                        ;  "C-M-S-k"       'outline-next-visible-heading
+                                        ;  "C-M-S-i"       'outline-previous-visible-heading
+                                        ;  "C-M-S-l"       'org-forward-heading-same-level
+                                        ;  "C-M-S-j"       'org-backward-heading-same-level
+                                        ;  "C-M-S-u"       'outline-up-heading
+                                        ; )
 
-;(tmtxt/in '(darwin)
- ; (tmtxt/define-keys
-  ;    org-mode-map
-    ;"<C-s-268632074>"   'org-metaleft
-    ;"<C-s-268632076>"   'org-metaright
-    ;"<C-s-268632073>"   'org-metaup
-    ;"<C-s-268632075>"   'org-metadown
-;    ))
+                                        ;(tmtxt/in '(darwin)
+                                        ; (tmtxt/define-keys
+                                        ;    org-mode-map
+                                        ;"<C-s-268632074>"   'org-metaleft
+                                        ;"<C-s-268632076>"   'org-metaright
+                                        ;"<C-s-268632073>"   'org-metaup
+                                        ;"<C-s-268632075>"   'org-metadown
+                                        ;    ))
 
 (tmtxt/define-keys
     dired-mode-map
@@ -269,10 +269,10 @@
   ;; "S-TAB" 'tmtxt/mark-file-name-backward
   "s-o"   'tmtxt/dired-do-shell-open)
 
-;(tmtxt/keys 'projectile
- ;   global-map
-  ;"C-x C-d"     'projectile-dired
-  ;"C-x i"       'projectile-invalidate-cache)
+(tmtxt/keys 'projectile
+    global-map
+  "C-x C-d"     'projectile-dired
+  "C-x i"       'projectile-invalidate-cache)
 
 (tmtxt/keys 'helm
     global-map
@@ -285,12 +285,11 @@
   "C-M-S-k"  'helm-next-source
   "C-M-S-i"  'helm-previous-source)
 
-;(tmtxt/keys 'helm-projectile
- ;   global-map
-  ;"C-x C-S-f"        'helm-projectile-find-file
-  ;"C-x C-S-d"        'helm-projectile-find-dir
-  ;; "C-x C-S-s"        'helm-projectile-switch-project
- ; "C-x C-S-r"        'helm-projectile-ag)
+(tmtxt/keys 'helm-projectile
+    global-map
+  "C-x C-S-f"        'helm-projectile-find-file
+  "C-x C-S-d"        'helm-projectile-find-dir
+  "C-x C-S-r"        'helm-projectile-ag)
 
 (tmtxt/keys 'helm-dired-recent-dirs
     global-map

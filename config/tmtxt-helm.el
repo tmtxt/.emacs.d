@@ -3,6 +3,7 @@
 (require 'helm)
 (require 'helm-descbinds)
 (require 'helm-bookmark)
+(require 'helm-projectile)
 
 ;;; enable helm
 (helm-mode 1)
@@ -31,11 +32,6 @@
   (let ((base '(helm-source-projectile-projects
                 helm-source-buffers-list
                 helm-source-bookmarks
-                ;; helm-source-recentf
-                ;; helm-source-files-in-current-dir
-                ;; helm-source-projectile-buffers-list
-                ;; helm-source-projectile-files-list
-                ;; helm-source-file-cache
                 )))
     base))
 
