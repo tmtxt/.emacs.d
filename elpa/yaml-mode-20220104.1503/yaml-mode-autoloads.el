@@ -1,4 +1,4 @@
-;;; yaml-mode-autoloads.el --- automatically extracted autoloads
+;;; yaml-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -20,7 +20,9 @@ Simple mode to edit YAML.
 
 (add-to-list 'auto-mode-alist '("\\.\\(e?ya?\\|ra\\)ml\\'" . yaml-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "yaml-mode" '("yaml-")))
+(add-to-list 'magic-mode-alist '("^%YAML\\s-+[0-9]+\\.[0-9]+\\(\\s-+#\\|\\s-*$\\)" . yaml-mode))
+
+(register-definition-prefixes "yaml-mode" '("yaml-"))
 
 ;;;***
 
