@@ -7,7 +7,7 @@
 (require 'js2-mode)
 (require 'flycheck)
 (require 'json-mode)
-(require 'js-doc)
+;; (require 'js-doc)
 ;; (require 'tern)
 ;; (require 'tern-auto-complete)
 
