@@ -2,7 +2,6 @@
 
 (require 'helm)
 (require 'helm-descbinds)
-(require 'helm-cmd-t)
 (require 'helm-bookmark)
 
 ;;; enable helm
