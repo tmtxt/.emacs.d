@@ -5,7 +5,7 @@
 
 ;;; emmet mode
 (require 'emmet-mode)
-(require 'scss-mode)
+;; (require 'scss-mode)
 
 ;;; auto start on sgml and css mode
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
@@ -35,7 +35,7 @@
 (add-to-list 'auto-mode-alist '("\\.mako$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mak$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.twig$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+;; (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
 ;;; disable rainbow-mode and whitespace-mode when use web-mode
 (defun web-mode-hook ()
@@ -87,12 +87,12 @@
 
 
 ;;; sass mode
-(defun tmtxt/scss-setup ()
-  "Setup scss mode"
-  (setq-local css-indent-offset 2))
-(setq scss-compile-at-save nil)
-(add-hook 'scss-mode-hook 'tmtxt/scss-setup)
-(add-hook 'scss-mode-hook 'tmtxt/prog-mode-setup)
+;; (defun tmtxt/scss-setup ()
+;;   "Setup scss mode"
+;;   (setq-local css-indent-offset 2))
+;; (setq scss-compile-at-save nil)
+;; (add-hook 'scss-mode-hook 'tmtxt/scss-setup)
+;; (add-hook 'scss-mode-hook 'tmtxt/prog-mode-setup)
 
 
 ;;; misc
