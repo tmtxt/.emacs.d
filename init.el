@@ -57,8 +57,8 @@ DIR-NAME directory name inside lib folder"
                tmtxt-key-bindings
 
                ;; ;; other packages
-               ;; saveplace
-               ;; restclient
+               saveplace
+               restclient
                ))
   (require cfg))
 
