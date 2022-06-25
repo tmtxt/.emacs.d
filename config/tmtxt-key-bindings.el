@@ -37,20 +37,17 @@
               (message "Updated keymap `%s'" ',map)))))
 
 ;;; use Windows key as super key
-;; (setq w32-pass-lwindow-to-system nil)
 (setq w32-lwindow-modifier 'super)
 (setq w32-rwindow-modifier 'super)
 
-(tmtxt/undefine-keys paredit-mode-map '("DEL"))
-
-;;; key definitions
+;;; undefine keys
 (tmtxt/undefine-keys
     global-map
   '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\"" "s-l"))
 
 (tmtxt/undefine-keys
     paredit-mode-map
-  '("C-j"))
+  '("C-j" "DEL"))
 
 (tmtxt/undefine-keys
     magit-status-mode-map
@@ -60,6 +57,7 @@
     magit-process-mode-map
   '("<C-tab>"))
 
+;;; key definitions
 (tmtxt/define-keys
     global-map
   "C-+"     'text-scale-increase
@@ -69,7 +67,6 @@
   "C-x C-i" 'helm-imenu
   "C-c g"   'magit-status
   "M-;"     'comment-dwim
-                                        ;"M-:"     'evilnc-comment-or-uncomment-lines
   "s-&"     'kill-this-buffer
   "M-t"     'tmtxt/insert-tab-as-spaces
 
@@ -78,7 +75,6 @@
 
   ;; editing
   "C-c q"   'join-line
-  ;; "C-S-a"   'tmtxt/select-all-line
   "C-M-\\"  'tmtxt/indent-region-or-buffer
   "C-x F"   'tmtxt/find-file-as-root
   "C-m"     'newline-and-indent
@@ -97,18 +93,12 @@
   "C-x m"   'eshell
   "C-S-e"   'tmtxt/helm-eshell
 
-  ;; org mode
-                                        ;"C-c l"   'org-store-link
-                                        ;  "C-c a"   'org-agenda
-                                        ; "C-c b"   'org-iswitchb
-
   ;; buffer managements
   "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX,Windows
   "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Ubuntu
   "<C-tab>"            'switch-to-buffer
 
   "M-="       'er/expand-region         ;expand region
-  ;; "C-M-S-s"   'tmtxt/sql-connect-server
 
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
@@ -181,54 +171,8 @@
     lisp-mode-shared-map
   "RET" 'reindent-then-newline-and-indent)
 
-                                        ;(tmtxt/define-keys
-                                        ;    org-mode-map
-                                        ;
-;; move meta up/down/left/right
-                                        ; "C-s-j"       'org-metaleft
-                                        ;  "C-s-l"       'org-metaright
-                                        ;  "C-s-i"       'org-metaup
-                                        ;  "C-s-k"       'org-metadown
-
-;; shift meta up/down/left/right
-                                        ; "C-S-s-j"       'org-shiftmetaleft
-                                        ;  "C-S-s-l"       'org-shiftmetaright
-                                        ;  "C-S-s-i"       'org-shiftmetaup
-                                        ; "C-S-s-k"       'org-shiftmetadown
-
-;; navigation between headings
-                                        ;  "C-M-S-k"       'outline-next-visible-heading
-                                        ;  "C-M-S-i"       'outline-previous-visible-heading
-                                        ;  "C-M-S-l"       'org-forward-heading-same-level
-                                        ;  "C-M-S-j"       'org-backward-heading-same-level
-                                        ;  "C-M-S-u"       'outline-up-heading
-                                        ; )
-
-                                        ;(tmtxt/in '(darwin)
-                                        ; (tmtxt/define-keys
-                                        ;    org-mode-map
-                                        ;"<C-s-268632074>"   'org-metaleft
-                                        ;"<C-s-268632076>"   'org-metaright
-                                        ;"<C-s-268632073>"   'org-metaup
-                                        ;"<C-s-268632075>"   'org-metadown
-                                        ;    ))
-
 (tmtxt/define-keys
     dired-mode-map
-  ;; "s-u"     'tmtxt/dired-do-shell-unmount-device
-  ;; "C-c C-r"   'tda/rsync
-  ;; "C-c C-a"   'tda/rsync-multiple-mark-file
-  ;; "C-c C-e"   'tda/rsync-multiple-empty-list
-  ;; "C-c C-d"   'tda/rsync-multiple-remove-item
-  ;; "C-c C-v"   'tda/rsync-multiple
-  ;; "C-c C-z"   'tda/zip
-  ;; "C-c C-u"   'tda/unzip
-  ;; "C-c C-t"   'tda/rsync-delete
-  ;; "C-c C-k"   'tat/kill-all
-  ;; "C-c C-n"   'tat/move-to-bottom-all
-  ;; "C-c C-s"   'tda/get-files-size
-  ;; "C-c C-q"   'tda/download-to-current-dir
-  ;; "C-c C-l"   'tda/download-clipboard-link-to-current-dir
   "C-S-n"   'dired-create-directory
   "C-S-u"   'dired-up-directory
   "C-o"     'dired-omit-mode
@@ -245,11 +189,6 @@
   (tmtxt/define-keys dired-mode-map
     "s-O" 'tmtxt/dired-open-current-directory))
 
-(tmtxt/in '(darwin)
-  (tmtxt/define-keys
-      dired-mode-map
-    "C-c C-o"   'tmtxt/open-current-dir-in-terminal))
-
 (tmtxt/define-keys
     hs-minor-mode-map
   "C-c C-h"   'hs-hide-block
@@ -262,8 +201,6 @@
   )
 
 (tmtxt/keys 'wdired wdired-mode-map
-  ;; "TAB"   'tmtxt/mark-file-name-forward
-  ;; "S-TAB" 'tmtxt/mark-file-name-backward
   "s-o"   'tmtxt/dired-do-shell-open)
 
 (tmtxt/keys 'projectile
@@ -274,8 +211,6 @@
 (tmtxt/keys 'helm
     global-map
   "C-S-q" 'tmtxt/helm
-  "<C-M-S-iso-lefttab>"  'tmtxt/helm
-  ;; "M-V"    'helm-show-kill-ring
   "C-S-s"     'helm-occur)
 
 (tmtxt/keys 'helm helm-map
@@ -296,9 +231,7 @@
   "C-M-\"" 'js2-mark-defun
   "C-M-:" 'js2-mode-toggle-hide-functions
   "C-M->" 'js2-mode-toggle-element
-  ;; "C-t"  'tmtxt/delete-tern-process
   "C-M-|"   'prettier-prettify
-  ;; "C-M-S-d" 'js-doc-insert-function-doc-snippet
   )
 
 (tmtxt/define-keys js2-jsx-mode-map
@@ -308,27 +241,9 @@
     flycheck-mode-map
   "C-x C-p"     'helm-flycheck)
 
-;; (tmtxt/keys 'evil
-;;     evil-motion-state-map
-;;   "i"        'evil-insert-state)
-
-;; (tmtxt/keys 'evil
-;;     evil-emacs-state-map
-;;   "M-q"        'tmtxt/evil-exit-insert-state)
-
-;; (tmtxt/keys 'smart-forward
-;;     global-map
-;;   "C-M-S-l"        'smart-forward
-;;   "C-M-S-j"        'smart-backward
-;;   "C-M-S-i"        'smart-up
-;;   "C-M-S-k"        'smart-down)
-
 (tmtxt/define-keys comint-mode-map
   "C-M-i"    'comint-previous-matching-input-from-input
   "C-M-k"    'comint-next-matching-input-from-input)
-
-;; (tmtxt/define-keys sql-mode-map
-;;   "C-M-\\"  'sql-indent-buffer)
 
 (tmtxt/define-keys global-map
   "C-c m"   'git-messenger:popup-message)
@@ -344,7 +259,6 @@
   "s-n"   'web-mode-element-select
   ;; web mode tag match function not defined as interactive
   "s-m"   (lambda () (interactive) (web-mode-tag-match))
-  ;; "s-p"   'tmtxt/switch-php-mode
   "s-j"   'tmtxt/switch-to-js2-jsx-mode)
 
 ;;; Windows specific keys
@@ -373,11 +287,5 @@
            (vc-register)
          (shell-command (format "git add %s" buffer-file-name))
          (message "Staged changes.")))))
-
-;; Activate occur easily inside isearch
-(define-key isearch-mode-map (kbd "C-o")
-  (lambda () (interactive)
-    (let ((case-fold-search isearch-case-fold-search))
-      (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
 
 (provide 'tmtxt-key-bindings)
