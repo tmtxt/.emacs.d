@@ -86,7 +86,9 @@ DIR-NAME directory name inside lib folder"
 ;;; other config
 (defalias 'yes-or-no-p 'y-or-n-p)
 (load custom-file)                      ;custom file
-(server-start)                          ;daemon
+
+(unless (string= (getenv "CODESPACES") "true")
+  (server-start))
 
 ;;; rest client mode
 (add-to-list 'auto-mode-alist '("\\.rest\\'" . restclient-mode))
