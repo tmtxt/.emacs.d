@@ -64,10 +64,9 @@
   "Open the current directory in Finder."
   (interactive)
   (save-window-excursion
-    (let ((command (case system-type
-                     ('darwin "open .")
-                     ('gnu/linux "xdg-open .")
-                     ('windows-nt "explorer.exe ."))))
+    (let ((command (cond ((eq system-type 'darwin) "open .")
+                         ((eq system-type 'gnu/linux) "xdg/open .")
+                         ((eq system-type 'windows-nt) "explorer.exe ."))))
       (async-shell-command command))))
 
 (provide 'tmtxt-dired)
