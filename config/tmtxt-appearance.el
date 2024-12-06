@@ -9,10 +9,10 @@
 ;;; custom theme
 (if (window-system)
     (progn
-      (setq zenburn-use-variable-pitch t)
-      (setq zenburn-scale-org-headlines t)
-      (setq zenburn-scale-outline-headlines t)
-      (load-theme 'zenburn t)
+      ;(setq zenburn-use-variable-pitch t)
+      ;(setq zenburn-scale-org-headlines t)
+      ;(setq zenburn-scale-outline-headlines t)
+      (load-theme 'wombat t)
       )
   (progn
     (load-theme 'manoj-dark)))
