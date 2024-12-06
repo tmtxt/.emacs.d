@@ -55,7 +55,8 @@
     (let ((files (dired-get-marked-files nil current-prefix-arg))
           (command (case system-type
                      ('darwin "open ")
-                     ('gnu/linux "xdg-open "))))
+                     ('gnu/linux "xdg-open ")
+                     ('windows-nt "open "))))
       (dolist (file files)
         (setq command (concat command (shell-quote-argument file) " ")))
       (async-shell-command command))))
