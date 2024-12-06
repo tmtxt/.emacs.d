@@ -7,15 +7,7 @@
 (require 'diminish)
 
 ;;; custom theme
-(if (window-system)
-    (progn
-      ;(setq zenburn-use-variable-pitch t)
-      ;(setq zenburn-scale-org-headlines t)
-      ;(setq zenburn-scale-outline-headlines t)
-      (load-theme 'wombat t)
-      )
-  (progn
-    (load-theme 'manoj-dark)))
+(load-theme 'tango-dark t)
 
 
 ;;; enabled modes
@@ -24,7 +16,6 @@
                 display-time-mode
                 column-number-mode
                 show-paren-mode
-                global-hl-line-mode
                 line-number-mode
                 global-linum-mode
                 ))
