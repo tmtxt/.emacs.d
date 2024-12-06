@@ -41,36 +41,15 @@
 (setq w32-rwindow-modifier 'super)
 
 ;;; undefine keys
-(tmtxt/undefine-keys
-    global-map
-  '("C-M-j"
-    "C-M-l"
-    "C-x C-d"
-    "s-m"
-    "<f2> <f2>"
-    "C-\""
-    "s-l"
-    "C-_"
-    "C-q"
-    "M-9"
-    "M-5"
-    "M-a"
-    "M-y"
-    "M-t"))
+(tmtxt/undefine-keys global-map
+  '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\"" "s-l" "C-_" "C-q" "M-9"
+    "M-5" "M-a" "M-y" "M-t" "C-z" "M-x"))
 
-(tmtxt/undefine-keys
-    paredit-mode-map
-  '("C-j" "DEL"))
+(tmtxt/undefine-keys paredit-mode-map '("C-j" "DEL"))
+(tmtxt/undefine-keys magit-status-mode-map '("<C-tab>"))
+(tmtxt/undefine-keys magit-process-mode-map '("<C-tab>"))
 
-(tmtxt/undefine-keys
-    magit-status-mode-map
-  '("<C-tab>"))
-
-(tmtxt/undefine-keys
-    magit-process-mode-map
-  '("<C-tab>"))
-
-;;; key definitions
+;;; global keys
 (tmtxt/define-keys
     global-map
   "C-+"     'text-scale-increase
@@ -96,7 +75,6 @@
 
   ;; eshell
   "M-5"   'eshell
-  ;; "C-S-e"   'tmtxt/helm-eshell
 
   ;; buffer managements
   "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX,Windows
@@ -111,10 +89,8 @@
   "M-P" 'goto-line
   )
 
-(tmtxt/define-keys
-    key-translation-map
-
-  ;; ergonomic layout
+;;; translation map, for ergonomic
+(tmtxt/define-keys key-translation-map
   "M-i"     "C-p"
   "M-k"     "C-n"
   "M-j"     "C-b"
@@ -130,8 +106,10 @@
   "M-d"     "C-d"
   "M-f"     "DEL"
   "M-z"     "C-/"
+  "C-z"   "C-/"
   "M-c"     "M-w"
-  ;; "M-w"     "C-w"
+
+  "M-x"     "C-w"
   "M-v"     "C-y"
   "M-s"     "C-x C-s"
   "M-U"     "C-M-b"
@@ -146,20 +124,28 @@
   "C-M-S-s" "C-x #"
 
   ;; move between windows (up/down/left/right)
-  "M-s-i"   "<S-up>"
-  "M-s-^"   "<S-up>"
-  "M-s-k"   "<S-down>"
-  "M-s-j"   "<S-left>"
-  "M-s-∆"   "<S-left>"
-  "M-s-l"   "<S-right>"
-  "M-s-¬"   "<S-right>"
-  "M-s-}"   "<S-up>"
-  "M-s-˚"   "<S-down>"
-  "M-s-˝"   "<S-left>"
-  "M-s--"   "<S-right>"
-  "M-q"     "C-x o"
-  "C-S-b"   "C-x +"
+  ;; "M-s-i"   "<S-up>"
+  ;; "M-s-^"   "<S-up>"
+  ;; "M-s-k"   "<S-down>"
+  ;; "M-s-j"   "<S-left>"
+  ;; "M-s-∆"   "<S-left>"
+  ;; "M-s-l"   "<S-right>"
+  ;; "M-s-¬"   "<S-right>"
+  ;; "M-s-}"   "<S-up>"
+  ;; "M-s-˚"   "<S-down>"
+  ;; "M-s-˝"   "<S-left>"
+  ;; "M-s--"   "<S-right>"
+  ;; "M-q"     "C-x o"
+  ;; "C-S-b"   "C-x +"
   )
+
+;;;
+;; (tmtxt/in '(windows-nt)
+;;   (tmtxt/define-keys key-translation-map
+;;     "C-z"   "C-/"))
+;; (tmtxt/in '(darwin)
+;;   (tmtxt/define-keys key-translation-map
+;;     "s-O" 'tmtxt/dired-open-current-directory))
 
 (tmtxt/define-keys yas-minor-mode-map
   "C-S-f"     'yas-expand)
