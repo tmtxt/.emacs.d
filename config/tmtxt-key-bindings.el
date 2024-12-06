@@ -70,8 +70,8 @@
   "M-/"     'hippie-expand
 
   ;; isearch
-  "M-y"     'isearch-forward-regexp
-  "M-t"     'isearch-backward-regexp
+  ;; "M-y"     'isearch-forward-regexp
+  ;; "M-t"     'isearch-backward-regexp
 
   "M-5"   'eshell
 
@@ -107,8 +107,11 @@
   "M-d"     "C-d"
   "M-f"     "DEL"
   "M-z"     "C-/"
-  "C-z"   "C-/"
+  "C-z"     "C-/"
   "M-c"     "M-w"
+
+  "M-y"     "C-s"
+  "M-t"     "C-r"
 
   "M-x"     "C-w"
   "M-v"     "C-y"
@@ -187,12 +190,12 @@
 ;;   "C-M-S-k"  'helm-next-source
 ;;   "C-M-S-i"  'helm-previous-source)
 
-;; (tmtxt/keys 'helm-projectile
-;;     global-map
+(tmtxt/keys 'helm-projectile
+    global-map
 
-;;   "C-x C-S-f"        'helm-projectile-find-file
-;;   "C-x C-S-d"        'helm-projectile-find-dir
-;;   "C-x C-S-r"        'helm-projectile-ag)
+  "C-q C-S-f"        'helm-projectile-find-file
+  ;; "C-x C-S-d"        'helm-projectile-find-dir
+  "M-Y"        'helm-projectile-ag)
 
 ;; (tmtxt/keys 'helm-dired-recent-dirs
 ;;     global-map
