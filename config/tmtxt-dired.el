@@ -53,10 +53,9 @@
   (interactive)
   (save-window-excursion
     (let ((files (dired-get-marked-files nil current-prefix-arg))
-          (command (case system-type
-                     ('darwin "open ")
-                     ('gnu/linux "xdg-open ")
-                     ('windows-nt "open "))))
+          (command (cond ((eq system-type 'darwin) "open ")
+                         ((eq system-type 'gnu/linux) "xdg-open ")
+                         ((eq system-type 'windows-nt) "start \"\" "))))
       (dolist (file files)
         (setq command (concat command (shell-quote-argument file) " ")))
       (async-shell-command command))))
