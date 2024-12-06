@@ -4,8 +4,8 @@
 
 ;;; LISP & EMACS LISP
 ;;; hook
-(add-hook 'lisp-mode-hook 'enable-paredit-mode)
-(dolist (f '(enable-paredit-mode
+;; (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+(dolist (f '(;; enable-paredit-mode
              turn-on-eldoc-mode
              elisp-slime-nav-mode
              tmtxt/remove-elc-on-save

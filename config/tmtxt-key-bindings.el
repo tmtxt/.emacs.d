@@ -53,7 +53,10 @@
     "C-_"
     "C-q"
     "M-9"
-    "M-a"))
+    "M-5"
+    "M-a"
+    "M-y"
+    "M-t"))
 
 (tmtxt/undefine-keys
     paredit-mode-map
@@ -79,39 +82,33 @@
   "M-;"     'comment-dwim
 
   "M-a"     'helm-M-x
-  "C-M-\""  'mark-defun
 
   ;; editing
-  "C-c q"   'join-line
-  "C-M-\\"  'tmtxt/indent-region-or-buffer
-  "C-x F"   'tmtxt/find-file-as-root
+  "C-M-\\"  'indent-region
+  "C-M-|"   'tmtxt/indent-buffer
+  "C-q F"   'tmtxt/find-file-as-root
   "C-m"     'newline-and-indent
-  "C-M-u"   'upcase-word
-  "C-M-j"   'downcase-word
   "M-/"     'hippie-expand
-  "s-y"     'tmtxt/change-indentation-locally
 
   ;; isearch
-  "C-s"     'isearch-forward-regexp
-  "\C-r"    'isearch-backward-regexp
-  "C-M-s"   'isearch-forward
-  "C-M-r"   'isearch-backward
+  "M-y"     'isearch-forward-regexp
+  "M-t"     'isearch-backward-regexp
 
   ;; eshell
-  "C-x m"   'eshell
-  "C-S-e"   'tmtxt/helm-eshell
+  "M-5"   'eshell
+  ;; "C-S-e"   'tmtxt/helm-eshell
 
   ;; buffer managements
   "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX,Windows
   "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Ubuntu
   "<C-tab>"            'switch-to-buffer
 
-  "M-="       'er/expand-region         ;expand region
+  ;; "M-="       'er/expand-region         ;expand region
 
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
 
-  "C-S-p" 'goto-line
+  "M-P" 'goto-line
   )
 
 (tmtxt/define-keys
