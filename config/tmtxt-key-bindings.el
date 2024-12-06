@@ -101,6 +101,8 @@
   "M-J"     "C-a"
   "M-o"     "M-f"
   "M-u"     "M-b"
+  "M-U"     "C-M-b"
+  "M-O"     "C-M-f"
   "M-n"     "M-<"
   "M-N"     "M->"
   "M-d"     "C-d"
@@ -112,16 +114,13 @@
   "M-x"     "C-w"
   "M-v"     "C-y"
   "M-s"     "C-x C-s"
-  "M-U"     "C-M-b"
-  "M-O"     "C-M-f"
-  ;; "M-a"     "C-x h"
   "M-D"     "M-d"
   "M-F"     "M-DEL"
-  "M-W"     "s-&"
+
   "M-m"     "C-m"
   "M-SPC"   "C-SPC"
-  "M-g"     "C-k"
-  "C-M-S-s" "C-x #"
+  ;; "M-g"     "C-k"
+  ;; "C-M-S-s" "C-x #"
 
   ;; move between windows (up/down/left/right)
   ;; "M-s-i"   "<S-up>"
@@ -143,127 +142,120 @@
 ;; (tmtxt/in '(windows-nt)
 ;;   (tmtxt/define-keys key-translation-map
 ;;     "C-z"   "C-/"))
-;; (tmtxt/in '(darwin)
-;;   (tmtxt/define-keys key-translation-map
-;;     "s-O" 'tmtxt/dired-open-current-directory))
+(tmtxt/in '(darwin)
+  (tmtxt/define-keys key-translation-map
+    "M-w"     "s-&"))
 
 (tmtxt/define-keys yas-minor-mode-map
   "C-S-f"     'yas-expand)
 
-(tmtxt/define-keys
-    emacs-lisp-mode-map
-  "C-c C-r"  'eval-region)
+;; (tmtxt/define-keys emacs-lisp-mode-map
+;;   "C-c C-r"  'eval-region)
 
-(tmtxt/define-keys
-    read-expression-map
-  "TAB" 'lisp-complete-symbol)
+;; (tmtxt/define-keys read-expression-map
+;;   "TAB" 'lisp-complete-symbol)
 
-(tmtxt/define-keys
-    lisp-mode-shared-map
+(tmtxt/define-keys lisp-mode-shared-map
   "RET" 'reindent-then-newline-and-indent)
 
-(tmtxt/define-keys
-    dired-mode-map
+(tmtxt/define-keys dired-mode-map
   "C-S-n"   'dired-create-directory
   "C-S-u"   'dired-up-directory
   "C-o"     'dired-omit-mode
-  "M-b" 'subword-backward
-  "C-M-b" 'paredit-backward
+  ;; "M-b"     'subword-backward
+  ;; "C-M-b"   'paredit-backward
   )
 
-(tmtxt/define-keys
-    dired-mode-map
-  "s-o"     'tmtxt/dired-do-shell-open)
+;; (tmtxt/define-keys
+;;     dired-mode-map
+;;   "s-o"     'tmtxt/dired-do-shell-open)
 
-(tmtxt/in '(windows-nt)
-  (tmtxt/define-keys dired-mode-map
-    "s-O" 'tmtxt/dired-open-current-directory))
+;; (tmtxt/in '(windows-nt)
+;;   (tmtxt/define-keys dired-mode-map
+;;     "s-O" 'tmtxt/dired-open-current-directory))
 
-(tmtxt/define-keys
-    hs-minor-mode-map
-  "C-c C-h"   'hs-hide-block
-  "C-c C-d"   'hs-show-block
-  "C-c C-t"   'hs-toggle-hiding
-  "C-c C-;"   'hs-hide-all
-  "C-c C-'"   'hs-show-all
-  "C-c C-l"   'hs-hide-level
-  "C-S-r"     'hs-toggle-hiding
-  )
+;; (tmtxt/define-keys
+;;     hs-minor-mode-map
+;;   "C-c C-h"   'hs-hide-block
+;;   "C-c C-d"   'hs-show-block
+;;   "C-c C-t"   'hs-toggle-hiding
+;;   "C-c C-;"   'hs-hide-all
+;;   "C-c C-'"   'hs-show-all
+;;   "C-c C-l"   'hs-hide-level
+;;   "C-S-r"     'hs-toggle-hiding
+;;   )
 
-(tmtxt/keys 'wdired wdired-mode-map
-  "s-o"   'tmtxt/dired-do-shell-open)
+;; (tmtxt/keys 'wdired wdired-mode-map
+;;   "s-o"   'tmtxt/dired-do-shell-open)
 
-(tmtxt/keys 'projectile
-    global-map
-  "C-x C-d"     'projectile-dired
-  "C-x i"       'projectile-invalidate-cache)
+;; (tmtxt/keys 'projectile
+;;     global-map
+;;   "C-x C-d"     'projectile-dired
+;;   "C-x i"       'projectile-invalidate-cache)
 
-(tmtxt/keys 'helm
-    global-map
-  "C-S-q" 'tmtxt/helm
-  "C-S-s"     'helm-occur)
+;; (tmtxt/keys 'helm
+;;     global-map
+;;   "C-S-q" 'tmtxt/helm
+;;   "C-S-s"     'helm-occur)
 
-(tmtxt/keys 'helm helm-map
-  "C-M-S-k"  'helm-next-source
-  "C-M-S-i"  'helm-previous-source)
+;; (tmtxt/keys 'helm helm-map
+;;   "C-M-S-k"  'helm-next-source
+;;   "C-M-S-i"  'helm-previous-source)
 
-(tmtxt/keys 'helm-projectile
-    global-map
+;; (tmtxt/keys 'helm-projectile
+;;     global-map
 
-  "C-x C-S-f"        'helm-projectile-find-file
-  "C-x C-S-d"        'helm-projectile-find-dir
-  "C-x C-S-r"        'helm-projectile-ag)
+;;   "C-x C-S-f"        'helm-projectile-find-file
+;;   "C-x C-S-d"        'helm-projectile-find-dir
+;;   "C-x C-S-r"        'helm-projectile-ag)
 
-(tmtxt/keys 'helm-dired-recent-dirs
-    global-map
-  "C-c C-y"  'helm-dired-recent-dirs-view)
+;; (tmtxt/keys 'helm-dired-recent-dirs
+;;     global-map
+;;   "C-c C-y"  'helm-dired-recent-dirs-view)
 
-(tmtxt/define-keys js2-mode-map
-  "C-M-\"" 'js2-mark-defun
-  "C-M-:" 'js2-mode-toggle-hide-functions
-  "C-M->" 'js2-mode-toggle-element
-  "C-M-|"   'prettier-prettify
-  )
+;; (tmtxt/define-keys js2-mode-map
+;;   "C-M-\"" 'js2-mark-defun
+;;   "C-M-:" 'js2-mode-toggle-hide-functions
+;;   "C-M->" 'js2-mode-toggle-element
+;;   "C-M-|"   'prettier-prettify
+;;   )
 
-(tmtxt/define-keys js2-jsx-mode-map
-  "s-j"  'tmtxt/switch-to-web-mode)
+;; (tmtxt/define-keys js2-jsx-mode-map
+;;   "s-j"  'tmtxt/switch-to-web-mode)
 
-(tmtxt/keys 'flycheck
-    flycheck-mode-map
-  "C-x C-p"     'helm-flycheck)
+;; (tmtxt/keys 'flycheck
+;;     flycheck-mode-map
+;;   "C-x C-p"     'helm-flycheck)
 
-(tmtxt/define-keys comint-mode-map
-  "C-M-i"    'comint-previous-matching-input-from-input
-  "C-M-k"    'comint-next-matching-input-from-input)
+;; (tmtxt/define-keys comint-mode-map
+;;   "C-M-i"    'comint-previous-matching-input-from-input
+;;   "C-M-k"    'comint-next-matching-input-from-input)
 
-(tmtxt/define-keys global-map
-  "C-c m"   'git-messenger:popup-message)
-
-(tmtxt/define-keys web-mode-map
-  "s-y"   'tmtxt/web-mode-change-indentation
-  "s-g"   'web-mode-element-content-select
-  "s-I"   'web-mode-element-parent
-  "s-K"   'web-mode-element-child
-  "s-L"   'web-mode-element-next
-  "s-J"   'web-mode-element-previous
-  "s-h"   'web-mode-element-kill
-  "s-n"   'web-mode-element-select
-  ;; web mode tag match function not defined as interactive
-  "s-m"   (lambda () (interactive) (web-mode-tag-match))
-  "s-j"   'tmtxt/switch-to-js2-jsx-mode)
+;; (tmtxt/define-keys web-mode-map
+;;   "s-y"   'tmtxt/web-mode-change-indentation
+;;   "s-g"   'web-mode-element-content-select
+;;   "s-I"   'web-mode-element-parent
+;;   "s-K"   'web-mode-element-child
+;;   "s-L"   'web-mode-element-next
+;;   "s-J"   'web-mode-element-previous
+;;   "s-h"   'web-mode-element-kill
+;;   "s-n"   'web-mode-element-select
+;;   ;; web mode tag match function not defined as interactive
+;;   "s-m"   (lambda () (interactive) (web-mode-tag-match))
+;;   "s-j"   'tmtxt/switch-to-js2-jsx-mode)
 
 ;;; Windows specific keys
 (tmtxt/in '(windows-nt)
   (tmtxt/define-keys key-translation-map
     "<M-f4>" "C-x C-c"))
 
-(add-hook
- 'eshell-mode-hook
- (lambda ()
-   (tmtxt/define-keys eshell-mode-map
-     "C-S-i" 'eshell-previous-input
-     "C-S-k" 'eshell-next-input
-     )))
+;; (add-hook
+;;  'eshell-mode-hook
+;;  (lambda ()
+;;    (tmtxt/define-keys eshell-mode-map
+;;      "C-S-i" 'eshell-previous-input
+;;      "C-S-k" 'eshell-next-input
+;;      )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
@@ -271,12 +263,12 @@
 (define-key 'help-command "a" 'apropos)
 
 ;; This is a little hacky since VC doesn't support git add internally
-(eval-after-load 'vc
-  (define-key vc-prefix-map "i"
-    '(lambda () (interactive)
-       (if (not (eq 'Git (vc-backend buffer-file-name)))
-           (vc-register)
-         (shell-command (format "git add %s" buffer-file-name))
-         (message "Staged changes.")))))
+;; (eval-after-load 'vc
+;;   (define-key vc-prefix-map "i"
+;;     '(lambda () (interactive)
+;;        (if (not (eq 'Git (vc-backend buffer-file-name)))
+;;            (vc-register)
+;;          (shell-command (format "git add %s" buffer-file-name))
+;;          (message "Staged changes.")))))
 
 (provide 'tmtxt-key-bindings)
