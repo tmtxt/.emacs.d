@@ -43,7 +43,17 @@
 ;;; undefine keys
 (tmtxt/undefine-keys
     global-map
-  '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\"" "s-l"))
+  '("C-M-j"
+    "C-M-l"
+    "C-x C-d"
+    "s-m"
+    "<f2> <f2>"
+    "C-\""
+    "s-l"
+    "C-_"
+    "C-q"
+    "M-9"
+    "M-a"))
 
 (tmtxt/undefine-keys
     paredit-mode-map
@@ -61,16 +71,14 @@
 (tmtxt/define-keys
     global-map
   "C-+"     'text-scale-increase
-  "C--"     'text-scale-decrease
-  "M-%"     'query-replace-regexp
-  "C-M-%"   'query-replace
-  "C-x C-i" 'helm-imenu
-  "C-c g"   'magit-status
+  "C-_"     'text-scale-decrease
+  ;; "M-%"     'query-replace-regexp
+  ;; "C-M-%"   'query-replace
+  "C-q C-m" 'helm-imenu
+  "M-9"     'magit-status
   "M-;"     'comment-dwim
-  "s-&"     'kill-this-buffer
-  "M-t"     'tmtxt/insert-tab-as-spaces
 
-  "M-x"     'helm-M-x
+  "M-a"     'helm-M-x
   "C-M-\""  'mark-defun
 
   ;; editing
@@ -126,12 +134,12 @@
   "M-f"     "DEL"
   "M-z"     "C-/"
   "M-c"     "M-w"
-  "M-w"     "C-w"
+  ;; "M-w"     "C-w"
   "M-v"     "C-y"
   "M-s"     "C-x C-s"
   "M-U"     "C-M-b"
   "M-O"     "C-M-f"
-  "M-a"     "C-x h"
+  ;; "M-a"     "C-x h"
   "M-D"     "M-d"
   "M-F"     "M-DEL"
   "M-W"     "s-&"
@@ -182,8 +190,7 @@
 
 (tmtxt/define-keys
     dired-mode-map
-  "s-o"     'tmtxt/dired-do-shell-open
-  "s-O"     'tmtxt/dired-open-current-directory)
+  "s-o"     'tmtxt/dired-do-shell-open)
 
 (tmtxt/in '(windows-nt)
   (tmtxt/define-keys dired-mode-map
