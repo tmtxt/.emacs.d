@@ -73,7 +73,6 @@
   "M-y"     'isearch-forward-regexp
   "M-t"     'isearch-backward-regexp
 
-  ;; eshell
   "M-5"   'eshell
 
   ;; buffer managements
@@ -118,33 +117,19 @@
   "M-F"     "M-DEL"
 
   "M-m"     "C-m"
-  "M-SPC"   "C-SPC"
-  ;; "M-g"     "C-k"
-  ;; "C-M-S-s" "C-x #"
+  "M-SPC"   "C-SPC")
 
-  ;; move between windows (up/down/left/right)
-  ;; "M-s-i"   "<S-up>"
-  ;; "M-s-^"   "<S-up>"
-  ;; "M-s-k"   "<S-down>"
-  ;; "M-s-j"   "<S-left>"
-  ;; "M-s-∆"   "<S-left>"
-  ;; "M-s-l"   "<S-right>"
-  ;; "M-s-¬"   "<S-right>"
-  ;; "M-s-}"   "<S-up>"
-  ;; "M-s-˚"   "<S-down>"
-  ;; "M-s-˝"   "<S-left>"
-  ;; "M-s--"   "<S-right>"
-  ;; "M-q"     "C-x o"
-  ;; "C-S-b"   "C-x +"
-  )
-
-;;;
+;;; update windows keys here
 ;; (tmtxt/in '(windows-nt)
 ;;   (tmtxt/define-keys key-translation-map
 ;;     "C-z"   "C-/"))
 (tmtxt/in '(darwin)
   (tmtxt/define-keys key-translation-map
-    "M-w"     "s-&"))
+    "M-w"     "s-&"
+    "C-S-j"   "<S-left>"
+    "C-S-l"   "<S-right>"
+    "C-S-i"   "<S-up>"
+    "C-S-k"   "<S-down>"))
 
 (tmtxt/define-keys yas-minor-mode-map
   "C-S-f"     'yas-expand)
