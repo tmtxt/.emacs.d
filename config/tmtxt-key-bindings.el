@@ -146,9 +146,9 @@
   "M-_"   'hs-hide-all
   "M-+"   'hs-show-all)
 
-(tmtxt/define-keys helm-map
-  "C-M-S-k"  'helm-next-source
-  "C-M-S-i"  'helm-previous-source)
+;; (tmtxt/define-keys helm-map
+;;   "C-M-S-k"  'helm-next-source
+;;   "C-M-S-i"  'helm-previous-source)
 
 ;; (tmtxt/keys 'helm-dired-recent-dirs
 ;;     global-map
