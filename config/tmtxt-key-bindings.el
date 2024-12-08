@@ -120,7 +120,8 @@
   "M-F"     "M-DEL"
 
   "M-m"     "C-m"
-  "M-SPC"   "C-SPC")
+  "M-SPC"   "C-SPC"
+  "C-q C-j" "C-x C-j")
 
 ;;; update windows keys here
 ;; (tmtxt/in '(windows-nt)

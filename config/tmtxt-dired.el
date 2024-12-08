@@ -1,12 +1,7 @@
 ;;; dired --- config for using emacs as file manager
-
-;;; Commentary:
 ;;; this is my config for dired mode
 ;;; its target is to replace macos as well as other os's default file explorer application
 
-;;; Code:
-
-;;; require
 (require 'wdired)
 
 ;; some config
@@ -70,4 +65,3 @@
       (async-shell-command command))))
 
 (provide 'tmtxt-dired)
-;;; tmtxt-dired.el ends here

@@ -44,5 +44,4 @@ errors."
   (interactive)
   (insert (format-time-string "%c" (current-time))))
 
-;;; last, provide the library
 (provide 'tmtxt-util)

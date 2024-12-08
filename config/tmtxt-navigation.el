@@ -1,5 +1,3 @@
-;;; require
-
 ;;; Better C-x C-x
 ;;; exchange point and mark but not mark the region
 (defun tmtxt/exchange-point-and-mark-no-activate ()
@@ -10,7 +8,7 @@
 (define-key global-map [remap exchange-point-and-mark]
   'tmtxt/exchange-point-and-mark-no-activate)
 
-;;; Better C-a
+;;; Better beginning of line
 (defun tmtxt/back-to-indentation-or-line-beginning ()
   "Go back to indentation, or if already there, to the beginning
 of line."
@@ -43,5 +41,4 @@ of line."
 
 (windmove-default-keybindings) ;; Shift+direction
 
-;;; finally, provide the library
 (provide 'tmtxt-navigation)

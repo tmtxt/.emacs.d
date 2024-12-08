@@ -1,8 +1,3 @@
-;;; appearance --- config for emacs appearance
-;;; Commentary:
-
-;;; Code:
-
 (require 'nyan-mode)
 (require 'diminish)
 
@@ -16,9 +11,7 @@
                 display-time-mode
                 column-number-mode
                 show-paren-mode
-                line-number-mode
-                global-linum-mode
-                ))
+                global-display-line-numbers-mode))
   (when (fboundp mode) (funcall mode 1)))
 (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
 
@@ -66,13 +59,11 @@
  nyan-bar-length 10
  )
 
-
 ;;; same window buffer
 (add-to-list 'same-window-buffer-names "*SQL*")
 (add-to-list 'same-window-buffer-names "*Help*")
 (add-to-list 'same-window-buffer-names "*Apropos*")
 (add-to-list 'same-window-buffer-names "*Process List*")
-
 
 ;;; bigger minibuffer text
 (defun tmtxt/make-minibuffer-text-bigger ()
@@ -82,7 +73,6 @@
   (setq line-spacing 0.2))
 (add-hook 'minibuffer-setup-hook 'tmtxt/make-minibuffer-text-bigger)
 
-
 ;;; watch words
 (defun tmtxt-add-watchwords ()
   "Add watch words"
@@ -91,24 +81,21 @@
           1 font-lock-warning-face t))))
 (add-hook 'prog-mode-hook 'tmtxt-add-watchwords)
 
-;;; diminish
-(dolist (d '((yas-minor-mode             "яс"   yasnippet)
-             (paredit-mode               "(П)"  paredit)
-             (elisp-slime-nav-mode       ""     elisp-slime-nav)
-             (magit-auto-revert-mode     ""     magit)
-             (helm-mode                  ""     helm-mode)
-             (highlight-parentheses-mode ""     highlight-parentheses)
-             (projectile-mode            ""     projectile)
-             (subword-mode               "")
-             (eldoc-mode                 "")
-             (auto-fill-function " ⏎")
-             ))
-  (destructuring-bind (mode display &optional feature) d
-    (if feature
-        (eval-after-load feature
-          `(diminish ',mode ,display))
-      (diminish mode display))))
+;;; diminish, shorter display for minor mode in mode-line
+(pcase-dolist
+    (`(,mode ,display ,feature)
+     '((yas-minor-mode             "яс"   yasnippet)
+       (paredit-mode               "(П)"  paredit)
+       (elisp-slime-nav-mode       ""     elisp-slime-nav)
+       (magit-auto-revert-mode     ""     magit)
+       (helm-mode                  ""     helm-mode)
+       (highlight-parentheses-mode ""     highlight-parentheses)
+       (projectile-mode            ""     projectile)
+       (subword-mode               "")
+       (eldoc-mode                 "")
+       (auto-fill-function " ⏎")))
+  (if feature
+      (eval-after-load feature `(diminish ',mode ,display))
+    (diminish mode display)))
 
-;;; finally, provide the library
 (provide 'tmtxt-appearance)
-;;; tmtxt-appearance.el ends here
