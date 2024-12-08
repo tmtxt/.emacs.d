@@ -83,11 +83,6 @@
   "M-O"     "C-M-f"
   "M-y"     "C-s"
   "M-t"     "C-r"
-
-  "M-v"     "C-y"
-
-
-
   "M-m"     "C-m"
   "M-SPC"   "C-SPC"
   "C-q C-j" "C-x C-j"
@@ -106,7 +101,8 @@
   (tmtxt/define-keys key-translation-map
     "C-z"              "C-/"
     "M-x"              "C-w"
-    "M-s"              "C-x C-s"))
+    "M-s"              "C-x C-s"
+    "M-v"              "C-y"))
 ;;; on mac, there is a default key s-& so we can simply use translation-map
 (tmtxt/in '(darwin)
   (tmtxt/define-keys key-translation-map
