@@ -95,10 +95,6 @@
 
 ;;; translation map, for ergonomic
 (tmtxt/define-keys key-translation-map
-  "M-i"     "C-p"
-  "M-k"     "C-n"
-  "M-j"     "C-b"
-  "M-l"     "C-f"
   "M-I"     "M-v"
   "M-K"     "C-v"
   "M-L"     "C-e"
