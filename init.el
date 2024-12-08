@@ -33,7 +33,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-dired
                tmtxt-navigation
                tmtxt-editing
-               tmtxt-auto-complete
+               ;; tmtxt-auto-complete
                tmtxt-project
                tmtxt-desktop
                tmtxt-appearance
