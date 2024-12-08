@@ -85,7 +85,6 @@
   "M-y"     "C-s"
   "M-t"     "C-r"
 
-  "M-x"     "C-w"
   "M-v"     "C-y"
   "M-s"     "C-x C-s"
 
