@@ -1,6 +1,7 @@
 (require 'web-mode)
 (require 'paredit)
 (require 'hideshow)
+(require 'helm)
 (require 'projectile)
 (require 'helm-projectile)
 (require 'flycheck)
@@ -152,14 +153,17 @@
 ;;   "C-M-S-k"  'helm-next-source
 ;;   "C-M-S-i"  'helm-previous-source)
 
-(tmtxt/keys 'helm-projectile
-    global-map
-
-  "C-q i"       'projectile-invalidate-cache
+(tmtxt/keys 'helm-projectile global-map
+  "C-q i"            'projectile-invalidate-cache
   "C-q C-S-f"        'helm-projectile-find-file
   "C-q C-S-d"        'helm-projectile-find-dir
-  "C-q C-d"     'projectile-dired
-  "M-Y"        'helm-projectile-ag)
+  "C-q C-d"          'projectile-dired)
+(tmtxt/in '(darwin)
+  (tmtxt/define-keys global-map
+    "M-Y"              'helm-projectile-ag))
+(tmtxt/in '(windows-nt)
+  (tmtxt/define-keys global-map
+    "M-Y"              'helm-grep-do-git-grep))
 
 ;; (tmtxt/keys 'helm-dired-recent-dirs
 ;;     global-map
