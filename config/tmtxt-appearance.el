@@ -14,6 +14,7 @@
                 global-display-line-numbers-mode))
   (when (fboundp mode) (funcall mode 1)))
 (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 
 ;;; disabled modes
 (dolist (mode '(menu-bar-mode

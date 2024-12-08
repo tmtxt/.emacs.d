@@ -130,16 +130,12 @@
   "s-O"     'tmtxt/dired-do-shell-open
   "s-D"     'tmtxt/dired-open-current-directory)
 
-;; (tmtxt/define-keys
-;;     hs-minor-mode-map
-;;   "C-c C-h"   'hs-hide-block
-;;   "C-c C-d"   'hs-show-block
-;;   "C-c C-t"   'hs-toggle-hiding
-;;   "C-c C-;"   'hs-hide-all
-;;   "C-c C-'"   'hs-show-all
-;;   "C-c C-l"   'hs-hide-level
-;;   "C-S-r"     'hs-toggle-hiding
-;;   )
+(tmtxt/define-keys
+    hs-minor-mode-map
+  "M--"   'hs-hide-block
+  "M-="   'hs-show-block
+  "M-_"   'hs-hide-all
+  "M-+"   'hs-show-all)
 
 ;; (tmtxt/keys 'wdired wdired-mode-map
 ;;   "s-o"   'tmtxt/dired-do-shell-open)
