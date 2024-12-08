@@ -1,5 +1,3 @@
-;;; config for desktop session mode
-
 (require 'desktop)
 
 ;;; enable
@@ -34,5 +32,4 @@ Also returns nil if pid is nil."
 (add-to-list 'desktop-modes-not-to-save 'sr-mode)
 (add-to-list 'desktop-modes-not-to-save 'sr-tree-mode)
 
-;;; finally, provide the library
 (provide 'tmtxt-desktop)
