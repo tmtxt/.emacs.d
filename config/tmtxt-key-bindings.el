@@ -59,29 +59,14 @@
   "C-q C-m" 'helm-imenu
   "M-9"     'magit-status
   "M-;"     'comment-dwim
-
   "M-a"     'helm-M-x
-
-  ;; editing
   "C-M-\\"  'indent-region
   "C-M-|"   'tmtxt/indent-buffer
   "C-q F"   'tmtxt/find-file-as-root
   "C-m"     'newline-and-indent
   "M-/"     'hippie-expand
-
-  ;; isearch
-  ;; "M-y"     'isearch-forward-regexp
-  ;; "M-t"     'isearch-backward-regexp
-
-  "M-5"   'eshell
-
-  ;; buffer managements
-  "C-S-<tab>"          'tmtxt/switch-to-last-buffer ;OSX,Windows
-  "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer ;Ubuntu
+  "M-5"     'eshell
   "<C-tab>"            'switch-to-buffer
-
-  ;; "M-="       'er/expand-region         ;expand region
-
   "{"     'paredit-open-curly
   "}"     'paredit-close-curly
   "("     'paredit-open-round
@@ -89,7 +74,6 @@
   "["     'paredit-open-square
   "]"     'paredit-close-square
   "\""    'paredit-doublequote
-
   "M-P" 'goto-line
   )
 
@@ -123,15 +107,21 @@
 ;;; on windows, no default key for kill-current-buffer so cannot use translation-map
 (tmtxt/in '(windows-nt)
   (tmtxt/define-keys global-map
-    "M-w"   'kill-current-buffer
-    "M-c"   'kill-ring-save))
+    "M-w"                'kill-current-buffer
+    "M-c"                'kill-ring-save
+    "C-S-<tab>"          'tmtxt/switch-to-last-buffer))
 ;;; on mac, there is a default key s-& so we can simply use translation-map
 (tmtxt/in '(darwin)
   (tmtxt/define-keys key-translation-map
     "M-c"       "M-w"
     "M-w"       "s-&"
     "s-<up>"    "M-<"
-    "s-<down>"  "M->"))
+    "s-<down>"  "M->")
+  (tmtxt/define-keys global-map
+    "C-S-<tab>"          'tmtxt/switch-to-last-buffer))
+(tmtxt/in '(gnu/linux)
+  (tmtxt/define-keys global-map
+    "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer))
 
 (tmtxt/define-keys yas-minor-mode-map
   "C-S-f"     'yas-expand)
