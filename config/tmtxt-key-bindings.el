@@ -105,7 +105,8 @@
     "M-c"                'kill-ring-save
     "C-S-<tab>"          'tmtxt/switch-to-last-buffer)
   (tmtxt/define-keys key-translation-map
-    "C-z"              "C-/"))
+    "C-z"              "C-/"
+    "M-x"              "C-w"))
 ;;; on mac, there is a default key s-& so we can simply use translation-map
 (tmtxt/in '(darwin)
   (tmtxt/define-keys key-translation-map
