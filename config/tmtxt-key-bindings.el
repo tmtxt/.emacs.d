@@ -43,7 +43,7 @@
 ;;; undefine keys
 (tmtxt/undefine-keys global-map
   '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\"" "s-l" "C-_" "C-q"
-    "M-a" "M-y" "M-t" "C-z" "M-x"))
+    "M-a" "C-z" "M-x"))
 
 (tmtxt/undefine-keys paredit-mode-map '("C-j" "DEL"))
 (tmtxt/undefine-keys magit-status-mode-map '("<C-tab>"))
