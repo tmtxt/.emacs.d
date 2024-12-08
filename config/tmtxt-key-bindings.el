@@ -97,8 +97,6 @@
 (tmtxt/define-keys key-translation-map
   "M-U"     "C-M-b"
   "M-O"     "C-M-f"
-  "M-n"     "M-<"
-  "M-N"     "M->"
   "M-d"     "C-d"
   "M-f"     "DEL"
   "M-z"     "C-/"
@@ -130,8 +128,10 @@
 ;;; on mac, there is a default key s-& so we can simply use translation-map
 (tmtxt/in '(darwin)
   (tmtxt/define-keys key-translation-map
-    "M-c"     "M-w"
-    "M-w"     "s-&"))
+    "M-c"       "M-w"
+    "M-w"       "s-&"
+    "s-<up>"    "M-<"
+    "s-<down>"  "M->"))
 
 (tmtxt/define-keys yas-minor-mode-map
   "C-S-f"     'yas-expand)
