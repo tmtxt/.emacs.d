@@ -87,7 +87,8 @@
   "C-S-j"   "<S-left>"
   "C-S-l"   "<S-right>"
   "C-S-i"   "<S-up>"
-  "C-S-k"   "<S-down>")
+  "C-S-k"   "<S-down>"
+  "C-q C-q" "C-x C-x")
 
 ;;; on windows, no default key for kill-current-buffer so cannot use translation-map
 (tmtxt/in '(windows-nt)
@@ -137,9 +138,6 @@
   "M-_"   'hs-hide-all
   "M-+"   'hs-show-all)
 
-;; (tmtxt/keys 'wdired wdired-mode-map
-;;   "s-o"   'tmtxt/dired-do-shell-open)
-
 ;; (tmtxt/keys 'projectile
 ;;     global-map
 ;;   "C-x C-d"     'projectile-dired
@@ -157,8 +155,10 @@
 (tmtxt/keys 'helm-projectile
     global-map
 
+  "C-q i"       'projectile-invalidate-cache
   "C-q C-S-f"        'helm-projectile-find-file
-  ;; "C-x C-S-d"        'helm-projectile-find-dir
+  "C-q C-S-d"        'helm-projectile-find-dir
+  "C-q C-d"     'projectile-dired
   "M-Y"        'helm-projectile-ag)
 
 ;; (tmtxt/keys 'helm-dired-recent-dirs

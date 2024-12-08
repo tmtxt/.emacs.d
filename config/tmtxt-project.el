@@ -7,7 +7,6 @@
 
 ;;; config
 (setq-default
- projectile-enable-caching t
- projectile-indexing-method 'hybrid)
+ projectile-enable-caching t)
 
 (provide 'tmtxt-project)
