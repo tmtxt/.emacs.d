@@ -58,6 +58,8 @@
   ;; "M-%"     'query-replace-regexp
   ;; "C-M-%"   'query-replace
   "C-q C-m" 'helm-imenu
+  "C-S-q"   'tmtxt/helm
+  "C-Y"     'helm-occur
   "M-9"     'magit-status
   "M-;"     'comment-dwim
   "M-a"     'helm-M-x
@@ -76,6 +78,10 @@
   "]"     'paredit-close-square
   "\""    'paredit-doublequote
   "M-P" 'goto-line
+  "C-q i"            'projectile-invalidate-cache
+  "C-q C-S-f"        'helm-projectile-find-file
+  "C-q C-S-d"        'helm-projectile-find-dir
+  "C-q C-d"          'projectile-dired
   )
 (tmtxt/define-keys key-translation-map
   "M-U"     "C-M-b"
@@ -96,7 +102,8 @@
   (tmtxt/define-keys global-map
     "M-w"                'kill-current-buffer
     "M-c"                'kill-ring-save
-    "C-S-<tab>"          'tmtxt/switch-to-last-buffer)
+    "C-S-<tab>"          'tmtxt/switch-to-last-buffer
+    "M-Y"              'helm-grep-do-git-grep)
   (tmtxt/define-keys key-translation-map
     "C-z"              "C-/"
     "M-x"              "C-w"
@@ -111,7 +118,8 @@
     "s-<down>"         "M->"
     "M-<delete>"       "M-d")
   (tmtxt/define-keys global-map
-    "C-S-<tab>"          'tmtxt/switch-to-last-buffer))
+    "C-S-<tab>"          'tmtxt/switch-to-last-buffer
+    "M-Y"              'helm-projectile-ag))
 (tmtxt/in '(gnu/linux)
   (tmtxt/define-keys global-map
     "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer))
@@ -132,38 +140,15 @@
   "s-O"     'tmtxt/dired-do-shell-open
   "s-D"     'tmtxt/dired-open-current-directory)
 
-(tmtxt/define-keys
-    hs-minor-mode-map
+(tmtxt/define-keys hs-minor-mode-map
   "M--"   'hs-hide-block
   "M-="   'hs-show-block
   "M-_"   'hs-hide-all
   "M-+"   'hs-show-all)
 
-;; (tmtxt/keys 'projectile
-;;     global-map
-;;   "C-x C-d"     'projectile-dired
-;;   "C-x i"       'projectile-invalidate-cache)
-
-;; (tmtxt/keys 'helm
-;;     global-map
-;;   "C-S-q" 'tmtxt/helm
-;;   "C-S-s"     'helm-occur)
-
-;; (tmtxt/keys 'helm helm-map
-;;   "C-M-S-k"  'helm-next-source
-;;   "C-M-S-i"  'helm-previous-source)
-
-(tmtxt/keys 'helm-projectile global-map
-  "C-q i"            'projectile-invalidate-cache
-  "C-q C-S-f"        'helm-projectile-find-file
-  "C-q C-S-d"        'helm-projectile-find-dir
-  "C-q C-d"          'projectile-dired)
-(tmtxt/in '(darwin)
-  (tmtxt/define-keys global-map
-    "M-Y"              'helm-projectile-ag))
-(tmtxt/in '(windows-nt)
-  (tmtxt/define-keys global-map
-    "M-Y"              'helm-grep-do-git-grep))
+(tmtxt/define-keys helm-map
+  "C-M-S-k"  'helm-next-source
+  "C-M-S-i"  'helm-previous-source)
 
 ;; (tmtxt/keys 'helm-dired-recent-dirs
 ;;     global-map
