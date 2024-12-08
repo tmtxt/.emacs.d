@@ -95,8 +95,6 @@
 
 ;;; translation map, for ergonomic
 (tmtxt/define-keys key-translation-map
-  "M-L"     "C-e"
-  "M-J"     "C-a"
   "M-o"     "M-f"
   "M-u"     "M-b"
   "M-U"     "C-M-b"
