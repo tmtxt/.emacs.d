@@ -81,12 +81,11 @@
 (tmtxt/define-keys key-translation-map
   "M-U"     "C-M-b"
   "M-O"     "C-M-f"
-
   "M-y"     "C-s"
   "M-t"     "C-r"
 
   "M-v"     "C-y"
-  "M-s"     "C-x C-s"
+
 
 
   "M-m"     "C-m"
@@ -106,7 +105,8 @@
     "C-S-<tab>"          'tmtxt/switch-to-last-buffer)
   (tmtxt/define-keys key-translation-map
     "C-z"              "C-/"
-    "M-x"              "C-w"))
+    "M-x"              "C-w"
+    "M-s"              "C-x C-s"))
 ;;; on mac, there is a default key s-& so we can simply use translation-map
 (tmtxt/in '(darwin)
   (tmtxt/define-keys key-translation-map
