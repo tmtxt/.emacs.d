@@ -42,8 +42,8 @@
 
 ;;; undefine keys
 (tmtxt/undefine-keys global-map
-  '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\"" "s-l" "C-_" "C-q" "M-9"
-    "M-5" "M-a" "M-y" "M-t" "C-z" "M-x"))
+  '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\"" "s-l" "C-_" "C-q"
+    "M-a" "M-y" "M-t" "C-z" "M-x"))
 
 (tmtxt/undefine-keys paredit-mode-map '("C-j" "DEL"))
 (tmtxt/undefine-keys magit-status-mode-map '("<C-tab>"))
@@ -76,8 +76,6 @@
   "\""    'paredit-doublequote
   "M-P" 'goto-line
   )
-
-;;; translation map, for ergonomic
 (tmtxt/define-keys key-translation-map
   "M-U"     "C-M-b"
   "M-O"     "C-M-f"
@@ -86,7 +84,6 @@
   "M-m"     "C-m"
   "M-SPC"   "C-SPC"
   "C-q C-j" "C-x C-j"
-
   "C-S-j"   "<S-left>"
   "C-S-l"   "<S-right>"
   "C-S-i"   "<S-up>"
@@ -130,17 +127,8 @@
   "C-S-n"   'dired-create-directory
   "C-S-u"   'dired-up-directory
   "C-o"     'dired-omit-mode
-  ;; "M-b"     'subword-backward
-  ;; "C-M-b"   'paredit-backward
-  )
-
-;; (tmtxt/define-keys
-;;     dired-mode-map
-;;   "s-o"     'tmtxt/dired-do-shell-open)
-
-;; (tmtxt/in '(windows-nt)
-;;   (tmtxt/define-keys dired-mode-map
-;;     "s-O" 'tmtxt/dired-open-current-directory))
+  "s-O"     'tmtxt/dired-do-shell-open
+  "s-D"     'tmtxt/dired-open-current-directory)
 
 ;; (tmtxt/define-keys
 ;;     hs-minor-mode-map
