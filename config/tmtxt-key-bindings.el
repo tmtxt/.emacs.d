@@ -43,7 +43,7 @@
 ;;; undefine keys
 (tmtxt/undefine-keys global-map
   '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\"" "s-l" "C-_" "C-q" "M-9"
-    "M-5" "M-a" "M-y" "M-t" "C-z" "M-x" "M-w"))
+    "M-5" "M-a" "M-y" "M-t" "C-z" "M-x"))
 
 (tmtxt/undefine-keys paredit-mode-map '("C-j" "DEL"))
 (tmtxt/undefine-keys magit-status-mode-map '("<C-tab>"))
@@ -113,7 +113,6 @@
   "M-f"     "DEL"
   "M-z"     "C-/"
   "C-z"     "C-/"
-  "M-c"     "M-w"
 
   "M-y"     "C-s"
   "M-t"     "C-r"
@@ -126,19 +125,23 @@
 
   "M-m"     "C-m"
   "M-SPC"   "C-SPC"
-  "C-q C-j" "C-x C-j")
+  "C-q C-j" "C-x C-j"
 
-;;; update windows keys here
-;; (tmtxt/in '(windows-nt)
-;;   (tmtxt/define-keys key-translation-map
-;;     "C-z"   "C-/"))
+  "C-S-j"   "<S-left>"
+  "C-S-l"   "<S-right>"
+  "C-S-i"   "<S-up>"
+  "C-S-k"   "<S-down>")
+
+;;; on windows, no default key for kill-current-buffer so cannot use translation-map
+(tmtxt/in '(windows-nt)
+  (tmtxt/define-keys global-map
+    "M-w"   'kill-current-buffer
+    "M-c"   'kill-ring-save))
+;;; on mac, there is a default key s-& so we can simply use translation-map
 (tmtxt/in '(darwin)
   (tmtxt/define-keys key-translation-map
-    "M-w"     "s-&"
-    "C-S-j"   "<S-left>"
-    "C-S-l"   "<S-right>"
-    "C-S-i"   "<S-up>"
-    "C-S-k"   "<S-down>"))
+    "M-c"     "M-w"
+    "M-w"     "s-&"))
 
 (tmtxt/define-keys yas-minor-mode-map
   "C-S-f"     'yas-expand)
