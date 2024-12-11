@@ -188,7 +188,7 @@
 ;;; Windows specific keys
 (tmtxt/in '(windows-nt)
   (tmtxt/define-keys key-translation-map
-    "<M-f4>" "C-x C-c"))
+    "M-s-<f4>" "C-x C-c"))
 
 ;; (add-hook
 ;;  'eshell-mode-hook
