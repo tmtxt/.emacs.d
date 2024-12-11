@@ -59,7 +59,7 @@
   ;; "C-M-%"   'query-replace
   "C-q C-m" 'helm-imenu
   "C-S-q"   'tmtxt/helm
-  "C-Y"     'helm-occur
+  "M-y"     'helm-occur
   "M-9"     'magit-status
   "M-;"     'comment-dwim
   "M-a"     'helm-M-x
@@ -86,7 +86,7 @@
 (tmtxt/define-keys key-translation-map
   "M-U"     "C-M-b"
   "M-O"     "C-M-f"
-  "M-y"     "C-s"
+  ;; "M-y"     "C-s"
   "M-t"     "C-r"
   "M-m"     "C-m"
   "M-SPC"   "C-SPC"
@@ -197,6 +197,12 @@
 ;;      "C-S-i" 'eshell-previous-input
 ;;      "C-S-k" 'eshell-next-input
 ;;      )))
+
+;;; fix conflict keys in csharp mode
+(add-hook
+ 'csharp-mode-hook
+ (lambda ()
+   (tmtxt/undefine-keys csharp-mode-map '("M-a"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
