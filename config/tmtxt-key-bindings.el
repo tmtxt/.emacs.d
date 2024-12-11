@@ -6,6 +6,7 @@
 (require 'helm-projectile)
 (require 'flycheck)
 (require 'yasnippet)
+(require 'csharp-mode)
 
 ;;; util functions for defining/undefining keys
 ;;; should be loaded at the end
@@ -199,10 +200,7 @@
 ;;      )))
 
 ;;; fix conflict keys in csharp mode
-(add-hook
- 'csharp-mode-hook
- (lambda ()
-   (tmtxt/undefine-keys csharp-mode-map '("M-a"))))
+(tmtxt/undefine-keys csharp-mode-map '("M-a"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; the rest is taken from starter kit
