@@ -11,6 +11,7 @@
                 display-time-mode
                 column-number-mode
                 show-paren-mode
+                global-hl-line-mode
                 global-display-line-numbers-mode))
   (when (fboundp mode) (funcall mode 1)))
 (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
