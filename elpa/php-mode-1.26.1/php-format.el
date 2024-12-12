@@ -4,7 +4,6 @@
 
 ;; Author: USAMI Kenta <tadsan@zonu.me>
 ;; Created: 5 Mar 2023
-;; Version: 0.1.0
 ;; Keywords: tools, php
 ;; URL: https://github.com/emacs-php/php-mode.el
 ;; License: GPL-3.0-or-later

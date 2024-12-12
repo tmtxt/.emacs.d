@@ -1,11 +1,10 @@
 ;;; php-project.el --- Project support for PHP application  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020  Friends of Emacs-PHP development
+;; Copyright (C) 2023  Friends of Emacs-PHP development
 
 ;; Author: USAMI Kenta <tadsan@zonu.me>
 ;; Keywords: tools, files
 ;; URL: https://github.com/emacs-php/php-mode
-;; Version: 1.23.0
 ;; License: GPL-3.0-or-later
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -40,12 +39,6 @@
 ;;
 ;; Return path to PHP executable file with the project settings overriding.
 ;;
-;; ### `php-project-get-phan-executable()'
-;;
-;; Return path to Phan executable file with the project settings overriding.
-;; Phan is a static analyzer and LSP server implementation for PHP.
-;; See https://github.com/phan/phan
-;;
 ;; ## `.dir-locals.el' support
 ;;
 ;; - `php-project-coding-style'
@@ -59,14 +52,11 @@
 ;; - `php-project-php-executable'
 ;;   - Path to project specific PHP executable file.
 ;;   - If you want to use a file different from the system wide `php' command.
-;; - `php-project-phan-executable'
-;;   - Path to project specific Phan executable file.
-;;   - When not specified explicitly, it is automatically searched from
-;;     Composer's dependency of the project and `exec-path'.
 ;;
 
 ;;; Code:
-(require 'cl-lib)
+(eval-when-compile
+  (require 'cl-lib))
 (require 'projectile nil t)
 
 ;; Constants
@@ -140,10 +130,6 @@ defines constants, and sets the class loaders.")
     "Path to php executable file.")
   (put 'php-project-php-executable 'safe-local-variable
        #'(lambda (v) (and (stringp v) (file-executable-p v))))
-
-  (defvar-local php-project-phan-executable nil
-    "Path to phan executable file.")
-  (put 'php-project-phan-executable 'safe-local-variable #'php-project--eval-bootstrap-scripts)
 
   (defvar-local php-project-coding-style nil
     "Symbol value of the coding style of the project that PHP major mode refers to.
@@ -239,13 +225,6 @@ Typically it is `pear', `drupal', `wordpress', `symfony2' and `psr2'.")
    ((boundp 'php-executable) php-executable)
    (t (executable-find "php"))))
 
-(defun php-project-get-phan-executable ()
-  "Return path to phan executable file."
-  (or (car-safe (php-project--eval-bootstrap-scripts
-                 (list php-project-phan-executable
-                       (cons 'root "vendor/bin/phan"))))
-      (executable-find "phan")))
-
 (defun php-project-get-file-html-template-type (filename)
   "Return symbol T, NIL or `auto' by `FILENAME'."
   (cond
@@ -280,6 +259,17 @@ Typically it is `pear', `drupal', `wordpress', `symfony2' and `psr2'.")
   (if (and (stringp php-project-root) (file-directory-p php-project-root))
       php-project-root
     (php-project--detect-root-dir)))
+
+;;;###autoload
+(defun php-project-project-find-function (dir)
+  "Return path to current PHP project from DIR.
+
+This function is compatible with `project-find-functions'."
+  (let ((default-directory dir))
+    (when-let (root (php-project-get-root-dir))
+      (if (file-exists-p (expand-file-name ".git" root))
+          (cons 'vc root)
+        (cons 'transient root)))))
 
 (defun php-project--detect-root-dir ()
   "Return detected project root."
