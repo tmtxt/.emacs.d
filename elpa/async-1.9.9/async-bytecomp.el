@@ -1,27 +1,25 @@
 ;;; async-bytecomp.el --- Compile elisp files asynchronously -*- lexical-binding: t -*-
 
-;; Copyright (C) 2014-2016 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2022 Free Software Foundation, Inc.
 
 ;; Authors: John Wiegley <jwiegley@gmail.com>
-;;          Thierry Volpiatto <thierry.volpiatto@gmail.com>
+;;          Thierry Volpiatto <thievol@posteo.net>
 
 ;; Keywords: dired async byte-compile
-;; X-URL: https://github.com/jwiegley/dired-async
+;; X-URL: https://github.com/jwiegley/emacs-async
 
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 2, or (at
-;; your option) any later version.
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
 
-;; This program is distributed in the hope that it will be useful, but
-;; WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 ;;
@@ -34,12 +32,16 @@
 ;;  the new files in the current environment with the old files loaded, creating
 ;;  errors in most packages after upgrades.
 ;;
-;;  NB: This package is advicing the function `package--compile'.
+;;  NB: This package is advising the function `package--compile'.
 
 ;;; Code:
 
 (require 'cl-lib)
 (require 'async)
+(require 'bytecomp)
+
+(declare-function package-desc-name "package.el")
+(declare-function package-desc-dir "package.el")
 
 (defcustom async-bytecomp-allowed-packages 'all
   "Packages in this list will be compiled asynchronously by `package--compile'.
@@ -55,6 +57,36 @@ all packages are always compiled asynchronously."
 (defvar async-byte-compile-log-file
   (concat user-emacs-directory "async-bytecomp.log"))
 
+(defvar async-bytecomp-load-variable-regexp "\\`load-path\\'"
+  "The variable used by `async-inject-variables' when (re)compiling async.")
+
+(defun async-bytecomp--file-to-comp-buffer (file-or-dir &optional quiet type)
+  (let ((bn (file-name-nondirectory file-or-dir))
+        (action-name (pcase type
+                       ('file "File")
+                       ('directory "Directory"))))
+    (if (file-exists-p async-byte-compile-log-file)
+        (let ((buf (get-buffer-create byte-compile-log-buffer))
+              (n 0))
+          (with-current-buffer buf
+            (goto-char (point-max))
+            (let ((inhibit-read-only t))
+              (insert-file-contents async-byte-compile-log-file)
+              (compilation-mode))
+            (display-buffer buf)
+            (delete-file async-byte-compile-log-file)
+            (unless quiet
+              (save-excursion
+                (goto-char (point-min))
+                (while (re-search-forward "^.*:Error:" nil t)
+                  (cl-incf n)))
+              (if (> n 0)
+                  (message "Failed to compile %d files in directory `%s'" n bn)
+                (message "%s `%s' compiled asynchronously with warnings"
+                         action-name bn)))))
+      (unless quiet
+        (message "%s `%s' compiled asynchronously with success" action-name bn)))))
+
 ;;;###autoload
 (defun async-byte-recompile-directory (directory &optional quiet)
   "Compile all *.el files in DIRECTORY asynchronously.
@@ -68,30 +100,11 @@ All *.elc files are systematically deleted before proceeding."
   (load "async")
   (let ((call-back
          (lambda (&optional _ignore)
-           (if (file-exists-p async-byte-compile-log-file)
-               (let ((buf (get-buffer-create byte-compile-log-buffer))
-                     (n 0))
-                 (with-current-buffer buf
-                   (goto-char (point-max))
-                   (let ((inhibit-read-only t))
-                     (insert-file-contents async-byte-compile-log-file)
-                     (compilation-mode))
-                   (display-buffer buf)
-                   (delete-file async-byte-compile-log-file)
-                   (unless quiet
-                     (save-excursion
-                       (goto-char (point-min))
-                       (while (re-search-forward "^.*:Error:" nil t)
-                         (cl-incf n)))
-                     (if (> n 0)
-                         (message "Failed to compile %d files in directory `%s'" n directory)
-                       (message "Directory `%s' compiled asynchronously with warnings" directory)))))
-             (unless quiet
-               (message "Directory `%s' compiled asynchronously with success" directory))))))
+           (async-bytecomp--file-to-comp-buffer directory quiet 'directory))))
     (async-start
      `(lambda ()
         (require 'bytecomp)
-        ,(async-inject-variables "\\`\\(load-path\\)\\|byte\\'")
+        ,(async-inject-variables async-bytecomp-load-variable-regexp)
         (let ((default-directory (file-name-as-directory ,directory))
               error-data)
           (add-to-list 'load-path default-directory)
@@ -128,7 +141,7 @@ All *.elc files are systematically deleted before proceeding."
                                  pkgs)))))))
     seen))
 
-(defadvice package--compile (around byte-compile-async)
+(defun async--package-compile (orig-fun pkg-desc &rest args)
   (let ((cur-package (package-desc-name pkg-desc))
         (pkg-dir (package-desc-dir pkg-desc)))
     (if (or (member async-bytecomp-allowed-packages '(t all (all)))
@@ -136,16 +149,15 @@ All *.elc files are systematically deleted before proceeding."
                                async-bytecomp-allowed-packages)))
         (progn
           (when (eq cur-package 'async)
-            (fmakunbound 'async-byte-recompile-directory))
-          ;; Add to `load-path' the latest version of async and
-          ;; reload it when reinstalling async.
-          (when (string= cur-package "async")
+            (fmakunbound 'async-byte-recompile-directory)
+            ;; Add to `load-path' the latest version of async and
+            ;; reload it when reinstalling async.
             (cl-pushnew pkg-dir load-path)
             (load "async-bytecomp"))
           ;; `async-byte-recompile-directory' will add directory
           ;; as needed to `load-path'.
           (async-byte-recompile-directory (package-desc-dir pkg-desc) t))
-      ad-do-it)))
+      (apply orig-fun pkg-desc args))))
 
 ;;;###autoload
 (define-minor-mode async-bytecomp-package-mode
@@ -155,8 +167,8 @@ Async compilation of packages can be controlled by
   :group 'async
   :global t
   (if async-bytecomp-package-mode
-      (ad-activate 'package--compile)
-    (ad-deactivate 'package--compile)))
+      (advice-add 'package--compile :around #'async--package-compile)
+    (advice-remove 'package--compile #'async--package-compile)))
 
 ;;;###autoload
 (defun async-byte-compile-file (file)
@@ -166,28 +178,13 @@ Same as `byte-compile-file' but asynchronous."
   (interactive "fFile: ")
   (let ((call-back
          (lambda (&optional _ignore)
-           (let ((bn (file-name-nondirectory file)))
-             (if (file-exists-p async-byte-compile-log-file)
-                 (let ((buf (get-buffer-create byte-compile-log-buffer))
-                       start)
-                   (with-current-buffer buf
-                     (goto-char (setq start (point-max)))
-                     (let ((inhibit-read-only t))
-                       (insert-file-contents async-byte-compile-log-file)
-                       (compilation-mode))
-                     (display-buffer buf)
-                     (delete-file async-byte-compile-log-file)
-                     (save-excursion
-                       (goto-char start)
-                       (if (re-search-forward "^.*:Error:" nil t)
-                           (message "Failed to compile `%s'" bn)
-                         (message "`%s' compiled asynchronously with warnings" bn)))))
-               (message "`%s' compiled asynchronously with success" bn))))))
+           (async-bytecomp--file-to-comp-buffer file nil 'file))))
     (async-start
      `(lambda ()
         (require 'bytecomp)
-        ,(async-inject-variables "\\`load-path\\'")
-        (let ((default-directory ,(file-name-directory file)))
+        ,(async-inject-variables async-bytecomp-load-variable-regexp)
+        (let ((default-directory ,(file-name-directory file))
+              error-data)
           (add-to-list 'load-path default-directory)
           (byte-compile-file ,file)
           (when (get-buffer byte-compile-log-buffer)
