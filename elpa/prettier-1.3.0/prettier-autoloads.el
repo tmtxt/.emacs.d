@@ -15,8 +15,6 @@
 (put 'prettier-editorconfig-flag 'safe-local-variable 'booleanp)
 (put 'prettier-infer-parser-flag 'safe-local-variable 'booleanp)
 (put 'prettier-prettify-on-save-flag 'safe-local-variable 'booleanp)
-(put 'prettier-diff-timeout-seconds 'safe-local-variable 'numberp)
-(put 'prettier-diff-edit-cost 'safe-local-variable 'natnump)
 (put 'prettier-parsers 'safe-local-variable 'listp)
 (autoload 'prettier-prettify "prettier" "\
 Prettify the whole current buffer, or the part it is narrowed to.
@@ -27,9 +25,7 @@ Prettify the current region.
 
 With prefix, ask for the parser to use" t)
 (autoload 'prettier-mode "prettier" "\
-Sync Prettier settings and format on file save.
-
-For more information see Info node `(prettier)Top'.
+Runs prettier on file save when this mode is turned on.
 
 This is a minor mode.  If called interactively, toggle the
 `Prettier mode' mode.  If the prefix argument is positive, enable
@@ -63,7 +59,10 @@ If called from Lisp, toggle the mode if ARG is `toggle'.
 Enable the mode if ARG is nil, omitted, or is a positive number.
 Disable the mode if ARG is a negative number.
 
-Prettier mode is enabled in all buffers where `prettier--turn-on-if-appropriate' would do it.
+Prettier mode is enabled in all buffers where `(lambda nil (when (and (not prettier-mode) (or (null
+prettier-mode-ignore-buffer-function) (not (funcall prettier-mode-ignore-buffer-function)))
+(prettier--parsers)) (with-temp-message (unless (eq prettier-pre-warm 'none) Prettier
+pre-warming...) (prettier-mode))))' would do it.
 
 See `prettier-mode' for more information on Prettier mode.
 

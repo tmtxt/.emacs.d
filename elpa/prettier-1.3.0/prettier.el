@@ -3,7 +3,8 @@
 ;; Copyright (c) 2018-present Julian Scheid
 
 ;; Author: Julian Scheid <julians37@gmail.com>
-;; Version: 1.0.0
+;; Package-Version: 1.3.0
+;; Package-Revision: 913b6f72a062
 ;; Created: 7 Nov 2018
 ;; Keywords: convenience, languages, files
 ;; Homepage: https://github.com/jscheid/prettier.el
@@ -46,6 +47,7 @@
 (require 'subr-x)
 (require 'compile)
 (require 'ansi-color)
+(require 'package)
 
 (eval-when-compile
   (require 'cl-lib)
@@ -53,8 +55,14 @@
 
   (defun prettier--readme-link (anchor)
     "Return the URL of the Readme section identified by ANCHOR."
-    (concat "https://github.com/jscheid/prettier.el/README#"
-            anchor)))
+    (concat "https://github.com/jscheid/prettier.el#"
+            anchor))
+
+  ;; Fallback for Emacs < 27
+  (defmacro prettier--combine-change-calls (beg end &rest body)
+    (if (fboundp 'combine-change-calls)
+        `(combine-change-calls ,beg ,end ,@body)
+      `(when (>= ,end ,beg) (combine-after-change-calls ,@body)))))
 
 
 ;;;; Customization
@@ -140,26 +148,44 @@ Requires Prettier 1.9+."
 ;;;###autoload
 (put 'prettier-infer-parser-flag 'safe-local-variable 'booleanp)
 
+(defcustom prettier-prettify-on-save-flag t
+  "Non-nil means to prettify (format) buffer on save."
+  :type 'boolean
+  :package-version '(prettier . "1.3.0")
+  :group 'prettier
+  :link '(info-link "(prettier)prettier-prettify-on-save-flag")
+  :link `(url-link ,(eval-when-compile
+                      (prettier--readme-link
+                       "prettier-prettify-on-save-flag"))))
+;;;###autoload
+(put 'prettier-prettify-on-save-flag 'safe-local-variable 'booleanp)
+
 (defcustom prettier-enabled-parsers '(angular
                                       babel
                                       babel-flow
+                                      babel-ts
                                       css
                                       elm
+                                      espree
                                       flow
                                       graphql
                                       html
                                       java
                                       json
+                                      json5
+                                      json-stringify
                                       less
                                       lua
                                       markdown
                                       mdx
+                                      meriyah
                                       php
                                       postgresql
                                       pug
                                       python
                                       ruby
                                       scss
+                                      sh
                                       solidity
                                       svelte
                                       swift
@@ -179,8 +205,10 @@ on your Prettier version and which plug-ins you have installed."
     (const :tag "Angular (1.15+)" angular)
     (const :tag "Babel (formerly Babylon)" babel)
     (const :tag "Babel-Flow (1.15+)" babel-flow)
+    (const :tag "Babel-TS (2.0+)" babel-ts)
     (const :tag "CSS (1.4+)" css)
     (const :tag "Elm (2.0+?, requires plugin)" elm)
+    (const :tag "Espree (2.2+)" espree)
     (const :tag "Flow" flow)
     (const :tag "GraphQL (1.5+)" graphql)
     (const :tag "Java (2.0+?, requires plugin)" java)
@@ -192,12 +220,14 @@ on your Prettier version and which plug-ins you have installed."
     (const :tag "HTML (1.16+)" html)
     (const :tag "Markdown (1.8+)" markdown)
     (const :tag "MDX (1.15+)" mdx)
+    (const :tag "Meriyah (2.2+)" meriyah)
     (const :tag "PHP (1.10+, requires plugin)" php)
     (const :tag "PostgreSQL (1.10+, requires plugin" postgresql)
     (const :tag "Pug (2.0+, requires plugin)" pug)
     (const :tag "Python (1.10+, requires plugin)" python)
     (const :tag "Ruby (1.10+, requires plugin)" ruby)
     (const :tag "SCSS (1.4+)" scss)
+    (const :tag "Shell (2.0+)" sh)
     (const :tag "Solidity (2.0+?, requires plugin)" solidity)
     (const :tag "Svelte (1.16+, requires plugin)" svelte)
     (const :tag "Swift (1.10+, requires plugin)" swift)
@@ -296,6 +326,7 @@ Other errors are shown inline or in the error buffer.")
       python-indent                 ; python-mode
       ruby-indent-level             ; ruby-mode
       sgml-basic-offset             ; js2-mode, html-mode, svelte-mode
+      sh-indentation                ; sh-mode
       smie-indent-basic             ; smie.el (generic)
       standard-indent               ; indent.el (generic)
       swift-mode:basic-offset       ; swift-mode.el
@@ -369,14 +400,18 @@ won't be touched.")
 (defun prettier--guess-js-ish ()
   "Return which parsers to use for a buffer with a JS-like mode."
   (cond
-   ((and (boundp 'tide-mode)
-         tide-mode)
-    '(typescript babel flow babel-flow))
+   ((or (and (boundp 'tide-mode)
+             tide-mode)
+        (and (fboundp 'lsp-buffer-language)
+             (ignore-errors
+               (member (lsp-buffer-language)
+                       '("typescript" "typescriptreact")))))
+    '(typescript babel-ts babel meriyah espree flow babel-flow))
    ((and (boundp 'flow-minor-mode)
          flow-minor-mode)
-    '(babel-flow flow babel))
+    '(babel-flow flow babel meriyah espree))
    (t
-    '(babel flow babel-flow))))
+    '(babel meriyah espree flow babel-flow))))
 
 (defconst prettier-major-mode-parsers
   `((angular-mode . (angular))
@@ -388,7 +423,7 @@ won't be touched.")
     (js-mode . ,#'prettier--guess-js-ish)
     (js2-mode . ,#'prettier--guess-js-ish)
     (js3-mode . ,#'prettier--guess-js-ish)
-    (typescript-mode . (typescript))
+    (typescript-mode . (typescript babel-ts))
     (css-mode . (css))
     (scss-mode . (scss))
     (less-mode . (less))
@@ -415,6 +450,7 @@ won't be touched.")
     (enh-ruby-mode . (ruby))
     (python-mode . (python))
     (php-mode . (php))
+    (sh-mode . (sh))
     (sql-mode . (postgresql))
     (swift-mode . (swift)))
   "Map from major mode to Prettier parsers.
@@ -427,7 +463,7 @@ when called with buffer current, returns such a list.")
   `((nil . (html))
     ("javascript" . ,#'prettier--guess-js-ish)
     ("jsx" . ,#'prettier--guess-js-ish)
-    ("typescript" . (typescript))
+    ("typescript" . (typescript babel-ts))
     ("css" . (css))
     ("json" . (json json5))
     ("markdown" . (markdown))
@@ -478,6 +514,9 @@ For debugging only.")
 
 For debugging and performance tuning only.")
 
+(defvar prettier-timeout-seconds 20
+  "Number of seconds before aborting and restarting Prettier.")
+
 (defvar prettier-processes (make-hash-table :test 'equal)
   "Keep track of running node processes, keyed by `node-command'.
 It's the name or path of the node executable `prettier--find-node'
@@ -485,6 +524,32 @@ returns.")
 
 (defvar prettier-nvm-node-command-cache nil
   "Cache for the result of `prettier--node-from-nvm'.")
+
+(defvar prettier-parser-history nil
+  "History for `prettier--read-parsers'.")
+
+(defvar prettier-min-batch-gap 100
+  "Minimum length of a gap for starting a new change batch.
+
+When grouping the changes resulting from a formatting operation
+into batches, for purposes of reducing the number of invocations
+of `before-change' and `after-change' hooks, a gap of this many
+characters will cause a new batch to be started.
+
+The smaller this number, the more batches will be applied, with
+the downside being that the hooks might be invoked too
+frequently.  The larger this number, the fewer batches will be
+applied, with the downside being that the hooks might be called
+with a needlessly large region.
+
+If this is set to one or less, only consecutive delete/insert
+pairs will be grouped into a batch.
+
+The ideal number for this setting depends on the nature of the
+functions that get called in the hooks.")
+
+(defvar prettier--file-less-config-cache (make-hash-table)
+  "Cache for file-less Prettier configuration.")
 
 ;;;;; Local Variables
 
@@ -501,20 +566,17 @@ parser unless `prettier-infer-parser-flag' is nil.")
 (defvar-local prettier-previous-local-settings nil
   "Used to backup settings so they can be restored later.")
 
-(defvar-local prettier-config-cache nil
-  "Used to memoize Prettier options")
-
 (defvar-local prettier-error-overlay nil
-  "Used to remember the last error overlay")
+  "Used to remember the last error overlay.")
 
 (defvar-local prettier-last-error-marker nil
-  "Used to remember the last error marker")
+  "Used to remember the last error marker.")
 
 (defvar-local prettier-last-parser nil
-  "The last parser used to format the whole file")
+  "The last parser used to format the whole file.")
 
 (defvar-local prettier-version nil
-  "The Prettier version used for this buffer")
+  "The Prettier version used for this buffer.")
 
 ;;;;; Imported Variables
 
@@ -553,7 +615,39 @@ With prefix, ask for the parser to use"
   (maphash (lambda (_key process)
              (quit-process process))
            prettier-processes)
-  (clrhash prettier-processes))
+  (setq prettier-nvm-node-command-cache nil))
+
+(defun prettier-restart ()
+  "Restart Prettier in all buffers.
+
+This will cause all caches to be cleared and the latest version
+of the sidecar JavaScript file to be used.  It is executed every
+time this package is loaded which is intended to ensure you're
+running the latest when the package is upgraded.
+
+You should run this function whenever any relevant configuration
+changes, such as when you install a new version of Node,
+Prettier, or any plugins; when you install or uninstall Prettier
+as a local npm package in a directory from which you already have
+files open in Emacs; or when you change Prettier settings that
+might affect any open files."
+  (interactive)
+  (prettier--quit-all-processes)
+  (let* (wait-timer
+         (callback
+          (lambda ()
+            (when (zerop (hash-table-count prettier-processes))
+              (cancel-timer wait-timer)
+              (unless (eq prettier-pre-warm 'none)
+                (mapc (lambda (buf)
+                        (with-current-buffer buf
+                          (when (and (boundp 'prettier-mode)
+                                     prettier-mode)
+                            (prettier--get-process
+                             (eq prettier-pre-warm 'full)))))
+                      (buffer-list)))
+              (message "Prettier restart complete.")))))
+    (setq wait-timer (run-with-timer 0.1 0.1 callback))))
 
 (defun prettier--buffer-remote-p (&optional identification connected)
   "Return `file-remote-p' result for the current buffer.
@@ -579,6 +673,11 @@ IDENTIFICATION and CONNECTED have the same meaning as
                   (concat prettier-el-home "/prettier.el"))))
         (insert-file-contents src))
       (package-buffer-info)))))
+
+(defun prettier--maybe-prettify-on-save ()
+  "Prettify, but only if `prettier-prettify-on-save-flag' is set."
+  (when prettier-prettify-on-save-flag
+    (prettier-prettify)))
 
 (defun prettier-info ()
   "Show a temporary buffer with diagnostic info.
@@ -617,7 +716,7 @@ should be used when filing bug reports."
 
 ;;;###autoload
 (define-minor-mode prettier-mode
-  "Runs prettier on file save when this mode is turned on"
+  "Runs prettier on file save when this mode is turned on."
   :lighter prettier-lighter
   (if prettier-mode
       (progn
@@ -631,15 +730,22 @@ should be used when filing bug reports."
                     'append
                     'local))
         (add-hook 'before-save-hook
-                  #'prettier-prettify
+                  #'prettier--maybe-prettify-on-save
                   nil
                   'local))
     (remove-hook 'before-save-hook
-                 #'prettier-prettify
+                 #'prettier--maybe-prettify-on-save
                  'local)
     (remove-hook 'after-change-major-mode-hook
                  #'prettier--maybe-sync-config
-                 'local)))
+                 'local)
+
+    (prettier--revert-synced-config)
+
+    (setq prettier-last-parser nil
+          prettier-last-error-marker nil
+          prettier-version nil
+          prettier-previous-local-settings nil)))
 
 ;;;###autoload
 (define-globalized-minor-mode
@@ -661,8 +767,7 @@ should be used when filing bug reports."
  'global-prettier-mode-hook
  (lambda ()
    (unless global-prettier-mode
-     (prettier--quit-all-processes)
-     (setq prettier-nvm-node-command-cache nil))))
+     (prettier--quit-all-processes))))
 
 
 ;;;; Support
@@ -701,13 +806,22 @@ Prettier parser name) or nil when nothing was selected."
 (defun prettier--maybe-sync-config ()
   "Sync Prettier configuration in current buffer when appropriate.
 
-Configuration is synced when `prettier-mode-sync-config-flag' is
-non-nil and `prettier' is enabled in current buffer."
+Configuration sync is attempted when
+`prettier-mode-sync-config-flag' is non-nil and `prettier' is
+enabled in current buffer.
+
+Any failures while loading or setting the configuration are
+ignored, a warning is printed in this case."
   (when (and prettier-mode
-             prettier-mode-sync-config-flag
-             (null prettier-config-cache))
-    (with-temp-message "Prettier syncing config"
-      (prettier--sync-config))))
+             prettier-mode-sync-config-flag)
+    (condition-case-unless-debug err
+        (let ((config (prettier--load-config-cached)))
+          (when config
+            (prettier--set-config config)))
+      ;; Ignore any errors but print a warning
+      ((debug error)
+       (message "Could not sync Prettier config, consider setting \
+`prettier-mode-sync-config-flag' to nil: %S" err)))))
 
 (defun prettier--create-process (server-id node-command)
   "Create a new server process for SERVER-ID.
@@ -771,9 +885,10 @@ Additional considerations were:
      (lambda (proc event)
        (unless (and (eq (process-status proc) 'signal)
                     (eq (process-exit-status proc) 3))
-         (message "prettier-process (%s) quit unexpectedly: %s"
+         (message "prettier-process (%s) quit unexpectedly: %s (%s)"
                   (process-get proc :server-id)
-                  (string-trim event)))
+                  (string-trim event)
+                  (buffer-string)))
        (unless prettier-keep-server-buffer-flag
          (kill-buffer (process-buffer proc)))
        (remhash node-command prettier-processes)))
@@ -927,65 +1042,76 @@ separate window."
             (quit-window t win)
           (kill-buffer errbuf))))))
 
-(defun prettier--sync-config ()
+(defun prettier--set-config (config)
   "Try to sync prettier configuration for current buffer.
 
-Tries loading the configuration, ignoring failure with a message.
+CONFIG is the configuration loaded from Prettier, as returned
+by `prettier--load-config'.
 
-If loaded successfully, uses it to set a variety of buffer-local
-variables in an effort to make pre-formatting indentation etc as
-close to post-formatting as possible."
-  (condition-case-unless-debug err
-      (let ((config (prettier--load-config)))
-        (setq
-         prettier-config-cache
-         (plist-get config :options)
+It is used to set a variety of buffer-local variables in an
+effort to make pre-formatting indentation etc as close to
+post-formatting as possible."
+  (let ((options (plist-get config :options)))
+    (setq
+     prettier-last-parser
+     (plist-get config :bestParser)
 
-         prettier-last-parser
-         (plist-get config :bestParser)
+     prettier-version
+     (plist-get (plist-get config :versions) :prettier)
 
-         prettier-version
-         (plist-get (plist-get config :versions) :prettier)
+     prettier-previous-local-settings
+     (when options
+       (seq-filter
+        #'identity
+        (apply
+         #'append
+         (mapcar
+          (lambda (setting)
+            (let* ((vars (nth 0 setting))
+                   (source (nth 1 setting))
+                   (value (funcall
+                           (or (nth 2 setting) #'identity)
+                           (if (keywordp source)
+                               (plist-get options source)
+                             source))))
+              (unless (eq value 'unchanged)
+                (mapcar
+                 (lambda (var)
+                   (when (boundp var)
+                     (let ((result
+                            (list var (local-variable-p var)
+                                  (eval var)
+                                  value)))
+                       (set (make-local-variable var) value)
+                       result)))
+                 vars))))
+          prettier-sync-settings)))))))
 
-         prettier-previous-local-settings
-         (seq-filter
-          #'identity
-          (apply
-           #'append
-           (mapcar
-            (lambda (setting)
-              (let* ((vars (nth 0 setting))
-                     (source (nth 1 setting))
-                     (value (funcall
-                             (or (nth 2 setting) #'identity)
-                             (if (keywordp source)
-                                 (plist-get prettier-config-cache
-                                            source)
-                               source))))
-                (unless (eq value 'unchanged)
-                  (mapcar
-                   (lambda (var)
-                     (when (boundp var)
-                       (let ((result
-                              (list var (local-variable-p var)
-                                    (eval var)
-                                    value)))
-                         (set (make-local-variable var) value)
-                         result)))
-                   vars))))
-            prettier-sync-settings)))))
-    ;; Ignore any errors but print a warning
-    ((debug error)
-     (message "Could not sync Prettier config, consider setting \
-`prettier-mode-sync-config-flag' to nil: %S" err))))
+(defun prettier--revert-synced-config ()
+  "Revert any change made by `prettier--set-config'."
+  (mapc
+   (lambda (local-setting)
+     (let ((var (car local-setting)))
+       (cond
+        ((or (not (boundp var))
+             (not (eq (eval var) (nth 3 local-setting))))
+         ;; If the setting has changed since we set it, or the
+         ;; variable was unbound in the meantime, leave it alone
+         nil)
+        ((null (nth 1 local-setting))
+         ;; setting wasn't local before, kill the variable
+         (kill-local-variable var))
+        (t
+         ;; otherwise, set it to previous value
+         (set var (nth 2 local-setting))))))
+   prettier-previous-local-settings))
 
 (iter2-defun prettier--request-iter (prettier-process
                                      request
                                      &optional fire-and-forget-p)
   "Send REQUEST to PRETTIER-PROCESS, yield commands."
   (condition-case err
-      (let* ((p (point-min))
-             (buf (process-buffer prettier-process)))
+      (let (p (buf (process-buffer prettier-process)))
         (process-send-string prettier-process
                              (apply #'concat request))
         (unless fire-and-forget-p
@@ -996,80 +1122,117 @@ close to post-formatting as possible."
                     (while
                         (null
                          (save-excursion
-                           (goto-char p)
-                           (when
-                               (looking-at
-                                "\\([CDEIMOPTVZ]\\)\\([[:xdigit:]]+\\)\n")
-                             (let* ((m (match-end 0))
-                                    (kind (string-to-char
-                                           (match-string 1)))
-                                    (len (string-to-number
-                                          (match-string 2)
-                                          16)))
-                               (cond
-                                ((eq kind ?Z)
-                                 (setq p m)
-                                 (throw 'end-of-message nil))
-                                ((member kind '(?I ?O ?E ?V ?P))
-                                 (when (<= (+ m len) (point-max))
-                                   (iter-yield
-                                    (cons kind (list m (+ m len))))
-                                   (setq p (+ m len 1))))
-                                (t (setq p m)
-                                   (iter-yield (cons kind len))
-                                   t))))))
-                      (tramp-accept-process-output prettier-process
-                                                   10)
+                           (goto-char (or p (point-min)))
+                           (and
+                            (or p (setq p (re-search-forward
+                                           "#prettier\.el-sync#\n" nil t)))
+                            (looking-at
+                             "\\([DEIMOPTVZ]\\)\\([[:xdigit:]]+\\)\n")
+                            (let* ((m (match-end 0))
+                                   (kind (string-to-char
+                                          (match-string 1)))
+                                   (len (string-to-number
+                                         (match-string 2)
+                                         16)))
+                              (cond
+                               ((eq kind ?Z)
+                                (setq p m)
+                                (throw 'end-of-message nil))
+                               ((member kind '(?I ?O ?E ?V ?P))
+                                (when (<= (+ m len) (point-max))
+                                  (iter-yield
+                                   (cons kind (list m (+ m len))))
+                                  (setq p (+ m len 1))))
+                               (t (setq p m)
+                                  (iter-yield (cons kind len))
+                                  t))))))
+                      (let ((len (point-max)))
+                        (and
+                         (null (tramp-accept-process-output
+                                prettier-process
+                                prettier-timeout-seconds))
+                         (eq len (point-max))
+                         (error  "Prettier timed out after %s seconds"
+                                 prettier-timeout-seconds)))
                       (when (eq (process-status prettier-process)
                                 'exit)
                         (error "Node sub-process died"))))))
-            (with-current-buffer buf
-              (delete-region 1 p)))))
+            (when p
+              (with-current-buffer buf
+                (delete-region 1 p))))))
     ((quit error)
      ;; FIXME: need more efficient recovery from quit
      (quit-process prettier-process)
      (signal (car err) (cdr err)))))
 
-(defun prettier--load-config ()
-  "Load prettier configuration for current buffer."
-  (let* ((start-time (current-time))
-         (prettier-process (prettier--get-process))
-         (process-buf (process-buffer prettier-process))
-         (parsers (prettier--parsers))
-         (iter (prettier--request-iter
-                prettier-process
-                (list "o"
-                      (if prettier-editorconfig-flag "E" "e")
-                      (if prettier-infer-parser-flag "I" "i")
-                      (prettier--local-file-name)
-                      "\n" (if parsers (string-join
-                                        (mapcar #'symbol-name parsers)
-                                        ",")
-                             "-")
-                      "\n\n")))
-         config)
-    (unwind-protect
-        (progn
-          (iter-do (command iter)
-            (if (eq (car command) ?O)
-                (let* ((json-object-type 'plist)
-                       (json-false nil))
-                  (setq
-                   config
-                   (json-read-from-string
-                    (base64-decode-string
-                     (with-current-buffer process-buf
-                       (buffer-substring-no-properties
-                        (nth 1 command)
-                        (nth 2 command)))))))))
-          (when prettier-show-benchmark-flag
-            (message
-             "Prettier load-config took %.1fms"
-             (* 1000
-                (float-time (time-subtract (current-time)
-                                           start-time)))))
-          config)
-      (iter-close iter))))
+(defun prettier--load-config-cached ()
+  "Load prettier configuration for current buffer.
+
+If the current buffer is not associated with a file, and
+there are parsers for it, cache the configuration."
+  (let ((parsers (prettier--parsers)))
+    (cond
+     ((buffer-file-name) (prettier--load-config parsers))
+     ((null parsers) nil)
+     (t
+      (let* ((parsers (prettier--parsers))
+             (cache-key
+              (intern
+               (concat
+                (if prettier-editorconfig-flag "E" "e")
+                (string-join
+                 (mapcar #'symbol-name parsers))))))
+        (or (gethash cache-key prettier--file-less-config-cache)
+            (puthash cache-key
+                     (prettier--load-config parsers)
+                     prettier--file-less-config-cache)))))))
+
+(defun prettier--load-config (&optional override-parsers)
+  "Load prettier configuration for current buffer.
+
+If OVERRIDE-PARSERS is given, use it instead of the result of
+evaluating `(prettier--parsers)'.  This is meant to be used as an
+optimization for when the calling function has already determined
+the parsers."
+  (with-temp-message "Prettier syncing config"
+    (let* ((start-time (current-time))
+           (prettier-process (prettier--get-process))
+           (process-buf (process-buffer prettier-process))
+           (parsers (or override-parsers (prettier--parsers)))
+           (iter (prettier--request-iter
+                  prettier-process
+                  (list "o"
+                        (if prettier-editorconfig-flag "E" "e")
+                        (if prettier-infer-parser-flag "I" "i")
+                        (prettier--local-file-name)
+                        "\n" (if parsers (string-join
+                                          (mapcar #'symbol-name parsers)
+                                          ",")
+                               "-")
+                        "\n\n")))
+           config)
+      (unwind-protect
+          (progn
+            (iter-do (command iter)
+              (if (eq (car command) ?O)
+                  (let* ((json-object-type 'plist)
+                         (json-false nil))
+                    (setq
+                     config
+                     (json-read-from-string
+                      (base64-decode-string
+                       (with-current-buffer process-buf
+                         (buffer-substring-no-properties
+                          (nth 1 command)
+                          (nth 2 command)))))))))
+            (when prettier-show-benchmark-flag
+              (message
+               "Prettier load-config took %.1fms"
+               (* 1000
+                  (float-time (time-subtract (current-time)
+                                             start-time)))))
+            config)
+        (iter-close iter)))))
 
 (defun prettier--default-callback (message process-buffer)
   "Default response callback.
@@ -1107,13 +1270,11 @@ TIMESTAMPS is additional information received from the server."
        (* (- total prettier) 1000)))))
 
 (defun prettier--format-iter (parsers
-                              relative-point
                               filename
                               tempfile)
   "Launch format operation remotely and return iterator.
 
-PARSERS are the enabled parsers, RELATIVE-POINT the location of
-point relative to the start of region.  FILENAME is the original
+PARSERS are the enabled parsers, FILENAME is the original
 filename and TEMPFILE is where the buffer contents before
 formatting are stored."
   (prettier--request-iter
@@ -1128,7 +1289,6 @@ formatting are stored."
               (mapcar #'symbol-name parsers)
               ",")
            "-")
-    "\n" (format "%X" (or relative-point 1))
     "\n" (prettier--pick-localname tempfile)
     "\n\n")))
 
@@ -1143,6 +1303,32 @@ received."
        (buffer-substring-no-properties (nth 0 range)
                                        (nth 1 range))))))
 
+(defun prettier--apply-change-batch (batch beg end num-inserted)
+  "Apply each change in BATCH.
+
+The batch is a reversed list of changes, where each change is a
+cons cell whose car is ?I for insert, ?M for move, or ?D for
+delete.  For insert, the cdr is the text to insert.  For move and
+delete, the cdr is the number of characters.
+
+BEG and END are the bounds of the change for use with
+`combine-change-calls'.  NUM-INSERTED is the total number
+of characters inserted, which is used to adjust END to match
+Emacs behavior when determining the range of a change."
+  (when batch
+    (prettier--combine-change-calls
+     beg
+     (if (> num-inserted 1) (max (1+ beg) end) end)
+     (mapc
+      (lambda (change)
+        (let ((kind (car change))
+              (arg (cdr change)))
+          (cond
+           ((eq kind ?I) (insert arg))
+           ((eq kind ?M) (forward-char arg))
+           ((eq kind ?D) (delete-region (point) (+ (point) arg))))))
+      (nreverse batch)))))
+
 (defun prettier--prettify (&optional
                            parsers
                            start
@@ -1155,19 +1341,28 @@ formatting."
          (process-buf (process-buffer (prettier--get-process)))
          (start-point (copy-marker (or start (point-min)) nil))
          (end-point (copy-marker (or end (point-max)) t))
-         (point-before (point))
-         (point-end-p (eq point-before (point-max)))
-         (relative-point (and (>= point-before start-point)
-                              (<= point-before end-point)
-                              (- point-before start-point -1)))
+         (point-before (copy-marker (point)))
          (filename (prettier--local-file-name))
          (tempfile (make-nearby-temp-file "prettier-emacs."))
-         result-point
+         (result-point nil)
          any-errors
          timestamps
          (buffer-undo-list-backup buffer-undo-list)
+         change-batch
+         change-start
+         change-end
+         (change-num-inserted 0)
+         (num-batches 0)
+         (apply-batch
+          (lambda ()
+            (when change-batch
+              (cl-incf num-batches))
+            (prettier--apply-change-batch
+             change-batch
+             change-start
+             change-end
+             change-num-inserted)))
          (iter (prettier--format-iter parsers
-                                      relative-point
                                       filename
                                       tempfile)))
     (unwind-protect
@@ -1190,14 +1385,31 @@ formatting."
                            (prettier--payload process-buf command))))
                     (cond
                      ((eq kind ?M)
-                      (forward-char (cdr command)))
+                      (let ((distance (cdr command)))
+                        (if (or (null change-batch)
+                                (>= distance prettier-min-batch-gap))
+                            (progn
+                              (funcall apply-batch)
+                              (setq change-batch nil
+                                    change-num-inserted 0)
+                              (forward-char distance))
+                          (push command change-batch)
+                          (cl-incf change-end distance))))
 
                      ((eq kind ?I)
-                      (insert (funcall command-str)))
+                      (let ((payload (funcall command-str)))
+                        (unless change-batch
+                          (setq change-start (point)
+                                change-end change-start))
+                        (push (cons ?I payload) change-batch)
+                        (cl-incf change-num-inserted (length payload))))
 
                      ((eq kind ?D)
-                      (delete-region (point)
-                                     (+ (point) (cdr command))))
+                      (unless change-batch
+                        (setq change-start (point)
+                              change-end change-start))
+                      (push command change-batch)
+                      (cl-incf change-end (cdr command)))
 
                      ((eq kind ?T)
                       (push (/ (cdr command) 1000.0) timestamps))
@@ -1214,13 +1426,8 @@ formatting."
                               (funcall command-str))))
 
                      ((eq kind ?V)
-                      (setq prettier-version (funcall command-str)))
-
-                     ((eq kind ?C)
-                      (when relative-point
-                        (setq result-point (if point-end-p
-                                               (point-max)
-                                             (cdr command)))))))))
+                      (setq prettier-version (funcall command-str))))))
+                (funcall apply-batch))
             ((quit error)
              (ignore-errors
                (setq any-errors t)
@@ -1234,7 +1441,7 @@ formatting."
 
           (unless any-errors
             (prettier--clear-errors)
-            (when result-point (goto-char result-point)))
+            (when result-point (goto-char (1+ result-point))))
 
           (prettier--maybe-show-benchmark start-time
                                           (current-time)
@@ -1313,10 +1520,15 @@ for derived modes.)"
        (lambda (parser)
          (member parser prettier-enabled-parsers))
        (prettier--parsers-for-mode
-        (if (and (fboundp 'mhtml-mode)
-                 (get-text-property (point) 'mhtml-submode))
-            'mhtml-mode
-          major-mode)))))
+        (or (and (fboundp 'mhtml-mode)
+                 (get-text-property (point) 'mhtml-submode)
+                 'mhtml-mode)
+            (and (fboundp 'svelte-mode)
+                 (get-text-property (point) 'svelte-submode)
+                 'svelte-mode)
+            (and (boundp 'mmm-primary-mode)
+                 mmm-primary-mode)
+            major-mode)))))
 
 (defun prettier--parsers-for-mode (mode)
   "Return a list of parsers for the given major MODE.
@@ -1351,11 +1563,62 @@ parsers configured for it and it is a derived mode."
              (cons 'prettier prettier-compilation-regexps))
 (add-to-list 'compilation-error-regexp-alist 'prettier)
 
+(defun prettier-prettify-org-src-code-at-point ()
+  "Prettify the `org-mode' source block at point.
+
+With prefix, ask for the parser to use."
+  (interactive "*")
+  (eval-and-compile (require 'org-element))
+  (eval-and-compile (require 'org-src))
+  (let ((element (org-element-at-point)))
+    (unless (and (eq (org-element-type element) 'src-block)
+                 (org-src--on-datum-p element))
+      (user-error "Not in a source block"))
+    (let* ((lang (org-element-property :language element))
+           (parsers
+            (or (when current-prefix-arg
+                  (prettier--read-parsers))
+                (prettier--parsers-for-mode
+                 (funcall (or (cl-find-if
+                               #'fboundp
+                               (list
+                                ;; Dirty hack to get around linter
+                                (intern "org-src-get-lang-mode")
+                                (intern "org-src--get-lang-mode")))
+                              (error "Unsupported org version"))
+                          lang))))
+           (area (org-src--contents-area element))
+           (beg (nth 0 area))
+           (end (nth 1 area)))
+      (unless parsers
+        (user-error
+         "Could not determine Prettier parser for language %s"
+         lang))
+      (prettier--prettify parsers beg end)
+      (unless org-src-preserve-indentation
+        (eval-and-compile (require 'rect))
+        (indent-rigidly beg
+                        (max
+                         beg
+                         (save-excursion
+                           (goto-char end)
+                           (forward-line -1)
+                           (end-of-line)
+                           (point)))
+                        org-edit-src-content-indentation)))))
+
+
+;;;; Ensure we're running latest JavaScript sub-process
+
+;; (On initial load, `prettier-restart' is a no-op.)
+(when load-in-progress
+  (prettier-restart))
+
 
 ;;;; Footer
 
 (provide 'prettier)
 
-;; LocalWords: editorconfig minibuffer minified nvm parsers stdin
+;; LocalWords: editorconfig minibuffer minified nvm parsers stdin npm
 
 ;;; prettier.el ends here
