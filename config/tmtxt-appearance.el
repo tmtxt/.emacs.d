@@ -2,7 +2,7 @@
 (require 'diminish)
 
 ;;; custom theme
-(load-theme 'tango-dark t)
+(load-theme 'manoj-dark t)
 
 
 ;;; enabled modes
