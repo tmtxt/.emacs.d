@@ -17,7 +17,7 @@
 (dolist (f '(auto-complete-mode
              flycheck-mode
              js2-mode-hide-warnings-and-errors
-             prettier-mode
+             ; prettier-mode
              tmtxt-paredit-nonlisp
              tmtxt/prog-mode-setup
              toggle-truncate-lines
@@ -26,7 +26,7 @@
   (add-hook 'js2-mode-hook f))
 (dolist (f '(auto-complete-mode
              flycheck-mode
-             prettier-mode
+             ; prettier-mode
              tmtxt-paredit-nonlisp
              tmtxt/prog-mode-setup
              toggle-truncate-lines))
@@ -45,7 +45,7 @@
               (flycheck-mode)
               (flycheck-select-checker 'javascript-eslint)
               (auto-complete-mode 1)
-              (prettier-mode)
+              ; (prettier-mode)
               )))
 
 (add-hook 'json-mode-hook
