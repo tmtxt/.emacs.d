@@ -1,16 +1,5 @@
 ;;; config for php coding
 
-(flycheck-define-checker tmtxt-php
-  "A PHP syntax checker using the PHP command line interpreter.
-
-See URL `http://php.net/manual/en/features.commandline.php'."
-  :command ("php" "-l" "-d" "error_reporting=E_ALL" "-d" "display_errors=1"
-            "-d" "log_errors=0" source)
-  :error-patterns
-  ((error line-start (or "Parse" "Fatal" "syntax") " error" (any ":" ",") " "
-          (message) " in " (file-name) " on line " line line-end))
-  :modes (php-mode php+-mode web-mode))
-
 (defun tmtxt/setup-php-web-mode ()
   "Setup php using web mode"
 
@@ -33,19 +22,7 @@ See URL `http://php.net/manual/en/features.commandline.php'."
 
   (tmtxt/setup-php))
 
-(defun tmtxt/setup-php-php-mode ()
-  "Setup php using php mode"
 
-  ;; enable php mode
-  (php-mode)
-
-  ;; sub word
-  (subword-mode 1)
-
-  ;; indentation
-  (setq-local c-basic-offset 2)
-
-  (tmtxt/setup-php))
 
 ;;; setting up php mode
 (defun tmtxt/setup-php ()

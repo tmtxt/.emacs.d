@@ -7,6 +7,7 @@
 (require 'flycheck)
 (require 'yasnippet)
 (require 'csharp-mode)
+(require 'eshell)
 
 ;;; util functions for defining/undefining keys
 ;;; should be loaded at the end
@@ -109,7 +110,18 @@
     "C-z"              "C-/"
     "M-x"              "C-w"
     "M-s"              "C-x C-s"
-    "M-v"              "C-y"))
+    "M-v"              "C-y"
+    "M-s-<f4>"         "C-x C-c")
+  (tmtxt/define-keys helm-map
+    "S-<next>"   'helm-next-source
+    "S-<prior>"  'helm-previous-source)
+  (tmtxt/define-keys comint-mode-map
+    "S-<prior>"    'comint-previous-matching-input-from-input
+    "S-<next>"     'comint-next-matching-input-from-input)
+  (tmtxt/define-keys eshell-mode-map
+    "S-<next>"  'eshell-next-input
+    "S-<prior>" 'eshell-previous-input
+    ))
 ;;; on mac, there is a default key s-& so we can simply use translation-map
 (tmtxt/in '(darwin)
   (tmtxt/define-keys key-translation-map
@@ -120,7 +132,18 @@
     "M-<delete>"       "M-d")
   (tmtxt/define-keys global-map
     "C-S-<tab>"          'tmtxt/switch-to-last-buffer
-    "M-Y"              'helm-projectile-ag))
+    "M-Y"              'helm-projectile-ag)
+  (tmtxt/define-keys helm-map
+    "C-M-S-k"  'helm-next-source
+    "C-M-S-i"  'helm-previous-source)
+  (tmtxt/define-keys comint-mode-map
+    "C-M-S-i"    'comint-previous-matching-input-from-input
+    "C-M-S-k"    'comint-next-matching-input-from-input)
+  (tmtxt/define-keys eshell-mode-map
+    "C-M-S-i" 'eshell-previous-input
+    "C-M-S-k" 'eshell-next-input
+    )
+  )
 (tmtxt/in '(gnu/linux)
   (tmtxt/define-keys global-map
     "<C-S-iso-lefttab>"  'tmtxt/switch-to-last-buffer))
@@ -150,14 +173,6 @@
 (tmtxt/define-keys emmet-mode-keymap
   "C-j" 'emmet-expand-yas)
 
-;; (tmtxt/define-keys helm-map
-;;   "C-M-S-k"  'helm-next-source
-;;   "C-M-S-i"  'helm-previous-source)
-
-;; (tmtxt/keys 'helm-dired-recent-dirs
-;;     global-map
-;;   "C-c C-y"  'helm-dired-recent-dirs-view)
-
 ;; (tmtxt/define-keys js2-mode-map
 ;;   "C-M-\"" 'js2-mark-defun
 ;;   "C-M-:" 'js2-mode-toggle-hide-functions
@@ -172,10 +187,6 @@
 ;;     flycheck-mode-map
 ;;   "C-x C-p"     'helm-flycheck)
 
-;; (tmtxt/define-keys comint-mode-map
-;;   "C-M-i"    'comint-previous-matching-input-from-input
-;;   "C-M-k"    'comint-next-matching-input-from-input)
-
 ;; (tmtxt/define-keys web-mode-map
 ;;   "s-y"   'tmtxt/web-mode-change-indentation
 ;;   "s-g"   'web-mode-element-content-select
@@ -188,19 +199,6 @@
 ;;   ;; web mode tag match function not defined as interactive
 ;;   "s-m"   (lambda () (interactive) (web-mode-tag-match))
 ;;   "s-j"   'tmtxt/switch-to-js2-jsx-mode)
-
-;;; Windows specific keys
-(tmtxt/in '(windows-nt)
-  (tmtxt/define-keys key-translation-map
-    "M-s-<f4>" "C-x C-c"))
-
-;; (add-hook
-;;  'eshell-mode-hook
-;;  (lambda ()
-;;    (tmtxt/define-keys eshell-mode-map
-;;      "C-S-i" 'eshell-previous-input
-;;      "C-S-k" 'eshell-next-input
-;;      )))
 
 ;;; fix conflict keys in csharp mode
 (tmtxt/undefine-keys csharp-mode-map '("M-a"))

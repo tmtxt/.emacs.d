@@ -97,6 +97,7 @@
 (add-to-list 'auto-mode-alist '("\\.twig$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.csproj$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
 
 ;;; disable rainbow-mode and whitespace-mode when use web-mode
 (defun web-mode-hook ()
