@@ -19,8 +19,9 @@ This needs to be set before loading helm-projectile.el.")
 Find file at point based on context." t)
 (autoload 'helm-projectile-find-other-file "helm-projectile" "\
 Switch between files with the same name but different extensions using Helm.
-With FLEX-MATCHING, match any file that contains the base name of current file.
-Other file extensions can be customized with the variable `projectile-other-file-alist'.
+With FLEX-MATCHING, match any file that contains the base name of
+current file.  Other file extensions can be customized with the
+variable `projectile-other-file-alist'.
 
 (fn &optional FLEX-MATCHING)" t)
 (autoload 'helm-projectile-on "helm-projectile" "\
@@ -54,7 +55,7 @@ If invoked outside of a project, displays a list of known projects to jump.
 
 (fn &optional ARG)" t)
 (eval-after-load 'projectile '(progn (define-key projectile-command-map (kbd "h") #'helm-projectile)))
-(register-definition-prefixes "helm-projectile" '("helm-"))
+(register-definition-prefixes "helm-projectile" '("glob-quote" "helm-"))
 
 ;;; End of scraped data
 

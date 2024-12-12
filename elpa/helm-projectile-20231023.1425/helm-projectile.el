@@ -6,9 +6,9 @@
 ;; URL: https://github.com/bbatsov/helm-projectile
 ;; Created: 2011-31-07
 ;; Keywords: project, convenience
-;; Package-Version: 1.0.0
-;; Package-Revision: 5eb861b77d8e
-;; Package-Requires: ((helm "1.9.9") (projectile "2.1.0") (cl-lib "0.3"))
+;; Package-Version: 20231023.1425
+;; Package-Revision: e2e38825c975
+;; Package-Requires: ((helm "1.9.9") (projectile "2.2.0") (cl-lib "0.3"))
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -100,7 +100,8 @@ This needs to be set before loading helm-projectile.el."
     (reverse ret)))
 
 (defun helm-projectile-hack-actions (actions &rest prescription)
-  "Given a Helm action list and a prescription, return a hacked Helm action list, after applying the PRESCRIPTION.
+  "Given a Helm action list and a prescription, return a hacked Helm action list.
+Optionally applies the PRESCRIPTION beforehand.
 
 The Helm action list ACTIONS is of the form:
 
@@ -187,7 +188,7 @@ It is there because Helm requires it."
           (message "(No removal performed)")
         (progn
           (mapc (lambda (p)
-                  (delete p projectile-known-projects))
+                  (setq projectile-known-projects (delete p projectile-known-projects)))
                 projects)
           (projectile-save-known-projects))
         (message "%s projects(s) removed" len)))))
@@ -198,7 +199,7 @@ It is there because Helm requires it."
     (helm-projectile-define-key map
       (kbd "C-d") #'dired
       (kbd "M-g") #'helm-projectile-vc
-      (kbd "M-e") #'helm-projectile-switch-to-eshell
+      (kbd "M-e") #'helm-projectile-switch-to-shell
       (kbd "C-s") #'helm-projectile-grep
       (kbd "M-c") #'helm-projectile-compile-project
       (kbd "M-t") #'helm-projectile-test-project
@@ -214,7 +215,7 @@ It is there because Helm requires it."
                            (projectile-switch-project-by-name project)))
    "Open Dired in project's directory `C-d'" #'dired
    "Open project root in vc-dir or magit `M-g'" #'helm-projectile-vc
-   "Switch to Eshell `M-e'" #'helm-projectile-switch-to-eshell
+   "Switch to Eshell `M-e'" #'helm-projectile-switch-to-shell
    "Grep in projects `C-s'" #'helm-projectile-grep
    "Compile project `M-c'. With C-u, new compile command" #'helm-projectile-compile-project
    "Remove project(s) from project list `M-D'" #'helm-projectile-remove-known-project)
@@ -239,7 +240,7 @@ It is there because Helm requires it."
       (kbd "M-o") #'(lambda (project)
                       (let ((projectile-completion-system 'helm))
                         (projectile-switch-project-by-name project)))
-      (kbd "M-e") #'helm-projectile-switch-to-eshell
+      (kbd "M-e") #'helm-projectile-switch-to-shell
       (kbd "C-s") #'helm-projectile-grep
       (kbd "M-c") #'helm-projectile-compile-project
       (kbd "M-t") #'helm-projectile-test-project
@@ -260,7 +261,7 @@ It is there because Helm requires it."
                  (let ((projectile-completion-system 'helm))
                    (projectile-switch-project-by-name project))))
               ("Open Dired in project's directory `C-d'" . dired)
-              ("Switch to Eshell `M-e'" . helm-projectile-switch-to-eshell)
+              ("Switch to Eshell `M-e'" . helm-projectile-switch-to-shell)
               ("Grep in projects `C-s'" . helm-projectile-grep)
               ("Compile project `M-c'. With C-u, new compile command"
                . helm-projectile-compile-project)))
@@ -302,14 +303,14 @@ Previews the contents of a file in a temporary buffer."
                          (set-auto-mode))
                        (font-lock-ensure)
                        (setq inhibit-read-only nil)))
-      (if (and (helm-attr 'previewp)
-               (string= candidate (helm-attr 'current-candidate)))
+      (if (and (helm-get-attr 'previewp)
+               (string= candidate (helm-get-attr 'current-candidate)))
           (progn
             (kill-buffer buf)
-            (helm-attrset 'previewp nil))
+            (helm-set-attr 'previewp nil))
         (preview candidate)
-        (helm-attrset 'previewp t)))
-    (helm-attrset 'current-candidate candidate)))
+        (helm-set-attr 'previewp t)))
+    (helm-set-attr 'current-candidate candidate)))
 
 (defun helm-projectile-find-files-eshell-command-on-file-action (candidate)
   (interactive)
@@ -321,11 +322,12 @@ Previews the contents of a file in a temporary buffer."
   (let* ((helm-ff-default-directory (file-name-directory candidate)))
     (helm-ff-etags-select candidate)))
 
-(defun helm-projectile-switch-to-eshell (dir)
+(defun helm-projectile-switch-to-shell (dir)
+  "Within DIR, switch to a shell corresponding to `helm-ff-preferred-shell-mode'."
   (interactive)
   (let* ((projectile-require-project-root nil)
          (helm-ff-default-directory (file-name-directory (projectile-expand-root dir))))
-    (helm-ff-switch-to-eshell dir)))
+    (helm-ff-switch-to-shell dir)))
 
 (defun helm-projectile-files-in-current-dired-buffer ()
   "Return a list of files (only) in the current dired buffer."
@@ -468,7 +470,7 @@ CANDIDATE is the selected file.  Used when no file is explicitly marked."
     (helm-projectile-define-key map
       (kbd "C-c f") #'helm-projectile-dired-files-new-action
       (kbd "C-c a") #'helm-projectile-dired-files-add-action
-      (kbd "M-e") #'helm-projectile-switch-to-eshell
+      (kbd "M-e") #'helm-projectile-switch-to-shell
       (kbd "M-.") #'helm-projectile-ff-etags-select-action
       (kbd "M-!") #'helm-projectile-find-files-eshell-command-on-file-action)
     (define-key map (kbd "<left>") #'helm-previous-source)
@@ -488,7 +490,7 @@ CANDIDATE is the selected file.  Used when no file is explicitly marked."
    'helm-ff-find-sh-command
    'helm-ff-cache-add-file
    ;; Substitute these actions
-   '(helm-ff-switch-to-eshell . helm-projectile-switch-to-eshell)
+   '(helm-ff-switch-to-shell . helm-projectile-switch-to-shell)
    '(helm-ff-etags-select     . helm-projectile-ff-etags-select-action)
    '(helm-find-files-eshell-command-on-file
      . helm-projectile-find-files-eshell-command-on-file-action)
@@ -534,11 +536,14 @@ Meant to be added to `helm-cleanup-hook', from which it removes
   (remove-hook 'helm-after-update-hook #'helm-projectile--move-to-real)
   (remove-hook 'helm-cleanup-hook #'helm-projectile--remove-move-to-real))
 
+(defvar helm-source-projectile-files-list-before-init-hook
+  (lambda ()
+    (add-hook 'helm-after-update-hook #'helm-projectile--move-to-real)
+    (add-hook 'helm-cleanup-hook #'helm-projectile--remove-move-to-real)))
+
 (defvar helm-source-projectile-files-list
   (helm-build-sync-source "Projectile files"
-    :before-init-hook (lambda ()
-                        (add-hook 'helm-after-update-hook #'helm-projectile--move-to-real)
-                        (add-hook 'helm-cleanup-hook #'helm-projectile--remove-move-to-real))
+    :before-init-hook 'helm-source-projectile-files-list-before-init-hook
     :candidates (lambda ()
                   (when (projectile-project-p)
                     (with-helm-current-buffer
@@ -639,7 +644,7 @@ Meant to be added to `helm-cleanup-hook', from which it removes
                 (kbd "<left>") #'helm-previous-source
                 (kbd "<right>") #'helm-next-source
                 (kbd "C-c o") #'helm-projectile-dired-find-dir-other-window
-                (kbd "M-e")   #'helm-projectile-switch-to-eshell
+                (kbd "M-e")   #'helm-projectile-switch-to-shell
                 (kbd "C-c f") #'helm-projectile-dired-files-new-action
                 (kbd "C-c a") #'helm-projectile-dired-files-add-action
                 (kbd "C-s")   #'helm-projectile-grep)
@@ -648,7 +653,7 @@ Meant to be added to `helm-cleanup-hook', from which it removes
     :mode-line helm-read-file-name-mode-line-string
     :action '(("Open Dired" . helm-projectile-dired-find-dir)
               ("Open Dired in other window `C-c o'" . helm-projectile-dired-find-dir)
-              ("Switch to Eshell `M-e'" . helm-projectile-switch-to-eshell)
+              ("Switch to Eshell `M-e'" . helm-projectile-switch-to-shell)
               ("Grep in projects `C-s'" . helm-projectile-grep)
               ("Create Dired buffer from files `C-c f'" . helm-projectile-dired-files-new-action)
               ("Add files to Dired buffer `C-c a'" . helm-projectile-dired-files-add-action)))
@@ -660,7 +665,7 @@ Meant to be added to `helm-cleanup-hook', from which it removes
   ((init :initform (lambda ()
                      ;; Issue #51 Create the list before `helm-buffer' creation.
                      (setq helm-projectile-buffers-list-cache
-                           (ignore-errors (cdr (projectile-project-buffer-names))))
+                           (ignore-errors (remove (buffer-name) (projectile-project-buffer-names))))
                      (let ((result (cl-loop for b in helm-projectile-buffers-list-cache
                                             maximize (length b) into len-buf
                                             maximize (length (with-current-buffer b
@@ -673,11 +678,11 @@ Meant to be added to `helm-cleanup-hook', from which it removes
                          ;; If a new buffer is longer that this value
                          ;; this value will be updated
                          (setq helm-buffer-max-len-mode (cdr result))))))
-   (candidates :initform helm-projectile-buffers-list-cache)
+   (candidates :initform 'helm-projectile-buffers-list-cache)
    (matchplugin :initform nil)
    (match :initform 'helm-buffers-match-function)
    (persistent-action :initform 'helm-buffers-list-persistent-action)
-   (keymap :initform helm-buffer-map)
+   (keymap :initform 'helm-buffer-map)
    (volatile :initform t)
    (persistent-help
     :initform
@@ -731,7 +736,7 @@ See documentation of `helm-grep-default-command' for the format."
     helm-source-projectile-files-list
     helm-source-projectile-projects)
   "Default sources for `helm-projectile'."
-  :type 'list
+  :type '(repeat symbol)
   :group 'helm-projectile)
 
 (defmacro helm-projectile-command (command source prompt &optional not-require-root truncate-lines-var)
@@ -804,8 +809,9 @@ With a prefix ARG invalidates the cache first."
 ;;;###autoload
 (defun helm-projectile-find-other-file (&optional flex-matching)
   "Switch between files with the same name but different extensions using Helm.
-With FLEX-MATCHING, match any file that contains the base name of current file.
-Other file extensions can be customized with the variable `projectile-other-file-alist'."
+With FLEX-MATCHING, match any file that contains the base name of
+current file.  Other file extensions can be customized with the
+variable `projectile-other-file-alist'."
   (interactive "P")
   (let* ((project-root (projectile-project-root))
          (other-files (projectile-get-other-files (buffer-file-name)
@@ -926,7 +932,7 @@ If it is nil, or ack/ack-grep not found then use default grep command."
 (defun helm-projectile-grep (&optional dir)
   "Helm version of `projectile-grep'.
 DIR is the project root, if not set then current directory is used"
-  (interactive "D")
+  (interactive)
   (let ((project-root (or dir (projectile-project-root) (error "You're not in a project"))))
     (funcall 'run-with-timer 0.01 nil
              #'helm-projectile-grep-or-ack project-root nil)))
@@ -934,7 +940,7 @@ DIR is the project root, if not set then current directory is used"
 ;;;###autoload
 (defun helm-projectile-ack (&optional dir)
   "Helm version of projectile-ack."
-  (interactive "D")
+  (interactive)
   (let ((project-root (or dir (projectile-project-root) (error "You're not in a project"))))
     (let ((ack-ignored (mapconcat
                         'identity
@@ -978,6 +984,7 @@ DIR is the project root, if not set then current directory is used"
 (defvar helm-rg-prepend-file-name-line-at-top-of-matches)
 (defvar helm-rg-include-file-on-every-match-line)
 (declare-function helm-rg "ext:helm-rg")
+(declare-function helm-rg--get-thing-at-pt "ext:helm-rg")
 
 (defun helm-projectile-rg--region-selection ()
   (when helm-projectile-set-input-automatically
@@ -985,17 +992,30 @@ DIR is the project root, if not set then current directory is used"
         (buffer-substring-no-properties (region-beginning) (region-end))
       (helm-rg--get-thing-at-pt))))
 
+(defun glob-quote (string)
+  "Quote the special glob characters: *, ?, [, and ].
+STRING the string in which to escape special characters."
+  (replace-regexp-in-string "[]*?[]" "\\\\\\&" string))
+
 ;;;###autoload
 (defun helm-projectile-rg ()
   "Projectile version of `helm-rg'."
   (interactive)
   (if (require 'helm-rg nil t)
       (if (projectile-project-p)
-          (let ((helm-rg-prepend-file-name-line-at-top-of-matches nil)
-                (helm-rg-include-file-on-every-match-line t))
-            (helm-rg (helm-projectile-rg--region-selection)
-                     nil
-                     (list (projectile-project-root))))
+          (let* ((helm-rg-prepend-file-name-line-at-top-of-matches nil)
+                 (helm-rg-include-file-on-every-match-line t)
+                 (ignored-files (mapcan (lambda (path)
+                                          (list "--glob" (concat "!" (glob-quote path))))
+                                        (cl-union (projectile-ignored-files-rel)  grep-find-ignored-files)))
+                 (ignored-directories (mapcan (lambda (path)
+                                                   (list "--glob" (concat "!" (glob-quote path) "/**")))
+                                              (cl-union (mapcar 'directory-file-name (projectile-ignored-directories-rel))
+                                                        grep-find-ignored-directories)))
+                 (helm-rg--extra-args `(,@ignored-files ,@ignored-directories)))
+            (let ((default-directory (projectile-project-root)))
+              (helm-rg (helm-projectile-rg--region-selection)
+                       nil)))
         (error "You're not in a project"))
     (when (yes-or-no-p "`helm-rg' is not installed. Install? ")
       (condition-case nil

@@ -17,15 +17,14 @@
  helm-quick-update t
  helm-idle-delay 0.01
  helm-input-idle-delay 0.01
- helm-always-two-windows nil
- ;helm-split-window-default-side 'other
  helm-candidate-number-limit 200
-
- helm-locate-command (case system-type
-                       ('darwin "mdfind %s %s")
-                       ('gnu/linux "locate %s -r %s"))
  )
-
+(tmtxt/in '(darwin)
+  (setq-default
+   helm-locate-command "mdfind %s %s"))
+(tmtxt/in '(gnu/linux)
+  (setq-default
+   helm-locate-command "locate %s -r %s"))
 
 (defun tmtxt/helm-sources ()
   "My combined sources"
@@ -38,20 +37,6 @@
 (defun tmtxt/helm ()
   (interactive)
   (helm-other-buffer (tmtxt/helm-sources) "*helm/tmtxt*"))
-
-;;; auto turn on helm follow mode
-(add-hook 'helm-before-initialize-hook
-          #'(lambda ()
-              (dolist (source (list helm-source-occur))
-                (when source
-                  (helm-attrset 'follow 1 source)))))
-
-;;; helm always display at the bottom
-(add-to-list 'display-buffer-alist
-             `(,(rx bos "*helm" (* not-newline) "*" eos)
-               (display-buffer-in-side-window)
-               (inhibit-same-window . t)
-               (window-height . 0.4)))
 
 ;;; set executable path for ag on Windows
 ;;; install ag in this path
