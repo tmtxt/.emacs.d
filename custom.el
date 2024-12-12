@@ -13,7 +13,7 @@
  '(hl-paren-colors
    '("#00FF00" "#00DD00" "#00BB00" "#009900" "#007700" "#005500"))
  '(package-selected-packages
-   '(highlight-parentheses magit prettier ahk-mode powershell web-mode js2-mode groovy-mode erlang diminish helm-ag yaml-mode surround scala-mode restclient puppet-mode php-mode paredit ob-cypher nyan-mode markdown-mode less-css-mode json-mode js2-highlight-vars jinja2-mode helm-projectile helm-flycheck helm-descbinds header2 go-mode flx-ido exec-path-from-shell emmet-mode elixir-mode elisp-slime-nav dockerfile-mode csharp-mode ac-helm))
+   '(highlight-parentheses magit prettier ahk-mode powershell web-mode js2-mode groovy-mode erlang diminish helm-ag yaml-mode surround scala-mode restclient puppet-mode php-mode paredit ob-cypher nyan-mode less-css-mode json-mode js2-highlight-vars jinja2-mode helm-projectile helm-flycheck helm-descbinds header2 go-mode flx-ido exec-path-from-shell emmet-mode elixir-mode elisp-slime-nav dockerfile-mode csharp-mode ac-helm))
  '(quack-programs
    '("mit-scheme-x86-64" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
 (custom-set-faces
