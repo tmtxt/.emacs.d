@@ -18,7 +18,7 @@
  helm-idle-delay 0.01
  helm-input-idle-delay 0.01
  helm-always-two-windows nil
- helm-split-window-default-side 'other
+ ;helm-split-window-default-side 'other
  helm-candidate-number-limit 200
 
  helm-locate-command (case system-type
