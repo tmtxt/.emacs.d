@@ -6,9 +6,8 @@
 
 ;; Author: Frédéric Perrin <frederic (dot) perrin (arobas) resel (dot) fr>
 ;; URL: http://github.com/jschaf/powershell.el
-;; Package-Version: 20190421.2038
-;; Package-Commit: 87826777bd3ebd53740be99b4546bfc11ccc625d
-;; Version: 0.3
+;; Package-Version: 20240825.1440
+;; Package-Revision: 38727f1cdaf0
 ;; Package-Requires: ((emacs "24"))
 ;; Keywords: powershell, languages
 
@@ -543,7 +542,7 @@ characters that can't be set by the `syntax-table' alone.")
       (2 (cons font-lock-type-face '(underline)) t t))
      ;; function argument names
      (,powershell-function-switch-names-regexp
-      (0 font-lock-reference-face)
+      (0 font-lock-constant-face)
       (1 (cons font-lock-type-face '(underline)) t t)
       (2 (cons font-lock-type-face '(underline)) t t))
      ;; function names
@@ -736,7 +735,7 @@ Where <fcn-name> is the name of the function to which <helper string> applies.
 
 (defun powershell-setup-imenu ()
   "Install `powershell-imenu-expression'."
-  (when (require 'imenu nil t)
+  (when (fboundp 'imenu-add-menubar-index)
     ;; imenu doc says these are buffer-local by default
     (setq imenu-generic-expression powershell-imenu-expression)
     (setq imenu-case-fold-search nil)
@@ -744,7 +743,7 @@ Where <fcn-name> is the name of the function to which <helper string> applies.
 
 (defun powershell-setup-speedbar ()
   "Install `speedbar-add-supported-extension'."
-  (when (require 'speedbar nil t)
+  (when (fboundp 'speedbar-add-supported-extension)
     (speedbar-add-supported-extension ".ps1?")))
 
 ;; A better command would be something like "powershell.exe -NoLogo
@@ -789,22 +788,28 @@ that value is non-nil."
 
 ;;; Code:
 (defcustom powershell-location-of-exe
-   (or (executable-find "powershell") (executable-find "pwsh"))
-  "A string, providing the location of the powershell executable."
-  :group 'powershell)
+   (or (executable-find "pwsh") (executable-find "powershell"))
+  "A string providing the location of the powershell executable. Since
+the newer PowerShell Core (pwsh.exe) does not replace the older Windows
+PowerShell (powershell.exe) when installed, this attempts to find the
+former first, and only if it doesn't exist, falls back to the latter."
+  :group 'powershell
+  :type 'string)
 
 (defcustom powershell-log-level 3
   "The current log level for powershell internal operations.
 0 = NONE, 1 = Info, 2 = VERBOSE, 3 = DEBUG."
-  :group 'powershell)
+  :group 'powershell
+  :type 'integer)
 
 (defcustom powershell-squish-results-of-silent-commands t
-"The function `powershell-invoke-command-silently' returns the results
+  "The function `powershell-invoke-command-silently' returns the results
 of a command in a string.  PowerShell by default, inserts newlines when
 the output exceeds the configured width of the powershell virtual
 window. In some cases callers might want to get the results with the
 newlines and formatting removed. Set this to true, to do that."
-:group 'powershell)
+  :group 'powershell
+  :type 'boolean)
 
 (defvar powershell-prompt-regex  "PS [^#$%>]+> "
   "Regexp to match the powershell prompt.
@@ -1008,7 +1013,8 @@ See the help for `shell' for more details.  \(Type
 
   (setq buffer (get-buffer-create (or buffer "*PowerShell*")))
   (powershell-log 1 "powershell starting up...in buffer %s" (buffer-name buffer))
-  (let ((explicit-shell-file-name (if (eq system-type 'cygwin)
+  (let ((explicit-shell-file-name (if (and (eq system-type 'cygwin)
+                                           (fboundp 'cygwin-convert-file-name-from-windows))
 				      (cygwin-convert-file-name-from-windows powershell-location-of-exe)
 				    powershell-location-of-exe)))
     ;; set arguments for the powershell exe.
@@ -1056,8 +1062,8 @@ See the help for `shell' for more details.  \(Type
 
     ;; add the hook that sets the flag
     (add-hook 'window-size-change-functions
-              '(lambda (&optional x)
-                 (setq powershell--need-rawui-resize t)))
+              #'(lambda (&rest _)
+                  (setq powershell--need-rawui-resize t)))
 
     ;; set the flag so we resize properly the first time.
     (setq powershell--need-rawui-resize t)
