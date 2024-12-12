@@ -1,21 +1,83 @@
-;;; config for working with web page (html, xml,...)
+;;; config for working with web page (html, xml, js, ts...)
 
 ;;; required library
 (require 'tmtxt-util)
 
 ;;; emmet mode
+(require 'js2-mode)
+(require 'flycheck)
+(require 'json-mode)
 (require 'emmet-mode)
+
+(setq-default
+ js2-basic-offset 2
+ js2-bounce-indent-p nil)
+
+;;; auto activate for js
+(dolist (f '(auto-complete-mode
+             flycheck-mode
+             js2-mode-hide-warnings-and-errors
+             prettier-mode
+             tmtxt-paredit-nonlisp
+             tmtxt/prog-mode-setup
+             toggle-truncate-lines
+             js2-highlight-vars-mode
+             which-function-mode))
+  (add-hook 'js2-mode-hook f))
+(dolist (f '(auto-complete-mode
+             flycheck-mode
+             prettier-mode
+             tmtxt-paredit-nonlisp
+             tmtxt/prog-mode-setup
+             toggle-truncate-lines))
+  (add-hook 'js-mode-hook f))
+(add-hook 'js2-mode-hook (lambda () (setq fill-column 700)) t)
+
+;;; jsx config
+(defadvice web-mode-highlight-part (around tweak-jsx activate)
+  (if (equal web-mode-content-type "jsx")
+      (let ((web-mode-enable-part-face nil))
+        ad-do-it)
+    ad-do-it))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (equal web-mode-content-type "jsx")
+              (flycheck-mode)
+              (flycheck-select-checker 'javascript-eslint)
+              (auto-complete-mode 1)
+              (prettier-mode)
+              )))
+
+(add-hook 'json-mode-hook
+          (lambda ()
+            (setq-local json-reformat:indent-width 2)
+            (setq-local js-indent-level 2)
+            (flycheck-mode)))
+
+(dolist (mode '(js-mode js2-mode web-mode))
+  (font-lock-add-keywords
+   mode `(
+          ("\\(function\\)"
+           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                     ?ƒ 'decompose-region)
+                     nil)))
+          ("\\(yi\\)eld"
+           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                     ?γ 'decompose-region)
+                     nil)))
+          ("yi\\(eld\\)"
+           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                     ?ζ 'decompose-region)
+                     nil)))
+          )))
 
 ;;; auto start on sgml and css mode
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 (add-hook 'web-mode-hook 'emmet-mode)
 
-;;; default indentation for html mode
+;;; emmet mode indentation
 (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;indent 2 spaces.
-
-;;; bind key
-(define-key emmet-mode-keymap (kbd "C-j") 'emmet-expand-yas)
 
 ;;; web mode
 ;;; associate with web mode
@@ -33,7 +95,8 @@
 (add-to-list 'auto-mode-alist '("\\.mako$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mak$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.twig$" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.csproj$" . web-mode))
 
 ;;; disable rainbow-mode and whitespace-mode when use web-mode
 (defun web-mode-hook ()

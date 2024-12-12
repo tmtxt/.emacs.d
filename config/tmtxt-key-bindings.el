@@ -147,6 +147,9 @@
   "M-_"   'hs-hide-all
   "M-+"   'hs-show-all)
 
+(tmtxt/define-keys emmet-mode-keymap
+  "C-j" 'emmet-expand-yas)
+
 ;; (tmtxt/define-keys helm-map
 ;;   "C-M-S-k"  'helm-next-source
 ;;   "C-M-S-i"  'helm-previous-source)

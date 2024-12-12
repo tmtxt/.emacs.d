@@ -39,7 +39,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-cc
                tmtxt-buffers-management
                tmtxt-shell
-               tmtxt-javascript
+               ; tmtxt-javascript
                tmtxt-web
                ; tmtxt-php
                tmtxt-helm

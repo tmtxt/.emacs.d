@@ -4,9 +4,7 @@
 
 ;;; Load dependencies
 
-(require 'js2-mode)
-(require 'flycheck)
-(require 'json-mode)
+
 
 ;;; Code:
 
@@ -14,12 +12,10 @@
 ;;; General JS config
 
 ;;; Auto mode
-(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+
 
 ;;; Some config
-(setq-default
- js2-basic-offset 2
- js2-bounce-indent-p nil)
+
 
 ;;; Auto activate
 (dolist (f '(auto-complete-mode
