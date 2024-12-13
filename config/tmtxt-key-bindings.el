@@ -31,14 +31,6 @@
   (dolist (key keys)
     (define-key key-map (read-kbd-macro key) nil)))
 
-(defmacro tmtxt/keys (package map &rest mappings)
-  (declare (indent 2))
-  `(eval-after-load ,package
-     (quote (progn
-              (tmtxt/define-keys ,map
-                ,@mappings)
-              (message "Updated keymap `%s'" ',map)))))
-
 ;;; use Windows key as super key
 (setq w32-lwindow-modifier 'super)
 (setq w32-rwindow-modifier 'super)
