@@ -16,6 +16,7 @@
 
  delete-by-moving-to-trash t
  global-auto-revert-non-file-buffers t)
+;(setq dired-omit-extensions (delete ".dll" dired-omit-extensions))
 
 (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
 
