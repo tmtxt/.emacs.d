@@ -2,7 +2,8 @@
 
 ;; Copyright 2011-2024 François-Xavier Bois
 
-;; Version: 17.3.19
+;; Package-Version: 17.3.20
+;; Package-Revision: 0c83581d1e93
 ;; Author: François-Xavier Bois
 ;; Maintainer: François-Xavier Bois <fxbois@gmail.com>
 ;; Package-Requires: ((emacs "23.1"))
@@ -23,7 +24,7 @@
 
 ;;---- CONSTS ------------------------------------------------------------------
 
-(defconst web-mode-version "17.3.19"
+(defconst web-mode-version "17.3.20"
   "Web Mode version.")
 
 ;;---- GROUPS ------------------------------------------------------------------
@@ -1006,7 +1007,7 @@ Must be used in conjunction with web-mode-enable-block-face."
     ("json-t"           . ())
     ("jsp"              . ("grails"))
     ("mako"             . ())
-    ("marko"            . ())
+    ("marko"            . ("pandoc"))
     ("mason"            . ("poet"))
     ("lsp"              . ("lisp"))
     ("mojolicious"      . ())
@@ -1385,7 +1386,7 @@ For example,
                  ("ifequal"    . "{% ifequal | %}\n\n{% endifequal %}")
                  ("ifnotequal" . "{% ifnotequal | %}\n\n{% endifnotequal %}")
                  ("js"         . "{% javascript | %}\n\n{% endjavascript %}")
-                 ("schema"     . "{% javascript | %}\n\n{% endschema %}")
+                 ("schema"     . "{% schema | %}\n\n{% endschema %}")
                  ("safe"       . "{% safe | %}\n\n{% endsafe %}")))
     ("mako" . (("if"        . "% if |:\n% endif")
                ("for"       . "% for | in :\n% endfor")
@@ -4294,6 +4295,7 @@ Also return non-nil if it is the command `self-insert-command' is remapped to."
     (goto-char pos)
     (forward-char)
     (skip-chars-forward "a-zA-Z0-9_-")
+    (skip-chars-forward " ")
     (when (eq (char-after) ?\()
       (setq regexp "[\"'()]"
             inc 0)
