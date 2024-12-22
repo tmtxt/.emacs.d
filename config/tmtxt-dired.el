@@ -3,11 +3,13 @@
 ;;; its target is to replace macos as well as other os's default file explorer application
 
 (require 'wdired)
+(require 'dired-x)
 
 ;; some config
 (setq-default
  dired-omit-mode t
  dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\."
+ dired-omit-extensions (delete ".dll" dired-omit-extensions)
 
  dired-details-hide-link-targets nil
  dired-recursive-deletes 'always
@@ -16,7 +18,6 @@
 
  delete-by-moving-to-trash t
  global-auto-revert-non-file-buffers t)
-;(setq dired-omit-extensions (delete ".dll" dired-omit-extensions))
 
 (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode t)))
 
