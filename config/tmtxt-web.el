@@ -52,7 +52,7 @@
           (lambda ()
             (setq-local json-reformat:indent-width 2)
             (setq-local js-indent-level 2)
-            (flycheck-mode)))
+            ))
 
 (dolist (mode '(js-mode js2-mode web-mode))
   (font-lock-add-keywords

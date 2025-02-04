@@ -1,8 +1,9 @@
 (require 'nyan-mode)
 (require 'diminish)
+(require 'spacemacs-theme)
 
 ;;; custom theme
-(load-theme 'manoj-dark t)
+(load-theme 'spacemacs-light t)
 
 
 ;;; enabled modes

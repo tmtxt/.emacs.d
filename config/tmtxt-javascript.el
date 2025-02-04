@@ -82,7 +82,8 @@
           (lambda ()
             (setq-local json-reformat:indent-width 2)
             (setq-local js-indent-level 2)
-            (flycheck-mode)))
+            (flycheck-mode 0)
+            ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Font lock
