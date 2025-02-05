@@ -76,7 +76,9 @@
   "C-q C-S-f"        'helm-projectile-find-file
   "C-q C-S-d"        'helm-projectile-find-dir
   "C-q C-d"          'projectile-dired
+  "C-`"     'quoted-insert
   )
+
 (tmtxt/define-keys key-translation-map
   "M-U"     "C-M-b"
   "M-O"     "C-M-f"
