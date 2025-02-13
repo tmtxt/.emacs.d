@@ -66,4 +66,23 @@
                          ((eq system-type 'windows-nt) "explorer.exe ."))))
       (async-shell-command command))))
 
+(defun tmtxt/dired-extract-zip-at-point ()
+  "Extract the .zip file at the current point in Dired."
+  (interactive)
+  (let ((zip-file (dired-get-file-for-visit)))
+    (dired-create-directory (file-name-sans-extension zip-file))
+    (async-shell-command (format "tar -xf %s -C %s"
+                           (shell-quote-argument zip-file)
+                           (shell-quote-argument (file-name-sans-extension zip-file))))
+    (revert-buffer)))
+
+(defun tmtxt/copy-pc-name () "" (interactive)
+       (kill-new "FD6PB54.wtg.zone"))
+
+(defun insert-windows-pc-name ()
+  "Insert the current Windows PC name at point."
+  (interactive)
+  (let ((pc-name (shell-command-to-string "hostname")))
+    (insert pc-name)))
+
 (provide 'tmtxt-dired)

@@ -40,7 +40,7 @@
   '("C-M-j" "C-M-l" "C-x C-d" "s-m" "<f2> <f2>" "C-\"" "s-l" "C-_" "C-q"
     "M-a" "C-z" "M-x"))
 
-(tmtxt/undefine-keys paredit-mode-map '("C-j" "DEL"))
+(tmtxt/undefine-keys paredit-mode-map '("C-j" "DEL" "C-<left>" "C-<right>"))
 (tmtxt/undefine-keys magit-status-mode-map '("<C-tab>"))
 (tmtxt/undefine-keys magit-process-mode-map '("<C-tab>"))
 

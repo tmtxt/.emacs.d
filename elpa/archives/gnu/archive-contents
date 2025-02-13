@@ -1,4 +1,15 @@
 (1
+ (a68-mode .
+	   [(1 0)
+	    ((emacs
+	      (24 3)))
+	    "Major mode for editing Algol 68 code" tar
+	    ((:url . "https://git.sr.ht/~jemarch/a68-mode")
+	     (:keywords "languages")
+	     (:maintainer "Jose E. Marchesi" . "jemarch@gnu.org")
+	     (:authors
+	      ("Omar Polo" . "op@omarpolo.com"))
+	     (:commit . "2a191fae4c73839d34d19c086ec75af35a0937e4"))])
  (ace-window .
 	     [(0 10 0)
 	      ((avy
@@ -767,18 +778,18 @@
 		    ("rahguzar" . "rahguzar@mailbox.org"))
 		   (:commit . "5b16f2f6c8c9c81a2539ba8371db1f76e6e4cc68"))])
  (consult-recoll .
-		 [(0 8 1)
+		 [(1 0 0)
 		  ((emacs
 		    (26 1))
 		   (consult
-		    (0 19)))
+		    (2 0)))
 		  "Recoll queries using consult" tar
 		  ((:url . "https://codeberg.org/jao/consult-recoll")
 		   (:keywords "docs" "convenience")
 		   (:maintainer "Jose A Ortega Ruiz" . "jao@gnu.org")
 		   (:authors
 		    ("Jose A Ortega Ruiz" . "jao@gnu.org"))
-		   (:commit . "ba68d052d9479aeaa5dda15a57a2c070df7d9bca"))])
+		   (:commit . "eddbc7ba70439881e4781fa73fb0fb240e02fd3b"))])
  (context-coloring .
 		   [(8 1 0)
 		    ((emacs
@@ -5126,7 +5137,7 @@
 		("Philip Kaludercic" . "philipk@posteo.net"))
 	       (:commit . "2bb88d0dc526177c3c6612d6585cee6b2c57803a"))])
  (yaml .
-       [(1 0 0)
+       [(1 1 0)
 	((emacs
 	  (25 1)))
 	"YAML parser for Elisp" tar
@@ -5135,7 +5146,7 @@
 	 (:maintainer "Zachary Romero" . "zkry@posteo.org")
 	 (:authors
 	  ("Zachary Romero" . "zkry@posteo.org"))
-	 (:commit . "cd3edfc02cb12514426c00e07160b87bd8340f4a"))])
+	 (:commit . "5f0e282f9f6ba4f27b17c1b05bf50d1407fcf7df"))])
  (yasnippet .
 	    [(0 14 1)
 	     ((cl-lib

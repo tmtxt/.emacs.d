@@ -3,7 +3,7 @@
 (require 'spacemacs-theme)
 
 ;;; custom theme
-(load-theme 'spacemacs-light t)
+(load-theme 'zenburn t)
 
 
 ;;; enabled modes
