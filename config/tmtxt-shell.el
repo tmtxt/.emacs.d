@@ -7,6 +7,7 @@
 (require 'eshell)
 (require 'em-smart)
 (require 'exec-path-from-shell)
+(require 'powershell)
 
 ;;; Code:
 
