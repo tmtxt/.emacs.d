@@ -1,6 +1,7 @@
 (require 'nyan-mode)
 (require 'diminish)
 (require 'spacemacs-theme)
+(require 'zenburn-theme)
 
 ;;; custom theme
 (load-theme 'zenburn t)
