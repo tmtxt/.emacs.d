@@ -34,7 +34,7 @@ DIR-NAME directory name inside lib folder"
                tmtxt-navigation
                tmtxt-editing
                tmtxt-project
-               tmtxt-desktop
+               ;tmtxt-desktop
                tmtxt-appearance
                tmtxt-cc
                tmtxt-buffers-management
