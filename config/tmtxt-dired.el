@@ -10,6 +10,7 @@
  dired-omit-mode t
  dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\."
  dired-omit-extensions (delete ".dll" dired-omit-extensions)
+ completion-ignored-extensions (delete ".dll" completion-ignored-extensions)
 
  dired-details-hide-link-targets nil
  dired-recursive-deletes 'always
@@ -42,7 +43,9 @@
 
 ;;; Windows specific configuration
 (tmtxt/in '(windows-nt)
-  (setq-default ls-lisp-dirs-first t))
+  (setq-default
+   dired-omit-mode nil
+   ls-lisp-dirs-first t))
 
 ;;; Othrer util functions
 (defun tmtxt/dired-do-shell-open ()
