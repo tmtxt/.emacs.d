@@ -9,6 +9,8 @@
 (require 'json-mode)
 (require 'emmet-mode)
 
+;; (global-flycheck-mode 0)
+
 (setq-default
  js2-basic-offset 2
  js2-bounce-indent-p nil)
@@ -52,6 +54,7 @@
           (lambda ()
             (setq-local json-reformat:indent-width 2)
             (setq-local js-indent-level 2)
+            (flycheck-mode 0)
             ))
 
 (dolist (mode '(js-mode js2-mode web-mode))
