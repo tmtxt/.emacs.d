@@ -18,6 +18,7 @@
  helm-idle-delay 0.01
  helm-input-idle-delay 0.01
  helm-candidate-number-limit 200
+ helm-grep-file-path-style 'relative
  )
 (tmtxt/in '(darwin)
   (setq-default
